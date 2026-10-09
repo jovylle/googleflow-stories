@@ -102,7 +102,7 @@ Rules:
 
 After the riddle pre-phase (or immediately, when it is not a riddle story), use a concise interactive wizard. Keep all choices preselected to the defaults below, allow the user to go back, and allow partial answers. The user should be able to submit immediately without answering optional fields.
 
-Lead with the two decisions that matter most and keep everything else out of the way:
+Lead with the decisions that matter most and keep everything else out of the way:
 
 - **Primary (always shown):** the Story topic/idea, the Characters + Art Style, and the Image generation topic (what the subject/visual material is and how its images should be sourced).
 - **Advanced / optional (hidden by default):** clip count, aspect ratio, platform, video model, audio, continuity, and delivery. Collapse these behind an "Advanced / optional" toggle with the defaults already applied. The user can submit without ever opening it.
@@ -161,7 +161,7 @@ Do not make the user calculate total video duration. Estimate the likely runtime
 
 ### Submit-time attachments and notes
 
-The native form lets the user attach images and add free-text notes right before clicking submit; submitting sends a "Proceed with Google Flow Story Maker version…" message that arrives together with those attachments and notes. Use this deliberately as part of the flow:
+The native form lets the user attach images and add free-text notes right before clicking submit; submitting sends a proceed message that arrives together with those attachments and notes. Use this deliberately as part of the flow:
 
 - **Tell the user, when the form is presented, that they can attach reference images and add free-text notes before submitting** — for example: "Tip: before you submit, you can attach reference images (character, product, location) and add any extra notes; they'll be used right away." Keep this to one short, friendly line; do not repeat it on every turn.
 - On submit, read the form answers **together with** any images attached and any free-text notes added at submit time.
