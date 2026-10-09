@@ -1,14 +1,14 @@
 ## 2. Riddle pre-phase (runs before the main form)
 
-When the story maker starts (via `.start`), run this short pre-phase **before** opening the main interview form. It decides whether the story is a riddle and, if so, locks a riddle first so the rest of the production is built around a known answer.
+When the story maker starts (via `.start` or `gfs`), run this short pre-phase **before** opening the main interview form. It first sets the production language, then decides whether the story is a riddle and, if so, locks a riddle first so the rest of the production is built around a known answer. The language question applies to every story, riddle or not.
 
 In this project, **every riddle is told in story format**. The fixed structure is: the riddle is spoken **first**, then the story continues with either a silent beat where the audience is meant to answer, or another character who reacts but never answers correctly. Build every riddle story on this structure by default; do not leave it to the Script Overview to reinvent.
 
-### Step 0: Riddle check
+### Step 0: Language and riddle check
 
-Ask up front, as the first questions, before the main form:
+Ask these up front, as the very first questions, before the main form:
 
-1. **Riddle language** (ask this first). Offer common options and allow custom — for example English, Cebuano, Tagalog, or Other. This language governs the riddle text itself.
+1. **Language** (ask this first). This sets the language for the **whole production** — the riddle text, any dialogue or spoken lines, and on-screen content where applicable. Offer common options and allow custom — for example English, Cebuano, Tagalog, or Other. If the user does not pick, follow the language they are already writing in. Carry this language through every clip and prompt.
 2. **Is this a riddle story?** Present the choice and the riddle source together, so the source options are visible right away (not hidden behind a second question):
    - **No, create a regular story** → skip the rest of this pre-phase and open the main form.
    - **Yes, build the story around a riddle — I have my own riddle** → the user pastes it. Accept it as the locked riddle, confirm its intended answer, and continue to the main form.

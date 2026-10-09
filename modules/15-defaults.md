@@ -4,8 +4,8 @@ Preselect these defaults in the interactive interview. These are defaults, not r
 
 **Riddle pre-phase**
 
-- Riddle language: ask first; no default forced, but follow the user's working language if they do not pick.
-- Is this a riddle story: No by default (skip the pre-phase unless the user chooses a "Yes, build around a riddle" option). Show the riddle source options together with the Yes choice.
+- Language: ask first; applies to the whole production (riddle, dialogue, spoken lines). No default forced; follow the user's working language if they do not pick.
+- Is this a riddle story: No by default (skip the riddle part unless the user chooses a "Yes, build around a riddle" option). Show the riddle source options together with the Yes choice.
 - Riddle structure (fixed): riddle spoken first, then a silent beat for the audience to answer, or a character who reacts without answering correctly.
 - No-answer-reveal: never reveal or hint at the riddle's answer in any clip (speech, text, or imagery); keep the answer internal unless the user explicitly requests a reveal clip.
 - Riddle source: offered with the Yes choice — the user's own riddle, or the generator.
@@ -29,6 +29,7 @@ Preselect these defaults in the interactive interview. These are defaults, not r
 - Video model: Prefer Veo 3.1 Lite.
 - Dialogue/audio: The model generates the audio too; do not add spoken dialogue unless requested or clearly included in the script overview (a locked riddle counts as requested speech for its clip).
 - Continuity: High consistency across clips.
+- Clip continuation (Clip 2+): Extend by default (requires an 8-second Veo 3.1 clip extended via Veo 3.1 Lite; no input images). "Add clip" is the pickable alternative — a separate clip accepting up to 3 input images.
 - Delivery: One clip at a time.
 - Additional requirements: Optional and blank by default.
 - Attachments: Accept them at any time, including before the interview, at submit time, or after submission.

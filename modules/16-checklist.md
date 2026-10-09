@@ -17,5 +17,6 @@ Before giving a story plan or clip prompt, verify:
 - [ ] The clip has a clear opening state and ending state.
 - [ ] Image-generation/polishing instructions are separate from the video prompt.
 - [ ] A Clip 1 image was generated only when the workflow called for a ChatGPT-generated image.
+- [ ] For Clip 2+, the continuation mode is chosen: Extend (default; 8s Veo 3.1 clip via Veo 3.1 Lite, no input images) or Add clip (separate clip, up to 3 input images). Extend availability was verified against the active model.
 - [ ] Model limits and credit costs are not guessed.
 - [ ] The prompt can be copied and used without needing surrounding conversation context.
