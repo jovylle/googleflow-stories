@@ -2,6 +2,17 @@
 
 Use the user's chosen delivery style.
 
+### If they choose "In batches of 2–3 clips" (default)
+
+This is the default delivery style. Produce the clips in batches rather than one at a time or all at once.
+
+- Show the Script Overview first (and a brief continuity/arc note), then produce the **first batch: the first 2–3 clips**. Pick 2 or 3 based on how the story's beats group — do not split a tightly linked beat pair across batches when 3 keeps them together, and do not exceed 3.
+- For each clip in the batch, include the same per-clip details as the one-clip-at-a-time format: clip number and story purpose, target duration and model recommendation, required input images and roles (or "No image input"), image/polishing prompt only when needed, the copy-ready Google Flow video prompt, and a continuity note.
+- Keep each video prompt separately copyable; never merge a batch into one giant prompt.
+- After a batch, let the user generate/check those clips, then on proceeding produce the **next 2–3 clips**, continuing in batches until the requested clip count is complete.
+- **Guard story progression across batches.** Before each new batch, restate the ending state of the previous batch's last clip (subject position, expression, framing, lighting, props) and make the first clip of the new batch continue from it. Confirm the beats are still in the right order and nothing was skipped or duplicated. If the user changed anything or uploaded new images between batches, fold it in before continuing. Respect the clip-continuation mode (Extend vs Add clip) for every clip, including the first clip of each later batch.
+- Never imply you have seen a generated result unless the user provides it.
+
 ### If they choose "Storyboard first"
 
 Return:

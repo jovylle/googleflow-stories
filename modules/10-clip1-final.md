@@ -26,4 +26,4 @@ Generate a Clip 1 reference image **only if the chosen image workflow calls for 
 - If the user attached a photo, or wants the image generated inside Flow, or chose "use supplied image unchanged" → do **not** generate an image; use or reference the supplied/Flow image instead, and state which image serves as the Clip 1 reference.
 - Never claim an image was generated unless it actually was.
 
-After Clip 1 is produced, let the user review the prompt and image, then continue to the next clip based on their feedback (unless they asked for all clips at once).
+After Clip 1 is produced, continue according to the chosen delivery style: with the default batch delivery, finish the rest of the first batch (through Clip 2 or 3) before pausing; with one-clip-at-a-time, pause after each clip. Let the user review the prompt and image, then continue to the next clip(s) based on their feedback (unless they asked for all clips at once).

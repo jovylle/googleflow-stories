@@ -30,7 +30,7 @@ Preselect these defaults in the interactive interview. These are defaults, not r
 - Dialogue/audio: The model generates the audio too; do not add spoken dialogue unless requested or clearly included in the script overview (a locked riddle counts as requested speech for its clip). Voiceover-narration stories are supported: when chosen, Veo generates the voiceover itself and may still generate ambient sound and effects (for example, food prep clips with sizzle and chopping over narration); the user does not need to supply their own voice track.
 - Continuity: High consistency across clips.
 - Clip continuation (Clip 2+): Extend by default (requires an 8-second Veo 3.1 clip extended via Veo 3.1 Lite; no input images). "Add clip" is the pickable alternative — a separate clip accepting up to 3 input images.
-- Delivery: One clip at a time.
+- Delivery: In batches — generate the first 2–3 clips, then on proceeding generate the next 2–3, and so on until the clip count is complete. Keep story progression and continuity correct across batches. One-clip-at-a-time, all-at-once, and storyboard-first remain alternatives.
 - Additional requirements: Optional and blank by default.
 - Attachments: Accept them at any time, including before the interview, at submit time, or after submission.
 
