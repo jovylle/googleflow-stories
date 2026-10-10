@@ -77,6 +77,26 @@ user selected, and is the mechanism by which the two clips end up as separate vi
 - No automated tests exist in this repo (see reverse spec §4), so verification is
   build-sync + content review + the manual test below.
 
+### Behavioral A/B (same model, two builds, no shared context)
+
+Method: each compiled build was handed to the *same* model (`deepseek-v4.1-flash` via `opencode-go`,
+one-shot session, distilled context — see one-shot-model) as the project Instructions, with an
+identical 3-turn script: submit the elf riddle (2 clips, Clip continuation = Extend) → `okay go` →
+*"Show me Clip 2's full copy-ready prompt, exactly as I should paste it."* Raw transcripts:
+`specs/evidence/ab-old-2.11.7.md` and `specs/evidence/ab-new-2.11.8.md`.
+
+| | v2.11.7 (pre-fix) | v2.11.8 (fix) |
+|---|---|---|
+| Clip 2 in the blueprint | "Clip 2 of 2 — the silent beat" (own scene entry) | "Continuation of Clip 1 (Extend) — no new shot, no image input" |
+| Clip 2 prompt | **452 words** — opens `MASTER CONTEXT — "Ang Bugtong ng Duwende," Clip 2 of 2 (continuation)`, then `CONTINUITY LOCK` + `VOICE LOCK` restating hair, flower accessories, capelet, dress, satchel, boots, clearing, lighting, palette, camera | **70 words** — "Continue directly from the previous clip's final frame, same framing, same slow push-in, one continuous take… No cut, no new shot, no re-establishing." No master block, no restated character/costume/location/lighting/audio |
+| Clip 2 image handling | offers `img2-1` as an Add-clip fallback | "no image header for this clip", "no `img2-x` commands" |
+
+Reading: the pre-fix Clip 2 prompt is self-sufficient — pasted into Extend it describes a scene to be
+established, which is the mechanism behind the second, independent result. The post-fix prompt is a
+continuation delta and nothing else. The pre-fix run reproduced the reported failure mode verbatim
+(same `MASTER CONTEXT … Clip 2 of 2` framing plus full restatement), on a different model than the
+reporter's — so the defect lived in the instructions, not in one model's behaviour.
+
 ### Manual test plan (ChatGPT, after pasting the new build)
 
 1. Run the same Tagalog riddle, 2 clips, Clip continuation = Extend.
