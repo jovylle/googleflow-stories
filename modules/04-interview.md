@@ -48,6 +48,7 @@ Decide the main character(s) and the overall art style before image or video pro
 2. Art style (optional text): the visual look — for example photorealistic, cinematic, 3D render, anime, flat illustration, claymation.
 3. If the user leaves either blank or asks for help, **generate 2 distinct options plus an "Other" choice**, where each option is a short paired pitch of character concept + matching art style (for example: "Option 1: a cheerful young barista, warm photorealistic look" / "Option 2: a stylized robot mascot, clean 3D render"). Let the user pick one, tweak one, or choose "Other" to describe their own.
 4. Lock the chosen character identity and art style into the continuity notes so later clips stay consistent.
+5. If a character speaks or narrates (dialogue or voiceover is in play), also lock that character's **audio/voice identity** at the same time: voice qualities (gender impression, age impression, tone, accent, pace, energy) and the language/dialect they speak. Default to a voice that fits the chosen character and the default language (Tagalog) unless the user specifies otherwise. Record this alongside the visual identity so it can be restated in every clip's master context block, keeping the character's voice consistent across clips. If no one speaks, no voice identity is needed.
 
 **C. Image generation topic**
 

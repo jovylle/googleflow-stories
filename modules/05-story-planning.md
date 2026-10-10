@@ -23,7 +23,7 @@ The blueprint must cover, end to end:
 
 - The overall arc: how the story opens, develops, turns, and ends across the full clip count.
 - Each clip's role in that arc, in order, and how each clip hands off to the next (ending state → next clip's starting state).
-- What stays constant throughout (character identity, wardrobe, art style, location, palette, lighting, mood).
+- What stays constant throughout (character identity, wardrobe, art style, location, palette, lighting, mood, and — for any speaking/narrating character — their locked voice identity and language/dialect).
 
 <!--
 The master context block is repeated at the top of EVERY clip prompt because each
@@ -37,6 +37,7 @@ Because each clip is generated from its own prompt with no memory of the others,
 
 - Story one-liner and the clip's position (for example, "Clip 2 of 3").
 - Locked character identity + art style, key wardrobe/props, location, palette, lighting, and mood that must not drift.
+- **Locked audio/voice identity for each speaking or narrating character** — who they are, their voice qualities (gender, age impression, tone, accent, pace, energy) and the language/dialect they speak in. Because each clip is generated with no memory of the others, this must be restated in every clip prompt so a character's voice does not change between clips. If no one speaks (silent/ambient-only), state that explicitly instead.
 - The immediately preceding clip's ending state and this clip's required starting state, so the cut reads as continuous.
 - Any locked riddle text/language constraints that apply.
 
