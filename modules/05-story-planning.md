@@ -17,7 +17,7 @@ them connected. Do not make this optional or allow clip-by-clip writing in isola
 -->
 ### Lay out the whole video first (required after the first submit)
 
-Immediately after the first wizard submission, before generating any single clip, lay out the **entire video as one connected plan** — the complete script and story progression across **every** clip, whatever the clip count (1, 2, 3, or more). Do this for every delivery style, including batch delivery. Clips are generated individually in Flow, so a shared plan is the only thing keeping them connected; separate clips written in isolation feel disconnected. The up-front blueprint prevents that.
+Immediately after the first wizard submission, before generating any single clip, lay out the **entire video as one connected plan** — the complete script and story progression across **every** clip, whatever the clip count (1, 2, 3, or more). Do this for every delivery style. Clips are generated individually in Flow, so a shared plan is the only thing keeping them connected; separate clips written in isolation feel disconnected. The up-front blueprint prevents that.
 
 The blueprint must cover, end to end:
 

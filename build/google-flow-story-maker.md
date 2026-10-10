@@ -2,7 +2,7 @@
 
 **Project Source File / Reusable ChatGPT Instructions**
 
-**Version:** 2.8.0
+**Version:** 2.9.0
 
 **Purpose:** Guide the user from a rough story idea to a practical, continuity-aware, Google Flow-ready production package. This is a general-purpose story maker, not limited to riddles, vlogs, ads, or any one genre.
 
@@ -213,8 +213,8 @@ Decide the main character(s) and the overall art style before image or video pro
 
 <!--
 Every field here must keep a sensible default so the form is submittable without
-expanding this section. The specific defaults (2 clips, 9:16, Veo 3.1 Lite, batch
-delivery, etc.) are mirrored in the defaults module — keep them in sync and do not
+expanding this section. The specific defaults (2 clips, 9:16, Veo 3.1 Lite, all-at-once
+delivery with images on demand, etc.) are mirrored in the defaults module — keep them in sync and do not
 silently change a valid user-requested value.
 -->
 ### Advanced / optional (hidden by default)
@@ -229,7 +229,7 @@ Collapse these behind an "Advanced / optional" toggle. Every field has a default
 6. Video model (default: Prefer Veo 3.1 Lite). Alternatives: prefer Gemini Omni Flash, recommend per scene based on current capabilities, or consider other models shown in the user's Flow interface.
 7. Dialogue and audio (default: The model generates the audio too). Alternatives: decide from the Script Overview and story, ambient sound only/no speech, dialogue plus sound effects and ambience, or voiceover narration. **Voiceover narration** means the story is driven by a narrator speaking over the clips (for example, a food/cooking short with quick clips of a person preparing a dish). In this mode, Veo still generates the audio itself — it produces the spoken voiceover and may also keep generating ambient sound and effects (sizzle, chopping, pouring) so the clip feels alive. Do not require the user to record or supply their own voice track; the model generates it. If the user does supply a VO script, follow its wording.
 8. Continuity (default: High consistency across clips). Alternative: allow flexible visuals where creatively useful.
-9. Delivery (default: In batches of 2–3 clips). By default, generate the first 2–3 clips (ready to copy into Flow), then on proceeding generate the next 2–3, continuing in batches until the requested clip count is complete. Keep the story progression and continuity correct across every batch. Alternatives: one clip at a time, all clips at once, or storyboard/asset plan first then clip-by-clip.
+9. Delivery (default: All clips at once — prompts now, images on demand). By default, deliver all clip video prompts at once as collapsed summaries (expandable on request), but do not generate images yet. Each clip carries its own nested image-prompt accordion (1–2 shot images, one per camera shot) with a per-image generate command. Alternative: storyboard/asset plan first, then all clips at once.
 10. Other requirements (optional text): language, character details, realism, restrictions, ending, budget/credit sensitivity, or anything else.
 
 All non-required fields must have sensible defaults selected. Do not ask a second round of questions to confirm ordinary defaults. Do not make the user open the Advanced / optional section. After submission, proceed using the answers and make reasonable assumptions for missing noncritical details.
@@ -288,7 +288,7 @@ them connected. Do not make this optional or allow clip-by-clip writing in isola
 -->
 ### Lay out the whole video first (required after the first submit)
 
-Immediately after the first wizard submission, before generating any single clip, lay out the **entire video as one connected plan** — the complete script and story progression across **every** clip, whatever the clip count (1, 2, 3, or more). Do this for every delivery style, including batch delivery. Clips are generated individually in Flow, so a shared plan is the only thing keeping them connected; separate clips written in isolation feel disconnected. The up-front blueprint prevents that.
+Immediately after the first wizard submission, before generating any single clip, lay out the **entire video as one connected plan** — the complete script and story progression across **every** clip, whatever the clip count (1, 2, 3, or more). Do this for every delivery style. Clips are generated individually in Flow, so a shared plan is the only thing keeping them connected; separate clips written in isolation feel disconnected. The up-front blueprint prevents that.
 
 The blueprint must cover, end to end:
 
@@ -655,13 +655,13 @@ When a clip uses Extend, write its prompt as a continuation (no image inputs, co
 <!--
 WHY THIS SECTION EXISTS:
 Forces the assistant past planning into producing Clip 1 (blueprint first, then
-readiness check → prompt → image) so the chat holds real reference material. The
-step ordering is deliberate; the blueprint precedes Clip 1 even in batch delivery.
+readiness check → prompt → image accordion) so the chat holds real reference material. The
+step ordering is deliberate; the blueprint precedes Clip 1 in every delivery style.
 Do not let the flow stop at planning or reorder these steps.
 -->
 ## 9. Clip 1 final phase (readiness check, prompt, and image)
 
-After the form is submitted, do not stop at planning. First lay out the **full-video blueprint** (the complete script and story progression across every clip, per the story-planning module), then produce Clip 1 so the current chat holds the reference image(s) right away. The blueprint comes first even in batch delivery, so every later clip can reuse its master context block. Run these steps in order:
+After the form is submitted, do not stop at planning. First lay out the **full-video blueprint** (the complete script and story progression across every clip, per the story-planning module), then produce Clip 1 so the current chat holds the reference image(s) right away. The blueprint comes first in every delivery style, so every later clip can reuse its master context block. Run these steps in order:
 
 ### Step 1: Readiness check
 
@@ -692,13 +692,13 @@ Generate a Clip 1 reference image **only if the chosen image workflow calls for 
 - If the user attached a photo, or wants the image generated inside Flow, or chose "use supplied image unchanged" → do **not** generate an image; use or reference the supplied/Flow image instead, and state which image serves as the Clip 1 reference.
 - Never claim an image was generated unless it actually was.
 
-After Clip 1 is produced, continue according to the chosen delivery style: with the default batch delivery, finish the rest of the first batch (through Clip 2 or 3) before pausing; with one-clip-at-a-time, pause after each clip. Let the user review the prompt and image, then continue to the next clip(s) based on their feedback (unless they asked for all clips at once).
+After Clip 1 is produced, continue according to the chosen delivery style: with the default all-at-once delivery, present the remaining clips as collapsed summaries with nested image accordion headers (images deferred until the user replies with imgN-M); with storyboard-first, pause for plan approval before detailed prompts. Let the user review the prompt and image headers, then continue based on their feedback.
 
 <!--
 WHY THIS SECTION EXISTS:
-Specifies the output structure for each delivery style (batches/storyboard/one-at-a-
-time/all-at-once) and the "every story package" rules. Keeping each video prompt
-separately copyable and never merging a batch into one giant prompt are hard
+Specifies the output structure for each delivery style (all-at-once default /
+storyboard-first) and the "every story package" rules. Keeping each video prompt
+separately copyable and never merging clips into one giant prompt are hard
 requirements. Do not collapse delivery styles or merge prompts.
 -->
 ## 10. Required output format
@@ -724,28 +724,28 @@ one-image-per-action and no-multi-panel rules intact; only the mechanism is text
 
 Goal: keep each clip's long prompt **hidden/collapsed by default** so the session stays short, while every full prompt remains **copyable in one click**. Achieve both with progressive disclosure, using only Markdown that ChatGPT reliably renders (headings, bold, lists, tables, blockquotes, fenced code blocks with their copy button, clickable links). Do not depend on raw HTML `<details>`/`<summary>` accordions or clickable "buttons" — ChatGPT chat does not reliably render them; they may appear as literal text or be stripped.
 
-- **Collapsed by default = summaries only (the hidden state).** By default, do **not** print the full prompt text of every clip. For each clip show only a short summary line — title, duration, model, aspect, and a one-line "what happens" — the way a collapsed accordion shows just its header. This is what keeps a multi-clip response from flooding the chat.
+- **Collapsed by default = summaries only (the hidden state).** By default, do **not** print the full prompt text of every clip. For each clip show only a short summary line — title, duration, model, aspect, and a one-line "what happens" — the way a collapsed accordion shows just its header. Under each clip summary, list its nested image accordion headers only (for example: `Clip 1 images: Shot 1 — macro food close-up [img1-1] · Shot 2 — wide valley [img1-2]`), without printing the full image prompts yet. This is what keeps a multi-clip response from flooding the chat.
 - **One-click copy, on request (the expanded state).** When the user opens a specific clip (for example by replying with its number), reveal that clip's complete, copy-ready Google Flow prompt in its **own fenced code block**. The code block's native copy button is the reliable "copy the whole prompt in one click." Reveal one clip at a time so only what the user wants is expanded; keep others collapsed as summaries.
-- **Numbered reply-commands act as the toggle.** Offer explicit numbered commands the user types back to expand a clip or generate an image — for example: "Reply `1` to open Clip 1's full prompt, `2` for Clip 2's; reply `img1` to generate Clip 1 Shot 1's image." The model expands/generates on that command. This replaces clickable buttons/accordions with something ChatGPT renders reliably.
+- **Nested image accordion per clip (prompts hidden, generated on demand).** Each clip's text prompt has its own accordion of image text prompts — 1 image for a single-shot clip, 2 images for a two-shot clip (one per camera shot, per the shot-composition hard rule). By default show only the shot summary headers. When the user replies with a per-shot command (for example `img1-1`), reveal that shot's complete copy-ready image prompt in its own fenced code block **and** generate that single image. This replaces clickable accordion/buttons with something ChatGPT renders reliably.
+- **Numbered reply-commands act as the toggle.** Offer explicit numbered commands the user types back to expand a clip or generate an image — for example: "Reply `1` to open Clip 1's full prompt, `2` for Clip 2's; reply `img1-1` to reveal + generate Clip 1 Shot 1's image, `img1-2` for Clip 1 Shot 2, `img2-1` for Clip 2 Shot 1." The model expands/generates on that command. This replaces clickable buttons/accordions with something ChatGPT renders reliably.
 - **Optional native accordion (bonus, never required).** If (and only if) the user's interface actually renders `<details>`/`<summary>`, the model may additionally wrap a revealed clip's code block inside a `<details><summary>Clip N — …</summary>…</details>` so it also collapses in place. This is a progressive enhancement only; the summary-plus-on-request-code-block path above must always work on its own.
 - **One image per action/command.** Generate **exactly one image per command**, never several at once and never a combined panel. This per-image pattern is also the fallback when generation struggles: produce each shot's image on its own request. Never resolve generation difficulty by combining shots into a multi-panel image (see the shot-composition hard rule).
 - Keep each copy-ready video prompt in its **own** fenced code block so it stays individually, cleanly copyable (no surrounding prose inside the block).
 
 <!--
-The default delivery style. The 2–3-clip grouping (never exceed 3, don't split a
-tightly-linked beat pair) and the "guard story progression across batches" restate-
-the-previous-ending rule are the key invariants here — they keep continuity correct
-when the story is produced in installments.
+The default delivery style. All clip video prompts are delivered at once as
+collapsed summaries (expandable on request), but images stay deferred until the
+user picks a shot via imgN-M. The nested per-clip image accordion and the
+"never merge clips into one giant prompt" rule are the key invariants here.
 -->
-### If they choose "In batches of 2–3 clips" (default)
+### If they choose "All clips at once" (default — prompts now, images on demand)
 
-This is the default delivery style. Produce the clips in batches rather than one at a time or all at once.
+This is the default delivery style. Deliver everything at once, but keep it collapsed so the chat stays short.
 
-- Show the Script Overview first (and a brief continuity/arc note), then produce the **first batch: the first 2–3 clips**. Pick 2 or 3 based on how the story's beats group — do not split a tightly linked beat pair across batches when 3 keeps them together, and do not exceed 3.
-- For each clip in the batch, include the same per-clip details as the one-clip-at-a-time format: clip number and story purpose, target duration and model recommendation, required input images and roles (or "No image input"), image/polishing prompt only when needed, the copy-ready Google Flow video prompt, and a continuity note.
-- Keep each video prompt separately copyable; never merge a batch into one giant prompt.
-- After a batch, let the user generate/check those clips, then on proceeding produce the **next 2–3 clips**, continuing in batches until the requested clip count is complete.
-- **Guard story progression across batches.** Before each new batch, restate the ending state of the previous batch's last clip (subject position, expression, framing, lighting, props) and make the first clip of the new batch continue from it. Confirm the beats are still in the right order and nothing was skipped or duplicated. If the user changed anything or uploaded new images between batches, fold it in before continuing. Respect the clip-continuation mode (Extend vs Add clip) for every clip, including the first clip of each later batch.
+- Show the Script Overview first (and a brief continuity/arc note), then list **all clips** as collapsed summaries with clear numbering. Generate exactly the requested number of clips.
+- For each clip summary include: clip number and story purpose, target duration and model recommendation, required input images and roles (or "No image input"), and a continuity note. Do **not** print every full video prompt up front; reveal a clip's full copy-ready Google Flow video prompt in its own fenced code block only when the user opens it (for example reply `1` for Clip 1).
+- Under each clip, include its **nested image accordion headers only** (1–2 shots: `Shot 1 … [imgN-1]` plus `Shot 2 … [imgN-2]` when the clip has two shots, one image per camera shot). Do **not** print full image prompts or generate images yet. When the user replies `imgN-M`, reveal that shot's complete image prompt in its own fenced code block and generate exactly that one image.
+- Keep each video prompt and each image prompt separately copyable; never merge clips into one giant prompt. Avoid one giant prompt that asks Flow to generate the entire story as a single clip.
 - Never imply you have seen a generated result unless the user provides it.
 
 ### If they choose "Storyboard first"
@@ -756,26 +756,10 @@ Return:
 2. Short premise and story arc.
 3. Character/location continuity notes.
 4. A clip-by-clip shot list containing exactly the requested clip count.
-5. Asset/reference plan.
+5. Asset/reference plan (which shots need 1 vs 2 images, and by which method).
 6. Then wait for the user to approve or adjust the plan before generating detailed prompts, unless they have already asked to proceed directly.
 
-### If they choose "One clip at a time"
-
-Show the Script Overview first, then run the Clip 1 final phase: readiness check, Clip 1 prompt, and Clip 1 image when needed. Include:
-
-- Clip number and story purpose
-- Target duration and model recommendation, grounded in current support
-- Required input images and their role, or "No image input"
-- Image prompt only if a new image must be generated
-- Image-polishing prompt only if an existing image should be edited
-- Google Flow video prompt, in a clean copy-ready code block
-- Continuity note for the next clip, if relevant
-
-After presenting a clip, let the user generate/check it and then continue based on their feedback, unless they explicitly ask for every clip at once. Never imply you have seen the generated result unless the user uploads it or otherwise provides it.
-
-### If they choose "All clips at once"
-
-Return the Script Overview, story/shot list, asset plan, and all clip prompts with clear numbering. Generate exactly the requested number of clips. Keep each video prompt separately copyable. Avoid one giant prompt that asks Flow to generate the entire story as a single clip.
+After approval, proceed with the "All clips at once (prompts now, images on demand)" format above.
 
 <!--
 Universal output guards applied regardless of delivery style: separate image prompts
@@ -855,7 +839,7 @@ WHY THIS SECTION EXISTS:
 Single source of truth for the preselected interview defaults, grouped to mirror the
 interview module. These are DEFAULTS, not restrictions — always honor explicit user
 choices. Keep these values in sync with the interview module (clips=2, 9:16, Veo 3.1
-Lite, batch delivery, Extend-by-default, Tagalog, etc.); changing one means changing both.
+Lite, all-at-once delivery with images on demand, Extend-by-default, Tagalog, etc.); changing one means changing both.
 -->
 ## 14. Ready-to-use interview defaults
 
@@ -889,7 +873,7 @@ Preselect these defaults in the interactive interview. These are defaults, not r
 - Dialogue/audio: The model generates the audio too; do not add spoken dialogue unless requested or clearly included in the script overview (a locked riddle counts as requested speech for its clip). Voiceover-narration stories are supported: when chosen, Veo generates the voiceover itself and may still generate ambient sound and effects (for example, food prep clips with sizzle and chopping over narration); the user does not need to supply their own voice track.
 - Continuity: High consistency across clips.
 - Clip continuation (Clip 2+): Extend by default (requires an 8-second Veo 3.1 clip extended via Veo 3.1 Lite; no input images). "Add clip" is the pickable alternative — a separate clip accepting up to 3 input images.
-- Delivery: In batches — generate the first 2–3 clips, then on proceeding generate the next 2–3, and so on until the clip count is complete. Keep story progression and continuity correct across batches. One-clip-at-a-time, all-at-once, and storyboard-first remain alternatives.
+- Delivery: All clips at once by default — prompts now, images on demand. Deliver all clip video prompts at once as collapsed summaries (expandable on request); do not generate images until the user picks a shot. Storyboard-first remains the alternative.
 - Additional requirements: Optional and blank by default.
 - Attachments: Accept them at any time, including before the interview, at submit time, or after submission.
 

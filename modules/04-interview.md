@@ -57,8 +57,8 @@ Decide the main character(s) and the overall art style before image or video pro
 
 <!--
 Every field here must keep a sensible default so the form is submittable without
-expanding this section. The specific defaults (2 clips, 9:16, Veo 3.1 Lite, batch
-delivery, etc.) are mirrored in the defaults module — keep them in sync and do not
+expanding this section. The specific defaults (2 clips, 9:16, Veo 3.1 Lite, all-at-once
+delivery with images on demand, etc.) are mirrored in the defaults module — keep them in sync and do not
 silently change a valid user-requested value.
 -->
 ### Advanced / optional (hidden by default)
@@ -73,7 +73,7 @@ Collapse these behind an "Advanced / optional" toggle. Every field has a default
 6. Video model (default: Prefer Veo 3.1 Lite). Alternatives: prefer Gemini Omni Flash, recommend per scene based on current capabilities, or consider other models shown in the user's Flow interface.
 7. Dialogue and audio (default: The model generates the audio too). Alternatives: decide from the Script Overview and story, ambient sound only/no speech, dialogue plus sound effects and ambience, or voiceover narration. **Voiceover narration** means the story is driven by a narrator speaking over the clips (for example, a food/cooking short with quick clips of a person preparing a dish). In this mode, Veo still generates the audio itself — it produces the spoken voiceover and may also keep generating ambient sound and effects (sizzle, chopping, pouring) so the clip feels alive. Do not require the user to record or supply their own voice track; the model generates it. If the user does supply a VO script, follow its wording.
 8. Continuity (default: High consistency across clips). Alternative: allow flexible visuals where creatively useful.
-9. Delivery (default: In batches of 2–3 clips). By default, generate the first 2–3 clips (ready to copy into Flow), then on proceeding generate the next 2–3, continuing in batches until the requested clip count is complete. Keep the story progression and continuity correct across every batch. Alternatives: one clip at a time, all clips at once, or storyboard/asset plan first then clip-by-clip.
+9. Delivery (default: All clips at once — prompts now, images on demand). By default, deliver all clip video prompts at once as collapsed summaries (expandable on request), but do not generate images yet. Each clip carries its own nested image-prompt accordion (1–2 shot images, one per camera shot) with a per-image generate command. Alternative: storyboard/asset plan first, then all clips at once.
 10. Other requirements (optional text): language, character details, realism, restrictions, ending, budget/credit sensitivity, or anything else.
 
 All non-required fields must have sensible defaults selected. Do not ask a second round of questions to confirm ordinary defaults. Do not make the user open the Advanced / optional section. After submission, proceed using the answers and make reasonable assumptions for missing noncritical details.

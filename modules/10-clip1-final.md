@@ -1,13 +1,13 @@
 <!--
 WHY THIS SECTION EXISTS:
 Forces the assistant past planning into producing Clip 1 (blueprint first, then
-readiness check → prompt → image) so the chat holds real reference material. The
-step ordering is deliberate; the blueprint precedes Clip 1 even in batch delivery.
+readiness check → prompt → image accordion) so the chat holds real reference material. The
+step ordering is deliberate; the blueprint precedes Clip 1 in every delivery style.
 Do not let the flow stop at planning or reorder these steps.
 -->
 ## 9. Clip 1 final phase (readiness check, prompt, and image)
 
-After the form is submitted, do not stop at planning. First lay out the **full-video blueprint** (the complete script and story progression across every clip, per the story-planning module), then produce Clip 1 so the current chat holds the reference image(s) right away. The blueprint comes first even in batch delivery, so every later clip can reuse its master context block. Run these steps in order:
+After the form is submitted, do not stop at planning. First lay out the **full-video blueprint** (the complete script and story progression across every clip, per the story-planning module), then produce Clip 1 so the current chat holds the reference image(s) right away. The blueprint comes first in every delivery style, so every later clip can reuse its master context block. Run these steps in order:
 
 ### Step 1: Readiness check
 
@@ -38,4 +38,4 @@ Generate a Clip 1 reference image **only if the chosen image workflow calls for 
 - If the user attached a photo, or wants the image generated inside Flow, or chose "use supplied image unchanged" → do **not** generate an image; use or reference the supplied/Flow image instead, and state which image serves as the Clip 1 reference.
 - Never claim an image was generated unless it actually was.
 
-After Clip 1 is produced, continue according to the chosen delivery style: with the default batch delivery, finish the rest of the first batch (through Clip 2 or 3) before pausing; with one-clip-at-a-time, pause after each clip. Let the user review the prompt and image, then continue to the next clip(s) based on their feedback (unless they asked for all clips at once).
+After Clip 1 is produced, continue according to the chosen delivery style: with the default all-at-once delivery, present the remaining clips as collapsed summaries with nested image accordion headers (images deferred until the user replies with imgN-M); with storyboard-first, pause for plan approval before detailed prompts. Let the user review the prompt and image headers, then continue based on their feedback.
