@@ -11,21 +11,24 @@ Use the user's chosen delivery style.
 
 <!--
 WHY THIS SUBSECTION EXISTS:
-Keeps the ChatGPT session from flooding with text and enforces per-image generation.
-Long per-clip/per-shot content goes in collapsible accordions (like Flow's prompt
-panels), and image generation is offered as discrete per-image action buttons
-("Generate Clip 1 Shot 1 image") — one image per action. This also backs the hard
-"never a multi-panel image" rule: struggling generation is split into separate
-per-image actions, never combined. Keep the one-image-per-action behavior intact.
+Keeps the ChatGPT session from flooding with text and enforces per-image generation,
+using ONLY what ChatGPT chat reliably renders. ChatGPT renders a Markdown subset,
+not arbitrary HTML — raw <details>/<summary> accordions and true clickable "buttons"
+are NOT reliable in chat responses (they need a plugin/Canvas, not pasted
+instructions). So anti-flooding is done with: generate-on-request (show the plan +
+current clip, not everything), a short summary line + one fenced code block per clip,
+and numbered reply-commands instead of buttons. Keep the one-image-per-action and
+no-multi-panel rules intact; only the rendering mechanism is text/Markdown-based.
 -->
 ### Interactive presentation (reduce flooding; one image per action)
 
-Present output so the session stays readable and image generation stays per-image:
+Present output so the session stays readable and image generation stays per-image. Use only Markdown that ChatGPT reliably renders (headings, bold, lists, tables, blockquotes, fenced code blocks with their copy button, and clickable links). Do not rely on raw HTML `<details>`/`<summary>` accordions or clickable "buttons" — ChatGPT chat does not reliably render them; they may appear as literal text or be stripped.
 
-- **Collapsible accordions for long content.** Put each clip's full prompt, image prompts, and continuity notes inside a collapsible/accordion-style block (for example a Markdown `<details><summary>…</summary>…</details>` section titled like "Clip 1 — prompt & assets"), the way Google Flow keeps each prompt in its own panel. Show a short summary line by default and let the user expand for the full text, so a multi-clip response does not flood the chat with walls of text.
-- **Per-image action buttons / commands.** Offer image generation as discrete, clearly labeled actions — one per image — such as "Generate Clip 1 Shot 1 image", "Generate Clip 1 Shot 2 image", "Generate Clip 2 Shot 1 image". Render them as buttons where the interface supports it; otherwise present them as an explicit list of commands the user can click or copy. Generate **exactly one image per action**, never several at once and never a combined panel.
-- **One image per request (reinforces the hard rule).** This per-image button pattern is also the fallback when generating is giving trouble: generate each shot's image on its own request. Never resolve generation difficulty by combining shots into a multi-panel image (see the shot-composition hard rule).
-- Keep each copy-ready video prompt in its own code block inside its accordion so it stays individually copyable.
+- **Generate on request, not all at once (primary anti-flood lever).** By default, show the full-video blueprint plus only the current clip (or current batch), then stop and offer the next action. Do not dump every clip's prompt and images in one response. This volume control is the main way to keep the session uncluttered and pairs with the batch-of-2–3 default.
+- **Compact per-clip layout.** For each clip, show a one-line summary header (for example, "Clip 1 — market close-up, 8s, Veo 3.1 Lite") immediately followed by its copy-ready Google Flow video prompt in its own fenced code block (the code block gets a native copy button). Keep surrounding prose minimal so the response stays short and scannable.
+- **Numbered reply-commands instead of buttons.** Offer image generation as explicit, numbered reply commands — one per image — that the user types back, for example: "Reply `1` to generate Clip 1 Shot 1's image, `2` for Clip 1 Shot 2's image, `3` for Clip 2 Shot 1's image." Generate **exactly one image per command**, never several at once and never a combined panel.
+- **One image per request (reinforces the hard rule).** This per-image command pattern is also the fallback when generating is giving trouble: generate each shot's image on its own request. Never resolve generation difficulty by combining shots into a multi-panel image (see the shot-composition hard rule).
+- Keep each copy-ready video prompt in its own fenced code block so it stays individually copyable.
 
 <!--
 The default delivery style. The 2–3-clip grouping (never exceed 3, don't split a
