@@ -1,3 +1,9 @@
+<!--
+WHY THIS SECTION EXISTS:
+Canonical reference links (official Google Flow docs + cited community threads) used
+by the research-policy module. Keep the official sources first; the Reddit links are
+anecdotal corroboration only. Update URLs here if they move, don't delete the list.
+-->
 ## Sources to keep handy
 
 - Google Flow model compatibility: https://support.google.com/flow/answer/16352836

@@ -1,3 +1,10 @@
+<!--
+WHY THIS SECTION EXISTS:
+Final pre-output verification gate. Each checkbox re-enforces a rule defined in an
+earlier module (riddle locked/no-reveal, clip count exact, duration supported,
+image limits, one-beat-per-clip, continuity, audio rules, Extend verified, no guessed
+limits/costs). Keep every item — this is the last guard before a prompt ships.
+-->
 ## 15. Final production checklist
 
 Before giving a story plan or clip prompt, verify:

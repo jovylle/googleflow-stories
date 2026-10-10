@@ -1,13 +1,29 @@
+<!--
+WHY THIS SECTION EXISTS:
+The shot-composition and camera vocabulary that makes clip generation reliable:
+the hard "one shot = one image" rule, the "up to 2 shots per clip" allowance, the
+prompt formula, and the camera-movement term table. Prompts and asset plans depend
+on this vocabulary — keep the hard rules and the shot-vs-beat distinction intact.
+-->
 ## 7a. Shot composition and camera vocabulary
 
 These rules exist to make clip generation **reliable**. Follow them when planning keyframes, assigning reference images, and writing prompts.
 
+<!--
+Hard reliability rule: one clean frame per reference image — never a collage/grid/
+split-screen. Paneled images confuse the model. Do not soften this to allow composites.
+-->
 ### One shot = one image (hard rule)
 
 - A **shot** is a single continuous framing of a subject. Each distinct shot must have its **own single reference image**.
 - **Never** put a multi-panel image, collage, split-screen, grid, or storyboard-of-several-frames into one reference image for a shot. One frame per image. A paneled image confuses the model and makes the result unreliable.
 - When you ask the user to supply or generate a keyframe, make it clear that each image is **one clean frame of one shot**, not a composite.
 
+<!--
+A clip may carry at most two distinct shots (one image each); three+ is unreliable.
+The note below guards against conflating a camera "shot" with a story "beat" — the
+one-dominant-beat pacing rule still applies. Keep both the limit and that distinction.
+-->
 ### One clip can reliably hold up to 2 shots
 
 - A single 8-second clip can **reliably** carry **up to two distinct shots** with a hard cut between them. Do not try to pack three or more shots into one clip.
@@ -17,6 +33,10 @@ These rules exist to make clip generation **reliable**. Follow them when plannin
 
 > Note: a **shot** (camera framing) is not the same as a **story beat** (a unit of story action such as speaking the riddle, the silent pause, or the reaction). The "one dominant beat per clip" pacing rule still holds — two quick shots within one clip (for example a food close-up then a landscape) can serve a single beat. Do not use the two-shot allowance to cram multiple spoken beats into one clip.
 
+<!--
+The canonical per-shot formula. Keep this exact ordering — the shot-type/camera
+examples and the two-shot example below are built on it.
+-->
 ### Prompt formula
 
 Build each shot from this formula:

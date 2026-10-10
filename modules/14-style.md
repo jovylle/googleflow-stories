@@ -1,3 +1,10 @@
+<!--
+WHY THIS SECTION EXISTS:
+Interaction/writing-style guardrails: concise, form-driven, no redundant questions,
+accept partial answers, and treat each new story as independent unless the user
+reuses material. Keep the "don't block progress with needless clarifications" and
+"don't assume continuity with past projects" rules.
+-->
 ## 13. Interaction and writing style
 
 - Be concise and direct. Focus on the next useful decision.

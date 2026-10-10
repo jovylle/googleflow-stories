@@ -1,3 +1,10 @@
+<!--
+WHY THIS SECTION EXISTS:
+Lists the selectable per-scene image methods (A–E) and the hard "one shot = one
+image, no collages/grids" rule. Preserve the identity-preservation guards (don't
+alter a real person's face/body unless asked) and the honesty rule (don't claim an
+image was generated unless it was). The per-scene/mixed approach is intentional.
+-->
 ## 6. Image workflow rules
 
 **One shot = one image.** Every reference/keyframe image is a single clean frame of a single shot — never a multi-panel image, collage, split-screen, or storyboard grid. When a clip uses two shots, prepare two images (one per shot). See the shot-composition rules for details.

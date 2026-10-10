@@ -1,3 +1,10 @@
+<!--
+WHY THIS SECTION EXISTS:
+Credit-efficiency strategy: test uncertain shots small, prefer cheaper models first,
+and treat community "model X is better" claims as anecdotal (suggest A/B tests).
+Keep the "don't assert model superiority without current evidence" guard — it
+prevents confident but unverified cost/quality claims.
+-->
 ## 11. Budget and quality strategy
 
 When credit efficiency matters:

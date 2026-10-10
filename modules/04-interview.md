@@ -1,3 +1,11 @@
+<!--
+WHY THIS SECTION EXISTS:
+Defines the low-friction interview: a few always-shown primary fields plus an
+Advanced section that stays collapsed with defaults applied, so the user can submit
+immediately. The primary-vs-advanced split, the preselected defaults, and the
+"don't make the user confirm ordinary defaults" principle are deliberate UX
+contracts. Do not promote advanced fields to primary or force a longer questionnaire.
+-->
 ## 3. Simple interactive interview
 
 After the riddle pre-phase (or immediately, when it is not a riddle story), use a concise interactive wizard. Keep all choices preselected to the defaults below, allow the user to go back, and allow partial answers. The user should be able to submit immediately without answering optional fields.
@@ -9,6 +17,11 @@ Lead with the decisions that matter most and keep everything else out of the way
 
 Do not ask for a separate target duration by default. Do not make the user open the advanced section or confirm ordinary defaults.
 
+<!--
+The only fields shown by default: Story topic, Characters + Art Style, and Image
+generation topic. Each has help/auto-suggest fallbacks when left blank. Keep these
+three (and only these) as the always-visible set.
+-->
 ### Primary decisions (always shown)
 
 These are the only fields the user needs to see to get started.
@@ -41,6 +54,12 @@ Decide the main character(s) and the overall art style before image or video pro
 1. Image subject/material (optional text): describe the subject whose images drive the video — a product, a character, a location, or supplied photos. If the user has attachments, treat them as the source material.
 2. Image workflow (default: ChatGPT prepares the image, optimized so Google Flow Veo understands it easily). ChatGPT generates a Veo-ready reference image for each scene by default. Alternatives (unchanged): give supplied images to Google Flow and use them unchanged, generate images in Flow, polish supplied images with ChatGPT, choose the best method per scene, or mix methods.
 
+<!--
+Every field here must keep a sensible default so the form is submittable without
+expanding this section. The specific defaults (2 clips, 9:16, Veo 3.1 Lite, batch
+delivery, etc.) are mirrored in the defaults module — keep them in sync and do not
+silently change a valid user-requested value.
+-->
 ### Advanced / optional (hidden by default)
 
 Collapse these behind an "Advanced / optional" toggle. Every field has a default applied, so the user can submit without opening this section. Only surface a field here if the user chooses to expand it.
@@ -60,6 +79,11 @@ All non-required fields must have sensible defaults selected. Do not ask a secon
 
 Do not make the user calculate total video duration. Estimate the likely runtime from the selected clip count and each selected model's currently supported duration. When needed, explain that raw generated runtime and the final edited runtime can differ.
 
+<!--
+Describes how form answers arrive together with submit-time images/notes, and how
+to map each attachment to a role. The "don't ask to re-upload" and "don't claim to
+have inspected an unavailable attachment" guards are intentional honesty rules.
+-->
 ### Submit-time attachments and notes
 
 The native form lets the user attach images and add free-text notes right before clicking submit; submitting sends a proceed message that arrives together with those attachments and notes. Use this deliberately as part of the flow:
@@ -71,6 +95,11 @@ The native form lets the user attach images and add free-text notes right before
 - Fold these into the readiness check (Clip 1 final phase). For example, if the user attached a character photo, that satisfies the character-identity need, and the image workflow for that subject can default to "use supplied image" instead of generating one.
 - Do not ask the user to re-upload or re-describe material they already attached. Do not claim to have inspected an attachment that is not actually available in the conversation.
 
+<!--
+Guarantees the user can attach material at any point (before, during, after the
+wizard) without restarting the interview or re-describing it. Preserve the
+"never require everything upfront" and "don't restart on late attachments" rules.
+-->
 ### Attachments can be added at any time
 
 The user may attach supporting images or files before opening the wizard, while answering it, after answering some steps, immediately before submission, or after submitting it. Never require the user to upload everything at the beginning.

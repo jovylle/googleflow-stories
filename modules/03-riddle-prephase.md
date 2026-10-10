@@ -1,3 +1,11 @@
+<!--
+WHY THIS SECTION EXISTS:
+The riddle pre-phase runs BEFORE the main interview to set production language and
+lock a riddle up front, so the whole story is built around a known answer. This
+ordering (language first, then story-type) and the "every riddle is told in story
+format" fixed structure are intentional invariants. Do not move this after the
+interview or loosen the language-first / riddle-first sequencing.
+-->
 ## 2. Riddle pre-phase (runs before the main form)
 
 When the story maker starts (via `.start` or `gfs`), run this short pre-phase **before** opening the main interview form. It first sets the production language, then decides whether the story is a riddle and, if so, locks a riddle first so the rest of the production is built around a known answer. The language question applies to every story, riddle or not.
@@ -6,6 +14,11 @@ When the story maker starts (via `.start` or `gfs`), run this short pre-phase **
 
 In this project, **every riddle is told in story format**. The fixed structure is: the riddle is spoken **first**, then the story continues with either a silent beat where the audience is meant to answer, or another character who reacts but never answers correctly. Build every riddle story on this structure by default; do not leave it to the Script Overview to reinvent.
 
+<!--
+Language is asked first because it governs the entire production; the story-type
+question routes riddle vs. non-riddle and must only trigger the own-vs-generate
+follow-up for the Riddle story choice. Keep Tagalog as the preselected default.
+-->
 ### Step 0: Language and riddle check
 
 Ask these up front, as the very first questions, before the main form:
@@ -22,6 +35,11 @@ Ask these up front, as the very first questions, before the main form:
 
    Picking any AI option or "Other / custom story" means a **regular (non-riddle) story** — skip the rest of this pre-phase and open the main form, carrying the chosen idea into the Story-topic field so it is not re-asked. Generate the three AI options as short, varied one-line pitches in the chosen language; if the user asks for different suggestions, re-roll them. Only the **Riddle story** choice triggers the own-vs-generate follow-up above.
 
+<!--
+The generator's quality rules (simple words, not too short, not too easy, fits the
+spoken duration) are tuned to produce fair, clip-length riddles. Do not relax the
+word-count/duration guidance — it keeps riddles speakable within one clip.
+-->
 ### Step 0a: Riddle generator skill
 
 Generate a list of **5–10 candidate riddles** in the chosen language, each with its answer noted for the user. Quality rules:
@@ -39,10 +57,19 @@ Then:
 - The user may re-roll as many times as they like.
 - When the user picks (or edits and confirms) a riddle, **lock it**: record the final riddle text, its answer, and the language. This locked riddle becomes the backbone of the Script Overview and clip plan.
 
+<!--
+Keeps planning tied to the locked riddle: the riddle opens Clip 1, followed by a
+silent beat or a non-answering reaction. Preserve exact riddle wording and language.
+-->
 ### After the riddle is set
 
 Carry the locked riddle into the main form and story plan. Apply the fixed riddle structure: the riddle is the **opening spoken line** (in Clip 1), followed by a silent beat for the audience to answer, or a character who reacts without answering correctly. Keep later clips consistent with this and preserve the riddle's exact wording and language.
 
+<!--
+Critical content rule: the riddle answer must never leak to the viewer. This is a
+hard constraint enforced again in later modules/checklist. Do not weaken any bullet
+here; the recorded answer is for internal planning only.
+-->
 ### No-answer-reveal rule (riddle stories)
 
 For any riddle story, **never reveal or hint at the answer** in the video output:
@@ -53,6 +80,12 @@ For any riddle story, **never reveal or hint at the answer** in the video output
 - The internal answer is recorded only to guide planning and keep the team consistent — it is never surfaced to the viewer.
 - If the user explicitly asks for a reveal clip, confirm first, then treat that as an intentional exception for that specific clip only.
 
+<!--
+Prevents the model from rushing by capping one dominant beat per clip and budgeting
+spoken words to the model's max duration. These numeric budgets (≈2–3 words/sec,
+16–24 words per 8s) and the analyze-and-suggest clip-count behavior are intentional;
+do not hard-code a fixed split or let the system silently rewrite a locked riddle.
+-->
 ### Pacing and clip-count planning (flexible)
 
 A single clip is bound by the selected model's maximum duration (for example, Veo 3.1 Lite caps at 8 seconds). Cramming several beats into one clip makes the model rush — a character blurting the whole riddle, a pause, and a reaction squashed into 8 seconds. Prevent this by planning pacing before writing prompts. Do not force a fixed split; analyze and recommend.

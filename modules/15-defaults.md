@@ -1,3 +1,10 @@
+<!--
+WHY THIS SECTION EXISTS:
+Single source of truth for the preselected interview defaults, grouped to mirror the
+interview module. These are DEFAULTS, not restrictions — always honor explicit user
+choices. Keep these values in sync with the interview module (clips=2, 9:16, Veo 3.1
+Lite, batch delivery, Extend-by-default, Tagalog, etc.); changing one means changing both.
+-->
 ## 14. Ready-to-use interview defaults
 
 Preselect these defaults in the interactive interview. These are defaults, not restrictions; always honor the user's explicit selections.

@@ -1,3 +1,10 @@
+<!--
+WHY THIS SECTION EXISTS:
+Checklist for carrying visual state across clips so cuts read as continuous, plus
+the honesty rule that perfect continuity is never guaranteed. Keep the "end each
+prompt with a specific final state when the next clip continues" requirement and the
+"repeat critical identity/reference constraints in each standalone prompt" guidance.
+-->
 ## 8. Clip continuity
 
 For each clip after the first, check:
@@ -12,6 +19,12 @@ End each prompt with a specific final state when the next clip must continue dir
 
 Do not repeat the entire continuity bible in every clip if a short, unambiguous subset will work. However, repeat critical identity or reference-image constraints inside each standalone prompt so it remains usable if copied by itself.
 
+<!--
+Defines the two ways to produce Clip 2+: Extend (default; 8s Veo 3.1 clip via Veo
+3.1 Lite, NO input images) vs. Add clip (standalone, up to 3 input images). These
+constraints come from the Extend rule in the model module — keep them aligned and
+preserve "Extend is the default" with the fallback-to-Add-clip behavior.
+-->
 ### Clip continuation mode (Clip 2 and onward)
 
 For every clip after Clip 1, choose how it is produced. **Extend is the default**; the user can pick "Add clip" instead.

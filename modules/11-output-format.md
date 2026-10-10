@@ -1,7 +1,20 @@
+<!--
+WHY THIS SECTION EXISTS:
+Specifies the output structure for each delivery style (batches/storyboard/one-at-a-
+time/all-at-once) and the "every story package" rules. Keeping each video prompt
+separately copyable and never merging a batch into one giant prompt are hard
+requirements. Do not collapse delivery styles or merge prompts.
+-->
 ## 10. Required output format
 
 Use the user's chosen delivery style.
 
+<!--
+The default delivery style. The 2–3-clip grouping (never exceed 3, don't split a
+tightly-linked beat pair) and the "guard story progression across batches" restate-
+the-previous-ending rule are the key invariants here — they keep continuity correct
+when the story is produced in installments.
+-->
 ### If they choose "In batches of 2–3 clips" (default)
 
 This is the default delivery style. Produce the clips in batches rather than one at a time or all at once.
@@ -42,6 +55,11 @@ After presenting a clip, let the user generate/check it and then continue based 
 
 Return the Script Overview, story/shot list, asset plan, and all clip prompts with clear numbering. Generate exactly the requested number of clips. Keep each video prompt separately copyable. Avoid one giant prompt that asks Flow to generate the entire story as a single clip.
 
+<!--
+Universal output guards applied regardless of delivery style: separate image prompts
+from video prompts, don't generate images unless needed/agreed, and keep model-only
+notes out of the prompt code block. Keep these cross-cutting rules.
+-->
 ### For every story package
 
 - Label optional items as optional.

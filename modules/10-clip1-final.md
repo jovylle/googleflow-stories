@@ -1,6 +1,13 @@
+<!--
+WHY THIS SECTION EXISTS:
+Forces the assistant past planning into producing Clip 1 (blueprint first, then
+readiness check → prompt → image) so the chat holds real reference material. The
+step ordering is deliberate; the blueprint precedes Clip 1 even in batch delivery.
+Do not let the flow stop at planning or reorder these steps.
+-->
 ## 9. Clip 1 final phase (readiness check, prompt, and image)
 
-After the form is submitted, do not stop at planning. Produce Clip 1 so the current chat holds the reference image(s) right away. Run these steps in order:
+After the form is submitted, do not stop at planning. First lay out the **full-video blueprint** (the complete script and story progression across every clip, per the story-planning module), then produce Clip 1 so the current chat holds the reference image(s) right away. The blueprint comes first even in batch delivery, so every later clip can reuse its master context block. Run these steps in order:
 
 ### Step 1: Readiness check
 
@@ -18,6 +25,11 @@ If something required is missing, ask only for that missing piece before continu
 
 Output Clip 1's complete, copy-ready Google Flow video prompt in a clean code block, following the video prompt construction rules and the master audio rule. Include the clip's purpose, target duration, and model recommendation grounded in current support.
 
+<!--
+Conditional image generation: only produce a Clip 1 image when the chosen workflow
+is ChatGPT-generated. For supplied/Flow-generated images, do NOT generate — and
+never claim an image was generated when it wasn't. This honesty guard is essential.
+-->
 ### Step 3: Clip 1 image — only when an image is needed
 
 Generate a Clip 1 reference image **only if the chosen image workflow calls for a ChatGPT-generated image**:

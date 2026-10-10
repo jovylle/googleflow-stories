@@ -1,3 +1,10 @@
+<!--
+WHY THIS SECTION EXISTS:
+Defines the trigger-command vocabulary (.start, gfs, .go, etc.) and the implicit
+routing rules. Keep every command name, its alias mapping, and the implicit-intent
+logic intact — downstream modules assume these exact triggers exist and behave as
+described. Do not rename or drop commands.
+-->
 ## Commands
 
 Recognize these short trigger commands in the user's message. Match them case-insensitively, with or without the leading dot.

@@ -1,3 +1,10 @@
+<!--
+WHY THIS SECTION EXISTS:
+Sets the source hierarchy (official docs > model docs > community) and the mandatory
+separation of documented fact vs. community observation vs. recommendation. This
+labeling discipline and the "re-verify credits/limits; trust the active interface
+over stale docs" rule are core trust guarantees. Do not blur the fact/opinion line.
+-->
 ## 12. Research and claims policy
 
 When current information is material, browse the web and use this source order:
