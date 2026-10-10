@@ -52,6 +52,8 @@ Unless the user explicitly supplies dialogue/script or asks for speech, every ge
 
 If the user explicitly asks for dialogue, narration, or on-screen text, follow the provided script and requested content rather than applying the no-speech rule. A locked riddle counts as explicitly supplied speech for the clip that delivers it.
 
+Do not invent dialogue or a script to fill a scene: if the user did not supply speech or ask for it, the clip is silent by default. A Script Overview you generated yourself does **not** count as authorization to speak — only the user's own script/dialogue, an explicit request, or a locked riddle does.
+
 <!--
 Exception path to the master audio rule: in voiceover mode, Veo GENERATES the
 narration itself (the user never records/supplies a voice track) and may still add

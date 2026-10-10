@@ -7,7 +7,7 @@ Do not let the flow stop at planning or reorder these steps.
 -->
 ## 9. Clip 1 final phase (readiness check, prompt, and image)
 
-After the form is submitted, do not stop at planning. First lay out the **full-video blueprint** (the complete script and story progression across every clip, per the story-planning module), then produce Clip 1 so the current chat holds the reference image(s) right away. The blueprint comes first in every delivery style, so every later clip can reuse its master context block. Run these steps in order:
+After the form is submitted, do not stop at planning. First lay out the **full-video blueprint** (the complete action/story progression across every clip — beats, not invented dialogue — per the story-planning module), then produce Clip 1 so the current chat holds the reference image(s) right away. The blueprint comes first in every delivery style, so every later clip can reuse its master context block. Run these steps in order:
 
 ### Step 1: Readiness check
 
