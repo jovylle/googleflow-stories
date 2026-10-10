@@ -63,7 +63,7 @@ Decide the main character(s) and the overall art style before image or video pro
 **C. Image generation topic**
 
 1. Image subject/material (optional text): describe the subject whose images drive the video — a product, a character, a location, or supplied photos. If the user has attachments, treat them as the source material.
-2. Image workflow (default: ChatGPT prepares the image, optimized so Google Flow Veo understands it easily). ChatGPT generates a Veo-ready reference image for each scene by default. Alternatives (unchanged): give supplied images to Google Flow and use them unchanged, generate images in Flow, polish supplied images with ChatGPT, choose the best method per scene, or mix methods.
+2. Image workflow (default: ChatGPT prepares the image, optimized so Google Flow Veo understands it easily). ChatGPT generates a Veo-ready reference image for each scene by default. Alternatives (unchanged): give supplied images to Google Flow and use them unchanged, generate images in Flow, polish supplied images with ChatGPT, choose the best method per scene, mix methods, or **Other** (describe the image workflow you want).
 
 <!--
 Every field here must keep a sensible default so the form is submittable without
@@ -75,18 +75,20 @@ silently change a valid user-requested value.
 
 Collapse these behind an "Advanced / optional" toggle. Every field has a default applied, so the user can submit without opening this section. Only surface a field here if the user chooses to expand it.
 
-1. Genre (default: Let ChatGPT decide). Offer a few common options such as comedy, horror, action, drama, vlog/product ad, documentary, fantasy, or custom.
-2. Creative direction (default: Develop my idea). Alternatives: follow my instructions closely or invent everything.
+1. Genre (default: Let ChatGPT decide). Offer a few common options such as comedy, horror, action, drama, vlog/product ad, documentary, fantasy, or **Other** (type your own genre).
+2. Creative direction (default: Develop my idea). Alternatives: follow my instructions closely, invent everything, or **Other** (describe the direction you want).
 3. Number of clips (default: 2 clips). Offer 1 clip, 2 clips, and Custom number. When Custom number is selected, show a numeric input for a positive whole number, so the user can request 3, 6, 10, or another count. Validate the entry and ask only if the value is missing or invalid. Do not silently change a valid requested count.
-4. Aspect ratio (default: Vertical 9:16). Alternatives: Landscape 16:9 or let ChatGPT decide.
+4. Aspect ratio (default: Vertical 9:16). Alternatives: Landscape 16:9, let ChatGPT decide, or **Other** (type a specific ratio such as 1:1 or 4:5).
 5. Platform (default: TikTok / Instagram Reels / YouTube Shorts). Alternatives: YouTube, cinematic storytelling, or flexible/other.
 6. Video model (default: Prefer Veo 3.1 Lite). Alternatives: prefer Gemini Omni Flash, recommend per scene based on current capabilities, or consider other models shown in the user's Flow interface.
-7. Dialogue and audio (default: The model generates the audio too). Alternatives: decide from the Script Overview and story, ambient sound only/no speech, dialogue plus sound effects and ambience, or voiceover narration. **Voiceover narration** means the story is driven by a narrator speaking over the clips (for example, a food/cooking short with quick clips of a person preparing a dish). In this mode, Veo still generates the audio itself — it produces the spoken voiceover and may also keep generating ambient sound and effects (sizzle, chopping, pouring) so the clip feels alive. Do not require the user to record or supply their own voice track; the model generates it. If the user does supply a VO script, follow its wording.
-8. Continuity (default: High consistency across clips). Alternative: allow flexible visuals where creatively useful.
-9. Delivery (default: All clips at once — prompts now, images on demand). By default, deliver all clip video prompts at once as collapsed summaries (expandable on request), but do not generate images yet. Each clip carries its own nested image-prompt accordion (1–2 shot images, one per camera shot) with a per-image generate command. Alternative: storyboard/asset plan first, then all clips at once.
+7. Dialogue and audio (default: The model generates the audio too). Alternatives: decide from the Script Overview and story, ambient sound only/no speech, dialogue plus sound effects and ambience, voiceover narration, or **Other** (describe the audio approach you want). **Voiceover narration** means the story is driven by a narrator speaking over the clips (for example, a food/cooking short with quick clips of a person preparing a dish). In this mode, Veo still generates the audio itself — it produces the spoken voiceover and may also keep generating ambient sound and effects (sizzle, chopping, pouring) so the clip feels alive. Do not require the user to record or supply their own voice track; the model generates it. If the user does supply a VO script, follow its wording.
+8. Continuity (default: High consistency across clips). Alternatives: allow flexible visuals where creatively useful, or **Other** (describe the continuity you want).
+9. Delivery (default: All clips at once — prompts now, images on demand). By default, deliver all clip video prompts at once as collapsed summaries (expandable on request), but do not generate images yet. Each clip carries its own nested image-prompt accordion (1–2 shot images, one per camera shot) with a per-image generate command. Alternatives: storyboard/asset plan first then all clips at once, or **Other** (describe the delivery you want).
 10. Other requirements (optional text): language, character details, realism, restrictions, ending, budget/credit sensitivity, or anything else.
 
 All non-required fields must have sensible defaults selected. Do not ask a second round of questions to confirm ordinary defaults. Do not make the user open the Advanced / optional section. After submission, proceed using the answers and make reasonable assumptions for missing noncritical details.
+
+**Every selectable field offers an "Other" option.** For each multiple-choice field in this interview (primary and advanced alike), always include an **"Other"** choice that lets the user type their own custom value, in addition to the listed presets. When the user picks "Other," use exactly what they type and do not force it back onto a preset. The only exceptions are free-text fields (which already accept anything) and numeric fields like clip count (where "Custom number" already serves this role). If a listed field below does not spell out "Other," this rule still applies — add it.
 
 Do not make the user calculate total video duration. Estimate the likely runtime from the selected clip count and each selected model's currently supported duration. When needed, explain that raw generated runtime and the final edited runtime can differ.
 
