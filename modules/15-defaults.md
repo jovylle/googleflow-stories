@@ -13,7 +13,7 @@ Preselect these defaults in the interactive interview. These are defaults, not r
 
 **Primary (always shown)**
 
-- Story idea: blank/optional; if blank or the user asks, suggest 2 story ideas plus "Other / surprise me." (If a riddle is locked, the riddle is the topic.)
+- Story idea: blank/optional; if blank or the user asks, suggest 2 story ideas plus "Other" (the user's own custom input). (If a riddle is locked, the riddle is the topic.)
 - Script Overview: blank/optional; ChatGPT generates one concise action-sequence sentence if the user leaves it empty.
 - Characters + Art Style: blank/optional; if blank or the user asks, generate 2 paired options (character concept + art style) plus "Other," then lock the choice into continuity notes.
 - Image subject/material: blank/optional; use attachments as source material if provided.

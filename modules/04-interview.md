@@ -16,8 +16,8 @@ These are the only fields the user needs to see to get started.
 **A. Story topic**
 
 1. Story idea / subject (optional text). Example: a skincare product, a Cebuano riddle, a horror scene, or a day-in-the-life vlog.
-   - If the user leaves this blank or asks for help, proactively **suggest an AI-generated topic/story**: offer 2 concrete story ideas plus an "Other / surprise me" option, each as a one-line pitch. Let the user pick one, edit one, or ask for more.
-   - If the user picks "Other / surprise me," invent a single idea and proceed.
+   - If the user leaves this blank or asks for help, proactively **suggest an AI-generated topic/story**: offer 2 concrete story ideas plus an "Other" option, each as a one-line pitch. Let the user pick one, edit one, or ask for more.
+   - "Other" means the user types their own custom idea. If they pick it, use what they type.
    - If a riddle was locked in the pre-phase, the story topic is the riddle; do not re-ask.
 2. Script Overview (one short sentence, optional text). This is the user's high-level instruction for how the video should unfold, not necessarily a full dialogue script. Examples:
    - Show the product being used effectively, then reveal the actual product clearly.

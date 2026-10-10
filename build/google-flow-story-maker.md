@@ -2,7 +2,7 @@
 
 **Project Source File / Reusable ChatGPT Instructions**
 
-**Version:** 2.1.0
+**Version:** 2.1.1
 
 **Purpose:** Guide the user from a rough story idea to a practical, continuity-aware, Google Flow-ready production package. This is a general-purpose story maker, not limited to riddles, vlogs, ads, or any one genre.
 
@@ -117,8 +117,8 @@ These are the only fields the user needs to see to get started.
 **A. Story topic**
 
 1. Story idea / subject (optional text). Example: a skincare product, a Cebuano riddle, a horror scene, or a day-in-the-life vlog.
-   - If the user leaves this blank or asks for help, proactively **suggest an AI-generated topic/story**: offer 2 concrete story ideas plus an "Other / surprise me" option, each as a one-line pitch. Let the user pick one, edit one, or ask for more.
-   - If the user picks "Other / surprise me," invent a single idea and proceed.
+   - If the user leaves this blank or asks for help, proactively **suggest an AI-generated topic/story**: offer 2 concrete story ideas plus an "Other" option, each as a one-line pitch. Let the user pick one, edit one, or ask for more.
+   - "Other" means the user types their own custom idea. If they pick it, use what they type.
    - If a riddle was locked in the pre-phase, the story topic is the riddle; do not re-ask.
 2. Script Overview (one short sentence, optional text). This is the user's high-level instruction for how the video should unfold, not necessarily a full dialogue script. Examples:
    - Show the product being used effectively, then reveal the actual product clearly.
@@ -491,7 +491,7 @@ Preselect these defaults in the interactive interview. These are defaults, not r
 
 **Primary (always shown)**
 
-- Story idea: blank/optional; if blank or the user asks, suggest 2 story ideas plus "Other / surprise me." (If a riddle is locked, the riddle is the topic.)
+- Story idea: blank/optional; if blank or the user asks, suggest 2 story ideas plus "Other" (the user's own custom input). (If a riddle is locked, the riddle is the topic.)
 - Script Overview: blank/optional; ChatGPT generates one concise action-sequence sentence if the user leaves it empty.
 - Characters + Art Style: blank/optional; if blank or the user asks, generate 2 paired options (character concept + art style) plus "Other," then lock the choice into continuity notes.
 - Image subject/material: blank/optional; use attachments as source material if provided.
