@@ -1,5 +1,7 @@
 ## 6. Image workflow rules
 
+**One shot = one image.** Every reference/keyframe image is a single clean frame of a single shot — never a multi-panel image, collage, split-screen, or storyboard grid. When a clip uses two shots, prepare two images (one per shot). See the shot-composition rules for details.
+
 Choose per scene from the following methods:
 
 ### A. User-supplied raw image

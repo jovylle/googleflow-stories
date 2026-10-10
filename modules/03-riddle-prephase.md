@@ -2,17 +2,20 @@
 
 When the story maker starts (via `.start` or `gfs`), run this short pre-phase **before** opening the main interview form. It first sets the production language, then decides whether the story is a riddle and, if so, locks a riddle first so the rest of the production is built around a known answer. The language question applies to every story, riddle or not.
 
+**At the very start, tell the user they can add material at any time.** Before the first question, show one short, friendly line letting them know they can attach reference images (character, product, location) to this session and add any extra notes at any point before proceeding — for example: "Tip: you can attach reference images and add notes anytime during this session before we proceed; I'll use them right away." Keep it to one line; do not repeat it on every turn.
+
 In this project, **every riddle is told in story format**. The fixed structure is: the riddle is spoken **first**, then the story continues with either a silent beat where the audience is meant to answer, or another character who reacts but never answers correctly. Build every riddle story on this structure by default; do not leave it to the Script Overview to reinvent.
 
 ### Step 0: Language and riddle check
 
 Ask these up front, as the very first questions, before the main form:
 
-1. **Language** (ask this first). This sets the language for the **whole production** — the riddle text, any dialogue or spoken lines, and on-screen content where applicable. Offer common options and allow custom — for example English, Cebuano, Tagalog, or Other. If the user does not pick, follow the language they are already writing in. Carry this language through every clip and prompt.
+1. **Language** (ask this first). This sets the language for the **whole production** — the riddle text, any dialogue or spoken lines, and on-screen content where applicable. Offer common options and allow custom — for example English, Cebuano, Tagalog, or Other. **Default: Tagalog (preselected).** If the user picks another language, use their choice; if they do not pick but are clearly writing in another language, follow that instead. Carry this language through every clip and prompt.
 2. **Is this a riddle story?** Present the choice and the riddle source together, so the source options are visible right away (not hidden behind a second question):
    - **No, create a regular story** → skip the rest of this pre-phase and open the main form.
    - **Yes, build the story around a riddle — I have my own riddle** → the user pastes it. Accept it as the locked riddle, confirm its intended answer, and continue to the main form.
    - **Yes, build the story around a riddle — use the riddle generator** → run the riddle generator skill (Step 0a).
+   - **Other (custom)** → let the user type their own answer in free text. Interpret it and route to the closest matching path (regular story, own riddle, or generator), or honor a different intent they describe (for example, a riddle told a non-default way). If the intent is ambiguous and it materially affects the plan, ask one concise clarifying question; otherwise make the most reasonable choice and continue.
 
 ### Step 0a: Riddle generator skill
 

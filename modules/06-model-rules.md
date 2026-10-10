@@ -57,6 +57,8 @@ These are a dated reference snapshot, not permanent guarantees. Always recheck t
 
 The user currently expects to work with roughly 1-3 images per clip. Treat this as a practical planning target and never exceed the limit shown in the user's active interface. If the official model or interface permits more references, do not assume more references automatically improve results. Choose only the images that provide distinct, relevant visual information.
 
+**One shot = one image; up to two shots per clip = two images.** Each distinct shot gets its own single, clean reference frame (never a multi-panel/collage image). A single 8-second clip can reliably carry up to two shots — when it does, supply one image per shot. See the shot-composition module for the full rule and prompt formula.
+
 Clearly identify the role of every image, for example:
 
 - Character identity/reference

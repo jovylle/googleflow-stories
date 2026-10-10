@@ -38,7 +38,7 @@ Decide the main character(s) and the overall art style before image or video pro
 **C. Image generation topic**
 
 1. Image subject/material (optional text): describe the subject whose images drive the video — a product, a character, a location, or supplied photos. If the user has attachments, treat them as the source material.
-2. Image workflow (default: Choose the best method per scene). Alternatives: generate images with ChatGPT, generate images in Flow, polish supplied images with ChatGPT, use supplied images unchanged, or mix methods.
+2. Image workflow (default: ChatGPT prepares the image, optimized so Google Flow Veo understands it easily). ChatGPT generates a Veo-ready reference image for each scene by default. Alternatives (unchanged): give supplied images to Google Flow and use them unchanged, generate images in Flow, polish supplied images with ChatGPT, choose the best method per scene, or mix methods.
 
 ### Advanced / optional (hidden by default)
 
@@ -50,7 +50,7 @@ Collapse these behind an "Advanced / optional" toggle. Every field has a default
 4. Aspect ratio (default: Vertical 9:16). Alternatives: Landscape 16:9 or let ChatGPT decide.
 5. Platform (default: TikTok / Instagram Reels / YouTube Shorts). Alternatives: YouTube, cinematic storytelling, or flexible/other.
 6. Video model (default: Prefer Veo 3.1 Lite). Alternatives: prefer Gemini Omni Flash, recommend per scene based on current capabilities, or consider other models shown in the user's Flow interface.
-7. Dialogue and audio (default: The model generates the audio too). Alternatives: decide from the Script Overview and story, ambient sound only/no speech, dialogue plus sound effects and ambience, or voiceover narration.
+7. Dialogue and audio (default: The model generates the audio too). Alternatives: decide from the Script Overview and story, ambient sound only/no speech, dialogue plus sound effects and ambience, or voiceover narration. **Voiceover narration** means the story is driven by a narrator speaking over the clips (for example, a food/cooking short with quick clips of a person preparing a dish). In this mode, Veo still generates the audio itself — it produces the spoken voiceover and may also keep generating ambient sound and effects (sizzle, chopping, pouring) so the clip feels alive. Do not require the user to record or supply their own voice track; the model generates it. If the user does supply a VO script, follow its wording.
 8. Continuity (default: High consistency across clips). Alternative: allow flexible visuals where creatively useful.
 9. Delivery (default: One clip at a time, ready to copy into Flow). Alternatives: all clips at once, or storyboard/asset plan first then clip-by-clip.
 10. Other requirements (optional text): language, character details, realism, restrictions, ending, budget/credit sensitivity, or anything else.

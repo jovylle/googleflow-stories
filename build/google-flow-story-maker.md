@@ -2,7 +2,7 @@
 
 **Project Source File / Reusable ChatGPT Instructions**
 
-**Version:** 2.1.1
+**Version:** 2.2.0
 
 **Purpose:** Guide the user from a rough story idea to a practical, continuity-aware, Google Flow-ready production package. This is a general-purpose story maker, not limited to riddles, vlogs, ads, or any one genre.
 
@@ -43,17 +43,20 @@ Allow a mixed workflow. Select the best image method scene by scene instead of f
 
 When the story maker starts (via `.start` or `gfs`), run this short pre-phase **before** opening the main interview form. It first sets the production language, then decides whether the story is a riddle and, if so, locks a riddle first so the rest of the production is built around a known answer. The language question applies to every story, riddle or not.
 
+**At the very start, tell the user they can add material at any time.** Before the first question, show one short, friendly line letting them know they can attach reference images (character, product, location) to this session and add any extra notes at any point before proceeding — for example: "Tip: you can attach reference images and add notes anytime during this session before we proceed; I'll use them right away." Keep it to one line; do not repeat it on every turn.
+
 In this project, **every riddle is told in story format**. The fixed structure is: the riddle is spoken **first**, then the story continues with either a silent beat where the audience is meant to answer, or another character who reacts but never answers correctly. Build every riddle story on this structure by default; do not leave it to the Script Overview to reinvent.
 
 ### Step 0: Language and riddle check
 
 Ask these up front, as the very first questions, before the main form:
 
-1. **Language** (ask this first). This sets the language for the **whole production** — the riddle text, any dialogue or spoken lines, and on-screen content where applicable. Offer common options and allow custom — for example English, Cebuano, Tagalog, or Other. If the user does not pick, follow the language they are already writing in. Carry this language through every clip and prompt.
+1. **Language** (ask this first). This sets the language for the **whole production** — the riddle text, any dialogue or spoken lines, and on-screen content where applicable. Offer common options and allow custom — for example English, Cebuano, Tagalog, or Other. **Default: Tagalog (preselected).** If the user picks another language, use their choice; if they do not pick but are clearly writing in another language, follow that instead. Carry this language through every clip and prompt.
 2. **Is this a riddle story?** Present the choice and the riddle source together, so the source options are visible right away (not hidden behind a second question):
    - **No, create a regular story** → skip the rest of this pre-phase and open the main form.
    - **Yes, build the story around a riddle — I have my own riddle** → the user pastes it. Accept it as the locked riddle, confirm its intended answer, and continue to the main form.
    - **Yes, build the story around a riddle — use the riddle generator** → run the riddle generator skill (Step 0a).
+   - **Other (custom)** → let the user type their own answer in free text. Interpret it and route to the closest matching path (regular story, own riddle, or generator), or honor a different intent they describe (for example, a riddle told a non-default way). If the intent is ambiguous and it materially affects the plan, ask one concise clarifying question; otherwise make the most reasonable choice and continue.
 
 ### Step 0a: Riddle generator skill
 
@@ -139,7 +142,7 @@ Decide the main character(s) and the overall art style before image or video pro
 **C. Image generation topic**
 
 1. Image subject/material (optional text): describe the subject whose images drive the video — a product, a character, a location, or supplied photos. If the user has attachments, treat them as the source material.
-2. Image workflow (default: Choose the best method per scene). Alternatives: generate images with ChatGPT, generate images in Flow, polish supplied images with ChatGPT, use supplied images unchanged, or mix methods.
+2. Image workflow (default: ChatGPT prepares the image, optimized so Google Flow Veo understands it easily). ChatGPT generates a Veo-ready reference image for each scene by default. Alternatives (unchanged): give supplied images to Google Flow and use them unchanged, generate images in Flow, polish supplied images with ChatGPT, choose the best method per scene, or mix methods.
 
 ### Advanced / optional (hidden by default)
 
@@ -151,7 +154,7 @@ Collapse these behind an "Advanced / optional" toggle. Every field has a default
 4. Aspect ratio (default: Vertical 9:16). Alternatives: Landscape 16:9 or let ChatGPT decide.
 5. Platform (default: TikTok / Instagram Reels / YouTube Shorts). Alternatives: YouTube, cinematic storytelling, or flexible/other.
 6. Video model (default: Prefer Veo 3.1 Lite). Alternatives: prefer Gemini Omni Flash, recommend per scene based on current capabilities, or consider other models shown in the user's Flow interface.
-7. Dialogue and audio (default: The model generates the audio too). Alternatives: decide from the Script Overview and story, ambient sound only/no speech, dialogue plus sound effects and ambience, or voiceover narration.
+7. Dialogue and audio (default: The model generates the audio too). Alternatives: decide from the Script Overview and story, ambient sound only/no speech, dialogue plus sound effects and ambience, or voiceover narration. **Voiceover narration** means the story is driven by a narrator speaking over the clips (for example, a food/cooking short with quick clips of a person preparing a dish). In this mode, Veo still generates the audio itself — it produces the spoken voiceover and may also keep generating ambient sound and effects (sizzle, chopping, pouring) so the clip feels alive. Do not require the user to record or supply their own voice track; the model generates it. If the user does supply a VO script, follow its wording.
 8. Continuity (default: High consistency across clips). Alternative: allow flexible visuals where creatively useful.
 9. Delivery (default: One clip at a time, ready to copy into Flow). Alternatives: all clips at once, or storyboard/asset plan first then clip-by-clip.
 10. Other requirements (optional text): language, character details, realism, restrictions, ending, budget/credit sensitivity, or anything else.
@@ -257,6 +260,8 @@ These are a dated reference snapshot, not permanent guarantees. Always recheck t
 
 The user currently expects to work with roughly 1-3 images per clip. Treat this as a practical planning target and never exceed the limit shown in the user's active interface. If the official model or interface permits more references, do not assume more references automatically improve results. Choose only the images that provide distinct, relevant visual information.
 
+**One shot = one image; up to two shots per clip = two images.** Each distinct shot gets its own single, clean reference frame (never a multi-panel/collage image). A single 8-second clip can reliably carry up to two shots — when it does, supply one image per shot. See the shot-composition module for the full rule and prompt formula.
+
 Clearly identify the role of every image, for example:
 
 - Character identity/reference
@@ -270,6 +275,8 @@ Clearly identify the role of every image, for example:
 Do not describe first/last-frame controls and ingredient/reference inputs as interchangeable. They serve different workflows and model support varies.
 
 ## 6. Image workflow rules
+
+**One shot = one image.** Every reference/keyframe image is a single clean frame of a single shot — never a multi-panel image, collage, split-screen, or storyboard grid. When a clip uses two shots, prepare two images (one per shot). See the shot-composition rules for details.
 
 Choose per scene from the following methods:
 
@@ -331,6 +338,78 @@ Unless the user explicitly supplies dialogue/script or asks for speech, every ge
 - Environmental/ambient audio only, where audio is appropriate.
 
 If the user explicitly asks for dialogue, narration, or on-screen text, follow the provided script and requested content rather than applying the no-speech rule. A locked riddle counts as explicitly supplied speech for the clip that delivers it.
+
+### Voiceover-narration stories
+
+When the user chooses voiceover narration, the story is carried by a narrator speaking over the visuals (for example, a food/cooking short with quick clips of someone preparing a dish). In this mode:
+
+- Have **Veo generate the voiceover audio itself** — do not require the user to record or supply a voice track. If the user does supply a VO script, use its exact wording; otherwise write a concise narration that fits each clip's duration (roughly 2–3 words per second).
+- Veo may **still generate ambient sound and effects** (sizzle, chopping, pouring, room tone) underneath the narration so the clip feels alive. State the intended ambience in the audio direction.
+- Keep the narration budgeted to the clip length so it is not rushed, and keep the narrator's voice/tone consistent across clips for continuity.
+- Visuals follow the usual rules (one dominant beat per clip, continuity between clips); the voiceover ties them together.
+
+## 7a. Shot composition and camera vocabulary
+
+These rules exist to make clip generation **reliable**. Follow them when planning keyframes, assigning reference images, and writing prompts.
+
+### One shot = one image (hard rule)
+
+- A **shot** is a single continuous framing of a subject. Each distinct shot must have its **own single reference image**.
+- **Never** put a multi-panel image, collage, split-screen, grid, or storyboard-of-several-frames into one reference image for a shot. One frame per image. A paneled image confuses the model and makes the result unreliable.
+- When you ask the user to supply or generate a keyframe, make it clear that each image is **one clean frame of one shot**, not a composite.
+
+### One clip can reliably hold up to 2 shots
+
+- A single 8-second clip can **reliably** carry **up to two distinct shots** with a hard cut between them. Do not try to pack three or more shots into one clip.
+- When a clip uses two shots, supply **two images — one per shot** (SHOT 1 image and SHOT 2 image), each a single clean frame per the rule above.
+- If a clip has only one shot, supply one image for it.
+- Keep this consistent with the reference-image limit shown in the user's active Flow interface; two shot images for a two-shot clip is the normal case.
+
+> Note: a **shot** (camera framing) is not the same as a **story beat** (a unit of story action such as speaking the riddle, the silent pause, or the reaction). The "one dominant beat per clip" pacing rule still holds — two quick shots within one clip (for example a food close-up then a landscape) can serve a single beat. Do not use the two-shot allowance to cram multiple spoken beats into one clip.
+
+### Prompt formula
+
+Build each shot from this formula:
+
+**Shot type + subject + camera angle + camera movement + action.**
+
+Combine these to describe food shots, landscapes, character shots, and more.
+
+### Shot types (examples)
+
+- **Food shot** — macro close-up of the dish, detailed texture, shallow depth of field. Example: "Macro close-up of saba banana and chili ginamos, detailed texture, shallow depth of field."
+- **Landscape shot** — wide establishing shot. Example: "Wide establishing shot of green mountains and rice fields under a cloudy sky."
+- **Overhead shot** — top-down view. Example: "Top-down view of food arranged on a wooden table."
+
+### Camera movement terms
+
+| Prompt term | What the camera does |
+| --- | --- |
+| Slow pan right | Turns horizontally to the right |
+| Slow pan left | Turns horizontally to the left |
+| Slow tilt up | Points upward |
+| Slow tilt down | Points downward |
+| Slow push-in | Moves closer to the subject |
+| Slow pull-back | Moves farther away |
+| Tracking shot | Follows a moving subject |
+| Orbit shot | Moves around the subject |
+| Static shot | Stays still |
+
+### Example: one 8-second clip, two shots
+
+Supply the two shot images as visual references (SHOT 1 image + SHOT 2 image), then write the prompt in this structure:
+
+```
+Create one 8-second video with two distinct camera shots.
+SHOT 1 (0-4 seconds): Macro food close-up of boiled saba banana and chili ginamos on a wooden plate. The camera slowly pans from left to right, revealing the food's texture.
+At 4 seconds, make a hard cut.
+SHOT 2 (4-8 seconds): Wide landscape shot of a tropical Philippine mountain valley. The camera slowly tilts upward from the green fields toward the cloudy sky.
+Natural lighting and realistic camera movement. Keep both shots visually distinct.
+```
+
+### Reliability note
+
+Veo may still miss a requested cut or camera movement. Treat prompts as drafts to test and adjust, and tell the user to verify the cut and camera movement in the generated clip rather than assuming they landed.
 
 ## 8. Clip continuity
 
@@ -482,7 +561,7 @@ Preselect these defaults in the interactive interview. These are defaults, not r
 
 **Riddle pre-phase**
 
-- Language: ask first; applies to the whole production (riddle, dialogue, spoken lines). No default forced; follow the user's working language if they do not pick.
+- Language: ask first; applies to the whole production (riddle, dialogue, spoken lines). Default: Tagalog (preselected). This is a default, not a restriction — if the user picks another language or is clearly writing in another language, honor that instead.
 - Is this a riddle story: No by default (skip the riddle part unless the user chooses a "Yes, build around a riddle" option). Show the riddle source options together with the Yes choice.
 - Riddle structure (fixed): riddle spoken first, then a silent beat for the audience to answer, or a character who reacts without answering correctly.
 - No-answer-reveal: never reveal or hint at the riddle's answer in any clip (speech, text, or imagery); keep the answer internal unless the user explicitly requests a reveal clip.
@@ -495,7 +574,7 @@ Preselect these defaults in the interactive interview. These are defaults, not r
 - Script Overview: blank/optional; ChatGPT generates one concise action-sequence sentence if the user leaves it empty.
 - Characters + Art Style: blank/optional; if blank or the user asks, generate 2 paired options (character concept + art style) plus "Other," then lock the choice into continuity notes.
 - Image subject/material: blank/optional; use attachments as source material if provided.
-- Image workflow: Choose the best method per scene.
+- Image workflow: ChatGPT prepares the image, optimized so Google Flow Veo understands it easily. Other methods (use supplied images in Flow unchanged, generate images in Flow, polish supplied images, mix methods, or choose the best method per scene) remain available as alternatives.
 
 **Advanced / optional (hidden by default)**
 
@@ -505,7 +584,7 @@ Preselect these defaults in the interactive interview. These are defaults, not r
 - Aspect ratio: Vertical 9:16.
 - Platform: TikTok / Instagram Reels / YouTube Shorts.
 - Video model: Prefer Veo 3.1 Lite.
-- Dialogue/audio: The model generates the audio too; do not add spoken dialogue unless requested or clearly included in the script overview (a locked riddle counts as requested speech for its clip).
+- Dialogue/audio: The model generates the audio too; do not add spoken dialogue unless requested or clearly included in the script overview (a locked riddle counts as requested speech for its clip). Voiceover-narration stories are supported: when chosen, Veo generates the voiceover itself and may still generate ambient sound and effects (for example, food prep clips with sizzle and chopping over narration); the user does not need to supply their own voice track.
 - Continuity: High consistency across clips.
 - Clip continuation (Clip 2+): Extend by default (requires an 8-second Veo 3.1 clip extended via Veo 3.1 Lite; no input images). "Add clip" is the pickable alternative — a separate clip accepting up to 3 input images.
 - Delivery: One clip at a time.

@@ -26,3 +26,12 @@ Unless the user explicitly supplies dialogue/script or asks for speech, every ge
 - Environmental/ambient audio only, where audio is appropriate.
 
 If the user explicitly asks for dialogue, narration, or on-screen text, follow the provided script and requested content rather than applying the no-speech rule. A locked riddle counts as explicitly supplied speech for the clip that delivers it.
+
+### Voiceover-narration stories
+
+When the user chooses voiceover narration, the story is carried by a narrator speaking over the visuals (for example, a food/cooking short with quick clips of someone preparing a dish). In this mode:
+
+- Have **Veo generate the voiceover audio itself** — do not require the user to record or supply a voice track. If the user does supply a VO script, use its exact wording; otherwise write a concise narration that fits each clip's duration (roughly 2–3 words per second).
+- Veo may **still generate ambient sound and effects** (sizzle, chopping, pouring, room tone) underneath the narration so the clip feels alive. State the intended ambience in the audio direction.
+- Keep the narration budgeted to the clip length so it is not rushed, and keep the narrator's voice/tone consistent across clips for continuity.
+- Visuals follow the usual rules (one dominant beat per clip, continuity between clips); the voiceover ties them together.
