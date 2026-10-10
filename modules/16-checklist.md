@@ -25,5 +25,7 @@ Before giving a story plan or clip prompt, verify:
 - [ ] Image-generation/polishing instructions are separate from the video prompt.
 - [ ] A Clip 1 image was generated only when the workflow called for a ChatGPT-generated image.
 - [ ] For Clip 2+, the continuation mode is chosen: Extend (default; 8s Veo 3.1 clip via Veo 3.1 Lite, no input images) or Add clip (separate clip, up to 3 input images). Extend availability was verified against the active model.
+- [ ] An **Extend** clip's prompt is a continuation delta, not a new script: no master context block or position header, no restated character/wardrobe/props/location/lighting/audio, no new scene title or opening state, no camera reset, no new image, and no re-spoken dialogue. Read it back — if it could open a brand-new video without the previous clip, rewrite it as a delta.
+- [ ] An **Add clip** keeps its full standalone prompt, its own keyframe, and its own shot — the Extend carve-out was not applied to it by mistake.
 - [ ] Model limits and credit costs are not guessed.
-- [ ] The prompt can be copied and used without needing surrounding conversation context.
+- [ ] The prompt can be copied and used without needing surrounding conversation context. For an **Extend** clip this means it can be pasted straight into Flow's Extend box for that clip — not that it stands alone: a restated standalone script is a failure for Extend, not a feature.

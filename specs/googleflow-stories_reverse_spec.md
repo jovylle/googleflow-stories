@@ -230,15 +230,17 @@ written to `build/`. At analysis time `build/` was **byte-identical** to a fresh
 | F4 | P2 | **Commands defined but unwired.** `.advanced`, `.go`, `.restart` appear only in `01-commands.md`; no downstream module reinforces them. (`.start`/`gfs` appear in 03; `.reroll` appears in 03.) | 01:14-16 vs grep of all other modules |
 | F5 | P3 | **Story-idea count differs by surface.** Pre-phase offers **AI Option A/B/C** (three); interview help suggests **2 story ideas**. Probably intentional (different contexts) but undocumented as such. | 03:31-34 vs 04:32, 15:23 |
 | F6 | P3 | **Riddle-toggle framing differs.** Defaults frame it as Yes/No ("No by default"); the pre-phase presents a 6-way choice with no stated default. | 15:15 vs 03:27-36 |
+| F7 | **P1** | **Extend clips were written as new scripts.** The master-context and standalone-prompt rules required *every* clip — including a Clip 2+ produced with Extend — to carry a full master block and ship as a copy-ready standalone prompt, so an extension was planned, prompted, and presented as a fresh clip. Result: Clip 1 and Clip 2 render as two separate videos that do not join. | 05:36-44, 08:14, 09:20, 11:52, 16:29 vs 09:56 |
 
 No security-class issues found beyond the intentional secret-sealing rules (which are well-specified).
 
-### Resolution status — patch v2.11.7 (branch `dev`)
+### Resolution status — patches v2.11.7 (branch `dev`) / v2.11.8 (branch `fix/extend-clip-continuation`)
 
 - **F1 — FIXED.** Canonical rule: Clip 1's image is produced immediately by the Clip 1 final phase; every other image waits for `imgN-M`. Stated in `10-clip1-final.md` and referenced from `04-interview.md`, `11-output-format.md`, `15-defaults.md`.
 - **F2 — FIXED.** `15-defaults.md` now matches the interview: **AI Character A/B/C** (three) plus a shortcut of **2 paired pitches**.
 - **F3 — FIXED.** Added a "Clip continuation (Clip 2+)" field to the interview's Advanced list (`04-interview.md`), matching `15-defaults.md` / `09-clip-continuity.md`.
 - **F4 — FIXED.** Added a "Command handling in this flow" note to `04-interview.md` wiring `.advanced`, `.go`, and `.restart`.
+- **F7 — FIXED (v2.11.8, branch `fix/extend-clip-continuation`).** An Extend clip now gets a short continuation delta, not a new script: master block and standalone-prompt rules are scoped to independently generated clips (Clip 1 and Add clips), with the contract owned by `09-clip-continuity.md` and cross-referenced from 05/06/08/10/11/15/16 and interview field 9. See `specs/extend-clip-continuation.md`.
 - **F5, F6 — OPEN (P3).** Story-idea count (3 vs 2) and riddle Yes/No framing intentionally left unchanged; documented here for a later pass.
 
 ---

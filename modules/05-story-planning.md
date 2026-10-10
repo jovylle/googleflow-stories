@@ -22,7 +22,7 @@ Immediately after the first wizard submission, before generating any single clip
 The blueprint must cover, end to end:
 
 - The overall arc: how the story opens, develops, turns, and ends across the full clip count.
-- Each clip's role in that arc, in order, and how each clip hands off to the next (ending state → next clip's starting state).
+- Each clip's role in that arc, in order, and how each clip hands off to the next (ending state → next clip's starting state). A clip produced with **Extend** is described in the blueprint as a **continuation of the clip before it** — the one small change it shows — not as a new scene with its own fresh subject, setting, and camera setup. Only **Clip 1 and Add clips** get a full standalone scene entry.
 - What stays constant throughout (character identity, wardrobe, art style, location, palette, lighting, mood, and — for any speaking/narrating character — their locked voice identity and language/dialect).
 
 <!--
@@ -31,24 +31,26 @@ clip is generated with no memory of the others; it carries the constants and the
 handoff that make separate clips read as one video. This is referenced by the
 video-prompt module (step 0) — keep the concept and name consistent.
 -->
-### Master context block (repeat inside every clip prompt)
+### Master context block (repeat inside every independently generated clip prompt)
 
 Because each clip is generated from its own prompt with no memory of the others, define a short **master context block** once, then include it (or a tight subset of it) at the top of **every** clip's video prompt so each clip carries the whole-story context. The master block states:
 
 - Story one-liner and the clip's position (for example, "Clip 2 of 3").
 - Locked character identity + art style, key wardrobe/props, location, palette, lighting, and mood that must not drift.
-- **Locked audio/voice identity for each speaking or narrating character** — who they are, their voice qualities (gender, age impression, tone, accent, pace, energy) and the language/dialect they speak in. Because each clip is generated with no memory of the others, this must be restated in every clip prompt so a character's voice does not change between clips. If no one speaks (silent/ambient-only), state that explicitly instead.
+- **Locked audio/voice identity for each speaking or narrating character** — who they are, their voice qualities (gender, age impression, tone, accent, pace, energy) and the language/dialect they speak in. Because each independently generated clip has no memory of the others, this must be restated in every such clip prompt so a character's voice does not change between clips (an Extend clip continues the base clip's audio — do not restate or contradict it). If no one speaks (silent/ambient-only), state that explicitly instead.
 - The immediately preceding clip's ending state and this clip's required starting state, so the cut reads as continuous.
 - Any locked riddle text/language constraints that apply.
 
 Keep it concise — repeat only the constants and the handoff, not the entire plan. This master block is what makes individually generated clips feel like one video.
+
+**Exception — Extend clips carry no master block.** A Clip 2+ that continues the previous clip with **Extend** is not independently generated: it is rendered from the base clip, so character, wardrobe, location, lighting, and audio are already on screen. Give it the short continuation delta defined in the clip-continuity module instead — no master context block, no restated constants, no new scene framing. Handing a full master block to an Extend clip is what makes Flow establish the scene a second time, so the extension renders as its own separate video instead of continuing the first one. **Add clip** (the alternative continuation mode) *is* independently generated and keeps the full block.
 
 Before video prompts, create a compact plan appropriate to the requested delivery style:
 
 1. Script Overview: exactly one concise sentence in an action-sequence format that states how the video unfolds across the requested clips. Use the user's sentence if provided; otherwise generate one in the same style. Preserve explicit per-clip speech/silence instructions here. If a riddle was locked, build the overview around **delivering that riddle's text** — plan from the riddle's wording and mood only, **not** from its answer (answer-blind planning, per the riddle module). The answer is a sealed leak check, never a plot input.
 2. Premise and intended outcome: briefly describe what happens and what the viewer should feel or understand.
 3. Story beats: beginning, development, turning point, and ending/payoff as appropriate to the genre and clip count.
-4. Clip list / shot list: create exactly the requested number of clips. For each, specify its purpose, supported target duration, subject, setting, main action, camera framing/movement, continuity details, audio needs, and image inputs.
+4. Clip list / shot list: create exactly the requested number of clips. For each, specify its purpose, supported target duration, subject, setting, main action, camera framing/movement, continuity details, audio needs, and image inputs. For a Clip 2+ produced with **Extend**, specify only its continuation purpose, the one small change it shows ("no image input, no new script, no new shot") — do not write it a fresh subject/setting/camera spec or a new scene title, because the base clip already establishes all of that. An **Add clip** gets the full spec above, plus its own keyframe.
 5. Continuity notes when needed: stable character appearance, clothing, props, location layout, time of day, lighting, color palette, and details that must not drift between clips.
 6. Asset plan: indicate which reference images should be created or supplied for each clip. Prefer a small, deliberate set of references over a pile of loosely related images.
 

@@ -3,7 +3,9 @@ WHY THIS SECTION EXISTS:
 Defines the copy-ready video-prompt structure (steps 0–8), beginning with the master
 context block that keeps individually generated clips connected. The ordered recipe
 and the "concise/concrete, not adjective-stuffed" guidance are intentional. Keep
-step 0 (master block) first in every clip prompt.
+step 0 (master block) first in every independently generated clip prompt (Clip 1 and
+Add clips); an Extend clip instead takes the short continuation delta — no master
+block, no restated constants.
 -->
 ## 7. Video prompt construction
 
@@ -11,7 +13,7 @@ Write each video prompt so it can be copied directly into Google Flow. Avoid vag
 
 Recommended structure:
 
-0. Master context block: a short shared header (see the story-planning module) that states the story one-liner, this clip's position (for example "Clip 2 of 3"), the locked character/art-style/location/palette/lighting constants, the **locked voice/audio identity of each speaking or narrating character** (voice qualities and language/dialect, so a character sounds the same in every clip; state "no speech, ambient only" if no one speaks), the previous clip's ending state, and this clip's required starting state. Include this at the top of **every** clip prompt — each clip is generated individually with no memory of the others, so this block is what keeps them connected. Repeat only the constants and the handoff, not the whole plan.
+0. Master context block: a short shared header (see the story-planning module) that states the story one-liner, this clip's position (for example "Clip 2 of 3"), the locked character/art-style/location/palette/lighting constants, the **locked voice/audio identity of each speaking or narrating character** (voice qualities and language/dialect, so a character sounds the same in every clip; state "no speech, ambient only" if no one speaks), the previous clip's ending state, and this clip's required starting state. Include this at the top of every **independently generated** clip prompt (Clip 1 and every Add clip) — each is generated individually with no memory of the others, so this block is what keeps them connected. Repeat only the constants and the handoff, not the whole plan. **An Extend clip is the exception:** it is rendered from the previous clip, so it takes no master block and none of the restated constants below — just the short continuation delta described after the structure list.
 1. Reference instruction: how to treat supplied images and what must remain unchanged.
 2. Subject and setting: who/what is on screen and where.
 3. Main action: one dominant action, with clear timing or progression when useful.
@@ -22,6 +24,15 @@ Recommended structure:
 8. Ending condition: where the action and camera should end, especially if the next clip must continue from it.
 
 Use concise, concrete language. Do not overload every prompt with redundant adjectives or excessive negative instructions. Prioritize the instructions that affect the visible result most.
+
+**Structure for an Extend clip (Clip 2+ continuation) — short, not a script.** Steps 0–8 above describe a clip that is generated on its own. When a Clip 2+ uses **Extend**, they collapse into a small delta:
+
+1. Continue the previous clip's final frame, framing, and camera movement (no cut, no new shot, no re-establishing).
+2. The one small change this clip shows (a head tilt, magic brightening, a held pause).
+3. The ending state it settles into, so a further Extend can chain.
+4. Audio continuity only (ambient by default; continued speech only if the user asked for it).
+
+Delete anything that restates the character, wardrobe, props, location, lighting, palette, art style, or voice identity: Extend inherits all of it from the base clip, and restating it is what makes Flow render an independent clip instead of a continuation. A correct Extend prompt is roughly one short paragraph (about 40–70 words) and would make no sense as the opening of a brand-new video.
 
 <!--
 Default-silence policy: unless the user supplies dialogue/script or asks for speech,

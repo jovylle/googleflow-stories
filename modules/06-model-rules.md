@@ -53,7 +53,7 @@ in a way that implies Fast/Quality can perform the extend or that images are acc
 -->
 ### Extend rule (important)
 
-Per the official tip: **all Veo 3.1 8-second videos can be extended, but the extension must be performed with Veo 3.1 Lite.** So a clip made with Veo 3.1 Lite, Fast, or Quality can be extended, but the Extend action itself runs on Veo 3.1 Lite and only on 8-second clips. Extension does not accept input images — it continues from the existing clip plus a text prompt.
+Per the official tip: **all Veo 3.1 8-second videos can be extended, but the extension must be performed with Veo 3.1 Lite.** So a clip made with Veo 3.1 Lite, Fast, or Quality can be extended, but the Extend action itself runs on Veo 3.1 Lite and only on 8-second clips. Extension does not accept input images — it continues from the existing clip plus a text prompt. That text prompt is a **short continuation delta** (see the clip-continuity module): say to continue the base clip's framing and motion, then state only what changes. Never hand Extend a restated standalone script — Flow will build a new, independent video from it instead of extending the clip.
 
 ### Gemini Omni Flash 1.1
 
