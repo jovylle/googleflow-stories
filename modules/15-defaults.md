@@ -22,7 +22,7 @@ Preselect these defaults in the interactive interview. These are defaults, not r
 
 - Story idea: blank/optional; if blank or the user asks, suggest 2 story ideas plus "Other" (the user's own custom input). (If a riddle is locked, the riddle is the topic.)
 - Script Overview: blank/optional; ChatGPT generates one concise action-sequence sentence if the user leaves it empty.
-- Characters + Art Style: blank/optional; if blank or the user asks, generate 2 paired options (character concept + art style) plus "Other," then lock the choice into continuity notes.
+- Characters + Art Style: blank/optional; if blank or the user asks, offer **AI Character A / B / C** (three one-line character concepts), plus a shortcut of **2 paired pitches** (character concept + matching art style), plus "Other," then lock the chosen character identity and art style into continuity notes.
 - Image subject/material: blank/optional; use attachments as source material if provided.
 - Image workflow: ChatGPT prepares the image, optimized so Google Flow Veo understands it easily. Other methods (use supplied images in Flow unchanged, generate images in Flow, polish supplied images, mix methods, or choose the best method per scene) remain available as alternatives.
 
@@ -37,7 +37,7 @@ Preselect these defaults in the interactive interview. These are defaults, not r
 - Dialogue/audio: The model generates the audio too; do not add spoken dialogue unless requested or clearly included in the script overview (a locked riddle counts as requested speech for its clip). Voiceover-narration stories are supported: when chosen, Veo generates the voiceover itself and may still generate ambient sound and effects (for example, food prep clips with sizzle and chopping over narration); the user does not need to supply their own voice track.
 - Continuity: High consistency across clips.
 - Clip continuation (Clip 2+): Extend by default (requires an 8-second Veo 3.1 clip extended via Veo 3.1 Lite; no input images). "Add clip" is the pickable alternative — a separate clip accepting up to 3 input images.
-- Delivery: All clips at once by default — prompts now, images on demand. Deliver all clip video prompts at once as collapsed summaries (expandable on request); do not generate images until the user picks a shot. Storyboard-first remains the alternative.
+- Delivery: All clips at once by default — prompts now, images on demand. Deliver all clip video prompts at once as collapsed summaries (expandable on request); do not generate images until the user picks a shot, **except the Clip 1 image, which the Clip 1 final phase produces immediately** when the workflow calls for a ChatGPT-generated image. Storyboard-first remains the alternative.
 - Additional requirements: Optional and blank by default.
 - Attachments: Accept them at any time, including before the interview, at submit time, or after submission.
 

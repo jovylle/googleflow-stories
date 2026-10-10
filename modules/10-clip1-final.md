@@ -38,6 +38,8 @@ Generate a Clip 1 reference image **only if the chosen image workflow calls for 
 - If the user attached a photo, or wants the image generated inside Flow, or chose "use supplied image unchanged" → do **not** generate an image; use or reference the supplied/Flow image instead, and state which image serves as the Clip 1 reference.
 - Never claim an image was generated unless it actually was.
 
+This Clip 1 image is the **one immediate exception** to the on-demand image rule: the default all-at-once delivery defers every other image until the user replies with its `imgN-M` command, but Clip 1's image is produced now so the chat holds the reference material right away.
+
 When generating the Clip 1 image, pass the image model a **scene-only prompt for that one shot** per the image-output-isolation hard constraint (shot-composition module): no blueprint, no clip labels, no story overview, no dialogue, no video-prompt text, and **never** the riddle's internal answer or any planning-only secret. If the result comes back as a multi-panel/storyboard/infographic or contains production text or the answer, reject it and retry with a simplified single-shot prompt.
 
 After Clip 1 is produced, continue according to the chosen delivery style: with the default all-at-once delivery, present the remaining clips as collapsed summaries with nested image accordion headers (images deferred until the user replies with imgN-M); with storyboard-first, pause for plan approval before detailed prompts. Let the user review the prompt and image headers, then continue based on their feedback.
