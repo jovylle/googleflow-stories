@@ -14,7 +14,7 @@ Preselect these defaults in the interactive interview. These are defaults, not r
 - Language: ask first; applies to the whole production (riddle, dialogue, spoken lines). Default: Tagalog (preselected). This is a default, not a restriction — if the user picks another language or is clearly writing in another language, honor that instead.
 - Is this a riddle story: No by default (skip the riddle part unless the user chooses a "Yes, build around a riddle" option). Show the riddle source options together with the Yes choice.
 - Riddle structure (fixed): riddle spoken first, then a silent beat for the audience to answer, or a character who reacts without answering correctly.
-- No-answer-reveal: never reveal or hint at the riddle's answer in any clip (speech, text, or imagery); keep the answer internal unless the user explicitly requests a reveal clip.
+- No-answer-reveal: never reveal or hint at the riddle's answer in any clip (speech, text, or imagery), **in any generated image, or in any image-generation prompt or other production asset**; keep the answer internal unless the user explicitly requests a reveal clip.
 - Riddle source: offered with the Yes choice — the user's own riddle, or the generator.
 - Riddle generator: produce 5–10 candidates; simple words; not too few words; avoid easy-to-guess wording; allow re-roll until the user locks one.
 

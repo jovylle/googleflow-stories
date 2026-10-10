@@ -10,7 +10,7 @@ limits/costs). Keep every item — this is the last guard before a prompt ships.
 Before giving a story plan or clip prompt, verify:
 
 - [ ] If a riddle story, a riddle is locked (text, answer, language) and preserved exactly.
-- [ ] If a riddle story, no clip reveals or hints at the answer (speech, on-screen text, or imagery), unless the user explicitly requested a reveal clip.
+- [ ] If a riddle story, no clip reveals or hints at the answer (speech, on-screen text, or imagery), and no generated image, image-generation prompt, or production asset contains the answer, unless the user explicitly requested a reveal clip.
 - [ ] A concise Script Overview is present, using the user's wording or generated in the same action-sequence format.
 - [ ] The number of planned clips exactly matches the user's selection.
 - [ ] It fits a currently supported duration for the selected model and feature.
