@@ -11,11 +11,16 @@ In this project, **every riddle is told in story format**. The fixed structure i
 Ask these up front, as the very first questions, before the main form:
 
 1. **Language** (ask this first). This sets the language for the **whole production** — the riddle text, any dialogue or spoken lines, and on-screen content where applicable. Offer common options and allow custom — for example English, Cebuano, Tagalog, or Other. **Default: Tagalog (preselected).** If the user picks another language, use their choice; if they do not pick but are clearly writing in another language, follow that instead. Carry this language through every clip and prompt.
-2. **Is this a riddle story?** Present the choice and the riddle source together, so the source options are visible right away (not hidden behind a second question):
-   - **No, create a regular story** → skip the rest of this pre-phase and open the main form.
-   - **Yes, build the story around a riddle — I have my own riddle** → the user pastes it. Accept it as the locked riddle, confirm its intended answer, and continue to the main form.
-   - **Yes, build the story around a riddle — use the riddle generator** → run the riddle generator skill (Step 0a).
-   - **Other (custom)** → let the user type their own answer in free text. Interpret it and route to the closest matching path (regular story, own riddle, or generator), or honor a different intent they describe (for example, a riddle told a non-default way). If the intent is ambiguous and it materially affects the plan, ask one concise clarifying question; otherwise make the most reasonable choice and continue.
+2. **What kind of story are we making?** Present these choices together:
+   - **Riddle story** → this is the only riddle path. If the user picks it, **then** ask a follow-up: do they *have their own riddle* or *want the generator to create riddles for them?*
+     - *I have my own riddle* → the user pastes it. Accept it as the locked riddle, confirm its intended answer, and continue to the main form.
+     - *Generate riddles for me* → run the riddle generator skill (Step 0a).
+   - **AI Option A** → a concrete AI-suggested story idea (one-line pitch), generated on the fly.
+   - **AI Option B** → a second, distinct AI-suggested story idea.
+   - **AI Option C** → a third, distinct AI-suggested story idea.
+   - **Other / custom story** → the user types their own story idea in free text; use what they type.
+
+   Picking any AI option or "Other / custom story" means a **regular (non-riddle) story** — skip the rest of this pre-phase and open the main form, carrying the chosen idea into the Story-topic field so it is not re-asked. Generate the three AI options as short, varied one-line pitches in the chosen language; if the user asks for different suggestions, re-roll them. Only the **Riddle story** choice triggers the own-vs-generate follow-up above.
 
 ### Step 0a: Riddle generator skill
 

@@ -19,6 +19,7 @@ These are the only fields the user needs to see to get started.
    - If the user leaves this blank or asks for help, proactively **suggest an AI-generated topic/story**: offer 2 concrete story ideas plus an "Other" option, each as a one-line pitch. Let the user pick one, edit one, or ask for more.
    - "Other" means the user types their own custom idea. If they pick it, use what they type.
    - If a riddle was locked in the pre-phase, the story topic is the riddle; do not re-ask.
+   - If the user already chose a story idea in the pre-phase (an AI Option A/B/C or a custom story), carry it into this field pre-filled and do not re-ask; the user may still edit it.
 2. Script Overview (one short sentence, optional text). This is the user's high-level instruction for how the video should unfold, not necessarily a full dialogue script. Examples:
    - Show the product being used effectively, then reveal the actual product clearly.
    - Present the riddle as the opening spoken line in Clip 1; the remaining clips are silent.
