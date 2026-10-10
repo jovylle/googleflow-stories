@@ -105,6 +105,11 @@ Prevents the model from rushing by capping one dominant beat per clip and budget
 spoken words to the model's max duration. These numeric budgets (≈2–3 words/sec,
 16–24 words per 8s) and the analyze-and-suggest clip-count behavior are intentional;
 do not hard-code a fixed split or let the system silently rewrite a locked riddle.
+IMPORTANT: the clip count is DERIVED from the specific riddle's length — never a
+blanket "3 clips recommended for riddles." A short riddle may be 1-2 clips; only a
+long riddle that cannot fit one clip is spread into more. This was tightened after
+the model kept presetting "3 clips (recommended for riddle)" in the form regardless
+of riddle length. Do not reintroduce a fixed riddle=3 template.
 -->
 ### Pacing and clip-count planning (flexible)
 
@@ -117,4 +122,7 @@ Rules:
 - **Analyze and suggest the clip count.** Before prompts, estimate how many clips the riddle and story actually need so nothing is rushed. Present the suggested clip count and the beat each clip carries. If it differs from the user's chosen clip count, explain why and let them accept, adjust, or override.
 - **Suggest script changes to fit.** If a riddle or line is too long for a single clip, propose concrete options: split across clips, shorten/rephrase while preserving meaning and the no-answer-reveal rule, or recommend a longer-duration model (frame model suggestions as recommendations grounded in current support, not guarantees). Never silently rewrite a locked riddle — show the proposed change and get approval.
 - **Keep good continuation.** When beats span multiple clips, each clip must start from the previous clip's ending state (subject position, expression, framing, lighting) so the sequence reads as one continuous moment. Provide a short bridge/continuity note between clips.
-- **Typical riddle pacing** (adjust to the actual riddle length and model): Clip 1 delivers the riddle; a following clip holds the silent think-beat; a further clip carries the reaction. Collapse to fewer clips only when the content genuinely fits one clip's duration without rushing.
+- **Clip count follows the riddle's actual length — do not preset "3 clips for riddles."** The number of clips is an **output of the word-count analysis above**, not a fixed template. Decide it like this:
+  - **Short riddle that fits one spoken clip** (≈16–24 words for an 8s clip): the whole story can often be **1–2 clips** — the riddle delivery, and optionally a short think-beat/reaction that may share a clip. Do not inflate to 3 clips just because it is a riddle.
+  - **Longer riddle, or when beats genuinely cannot share a clip without rushing:** spread across more clips so nothing is squashed — for example Clip 1 delivers the riddle, a following clip holds the silent think-beat, a further clip carries the reaction. This is the case the original squashed-riddle problem was about.
+  - Always present the suggested count as a **recommendation tied to this specific riddle's length**, with the beat each clip carries, and let the user accept, adjust, or override. Never label a clip count "recommended for riddles" in general; only recommend a count because *this* riddle's words require it.
