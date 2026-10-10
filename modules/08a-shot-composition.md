@@ -11,12 +11,15 @@ These rules exist to make clip generation **reliable**. Follow them when plannin
 
 <!--
 Hard reliability rule: one clean frame per reference image — never a collage/grid/
-split-screen. Paneled images confuse the model. Do not soften this to allow composites.
+split-screen, with NO exceptions, including when image generation is misbehaving.
+The fallback for trouble is to generate each shot's image separately (one per
+request), never to combine shots into a panel. Do not soften this to allow composites.
 -->
-### One shot = one image (hard rule)
+### One shot = one image (hard rule, no exceptions)
 
 - A **shot** is a single continuous framing of a subject. Each distinct shot must have its **own single reference image**.
-- **Never** put a multi-panel image, collage, split-screen, grid, or storyboard-of-several-frames into one reference image for a shot. One frame per image. A paneled image confuses the model and makes the result unreliable.
+- **Never** put a multi-panel image, collage, split-screen, grid, side-by-side, or storyboard-of-several-frames into one reference image for a shot — not as a convenience, not to save requests, and **not as a fallback when image generation is giving trouble.** There is no situation where a composite/paneled image is acceptable. One frame per image, always.
+- If generating an image is failing or the model keeps producing a crowded/combined result, **do not** resolve it by packing shots into one panel. Instead, generate each shot's image **separately, one image per request** (for example, generate Clip 1 Shot 1's image on its own, then Clip 1 Shot 2's image on its own). Simplify each single-frame prompt and retry per image rather than combining.
 - When you ask the user to supply or generate a keyframe, make it clear that each image is **one clean frame of one shot**, not a composite.
 
 <!--

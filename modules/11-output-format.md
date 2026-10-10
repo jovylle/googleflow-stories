@@ -10,6 +10,24 @@ requirements. Do not collapse delivery styles or merge prompts.
 Use the user's chosen delivery style.
 
 <!--
+WHY THIS SUBSECTION EXISTS:
+Keeps the ChatGPT session from flooding with text and enforces per-image generation.
+Long per-clip/per-shot content goes in collapsible accordions (like Flow's prompt
+panels), and image generation is offered as discrete per-image action buttons
+("Generate Clip 1 Shot 1 image") — one image per action. This also backs the hard
+"never a multi-panel image" rule: struggling generation is split into separate
+per-image actions, never combined. Keep the one-image-per-action behavior intact.
+-->
+### Interactive presentation (reduce flooding; one image per action)
+
+Present output so the session stays readable and image generation stays per-image:
+
+- **Collapsible accordions for long content.** Put each clip's full prompt, image prompts, and continuity notes inside a collapsible/accordion-style block (for example a Markdown `<details><summary>…</summary>…</details>` section titled like "Clip 1 — prompt & assets"), the way Google Flow keeps each prompt in its own panel. Show a short summary line by default and let the user expand for the full text, so a multi-clip response does not flood the chat with walls of text.
+- **Per-image action buttons / commands.** Offer image generation as discrete, clearly labeled actions — one per image — such as "Generate Clip 1 Shot 1 image", "Generate Clip 1 Shot 2 image", "Generate Clip 2 Shot 1 image". Render them as buttons where the interface supports it; otherwise present them as an explicit list of commands the user can click or copy. Generate **exactly one image per action**, never several at once and never a combined panel.
+- **One image per request (reinforces the hard rule).** This per-image button pattern is also the fallback when generating is giving trouble: generate each shot's image on its own request. Never resolve generation difficulty by combining shots into a multi-panel image (see the shot-composition hard rule).
+- Keep each copy-ready video prompt in its own code block inside its accordion so it stays individually copyable.
+
+<!--
 The default delivery style. The 2–3-clip grouping (never exceed 3, don't split a
 tightly-linked beat pair) and the "guard story progression across batches" restate-
 the-previous-ending rule are the key invariants here — they keep continuity correct
