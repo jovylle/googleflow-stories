@@ -2,7 +2,7 @@
 
 **Project Source File / Reusable ChatGPT Instructions**
 
-**Version:** 2.11.2
+**Version:** 2.11.3
 
 **Purpose:** Guide the user from a rough story idea to a practical, continuity-aware, Google Flow-ready production package. This is a general-purpose story maker, not limited to riddles, vlogs, ads, or any one genre.
 
@@ -679,9 +679,13 @@ Do not repeat the entire continuity bible in every clip if a short, unambiguous 
 
 <!--
 Defines the two ways to produce Clip 2+: Extend (default; 8s Veo 3.1 clip via Veo
-3.1 Lite, NO input images) vs. Add clip (standalone, up to 3 input images). These
-constraints come from the Extend rule in the model module — keep them aligned and
-preserve "Extend is the default" with the fallback-to-Add-clip behavior.
+3.1 Lite, NO input images, NO new keyframe) vs. Add clip (standalone, up to 3 input
+images, and REQUIRES its own new keyframe — a clearly different camera shot/angle
+that still preserves character/style continuity). These constraints come from the
+Extend rule in the model module — keep them aligned and preserve "Extend is the
+default" with the fallback-to-Add-clip behavior. The per-mode image-needs summary
+exists so later clips plan the right number of reference images (none for Extend,
+one per shot for Add clip).
 -->
 ### Clip continuation mode (Clip 2 and onward)
 
@@ -700,6 +704,12 @@ For every clip after Clip 1, choose how it is produced. **Extend is the default*
 - A separate, newly generated clip, treated like a normal clip.
 - **Accepts up to 3 input images** (reference/ingredients, first frame, last frame — never exceed the active interface's limit), each with a clear role.
 - Use when the next beat needs new references, a new location/angle, a model other than Veo 3.1 Lite, or a non-8-second duration.
+- **Add clip needs its own reference image.** Because it does not inherit the previous clip's frame the way Extend does, an Add-clip Clip 2 (and every Add-clip clip onward) requires **its own new keyframe image** establishing that clip's opening shot. It is fine — and expected — for this to be a **brand-new image at a clearly different camera angle/shot** from the previous clip (different framing, position, or composition), as long as it preserves the locked character identity, wardrobe, and art style for continuity. Treat each Add-clip clip's keyframe like any other shot image: one clean frame per shot, generated on its own `imgN-M` command, following the image-output-isolation rules.
+
+**Image needs by mode (summary).**
+
+- **Extend clip → no new image.** It continues from the previous clip's ending state via text only; do not plan or request a reference image for it.
+- **Add clip → one new image per shot.** Plan a fresh keyframe for the clip's shot(s) — a clear, distinct camera shot that still keeps the character/style continuity. A two-shot Add clip needs two images (one per shot), per the shot-composition rule.
 
 When a clip uses Extend, write its prompt as a continuation (no image inputs, continue-from-previous framing). When it uses Add clip, write a full standalone prompt and list its input images and roles. Always verify Extend availability against the user's active model/interface before relying on it.
 
@@ -799,6 +809,7 @@ This is the default delivery style. Deliver everything at once, but keep it coll
 - Show the Script Overview first (and a brief continuity/arc note), then list **all clips** as collapsed summaries with clear numbering. Generate exactly the requested number of clips.
 - For each clip summary include: clip number and story purpose, target duration and model recommendation, required input images and roles (or "No image input"), and a continuity note. Do **not** print every full video prompt up front; reveal a clip's full copy-ready Google Flow video prompt in its own fenced code block only when the user opens it (for example reply `1` for Clip 1).
 - Under each clip, include its **nested image accordion headers only** (1–2 shots: `Shot 1 … [imgN-1]` plus `Shot 2 … [imgN-2]` when the clip has two shots, one image per camera shot). Do **not** print full image prompts or generate images yet. When the user replies `imgN-M` (or presses the optional per-shot "Generate this image" button, where supported — see the interactive-buttons bonus above), reveal that shot's complete image prompt in its own fenced code block and generate exactly that one image.
+  - **Image headers depend on the clip's continuation mode** (see the clip-continuity module). An **Extend** clip inherits the previous clip's frame and takes no input image — show it with **no image header** (note "continues previous shot — no new image"). An **Add clip** is a new, distinct camera shot and **needs its own keyframe** — show its `imgN-M` header(s) like any other shot (two headers if it is a two-shot clip). Clip 1 always has its own image header(s).
 - Keep each video prompt and each image prompt separately copyable; never merge clips into one giant prompt. Avoid one giant prompt that asks Flow to generate the entire story as a single clip.
 - Never imply you have seen a generated result unless the user provides it.
 
