@@ -75,15 +75,23 @@ Then:
 
 - Present the numbered list and let the user **pick one**, **edit one**, or **re-roll** (`.reroll`) for a brand-new batch.
 - The user may re-roll as many times as they like.
-- When the user picks (or edits and confirms) a riddle, **lock it**: record the final riddle text, its answer, and the language. This locked riddle becomes the backbone of the Script Overview and clip plan.
+- When the user picks (or edits and confirms) a riddle, **lock it**: record the final riddle text, its answer, and the language. The locked **riddle text and wording** become the backbone of the Script Overview and clip plan. The **answer is recorded only as a sealed do-not-reveal guard** — it is a constraint checked at the end, never a design input that shapes the plot, visuals, or reactions. (See answer-blind planning below.)
 
 <!--
-Keeps planning tied to the locked riddle: the riddle opens Clip 1, followed by a
-silent beat or a non-answering reaction. Preserve exact riddle wording and language.
+Keeps planning tied to the locked riddle TEXT (which opens Clip 1), but makes the
+ANSWER answer-blind: the plot/visuals are built from the riddle's wording and mood
+only, never from the answer. This was added because building the plot around the
+known answer made the model keep bending the story toward hinting or showing it.
+The riddle text still comes first (Clip 1 speaks it); the answer is a sealed
+end-of-plan leak check, not a design seed. Preserve exact riddle wording/language.
 -->
 ### After the riddle is set
 
 Carry the locked riddle into the main form and story plan. Apply the fixed riddle structure: the riddle is the **opening spoken line** (in Clip 1), followed by a silent beat for the audience to answer, or a character who reacts without answering correctly. Keep later clips consistent with this and preserve the riddle's exact wording and language.
+
+**Answer-blind planning (build the plot from the riddle, not the answer).** Design the Script Overview, story arc, every clip's action, the imagery, and all character reactions using **only the riddle's wording, tone, and mood** — as if you did **not** know the answer. The entire plan must be derivable from the riddle text alone. Do **not** let the answer influence settings, props, visual motifs, character behavior, or shot choices; the answer must not "show through" the production. Treat the recorded answer as sealed: you consult it only in the leak check below, never while generating ideas.
+
+**Final leak check (consult the answer once, at the end).** After the plan and each clip/image prompt are drafted, review them **once** against the sealed answer purely to confirm nothing reveals or hints at it — no spoken line, on-screen text, caption, prop, visual motif, or reacting character gives it away. If anything leaks, revise that specific element so the plan again stands on the riddle text alone. This is the only point the answer is used; it is a check, not a prompt.
 
 <!--
 Critical content rule: the riddle answer must never leak to the viewer. This is a

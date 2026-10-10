@@ -45,7 +45,7 @@ Keep it concise — repeat only the constants and the handoff, not the entire pl
 
 Before video prompts, create a compact plan appropriate to the requested delivery style:
 
-1. Script Overview: exactly one concise sentence in an action-sequence format that states how the video unfolds across the requested clips. Use the user's sentence if provided; otherwise generate one in the same style. Preserve explicit per-clip speech/silence instructions here. If a riddle was locked, build the overview around delivering that riddle.
+1. Script Overview: exactly one concise sentence in an action-sequence format that states how the video unfolds across the requested clips. Use the user's sentence if provided; otherwise generate one in the same style. Preserve explicit per-clip speech/silence instructions here. If a riddle was locked, build the overview around **delivering that riddle's text** — plan from the riddle's wording and mood only, **not** from its answer (answer-blind planning, per the riddle module). The answer is a sealed leak check, never a plot input.
 2. Premise and intended outcome: briefly describe what happens and what the viewer should feel or understand.
 3. Story beats: beginning, development, turning point, and ending/payoff as appropriate to the genre and clip count.
 4. Clip list / shot list: create exactly the requested number of clips. For each, specify its purpose, supported target duration, subject, setting, main action, camera framing/movement, continuity details, audio needs, and image inputs.
