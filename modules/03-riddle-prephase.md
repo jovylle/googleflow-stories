@@ -36,20 +36,40 @@ Ask these up front, as the very first questions, before the main form:
    Picking any AI option or "Other / custom story" means a **regular (non-riddle) story** — skip the rest of this pre-phase and open the main form, carrying the chosen idea into the Story-topic field so it is not re-asked. Generate the three AI options as short, varied one-line pitches in the chosen language; if the user asks for different suggestions, re-roll them. Only the **Riddle story** choice triggers the own-vs-generate follow-up above.
 
 <!--
-The generator's quality rules (simple words, not too short, not too easy, fits the
-spoken duration) are tuned to produce fair, clip-length riddles. Do not relax the
-word-count/duration guidance — it keeps riddles speakable within one clip.
+The generator must produce ACTUAL riddles, not themed noun-phrases. The hard rules
+below define a riddle (indirect clues → one concrete ordinary answer), reject
+abstract/genre "answers" (e.g. "hateful ghost", "monster doppelganger"), and apply
+genre mood to the WORDING, not the answer (horror = eerie phrasing, ordinary answer
+like shadow/mirror/clock). The simple-words, not-too-short, not-too-easy, and
+spoken-duration rules keep riddles fair and clip-length — do not relax them. The
+self-check at the end is a quality gate: drop any candidate whose answer is not a
+real guessable thing. Added after a session produced non-riddles for horror.
 -->
 ### Step 0a: Riddle generator skill
 
-Generate a list of **5–10 candidate riddles** in the chosen language, each with its answer noted for the user. Quality rules:
+Generate a list of **5–10 candidate riddles** in the chosen language, each with its answer noted for the user.
+
+**What a riddle actually is (enforce this).** A riddle describes a hidden answer **indirectly**, through clues, metaphor, or misdirection, so the listener has to *work out* an answer that is then obviously correct in hindsight. The answer must be a **single, concrete, ordinary thing** — an everyday object, natural phenomenon, body part, animal, or common concept (for example: shadow, echo, mirror, clock, candle, wind, footprints, a book). It is **not** a mood word, a genre label, or a vague scary/abstract noun.
+
+- A valid riddle has: (1) a **setup** that describes the answer obliquely (often via personification or paradox — "has a face but no eyes"), (2) **fair clues** that point to exactly one answer, and (3) a **single clean answer** that is a real, nameable thing.
+- **Reject non-riddles.** Do not output an entry whose "answer" is an abstract/undefined phrase like "monster doppelganger", "hateful ghost", "the darkness", or "evil" — these are themes, not answers. If a candidate's answer is not a concrete, guessable thing, discard it and generate another.
+
+Quality rules:
 
 - Use **simple, everyday words**. Avoid obscure or overly literary vocabulary.
 - Do **not** make riddles too short. Each should have enough words to give fair, layered clues rather than a one-line giveaway.
 - Avoid wording that makes the answer **too easy to guess** — no near-synonyms of the answer, no obvious direct naming of the thing.
-- Keep each riddle self-contained and solvable from its clues.
+- Keep each riddle self-contained and solvable from its clues, with **exactly one** sensible answer.
 - **Fit the spoken duration.** Keep each riddle short enough to be spoken naturally within one clip of the selected model (roughly 16–24 words for an 8-second clip). If a strong riddle runs longer, note that it will need its own clip or a longer-duration model, per the pacing rules below.
 - Note the answer beside each option so the user can judge quality.
+
+**Genre and mood (including horror).** When a genre like horror, mystery, or fantasy is chosen, apply the mood to the **wording and imagery of the riddle**, not to the answer. The answer stays an ordinary concrete thing; the clues are what feel eerie, suspenseful, or whimsical.
+
+- *Horror example (good):* answer = **shadow** → "I follow where you walk but make no sound, I grow tall at dusk and vanish in the dark. What am I?" The dread is in the phrasing; the answer is a plain object.
+- *Horror example (bad):* answer = "hateful ghost" or "monster doppelganger" → rejected: the answer is an abstract theme, not a guessable thing.
+- Good horror answers are ordinary things that *feel* uncanny when described obliquely: shadow, mirror, reflection, breath, heartbeat, footsteps, a clock ticking, a candle, a locked door, an empty chair, the wind, a photograph.
+
+**Self-check before presenting.** For each candidate, silently confirm: the answer is one concrete ordinary thing, the clues point only to that thing, and a listener could plausibly guess it. Drop and replace any candidate that fails. Only present entries that pass.
 
 Then:
 
