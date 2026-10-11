@@ -19,7 +19,7 @@ this audit checks.
 1. **Mechanical checker** — `./validate.sh`, authored for this audit. It validates the
    artifact: build sync, version stamping, module coverage/order, section numbering,
    cross-reference resolution, interview field shape, named-rule definition, stale-phrase
-   absence, and interview/defaults parity. 66 checks, exit code = number of failures.
+   absence, and interview/defaults parity. 70 checks, exit code = number of failures.
 2. **Reference sweep** — every named rule and module the artifact cites was traced to its
    defining text, to catch references that point at rules which no longer exist.
 3. **Change-coverage sweep** — the three v2.12.0 changes traced through every module that
@@ -37,7 +37,7 @@ is repeatable without a model at all.
 
 ## Result
 
-`./validate.sh` → **66 checks, 0 failed, exit 0.**
+`./validate.sh` → **70 checks, 0 failed, exit 0.**
 
 - Build in sync with its modules; no unresolved placeholders; header version matches
   `version.txt`.
@@ -89,7 +89,15 @@ records as open (F5, P3: story-idea count and the riddle Yes/No framing) were le
 they were — this change had no reason to touch them, and silently "fixing" them would have
 made the diff unreadable. They stay OPEN in the reverse spec.
 
-## Open items
+**F-5 — incomplete enumeration (FIXED).** The interview's opening
+"**Advanced / optional (hidden by default):**" line still listed only the original six
+fields, so the image workflow (moved there by this change) and other-requirements were
+absent from the enumeration even though both live in that section. Caught by the
+cross-section sweep described above — every line in the artifact touching character /
+art style / workflow / primary fields read as one set — and by nothing else: string-level
+checks passed because the field existed elsewhere. Fixed, and the checker now fails if
+that enumeration drifts from the Advanced set.
+
 
 - `dev` is not merged to `master` — release step, deliberately not taken here.
 - Reverse-spec `file:line` citations still reference the analyzed version's lines; verify
@@ -99,7 +107,7 @@ made the diff unreadable. They stay OPEN in the reverse spec.
 ## Reproduce
 
 ```bash
-./build.sh && ./validate.sh    # 66 checks, exit 0
+./build.sh && ./validate.sh    # 70 checks, exit 0
 ```
 
 The checker fails loudly if a future change lands in only one module, if a cross-reference
