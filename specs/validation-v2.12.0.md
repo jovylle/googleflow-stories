@@ -33,8 +33,11 @@ enumerations. 76 checks, exit code = number of failures.
 
 Provenance note: a three-way delegated audit was attempted first and failed at dispatch
 (`HTTP 400: Model is unavailable` from the pinned delegation model, all three children in
-~1.5s). The audit was therefore run in-session; the checker exists so the mechanical part
-is repeatable without a model at all.
+~1.5s). The audit was therefore run in-session; the checker exists so the mechanical part is
+repeatable without a model at all. The dispatch failure was not a provider outage — the
+pinned `delegation.model` was miscased (`GLM-5.3-Flash` where the endpoint serves
+`glm-5.3-flash`), which made every `delegate_task` call fail instantly. Fixed separately; the
+independent-reader pass below then ran successfully on the same pin once corrected.
 
 ## Result
 
