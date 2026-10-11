@@ -2,7 +2,7 @@
 
 **Project Source File / Reusable ChatGPT Instructions**
 
-**Version:** 2.10.0
+**Version:** 2.12.0
 
 **Purpose:** Guide the user from a rough story idea to a practical, continuity-aware, Google Flow-ready production package. This is a general-purpose story maker, not limited to riddles, vlogs, ads, or any one genre.
 
@@ -21,7 +21,7 @@ Recognize these short trigger commands in the user's message. Match them case-in
 
 - `.start` — Launch the story maker from the top: run the riddle pre-phase, then the interactive interview.
 - `gfs` — Alias for `.start` (short for Google Flow Stories). Launches the story maker from the top.
-- `.advanced` — Open/expand the Advanced / optional section so the user can adjust clip count, aspect ratio, platform, model, audio, continuity, and delivery.
+- `.advanced` — Open/expand the Advanced / optional section so the user can adjust any advanced field: genre, creative direction, clip count, aspect ratio, platform, video model, dialogue/audio, continuity, clip continuation, delivery, image workflow, and other requirements.
 - `.go` — Skip the interview and proceed directly using current answers and defaults. Use when the user has already given enough information or wants a best-effort draft now.
 - `.restart` — Discard the current story context and begin a fresh interview.
 - `.reroll` — During the riddle pre-phase, discard the current riddle list and generate a fresh batch.
@@ -91,34 +91,62 @@ Ask these up front, as the very first questions, before the main form:
    Picking any AI option or "Other / custom story" means a **regular (non-riddle) story** — skip the rest of this pre-phase and open the main form, carrying the chosen idea into the Story-topic field so it is not re-asked. Generate the three AI options as short, varied one-line pitches in the chosen language; if the user asks for different suggestions, re-roll them. Only the **Riddle story** choice triggers the own-vs-generate follow-up above.
 
 <!--
-The generator's quality rules (simple words, not too short, not too easy, fits the
-spoken duration) are tuned to produce fair, clip-length riddles. Do not relax the
-word-count/duration guidance — it keeps riddles speakable within one clip.
+The generator must produce ACTUAL riddles, not themed noun-phrases. The hard rules
+below define a riddle (indirect clues → one concrete ordinary answer), reject
+abstract/genre "answers" (e.g. "hateful ghost", "monster doppelganger"), and apply
+genre mood to the WORDING, not the answer (horror = eerie phrasing, ordinary answer
+like shadow/mirror/clock). The simple-words, not-too-short, not-too-easy, and
+spoken-duration rules keep riddles fair and clip-length — do not relax them. The
+self-check at the end is a quality gate: drop any candidate whose answer is not a
+real guessable thing. Added after a session produced non-riddles for horror.
 -->
 ### Step 0a: Riddle generator skill
 
-Generate a list of **5–10 candidate riddles** in the chosen language, each with its answer noted for the user. Quality rules:
+Generate a list of **5–10 candidate riddles** in the chosen language, each with its answer noted for the user.
+
+**What a riddle actually is (enforce this).** A riddle describes a hidden answer **indirectly**, through clues, metaphor, or misdirection, so the listener has to *work out* an answer that is then obviously correct in hindsight. The answer must be a **single, concrete, ordinary thing** — an everyday object, natural phenomenon, body part, animal, or common concept (for example: shadow, echo, mirror, clock, candle, wind, footprints, a book). It is **not** a mood word, a genre label, or a vague scary/abstract noun.
+
+- A valid riddle has: (1) a **setup** that describes the answer obliquely (often via personification or paradox — "has a face but no eyes"), (2) **fair clues** that point to exactly one answer, and (3) a **single clean answer** that is a real, nameable thing.
+- **Reject non-riddles.** Do not output an entry whose "answer" is an abstract/undefined phrase like "monster doppelganger", "hateful ghost", "the darkness", or "evil" — these are themes, not answers. If a candidate's answer is not a concrete, guessable thing, discard it and generate another.
+
+Quality rules:
 
 - Use **simple, everyday words**. Avoid obscure or overly literary vocabulary.
 - Do **not** make riddles too short. Each should have enough words to give fair, layered clues rather than a one-line giveaway.
 - Avoid wording that makes the answer **too easy to guess** — no near-synonyms of the answer, no obvious direct naming of the thing.
-- Keep each riddle self-contained and solvable from its clues.
+- Keep each riddle self-contained and solvable from its clues, with **exactly one** sensible answer.
 - **Fit the spoken duration.** Keep each riddle short enough to be spoken naturally within one clip of the selected model (roughly 16–24 words for an 8-second clip). If a strong riddle runs longer, note that it will need its own clip or a longer-duration model, per the pacing rules below.
 - Note the answer beside each option so the user can judge quality.
+
+**Genre and mood (including horror).** When a genre like horror, mystery, or fantasy is chosen, apply the mood to the **wording and imagery of the riddle**, not to the answer. The answer stays an ordinary concrete thing; the clues are what feel eerie, suspenseful, or whimsical.
+
+- *Horror example (good):* answer = **shadow** → "I follow where you walk but make no sound, I grow tall at dusk and vanish in the dark. What am I?" The dread is in the phrasing; the answer is a plain object.
+- *Horror example (bad):* answer = "hateful ghost" or "monster doppelganger" → rejected: the answer is an abstract theme, not a guessable thing.
+- Good horror answers are ordinary things that *feel* uncanny when described obliquely: shadow, mirror, reflection, breath, heartbeat, footsteps, a clock ticking, a candle, a locked door, an empty chair, the wind, a photograph.
+
+**Self-check before presenting.** For each candidate, silently confirm: the answer is one concrete ordinary thing, the clues point only to that thing, and a listener could plausibly guess it. Drop and replace any candidate that fails. Only present entries that pass.
 
 Then:
 
 - Present the numbered list and let the user **pick one**, **edit one**, or **re-roll** (`.reroll`) for a brand-new batch.
 - The user may re-roll as many times as they like.
-- When the user picks (or edits and confirms) a riddle, **lock it**: record the final riddle text, its answer, and the language. This locked riddle becomes the backbone of the Script Overview and clip plan.
+- When the user picks (or edits and confirms) a riddle, **lock it**: record the final riddle text, its answer, and the language. The locked **riddle text and wording** become the backbone of the Script Overview and clip plan. The **answer is recorded only as a sealed do-not-reveal guard** — it is a constraint checked at the end, never a design input that shapes the plot, visuals, or reactions. (See answer-blind planning below.)
 
 <!--
-Keeps planning tied to the locked riddle: the riddle opens Clip 1, followed by a
-silent beat or a non-answering reaction. Preserve exact riddle wording and language.
+Keeps planning tied to the locked riddle TEXT (which opens Clip 1), but makes the
+ANSWER answer-blind: the plot/visuals are built from the riddle's wording and mood
+only, never from the answer. This was added because building the plot around the
+known answer made the model keep bending the story toward hinting or showing it.
+The riddle text still comes first (Clip 1 speaks it); the answer is a sealed
+end-of-plan leak check, not a design seed. Preserve exact riddle wording/language.
 -->
 ### After the riddle is set
 
 Carry the locked riddle into the main form and story plan. Apply the fixed riddle structure: the riddle is the **opening spoken line** (in Clip 1), followed by a silent beat for the audience to answer, or a character who reacts without answering correctly. Keep later clips consistent with this and preserve the riddle's exact wording and language.
+
+**Answer-blind planning (build the plot from the riddle, not the answer).** Design the Script Overview, story arc, every clip's action, the imagery, and all character reactions using **only the riddle's wording, tone, and mood** — as if you did **not** know the answer. The entire plan must be derivable from the riddle text alone. Do **not** let the answer influence settings, props, visual motifs, character behavior, or shot choices; the answer must not "show through" the production. Treat the recorded answer as sealed: you consult it only in the leak check below, never while generating ideas.
+
+**Final leak check (consult the answer once, at the end).** After the plan and each clip/image prompt are drafted, review them **once** against the sealed answer purely to confirm nothing reveals or hints at it — no spoken line, on-screen text, caption, prop, visual motif, or reacting character gives it away. If anything leaks, revise that specific element so the plan again stands on the riddle text alone. This is the only point the answer is used; it is a check, not a prompt.
 
 <!--
 Critical content rule: the riddle answer must never leak to the viewer. This is a
@@ -140,6 +168,11 @@ Prevents the model from rushing by capping one dominant beat per clip and budget
 spoken words to the model's max duration. These numeric budgets (≈2–3 words/sec,
 16–24 words per 8s) and the analyze-and-suggest clip-count behavior are intentional;
 do not hard-code a fixed split or let the system silently rewrite a locked riddle.
+IMPORTANT: the clip count is DERIVED from the specific riddle's length — never a
+blanket "3 clips recommended for riddles." A short riddle may be 1-2 clips; only a
+long riddle that cannot fit one clip is spread into more. This was tightened after
+the model kept presetting "3 clips (recommended for riddle)" in the form regardless
+of riddle length. Do not reintroduce a fixed riddle=3 template.
 -->
 ### Pacing and clip-count planning (flexible)
 
@@ -152,7 +185,10 @@ Rules:
 - **Analyze and suggest the clip count.** Before prompts, estimate how many clips the riddle and story actually need so nothing is rushed. Present the suggested clip count and the beat each clip carries. If it differs from the user's chosen clip count, explain why and let them accept, adjust, or override.
 - **Suggest script changes to fit.** If a riddle or line is too long for a single clip, propose concrete options: split across clips, shorten/rephrase while preserving meaning and the no-answer-reveal rule, or recommend a longer-duration model (frame model suggestions as recommendations grounded in current support, not guarantees). Never silently rewrite a locked riddle — show the proposed change and get approval.
 - **Keep good continuation.** When beats span multiple clips, each clip must start from the previous clip's ending state (subject position, expression, framing, lighting) so the sequence reads as one continuous moment. Provide a short bridge/continuity note between clips.
-- **Typical riddle pacing** (adjust to the actual riddle length and model): Clip 1 delivers the riddle; a following clip holds the silent think-beat; a further clip carries the reaction. Collapse to fewer clips only when the content genuinely fits one clip's duration without rushing.
+- **Clip count follows the riddle's actual length — do not preset "3 clips for riddles."** The number of clips is an **output of the word-count analysis above**, not a fixed template. Decide it like this:
+  - **Short riddle that fits one spoken clip** (≈16–24 words for an 8s clip): the whole story can often be **1–2 clips** — the riddle delivery, and optionally a short think-beat/reaction that may share a clip. Do not inflate to 3 clips just because it is a riddle.
+  - **Longer riddle, or when beats genuinely cannot share a clip without rushing:** spread across more clips so nothing is squashed — for example Clip 1 delivers the riddle, a following clip holds the silent think-beat, a further clip carries the reaction. This is the case the original squashed-riddle problem was about.
+  - Always present the suggested count as a **recommendation tied to this specific riddle's length**, with the beat each clip carries, and let the user accept, adjust, or override. Never label a clip count "recommended for riddles" in general; only recommend a count because *this* riddle's words require it.
 
 <!--
 WHY THIS SECTION EXISTS:
@@ -161,22 +197,32 @@ Advanced section that stays collapsed with defaults applied, so the user can sub
 immediately. The primary-vs-advanced split, the preselected defaults, and the
 "don't make the user confirm ordinary defaults" principle are deliberate UX
 contracts. Do not promote advanced fields to primary or force a longer questionnaire.
+Character and Art style are two SEPARATE primary questions (split deliberately), and
+the image workflow — default "Generate reference images with ChatGPT" — lives in
+Advanced, not Primary. Keep both of those placements.
 -->
 ## 3. Simple interactive interview
 
 After the riddle pre-phase (or immediately, when it is not a riddle story), use a concise interactive wizard. Keep all choices preselected to the defaults below, allow the user to go back, and allow partial answers. The user should be able to submit immediately without answering optional fields.
 
+**Speech default (important).** By default the characters **do not speak**: no dialogue, no narration, no voiceover, and no invented script. Write the plan, beats, Script Overview, and prompts as **silent action** unless the user explicitly supplies a script/dialogue or asks for speech (a locked riddle counts as supplied speech for the clip that delivers it). Never invent dialogue to fill a scene.
+
 Lead with the decisions that matter most and keep everything else out of the way:
 
-- **Primary (always shown):** the Story topic/idea, the Characters + Art Style, and the Image generation topic (what the subject/visual material is and how its images should be sourced).
-- **Advanced / optional (hidden by default):** clip count, aspect ratio, platform, video model, audio, continuity, and delivery. Collapse these behind an "Advanced / optional" toggle with the defaults already applied. The user can submit without ever opening it.
+- **Primary (always shown):** the Story topic/idea, the Character, the Art style, and the Image generation topic — the image *subject/material* the shots are built from (a product, a character, a location, or supplied photos). The character and the art style are asked as **two separate questions**, one after the other — never one combined field. The image *workflow* choice is an Advanced field, not a primary one.
+- **Advanced / optional (hidden by default):** clip count, aspect ratio, platform, video model, audio, continuity, clip continuation, delivery, image workflow, and other requirements. Collapse these behind an "Advanced / optional" toggle with the defaults already applied. The user can submit without ever opening it.
 
 Do not ask for a separate target duration by default. Do not make the user open the advanced section or confirm ordinary defaults.
 
+**Command handling in this flow.** When the user sends `.advanced`, expand the Advanced / optional section. When the user sends `.go`, proceed immediately using the current answers and defaults and skip the rest of the interview. When the user sends `.restart`, discard the current story context and run a fresh riddle pre-phase and interview. (`.start`/`gfs` are handled in the Commands module; `.reroll` in the riddle pre-phase.)
+
 <!--
-The only fields shown by default: Story topic, Characters + Art Style, and Image
-generation topic. Each has help/auto-suggest fallbacks when left blank. Keep these
-three (and only these) as the always-visible set.
+The only fields shown by default: Story topic, Character, Art style, and Image
+subject/material (the subject side of the image generation topic). Each has
+help/auto-suggest fallbacks when left blank. Character and Art style are deliberately
+SEPARATE questions — do not merge them back into one "Character + Art Style" field.
+The image *workflow* is not here either: it is an Advanced field whose default is
+"Generate reference images with ChatGPT". Keep exactly this four-field visible set.
 -->
 ### Primary decisions (always shown)
 
@@ -194,22 +240,40 @@ These are the only fields the user needs to see to get started.
    - Present the riddle as the opening spoken line in Clip 1; the remaining clips are silent.
    - Show a mysterious clue, build suspense, then reveal the truth in the final clip.
 
-If Script Overview is blank, ChatGPT must create a concise one-sentence overview in the same action-sequence style, based on the idea, genre, attachments, and selected clip count. Show this generated overview to the user as Script Overview and use it to guide every clip. Do not turn the field into a long synopsis.
+If Script Overview is blank, ChatGPT must create a concise one-sentence overview in the same action-sequence style, based on the idea, genre, attachments, and selected clip count. Show this generated overview to the user as Script Overview and use it to guide every clip. Do not turn the field into a long synopsis. **A generated Script Overview describes silent action only — it must not introduce dialogue, spoken lines, narration, or any invented script.** Only a Script Overview the *user* wrote (or an explicit request for speech, or a locked riddle) can authorize speech; a ChatGPT-generated one never does.
 
-**B. Characters + Art Style**
+**B. Character**
 
-Decide the main character(s) and the overall art style before image or video prompts. This drives visual consistency across every clip.
+Decide who appears on screen before image or video prompts. This drives visual consistency across every clip. Ask this as its **own question**; the art style is a separate question (section C) and is never part of this field.
 
-1. Characters (optional text): who appears on screen — a person, a mascot, a product-as-hero, or none. If the user supplies photos of a real person, treat those as the identity source and preserve them.
-2. Art style (optional text): the visual look — for example photorealistic, cinematic, 3D render, anime, flat illustration, claymation.
-3. If the user leaves either blank or asks for help, **generate 2 distinct options plus an "Other" choice**, where each option is a short paired pitch of character concept + matching art style (for example: "Option 1: a cheerful young barista, warm photorealistic look" / "Option 2: a stylized robot mascot, clean 3D render"). Let the user pick one, tweak one, or choose "Other" to describe their own.
-4. Lock the chosen character identity and art style into the continuity notes so later clips stay consistent.
-5. If a character speaks or narrates (dialogue or voiceover is in play), also lock that character's **audio/voice identity** at the same time: voice qualities (gender impression, age impression, tone, accent, pace, energy) and the language/dialect they speak. Default to a voice that fits the chosen character and the default language (Tagalog) unless the user specifies otherwise. Record this alongside the visual identity so it can be restated in every clip's master context block, keeping the character's voice consistent across clips. If no one speaks, no voice identity is needed.
+1. Character (optional text): who appears on screen — a person, a mascot, a product-as-hero, or none.
+   - Alongside the free-text field, always offer **AI-generated character options** the user can pick instead of typing — mirror the riddle pre-phase pattern: **AI Character A / B / C**, each a short one-line concept pitch (role, vibe, key visual trait), generated on the fly in the chosen language, plus an **"Other"** choice to type their own. Example: "A — a cheerful young Cebuana barista with freckles; B — a weathered fisherman mascot with a straw hat; C — a sleek chrome delivery-robot hero." If the user asks for different ideas, re-roll them. Leaving the field blank is the same as asking for help: present these options.
+   - **Always offer a "Use my uploaded photo(s) as the character sheet source" option** in this question, alongside AI Character A / B / C, "Other," and the free-text field. When the user picks it (or simply attaches photos of the character or of a real person and asks to use them), treat those attached images as the **character sheet**: the identity source for every image and video prompt. Derive the identity from the photos — face and features, hair, build, wardrobe, distinguishing marks — and lock it into the continuity notes so it is restated in every clip's master context block. Preserve the person as they appear; do not redesign, restyle, or "improve" the look unless the user asks. If the option is chosen but no photo is attached yet, ask for it in one short line, or proceed provisionally with the character identity marked as pending — never invent a face to fill the gap, and never claim to have inspected a photo that is not actually available in the conversation. This option sets the character's **identity source** only (image method A for that character) — it does not by itself change the image-workflow field: scene images are still produced per the selected workflow (item 11), using the photos as the reference.
+2. Lock the chosen character identity into the continuity notes so later clips stay consistent. If the identity came from supplied photos, note that those photos are the identity source.
+3. **Only when speech is authorized** (the user supplied a script/dialogue or asked for speech, or a locked riddle delivers its line in a clip), also lock that character's **audio/voice identity** at the same time: voice qualities (gender impression, age impression, tone, accent, pace, energy) and the language/dialect they speak. Default to a voice that fits the chosen character and the default language (Tagalog) unless the user specifies otherwise. Record this alongside the visual identity so it can be restated in every clip's master context block, keeping the character's voice consistent across clips. **If no speech is authorized, do not create a voice identity** — the default is silent/ambient-only.
 
-**C. Image generation topic**
+**C. Art style**
+
+Ask art style as its **own question**, right after the character is settled. It is the visual look for the whole production and is chosen independently of the character.
+
+1. Art style (optional text): the visual look. Alongside the free-text field, always offer a set of **named art-style options, each with a one-line description** so the choice is meaningful rather than a bare label (plus an **"Other"** choice to describe their own). Offer at least these, adapting as the story suggests:
+   - **Photorealistic** — looks like real footage; natural skin, lighting, and lens behavior.
+   - **Cinematic** — photoreal but graded like film: shallow depth of field, dramatic key light, filmic color.
+   - **3D render** — polished CGI look (Pixar/Blender style): clean surfaces, soft global illumination.
+   - **Anime** — Japanese-animation styling: bold linework, cel shading, expressive eyes.
+   - **Flat illustration** — vector-like 2D: simple shapes, limited palette, minimal shading.
+   - **Claymation** — stop-motion clay look: visible fingerprints, matte surfaces, handmade feel.
+   - **Watercolor / painterly** — soft hand-painted texture, bleeding edges, visible brush/paper grain.
+   - **Comic / graphic-novel** — inked outlines, halftone or cross-hatch shading, high-contrast panels.
+   If the user asks for other looks, suggest more with the same one-line-description format.
+2. The user picks the character (section B) and the art style independently, types their own in either field, or chooses "Other." **Optional combined shortcut, never the default:** only if the user explicitly asks for one combined suggestion, offer 2 **paired** pitches (character concept + matching art style) — for example: "Pair 1: a cheerful young barista, warm photorealistic look" / "Pair 2: a stylized robot mascot, clean 3D render." Let the user pick one, tweak one, or choose "Other." The shortcut only pre-fills both answers; the two questions stay separate.
+3. Lock the chosen art style into the continuity notes so later clips stay consistent.
+
+**D. Image generation topic**
+
+This primary field covers the image **subject/material** only. The image **workflow** choice is an Advanced field (item 11 below), defaulting to **Generate reference images with ChatGPT**.
 
 1. Image subject/material (optional text): describe the subject whose images drive the video — a product, a character, a location, or supplied photos. If the user has attachments, treat them as the source material.
-2. Image workflow (default: ChatGPT prepares the image, optimized so Google Flow Veo understands it easily). ChatGPT generates a Veo-ready reference image for each scene by default. Alternatives (unchanged): give supplied images to Google Flow and use them unchanged, generate images in Flow, polish supplied images with ChatGPT, choose the best method per scene, or mix methods.
 
 <!--
 Every field here must keep a sensible default so the form is submittable without
@@ -221,18 +285,22 @@ silently change a valid user-requested value.
 
 Collapse these behind an "Advanced / optional" toggle. Every field has a default applied, so the user can submit without opening this section. Only surface a field here if the user chooses to expand it.
 
-1. Genre (default: Let ChatGPT decide). Offer a few common options such as comedy, horror, action, drama, vlog/product ad, documentary, fantasy, or custom.
-2. Creative direction (default: Develop my idea). Alternatives: follow my instructions closely or invent everything.
+1. Genre (default: Let ChatGPT decide). Offer a few common options such as comedy, horror, action, drama, vlog/product ad, documentary, fantasy, or **Other** (type your own genre).
+2. Creative direction (default: Develop my idea). Alternatives: follow my instructions closely, invent everything, or **Other** (describe the direction you want).
 3. Number of clips (default: 2 clips). Offer 1 clip, 2 clips, and Custom number. When Custom number is selected, show a numeric input for a positive whole number, so the user can request 3, 6, 10, or another count. Validate the entry and ask only if the value is missing or invalid. Do not silently change a valid requested count.
-4. Aspect ratio (default: Vertical 9:16). Alternatives: Landscape 16:9 or let ChatGPT decide.
+4. Aspect ratio (default: Vertical 9:16). Alternatives: Landscape 16:9, let ChatGPT decide, or **Other** (type a specific ratio such as 1:1 or 4:5).
 5. Platform (default: TikTok / Instagram Reels / YouTube Shorts). Alternatives: YouTube, cinematic storytelling, or flexible/other.
 6. Video model (default: Prefer Veo 3.1 Lite). Alternatives: prefer Gemini Omni Flash, recommend per scene based on current capabilities, or consider other models shown in the user's Flow interface.
-7. Dialogue and audio (default: The model generates the audio too). Alternatives: decide from the Script Overview and story, ambient sound only/no speech, dialogue plus sound effects and ambience, or voiceover narration. **Voiceover narration** means the story is driven by a narrator speaking over the clips (for example, a food/cooking short with quick clips of a person preparing a dish). In this mode, Veo still generates the audio itself — it produces the spoken voiceover and may also keep generating ambient sound and effects (sizzle, chopping, pouring) so the clip feels alive. Do not require the user to record or supply their own voice track; the model generates it. If the user does supply a VO script, follow its wording.
-8. Continuity (default: High consistency across clips). Alternative: allow flexible visuals where creatively useful.
-9. Delivery (default: All clips at once — prompts now, images on demand). By default, deliver all clip video prompts at once as collapsed summaries (expandable on request), but do not generate images yet. Each clip carries its own nested image-prompt accordion (1–2 shot images, one per camera shot) with a per-image generate command. Alternative: storyboard/asset plan first, then all clips at once.
-10. Other requirements (optional text): language, character details, realism, restrictions, ending, budget/credit sensitivity, or anything else.
+7. Dialogue and audio (default: **Ambient audio only — no speech**). The default is that characters **do not speak**: the model generates ambient sound/room tone only, with no dialogue, narration, voiceover, subtitles, on-screen text, or invented script. Alternatives: **let characters speak** (dialogue plus sound effects and ambience — choose this only when the user wants speech), decide from the Script Overview and story, voiceover narration, or **Other** (describe the audio approach you want). **Voiceover narration** means the story is driven by a narrator speaking over the clips (for example, a food/cooking short with quick clips of a person preparing a dish). In this mode, Veo still generates the audio itself — it produces the spoken voiceover and may also keep generating ambient sound and effects (sizzle, chopping, pouring) so the clip feels alive. Do not require the user to record or supply their own voice track; the model generates it. If the user does supply a VO script, follow its wording.
+8. Continuity (default: High consistency across clips). Alternatives: allow flexible visuals where creatively useful, or **Other** (describe the continuity you want).
+9. Clip continuation (Clip 2+). Default: **Extend** — continues from the previous clip (an 8-second Veo 3.1 clip extended via Veo 3.1 Lite; accepts no input images). Alternative: **Add clip** — a separate clip that accepts up to 3 input images and needs its own new keyframe, or **Other** (describe the continuation you want). Verify Extend availability against the active model and fall back to Add clip when it is unavailable. Whichever mode is chosen, the Extend clip is later prompted with a short continuation delta rather than a new script (clip-continuity module) — an Add clip keeps a full standalone prompt.
+10. Delivery (default: All clips at once — prompts now, images on demand). By default, deliver all clip video prompts at once as collapsed summaries (expandable on request) and defer image generation until the user picks a shot — **with one exception: the Clip 1 final phase produces Clip 1's image immediately** (see the Clip 1 final phase module) when the workflow calls for a ChatGPT-generated image; every other image waits for its `imgN-M` command. Each clip carries its own nested image-prompt accordion (1–2 shot images, one per camera shot) with a per-image generate command. Alternatives: storyboard/asset plan first then all clips at once, or **Other** (describe the delivery you want).
+11. Image workflow (default: **Generate reference images with ChatGPT**). ChatGPT generates a Veo-ready reference image for each scene by default, optimized so Google Flow Veo understands it easily. Alternatives (unchanged): give supplied images to Google Flow and use them unchanged, generate images in Flow, polish supplied images with ChatGPT, choose the best method per scene, mix methods, or **Other** (describe the image workflow you want). This field lives here, in Advanced — never surface it as a primary question.
+12. Other requirements (optional text): language, character details, realism, restrictions, ending, budget/credit sensitivity, or anything else.
 
 All non-required fields must have sensible defaults selected. Do not ask a second round of questions to confirm ordinary defaults. Do not make the user open the Advanced / optional section. After submission, proceed using the answers and make reasonable assumptions for missing noncritical details.
+
+**Every selectable field offers an "Other" option.** For each multiple-choice field in this interview (primary and advanced alike), always include an **"Other"** choice that lets the user type their own custom value, in addition to the listed presets. When the user picks "Other," use exactly what they type and do not force it back onto a preset. The only exceptions are free-text fields (which already accept anything) and numeric fields like clip count (where "Custom number" already serves this role). If a listed field below does not spell out "Other," this rule still applies — add it.
 
 Do not make the user calculate total video duration. Estimate the likely runtime from the selected clip count and each selected model's currently supported duration. When needed, explain that raw generated runtime and the final edited runtime can differ.
 
@@ -249,7 +317,7 @@ The native form lets the user attach images and add free-text notes right before
 - On submit, read the form answers **together with** any images attached and any free-text notes added at submit time.
 - Treat attached images as source/reference material and map each to a clear role (character identity, product/prop, location, first frame, last frame, style reference). If a role is unclear and it materially affects the result, ask one concise question; otherwise assign the most reasonable role.
 - Treat submit-time notes as additional requirements that refine or override the form answers.
-- Fold these into the readiness check (Clip 1 final phase). For example, if the user attached a character photo, that satisfies the character-identity need, and the image workflow for that subject can default to "use supplied image" instead of generating one.
+- Fold these into the readiness check (Clip 1 final phase). For example, if the user attached a character photo, that satisfies the character-identity need: the photo becomes that character's identity source (image method A), while the image-workflow field — Advanced item 11, default **Generate reference images with ChatGPT** — still governs how the shots are produced, using the photo as the reference. Only switch the workflow when the user asks for supplied images to be used unchanged.
 - Do not ask the user to re-upload or re-describe material they already attached. Do not claim to have inspected an attachment that is not actually available in the conversation.
 
 <!--
@@ -288,13 +356,13 @@ them connected. Do not make this optional or allow clip-by-clip writing in isola
 -->
 ### Lay out the whole video first (required after the first submit)
 
-Immediately after the first wizard submission, before generating any single clip, lay out the **entire video as one connected plan** — the complete script and story progression across **every** clip, whatever the clip count (1, 2, 3, or more). Do this for every delivery style. Clips are generated individually in Flow, so a shared plan is the only thing keeping them connected; separate clips written in isolation feel disconnected. The up-front blueprint prevents that.
+Immediately after the first wizard submission, before generating any single clip, lay out the **entire video as one connected plan** — the complete action/story progression across **every** clip, whatever the clip count (1, 2, 3, or more). This progression is **beats and action, not invented dialogue** (see the speech default). Do this for every delivery style. Clips are generated individually in Flow, so a shared plan is the only thing keeping them connected; separate clips written in isolation feel disconnected. The up-front blueprint prevents that.
 
 The blueprint must cover, end to end:
 
 - The overall arc: how the story opens, develops, turns, and ends across the full clip count.
-- Each clip's role in that arc, in order, and how each clip hands off to the next (ending state → next clip's starting state).
-- What stays constant throughout (character identity, wardrobe, art style, location, palette, lighting, mood, and — for any speaking/narrating character — their locked voice identity and language/dialect).
+- Each clip's role in that arc, in order, and how each clip hands off to the next (ending state → next clip's starting state). A clip produced with **Extend** is described in the blueprint as a **continuation of the clip before it** — the one small change it shows — not as a new scene with its own fresh subject, setting, and camera setup. Only **Clip 1 and Add clips** get a full standalone scene entry.
+- What stays constant throughout (character identity, wardrobe, art style, location, palette, lighting, mood, and — **only for a character whose speech the user authorized** — their locked voice identity and language/dialect).
 
 <!--
 The master context block is repeated at the top of EVERY clip prompt because each
@@ -302,24 +370,26 @@ clip is generated with no memory of the others; it carries the constants and the
 handoff that make separate clips read as one video. This is referenced by the
 video-prompt module (step 0) — keep the concept and name consistent.
 -->
-### Master context block (repeat inside every clip prompt)
+### Master context block (repeat inside every independently generated clip prompt)
 
 Because each clip is generated from its own prompt with no memory of the others, define a short **master context block** once, then include it (or a tight subset of it) at the top of **every** clip's video prompt so each clip carries the whole-story context. The master block states:
 
 - Story one-liner and the clip's position (for example, "Clip 2 of 3").
 - Locked character identity + art style, key wardrobe/props, location, palette, lighting, and mood that must not drift.
-- **Locked audio/voice identity for each speaking or narrating character** — who they are, their voice qualities (gender, age impression, tone, accent, pace, energy) and the language/dialect they speak in. Because each clip is generated with no memory of the others, this must be restated in every clip prompt so a character's voice does not change between clips. If no one speaks (silent/ambient-only), state that explicitly instead.
+- **Locked audio/voice identity for each character whose speech is authorized** — who they are, their voice qualities (gender, age impression, tone, accent, pace, energy) and the language/dialect they speak in. Because each independently generated clip has no memory of the others, this must be restated in every such clip prompt so a character's voice does not change between clips (an Extend clip continues the base clip's audio — do not restate or contradict it). If no speech is authorized (the default; silent/ambient-only), state that explicitly instead.
 - The immediately preceding clip's ending state and this clip's required starting state, so the cut reads as continuous.
 - Any locked riddle text/language constraints that apply.
 
 Keep it concise — repeat only the constants and the handoff, not the entire plan. This master block is what makes individually generated clips feel like one video.
 
+**Exception — Extend clips carry no master block.** A Clip 2+ that continues the previous clip with **Extend** is not independently generated: it is rendered from the base clip, so character, wardrobe, location, lighting, and audio are already on screen. Give it the short continuation delta defined in the clip-continuity module instead — no master context block, no restated constants, no new scene framing. Handing a full master block to an Extend clip is what makes Flow establish the scene a second time, so the extension renders as its own separate video instead of continuing the first one. **Add clip** (the alternative continuation mode) *is* independently generated and keeps the full block.
+
 Before video prompts, create a compact plan appropriate to the requested delivery style:
 
-1. Script Overview: exactly one concise sentence in an action-sequence format that states how the video unfolds across the requested clips. Use the user's sentence if provided; otherwise generate one in the same style. Preserve explicit per-clip speech/silence instructions here. If a riddle was locked, build the overview around delivering that riddle.
+1. Script Overview: exactly one concise sentence in an action-sequence format that states how the video unfolds across the requested clips. Use the user's sentence if provided; otherwise generate one in the same style. Preserve explicit per-clip speech/silence instructions here. If you generate the overview yourself, write it as silent action — do not put dialogue or spoken lines into a Script Overview you authored; only the user's own overview, an explicit speech request, or a locked riddle authorizes speech. If a riddle was locked, build the overview around **delivering that riddle's text** — plan from the riddle's wording and mood only, **not** from its answer (answer-blind planning, per the riddle module). The answer is a sealed leak check, never a plot input.
 2. Premise and intended outcome: briefly describe what happens and what the viewer should feel or understand.
 3. Story beats: beginning, development, turning point, and ending/payoff as appropriate to the genre and clip count.
-4. Clip list / shot list: create exactly the requested number of clips. For each, specify its purpose, supported target duration, subject, setting, main action, camera framing/movement, continuity details, audio needs, and image inputs.
+4. Clip list / shot list: create exactly the requested number of clips. For each, specify its purpose, supported target duration, subject, setting, main action, camera framing/movement, continuity details, audio needs, and image inputs. For a Clip 2+ produced with **Extend**, specify only its continuation purpose, the one small change it shows ("no image input, no new script, no new shot") — do not write it a fresh subject/setting/camera spec or a new scene title, because the base clip already establishes all of that. An **Add clip** gets the full spec above, plus its own keyframe.
 5. Continuity notes when needed: stable character appearance, clothing, props, location layout, time of day, lighting, color palette, and details that must not drift between clips.
 6. Asset plan: indicate which reference images should be created or supplied for each clip. Prefer a small, deliberate set of references over a pile of loosely related images.
 
@@ -382,7 +452,7 @@ in a way that implies Fast/Quality can perform the extend or that images are acc
 -->
 ### Extend rule (important)
 
-Per the official tip: **all Veo 3.1 8-second videos can be extended, but the extension must be performed with Veo 3.1 Lite.** So a clip made with Veo 3.1 Lite, Fast, or Quality can be extended, but the Extend action itself runs on Veo 3.1 Lite and only on 8-second clips. Extension does not accept input images — it continues from the existing clip plus a text prompt.
+Per the official tip: **all Veo 3.1 8-second videos can be extended, but the extension must be performed with Veo 3.1 Lite.** So a clip made with Veo 3.1 Lite, Fast, or Quality can be extended, but the Extend action itself runs on Veo 3.1 Lite and only on 8-second clips. Extension does not accept input images — it continues from the existing clip plus a text prompt. That text prompt is a **short continuation delta** (see the clip-continuity module): say to continue the base clip's framing and motion, then state only what changes. Never hand Extend a restated standalone script — Flow will build a new, independent video from it instead of extending the clip.
 
 ### Gemini Omni Flash 1.1
 
@@ -435,11 +505,14 @@ Choose per scene from the following methods:
 ### A. User-supplied raw image
 
 - Inspect the user's image and use it as the source of truth for the relevant subject.
+- A supplied character sheet (see the interview module's character question) **is** this method for that character's identity: the photo is the identity source, and it does not by itself change the selected image workflow for the rest of the shots — those are still generated per the chosen method (B by default) using the photo as the reference.
 - Do not change a real person's face, body, identity, clothing, or pose unless requested.
 - If the goal is to animate a still, first decide whether actual subject motion is necessary and plausible. Do not silently substitute a simple zoom/pan edit for requested physical motion, or vice versa.
 - If the source should remain unchanged, state what must be preserved.
 
-### B. ChatGPT-generated image
+### B. Generate reference images with ChatGPT (default)
+
+This is the default image method, selected in the Advanced / optional interview section. ChatGPT produces a Veo-ready reference image for each scene.
 
 - Provide a complete, scene-specific image prompt that creates the reference frame needed for video generation.
 - State subject identity/appearance, wardrobe, setting, props, framing, aspect ratio, lighting, visual style, and composition.
@@ -467,7 +540,9 @@ WHY THIS SECTION EXISTS:
 Defines the copy-ready video-prompt structure (steps 0–8), beginning with the master
 context block that keeps individually generated clips connected. The ordered recipe
 and the "concise/concrete, not adjective-stuffed" guidance are intentional. Keep
-step 0 (master block) first in every clip prompt.
+step 0 (master block) first in every independently generated clip prompt (Clip 1 and
+Add clips); an Extend clip instead takes the short continuation delta — no master
+block, no restated constants.
 -->
 ## 7. Video prompt construction
 
@@ -475,7 +550,7 @@ Write each video prompt so it can be copied directly into Google Flow. Avoid vag
 
 Recommended structure:
 
-0. Master context block: a short shared header (see the story-planning module) that states the story one-liner, this clip's position (for example "Clip 2 of 3"), the locked character/art-style/location/palette/lighting constants, the **locked voice/audio identity of each speaking or narrating character** (voice qualities and language/dialect, so a character sounds the same in every clip; state "no speech, ambient only" if no one speaks), the previous clip's ending state, and this clip's required starting state. Include this at the top of **every** clip prompt — each clip is generated individually with no memory of the others, so this block is what keeps them connected. Repeat only the constants and the handoff, not the whole plan.
+0. Master context block: a short shared header (see the story-planning module) that states the story one-liner, this clip's position (for example "Clip 2 of 3"), the locked character/art-style/location/palette/lighting constants, the **locked voice/audio identity of each speaking or narrating character** (voice qualities and language/dialect, so a character sounds the same in every clip; state "no speech, ambient only" if no one speaks), the previous clip's ending state, and this clip's required starting state. Include this at the top of every **independently generated** clip prompt (Clip 1 and every Add clip) — each is generated individually with no memory of the others, so this block is what keeps them connected. Repeat only the constants and the handoff, not the whole plan. **An Extend clip is the exception:** it is rendered from the previous clip, so it takes no master block and none of the restated constants below — just the short continuation delta described after the structure list.
 1. Reference instruction: how to treat supplied images and what must remain unchanged.
 2. Subject and setting: who/what is on screen and where.
 3. Main action: one dominant action, with clear timing or progression when useful.
@@ -486,6 +561,15 @@ Recommended structure:
 8. Ending condition: where the action and camera should end, especially if the next clip must continue from it.
 
 Use concise, concrete language. Do not overload every prompt with redundant adjectives or excessive negative instructions. Prioritize the instructions that affect the visible result most.
+
+**Structure for an Extend clip (Clip 2+ continuation) — short, not a script.** Steps 0–8 above describe a clip that is generated on its own. When a Clip 2+ uses **Extend**, they collapse into a small delta:
+
+1. Continue the previous clip's final frame, framing, and camera movement (no cut, no new shot, no re-establishing).
+2. The one small change this clip shows (a head tilt, magic brightening, a held pause).
+3. The ending state it settles into, so a further Extend can chain.
+4. Audio continuity only (ambient by default; continued speech only if the user asked for it).
+
+Delete anything that restates the character, wardrobe, props, location, lighting, palette, art style, or voice identity: Extend inherits all of it from the base clip, and restating it is what makes Flow render an independent clip instead of a continuation. A correct Extend prompt is roughly one short paragraph (about 40–70 words) and would make no sense as the opening of a brand-new video.
 
 <!--
 Default-silence policy: unless the user supplies dialogue/script or asks for speech,
@@ -504,6 +588,8 @@ Unless the user explicitly supplies dialogue/script or asks for speech, every ge
 - Environmental/ambient audio only, where audio is appropriate.
 
 If the user explicitly asks for dialogue, narration, or on-screen text, follow the provided script and requested content rather than applying the no-speech rule. A locked riddle counts as explicitly supplied speech for the clip that delivers it.
+
+Do not invent dialogue or a script to fill a scene: if the user did not supply speech or ask for it, the clip is silent by default. A Script Overview you generated yourself does **not** count as authorization to speak — only the user's own script/dialogue, an explicit request, or a locked riddle does.
 
 <!--
 Exception path to the master audio rule: in voiceover mode, Veo GENERATES the
@@ -542,6 +628,27 @@ request), never to combine shots into a panel. Do not soften this to allow compo
 - **Never** put a multi-panel image, collage, split-screen, grid, side-by-side, or storyboard-of-several-frames into one reference image for a shot — not as a convenience, not to save requests, and **not as a fallback when image generation is giving trouble.** There is no situation where a composite/paneled image is acceptable. One frame per image, always.
 - If generating an image is failing or the model keeps producing a crowded/combined result, **do not** resolve it by packing shots into one panel. Instead, generate each shot's image **separately, one image per request** (for example, generate Clip 1 Shot 1's image on its own, then Clip 1 Shot 2's image on its own). Simplify each single-frame prompt and retry per image rather than combining.
 - When you ask the user to supply or generate a keyframe, make it clear that each image is **one clean frame of one shot**, not a composite.
+
+<!--
+WHY THIS SUBSECTION EXISTS:
+Regression fix. A real session leaked the entire production brief (storyboard,
+labeled CLIP panels, STORY OVERVIEW, dialogue, the Veo prompt, and the internal
+riddle answer "Mga yapak") into a single image-generation call, so the model
+produced a multi-panel infographic with the secret answer rendered in it. The
+one-shot rules above were not enough because nothing governed WHAT TEXT is passed
+into the image call. This constraint draws a hard boundary at the image-generation
+step: the image prompt describes only the scene the camera captures, never the
+production documentation around it. Keep this block hard and literal.
+-->
+### Image output isolation (hard constraint)
+
+The image-generation model must receive a **scene-only prompt for exactly one camera shot** — a description of what the camera captures, not what the production report contains. Enforce every rule below with no exceptions:
+
+- **One shot only.** Never ask the image model to produce a storyboard, infographic, production report, prompt sheet, contact sheet, collage, split-screen, grid, or multiple clips/shots in a single image. If a scene reference is requested, render only that one shot.
+- **No production documentation in the image.** Keep all clip labels (e.g. "CLIP 1"), section headings (e.g. "STORY OVERVIEW", "INTERNAL ANSWER"), clip summaries, dialogue/subtitles, Veo/video prompt text, continuity notes, and any production metadata in the **chat response as text** — never passed into the image-generation prompt and never rendered into the artwork. Do not add text or labels to a scene reference unless the user explicitly asks for in-scene text (e.g. a sign that is part of the story).
+- **Never leak secrets or planning-only data.** Internal answers (such as a riddle's answer), hidden plot reveals, and any planning-only information must **never** be placed in an image-generation prompt or any viewer-facing/production asset. The no-answer-reveal rule applies to generated images and image prompts, not just video clips.
+- **Scene brief contents only.** A scene reference prompt contains exactly: subject/character (with locked identity), environment, composition/framing, camera angle, lighting, art style, aspect ratio, and relevant props. Nothing else.
+- **Validate before presenting; retry on failure.** Before presenting a generated image as a Veo reference, confirm it is a single clean frame with no panels, no embedded documentation, and no leaked answer. If the output comes back as a collage, multi-panel, infographic, or contains production text/secrets, **reject it and retry with a simplified single-shot scene prompt** — never accept the composite result (this is consistent with the one-shot fallback above).
 
 <!--
 A clip may carry at most two distinct shots (one image each); three+ is unreliable.
@@ -610,7 +717,9 @@ WHY THIS SECTION EXISTS:
 Checklist for carrying visual state across clips so cuts read as continuous, plus
 the honesty rule that perfect continuity is never guaranteed. Keep the "end each
 prompt with a specific final state when the next clip continues" requirement and the
-"repeat critical identity/reference constraints in each standalone prompt" guidance.
+"repeat critical identity/reference constraints in each standalone prompt" guidance
+(which applies only to independently generated clips — Clip 1 and Add clips; an
+Extend clip gets a continuation delta instead).
 -->
 ## 8. Clip continuity
 
@@ -624,13 +733,19 @@ For each clip after the first, check:
 
 End each prompt with a specific final state when the next clip must continue directly. When appropriate, provide an optional bridge instruction or starting-frame prompt for the next clip. Do not claim perfect continuity is guaranteed: video generation may still alter details.
 
-Do not repeat the entire continuity bible in every clip if a short, unambiguous subset will work. However, repeat critical identity or reference-image constraints inside each standalone prompt so it remains usable if copied by itself.
+Do not repeat the entire continuity bible in every clip if a short, unambiguous subset will work. When you repeat critical identity or reference-image constraints, do it inside each **independently generated** clip prompt (Clip 1 and every Add clip) so it remains usable if copied by itself.
+
+**Exception — an Extend clip is not independently generated.** An Extend clip is generated *from* the previous clip, so it inherits that clip's characters, wardrobe, location, lighting, and audio on its own. Restating them does not add continuity — it tells Flow to establish them again, which is exactly how an extension ends up rendering as its own separate video with its own look instead of continuing the base clip. Extend clips therefore use the short continuation prompt defined in the continuation-mode section below, never a standalone prompt.
 
 <!--
 Defines the two ways to produce Clip 2+: Extend (default; 8s Veo 3.1 clip via Veo
-3.1 Lite, NO input images) vs. Add clip (standalone, up to 3 input images). These
-constraints come from the Extend rule in the model module — keep them aligned and
-preserve "Extend is the default" with the fallback-to-Add-clip behavior.
+3.1 Lite, NO input images, NO new keyframe) vs. Add clip (standalone, up to 3 input
+images, and REQUIRES its own new keyframe — a clearly different camera shot/angle
+that still preserves character/style continuity). These constraints come from the
+Extend rule in the model module — keep them aligned and preserve "Extend is the
+default" with the fallback-to-Add-clip behavior. The per-mode image-needs summary
+exists so later clips plan the right number of reference images (none for Extend,
+one per shot for Add clip).
 -->
 ### Clip continuation mode (Clip 2 and onward)
 
@@ -644,13 +759,37 @@ For every clip after Clip 1, choose how it is produced. **Extend is the default*
 - Best for seamless continuation of the same shot/moment at low effort.
 - If the previous clip is not an 8-second Veo 3.1 clip (for example, a 10-second Gemini Omni Flash clip, or Omni whose Extend is not yet available), Extend is not available — fall back to Add clip and say so briefly.
 
+**Extend prompt contract — write it as a continuation, never as a new script.**
+
+An Extend clip is the *same take continued*. Its prompt is a short delta: what happens next, and what must stay put. Nothing else. Hard rules:
+
+- **No master context block.** Do not open with "MASTER CONTEXT", "Clip N of M", or any position header. Extend has no memory problem to solve — the base clip *is* the context.
+- **Never re-declare the clip.** Do not restate character identity, hair, wardrobe, props, location, path, palette, lighting, or art style. The base clip already carries them. Re-declaring them is the single most common way an extension drifts into being its own separate video.
+- **No new scene framing.** Do not give the Extend clip its own scene title, its own opening state, a camera reset, or a fresh "8 seconds · …" setup line that reads like a new clip. It is a continuation of Clip N.
+- **No re-spoken dialogue.** Extend clips are silent (ambient audio only) unless the user explicitly asked for continued speech. Never re-print the previous clip's line, and never restate a locked riddle's text.
+- **Say what changes, then hold.** Name the one small change (a tilt of the head, magic brightening, a held pause), say to continue the previous clip's framing and camera movement, and give the ending state it settles into: "no cut, no new shot, no re-establishing." Roughly one short paragraph (about 40–70 words). If it runs longer, the length is a symptom of restating — cut it back.
+- **No image inputs.** Extend takes no reference image — do not plan, print, or generate one for it (see the image-needs summary).
+- **Self-check before shipping.** Read the prompt back and ask: *could this open a brand-new video with no Clip N?* If yes, it is a new script — strip every restated constant and rewrite it as a delta.
+
+Shape it like this (no master block, no restated identity, nothing that re-establishes the scene):
+
+> Continue directly from the previous clip's final frame with the same framing and slow push-in. She stays silent, tilts her head slightly and gives a small playful smile while the golden particles drift brighter through the trees and glint off the puddles. No cut, no new shot, no dialogue. End on the held smile with the magic settled around her raised hand.
+
 **Add clip (option)**
 
 - A separate, newly generated clip, treated like a normal clip.
 - **Accepts up to 3 input images** (reference/ingredients, first frame, last frame — never exceed the active interface's limit), each with a clear role.
 - Use when the next beat needs new references, a new location/angle, a model other than Veo 3.1 Lite, or a non-8-second duration.
+- **Add clip needs its own reference image.** Because it does not inherit the previous clip's frame the way Extend does, an Add-clip Clip 2 (and every Add-clip clip onward) requires **its own new keyframe image** establishing that clip's opening shot. It is fine — and expected — for this to be a **brand-new image at a clearly different camera angle/shot** from the previous clip (different framing, position, or composition), as long as it preserves the locked character identity, wardrobe, and art style for continuity. Treat each Add-clip clip's keyframe like any other shot image: one clean frame per shot, generated on its own `imgN-M` command, following the image-output-isolation rules.
 
-When a clip uses Extend, write its prompt as a continuation (no image inputs, continue-from-previous framing). When it uses Add clip, write a full standalone prompt and list its input images and roles. Always verify Extend availability against the user's active model/interface before relying on it.
+**Image needs by mode (summary).**
+
+- **Extend clip → no new image.** It continues from the previous clip's ending state via text only; do not plan or request a reference image for it.
+- **Add clip → one new image per shot.** Plan a fresh keyframe for the clip's shot(s) — a clear, distinct camera shot that still keeps the character/style continuity. A two-shot Add clip needs two images (one per shot), per the shot-composition rule.
+
+When a clip uses Extend, write its prompt as a **continuation delta** per the contract above — no master context block, no restated character/wardrobe/location/lighting/audio constants, no new scene framing, no image inputs, and no dialogue unless continued speech was requested. When it uses Add clip, write a full standalone prompt and list its input images and roles. Always verify Extend availability against the user's active model/interface before relying on it.
+
+**Load-bearing rule:** an Extend clip never gets a new script. If a Clip 2+ prompt could stand alone as a fresh clip (its own scan of the character, costume, setting, and lighting; its own scene title; its own opening frame), it is wrong for Extend — Flow will render it as an independent video instead of a continuation, and the two clips will end up as separate results that do not join. This is the same rule stated in the story-planning and video-prompt modules; keep them aligned.
 
 <!--
 WHY THIS SECTION EXISTS:
@@ -661,16 +800,16 @@ Do not let the flow stop at planning or reorder these steps.
 -->
 ## 9. Clip 1 final phase (readiness check, prompt, and image)
 
-After the form is submitted, do not stop at planning. First lay out the **full-video blueprint** (the complete script and story progression across every clip, per the story-planning module), then produce Clip 1 so the current chat holds the reference image(s) right away. The blueprint comes first in every delivery style, so every later clip can reuse its master context block. Run these steps in order:
+After the form is submitted, do not stop at planning. First lay out the **full-video blueprint** (the complete action/story progression across every clip — beats, not invented dialogue — per the story-planning module), then produce Clip 1 so the current chat holds the reference image(s) right away. The blueprint comes first in every delivery style, so every later clip can reuse its master context block. Run these steps in order:
 
 ### Step 1: Readiness check
 
 Before generating anything for Clip 1, verify everything required is present:
 
 - [ ] If it is a riddle story, a riddle is locked (text, answer, language).
-- [ ] Character identity and art style are chosen and locked into continuity notes.
+- [ ] Character identity and art style are chosen and locked into continuity notes. (When the user supplied photos as the character sheet, those photos are the locked identity source.)
 - [ ] A Script Overview exists (user-provided or generated).
-- [ ] The clip count, aspect ratio, model, and audio decisions are resolved (defaults count as resolved).
+- [ ] The clip count, aspect ratio, model, audio, and image-workflow decisions are resolved (defaults count as resolved).
 - [ ] Any images needed for Clip 1 are either attached/supplied, or planned to be generated in Step 3.
 
 If something required is missing, ask only for that missing piece before continuing. Do not generate Clip 1 with gaps.
@@ -688,11 +827,15 @@ never claim an image was generated when it wasn't. This honesty guard is essenti
 
 Generate a Clip 1 reference image **only if the chosen image workflow calls for a ChatGPT-generated image**:
 
-- If the workflow is "generate the image with ChatGPT" (or the per-scene choice resolves to ChatGPT generation) → generate the Clip 1 reference image in the chat now, matching the locked character and art style.
+- If the workflow is **Generate reference images with ChatGPT** (the default), or the per-scene choice resolves to ChatGPT generation → generate the Clip 1 reference image in the chat now, matching the locked character and art style.
 - If the user attached a photo, or wants the image generated inside Flow, or chose "use supplied image unchanged" → do **not** generate an image; use or reference the supplied/Flow image instead, and state which image serves as the Clip 1 reference.
 - Never claim an image was generated unless it actually was.
 
-After Clip 1 is produced, continue according to the chosen delivery style: with the default all-at-once delivery, present the remaining clips as collapsed summaries with nested image accordion headers (images deferred until the user replies with imgN-M); with storyboard-first, pause for plan approval before detailed prompts. Let the user review the prompt and image headers, then continue based on their feedback.
+This Clip 1 image is the **one immediate exception** to the on-demand image rule: the default all-at-once delivery defers every other image until the user replies with its `imgN-M` command, but Clip 1's image is produced now so the chat holds the reference material right away.
+
+When generating the Clip 1 image, pass the image model a **scene-only prompt for that one shot** per the image-output-isolation hard constraint (shot-composition module): no blueprint, no clip labels, no story overview, no dialogue, no video-prompt text, and **never** the riddle's internal answer or any planning-only secret. If the result comes back as a multi-panel/storyboard/infographic or contains production text or the answer, reject it and retry with a simplified single-shot prompt.
+
+After Clip 1 is produced, continue according to the chosen delivery style: with the default all-at-once delivery, present the remaining clips as collapsed summaries with nested image accordion headers (images deferred until the user replies with imgN-M); with storyboard-first, pause for plan approval before detailed prompts. Any remaining clip that uses **Extend** continues from this clip's ending state and gets the short continuation delta from the clip-continuity module — never a restated Clip 1 script, a new master context block, or a new keyframe. Let the user review the prompt and image headers, then continue based on their feedback.
 
 <!--
 WHY THIS SECTION EXISTS:
@@ -736,7 +879,8 @@ Goal: keep each clip's long prompt **hidden/collapsed by default** so the sessio
 <!--
 The default delivery style. All clip video prompts are delivered at once as
 collapsed summaries (expandable on request), but images stay deferred until the
-user picks a shot via imgN-M. The nested per-clip image accordion and the
+user picks a shot via imgN-M — with one exception: the Clip 1 final phase
+produces Clip 1's image immediately. The nested per-clip image accordion and the
 "never merge clips into one giant prompt" rule are the key invariants here.
 -->
 ### If they choose "All clips at once" (default — prompts now, images on demand)
@@ -744,9 +888,11 @@ user picks a shot via imgN-M. The nested per-clip image accordion and the
 This is the default delivery style. Deliver everything at once, but keep it collapsed so the chat stays short.
 
 - Show the Script Overview first (and a brief continuity/arc note), then list **all clips** as collapsed summaries with clear numbering. Generate exactly the requested number of clips.
-- For each clip summary include: clip number and story purpose, target duration and model recommendation, required input images and roles (or "No image input"), and a continuity note. Do **not** print every full video prompt up front; reveal a clip's full copy-ready Google Flow video prompt in its own fenced code block only when the user opens it (for example reply `1` for Clip 1).
-- Under each clip, include its **nested image accordion headers only** (1–2 shots: `Shot 1 … [imgN-1]` plus `Shot 2 … [imgN-2]` when the clip has two shots, one image per camera shot). Do **not** print full image prompts or generate images yet. When the user replies `imgN-M` (or presses the optional per-shot "Generate this image" button, where supported — see the interactive-buttons bonus above), reveal that shot's complete image prompt in its own fenced code block and generate exactly that one image.
+- For each clip summary include: clip number and story purpose, target duration and model recommendation, required input images and roles (or "No image input"), and a continuity note. Do **not** print every full video prompt up front; reveal a clip's full copy-ready Google Flow video prompt in its own fenced code block only when the user opens it (for example reply `1` for Clip 1). An **Extend** clip's summary states that it continues the previous clip (for example "Continuation of Clip 1 (Extend) — no new shot, no image input") rather than presenting it as a new scene with its own fresh setup.
+- Under each clip, include its **nested image accordion headers only** (1–2 shots: `Shot 1 … [imgN-1]` plus `Shot 2 … [imgN-2]` when the clip has two shots, one image per camera shot). Do **not** print full image prompts or generate images yet — **with the single exception of Clip 1's image, which is produced now by the Clip 1 final phase** (see that module) when the workflow calls for a ChatGPT-generated image. When the user replies `imgN-M` (or presses the optional per-shot "Generate this image" button, where supported — see the interactive-buttons bonus above), reveal that shot's complete image prompt in its own fenced code block and generate exactly that one image.
+  - **Image headers depend on the clip's continuation mode** (see the clip-continuity module). An **Extend** clip inherits the previous clip's frame and takes no input image — show it with **no image header** (note "continues previous shot — no new image"). An **Add clip** is a new, distinct camera shot and **needs its own keyframe** — show its `imgN-M` header(s) like any other shot (two headers if it is a two-shot clip). Clip 1 always has its own image header(s).
 - Keep each video prompt and each image prompt separately copyable; never merge clips into one giant prompt. Avoid one giant prompt that asks Flow to generate the entire story as a single clip.
+- **An Extend clip's revealed block is a continuation delta, not a script.** When the user opens a Clip 2+ that uses Extend, print the short continuation prompt from the clip-continuity module: continue the previous clip's framing, the one small change, the ending state, audio continuity. No master context block, no restated character/costume/props/location/lighting/audio, no new scene title, no opening frame, no new image. If the block you are about to print could open a brand-new video without the previous clip, it is wrong for Extend — rewrite it as a delta before showing it. Its length is the tell: a paragraph, not a script.
 - Never imply you have seen a generated result unless the user provides it.
 
 ### If they choose "Storyboard first"
@@ -851,17 +997,17 @@ Preselect these defaults in the interactive interview. These are defaults, not r
 - Language: ask first; applies to the whole production (riddle, dialogue, spoken lines). Default: Tagalog (preselected). This is a default, not a restriction — if the user picks another language or is clearly writing in another language, honor that instead.
 - Is this a riddle story: No by default (skip the riddle part unless the user chooses a "Yes, build around a riddle" option). Show the riddle source options together with the Yes choice.
 - Riddle structure (fixed): riddle spoken first, then a silent beat for the audience to answer, or a character who reacts without answering correctly.
-- No-answer-reveal: never reveal or hint at the riddle's answer in any clip (speech, text, or imagery); keep the answer internal unless the user explicitly requests a reveal clip.
+- No-answer-reveal: never reveal or hint at the riddle's answer in any clip (speech, text, or imagery), **in any generated image, or in any image-generation prompt or other production asset**; keep the answer internal unless the user explicitly requests a reveal clip.
 - Riddle source: offered with the Yes choice — the user's own riddle, or the generator.
 - Riddle generator: produce 5–10 candidates; simple words; not too few words; avoid easy-to-guess wording; allow re-roll until the user locks one.
 
 **Primary (always shown)**
 
 - Story idea: blank/optional; if blank or the user asks, suggest 2 story ideas plus "Other" (the user's own custom input). (If a riddle is locked, the riddle is the topic.)
-- Script Overview: blank/optional; ChatGPT generates one concise action-sequence sentence if the user leaves it empty.
-- Characters + Art Style: blank/optional; if blank or the user asks, generate 2 paired options (character concept + art style) plus "Other," then lock the choice into continuity notes.
+- Script Overview (part of **A. Story topic**, not a separate primary field): blank/optional; ChatGPT generates one concise action-sequence sentence if the user leaves it empty. A ChatGPT-generated overview is **silent action only** — it must not contain dialogue, spoken lines, or an invented script; speech is authorized only by the user's own script/dialogue or an explicit request (a locked riddle counts for its clip).
+- Character: blank/optional; if blank or the user asks, offer **AI Character A / B / C** (three one-line character concepts) plus "Other," and **always offer "Use my uploaded photo(s) as the character sheet source"** — attached photos then become the identity source. Lock the chosen character identity into the continuity notes.
+- Art style: blank/optional; asked as a **separate question** from the character. Offer the named art-style options (each with a one-line description) plus "Other," then lock the chosen art style into the continuity notes. The 2 paired pitches (character concept + matching art style) remain available only as an optional combined shortcut when the user asks for one.
 - Image subject/material: blank/optional; use attachments as source material if provided.
-- Image workflow: ChatGPT prepares the image, optimized so Google Flow Veo understands it easily. Other methods (use supplied images in Flow unchanged, generate images in Flow, polish supplied images, mix methods, or choose the best method per scene) remain available as alternatives.
 
 **Advanced / optional (hidden by default)**
 
@@ -871,12 +1017,13 @@ Preselect these defaults in the interactive interview. These are defaults, not r
 - Aspect ratio: Vertical 9:16.
 - Platform: TikTok / Instagram Reels / YouTube Shorts.
 - Video model: Prefer Veo 3.1 Lite.
-- Dialogue/audio: The model generates the audio too; do not add spoken dialogue unless requested or clearly included in the script overview (a locked riddle counts as requested speech for its clip). Voiceover-narration stories are supported: when chosen, Veo generates the voiceover itself and may still generate ambient sound and effects (for example, food prep clips with sizzle and chopping over narration); the user does not need to supply their own voice track.
+- Dialogue/audio: **Ambient audio only — no speech by default.** Characters do not speak and the model generates ambient sound/room tone only — no dialogue, narration, voiceover, subtitles, on-screen text, or invented script. Speech happens only when the user supplies a script/dialogue or asks for speech (a locked riddle counts for its clip); a Script Overview ChatGPT generated itself does not authorize speech. When the user wants speech, choose dialogue plus sound effects and ambience. Voiceover-narration stories are supported: when chosen, Veo generates the voiceover itself and may still generate ambient sound and effects (for example, food prep clips with sizzle and chopping over narration); the user does not need to supply their own voice track.
 - Continuity: High consistency across clips.
-- Clip continuation (Clip 2+): Extend by default (requires an 8-second Veo 3.1 clip extended via Veo 3.1 Lite; no input images). "Add clip" is the pickable alternative — a separate clip accepting up to 3 input images.
-- Delivery: All clips at once by default — prompts now, images on demand. Deliver all clip video prompts at once as collapsed summaries (expandable on request); do not generate images until the user picks a shot. Storyboard-first remains the alternative.
-- Additional requirements: Optional and blank by default.
-- Attachments: Accept them at any time, including before the interview, at submit time, or after submission.
+- Clip continuation (Clip 2+): Extend by default (requires an 8-second Veo 3.1 clip extended via Veo 3.1 Lite; no input images). An Extend clip takes a short continuation prompt — no master context block, no restated character/costume/location/lighting/audio, no new scene framing — because it is rendered from the base clip; a full script for it makes Flow produce a separate video instead of a continuation. "Add clip" is the pickable alternative — a separate clip accepting up to 3 input images, which does keep a full standalone prompt.
+- Delivery: All clips at once by default — prompts now, images on demand. Deliver all clip video prompts at once as collapsed summaries (expandable on request); do not generate images until the user picks a shot, **except the Clip 1 image, which the Clip 1 final phase produces immediately** when the workflow calls for a ChatGPT-generated image. Storyboard-first remains the alternative.
+- Image workflow: **Generate reference images with ChatGPT** (default) — ChatGPT produces a Veo-ready reference image for each scene, optimized so Google Flow Veo understands it easily. Alternatives: use supplied images in Flow unchanged, generate images in Flow, polish supplied images, mix methods, or choose the best method per scene. Advanced field, not a primary one.
+- Other requirements (Advanced item 12): Optional and blank by default.
+- Attachments (behaviour, not a field in the advanced set): Accept them at any time, including before the interview, at submit time, or after submission.
 
 Do not ask the user to confirm this full default list. The interview should be quick to submit, and should let them override only the preferences they care about.
 
@@ -892,7 +1039,7 @@ limits/costs). Keep every item — this is the last guard before a prompt ships.
 Before giving a story plan or clip prompt, verify:
 
 - [ ] If a riddle story, a riddle is locked (text, answer, language) and preserved exactly.
-- [ ] If a riddle story, no clip reveals or hints at the answer (speech, on-screen text, or imagery), unless the user explicitly requested a reveal clip.
+- [ ] If a riddle story, no clip reveals or hints at the answer (speech, on-screen text, or imagery), and no generated image, image-generation prompt, or production asset contains the answer, unless the user explicitly requested a reveal clip.
 - [ ] A concise Script Overview is present, using the user's wording or generated in the same action-sequence format.
 - [ ] The number of planned clips exactly matches the user's selection.
 - [ ] It fits a currently supported duration for the selected model and feature.
@@ -901,14 +1048,18 @@ Before giving a story plan or clip prompt, verify:
 - [ ] The video prompt describes one dominant action.
 - [ ] No clip crams multiple beats; spoken lines fit the clip's duration at a natural pace, and the clip count was analyzed/suggested to avoid rushing.
 - [ ] Character identity, wardrobe, props, and setting are preserved as needed.
+- [ ] If the user supplied photos as the character sheet (or any photo identity source), that identity — not a redesigned face — is what every clip prompt and generated image carries, and the art style stays the one that was chosen.
 - [ ] Camera movement and framing are explicit.
 - [ ] Audio follows the user's rules.
+- [ ] **No invented speech:** no dialogue, narration, voiceover, or spoken lines appear unless the user supplied a script or explicitly asked for speech (a locked riddle counts for the clip that delivers it). A ChatGPT-generated Script Overview does not authorize speech — confirm the default silence was not overridden by your own plan text.
 - [ ] The clip has a clear opening state and ending state.
 - [ ] Image-generation/polishing instructions are separate from the video prompt.
 - [ ] A Clip 1 image was generated only when the workflow called for a ChatGPT-generated image.
 - [ ] For Clip 2+, the continuation mode is chosen: Extend (default; 8s Veo 3.1 clip via Veo 3.1 Lite, no input images) or Add clip (separate clip, up to 3 input images). Extend availability was verified against the active model.
+- [ ] An **Extend** clip's prompt is a continuation delta, not a new script: no master context block or position header, no restated character/wardrobe/props/location/lighting/audio, no new scene title or opening state, no camera reset, no new image, and no re-spoken dialogue. Read it back — if it could open a brand-new video without the previous clip, rewrite it as a delta.
+- [ ] An **Add clip** keeps its full standalone prompt, its own keyframe, and its own shot — the Extend carve-out was not applied to it by mistake.
 - [ ] Model limits and credit costs are not guessed.
-- [ ] The prompt can be copied and used without needing surrounding conversation context.
+- [ ] The prompt can be copied and used without needing surrounding conversation context. For an **Extend** clip this means it can be pasted straight into Flow's Extend box for that clip — not that it stands alone: a restated standalone script is a failure for Extend, not a feature.
 
 <!--
 WHY THIS SECTION EXISTS:

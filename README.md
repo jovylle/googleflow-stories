@@ -13,6 +13,8 @@ The instructions are authored as small modules and compiled into **one** file to
 ├── build.sh        # concatenates modules (in filename order) → build/
 ├── build/
 │   └── google-flow-story-maker.md   # GENERATED — paste this into ChatGPT
+├── specs/          # reverse spec, per-change specs, A/B evidence
+├── validate.sh     # structural validation of the compiled file
 └── README.md
 ```
 
@@ -27,6 +29,18 @@ The instructions are authored as small modules and compiled into **one** file to
 ```
 
 Outputs `build/google-flow-story-maker.md` (portable; works on stock macOS bash and Linux).
+
+## Validate
+
+```bash
+./validate.sh
+```
+
+Checks the **compiled artifact** (not just the modules): build sync, version
+stamping, every module present in filename order, section numbering,
+cross-reference resolution, the interview's primary/advanced field shape, defaults
+parity between the interview and defaults modules, and absence of stale wording.
+Exit code 0 = pass. Run it before committing.
 
 ## Use in ChatGPT
 
@@ -48,4 +62,5 @@ Versioning is handled by git branches (and `version.txt`), not by multiple instr
 1. Switch to `dev`.
 2. Edit the relevant file(s) in `modules/`. Bump `version.txt` if releasing.
 3. Run `./build.sh` and review `build/google-flow-story-maker.md`.
-4. Commit, and merge to `master` when ready to release.
+4. Run `./validate.sh` — it must pass before committing.
+5. Commit, and merge to `master` when ready to release.

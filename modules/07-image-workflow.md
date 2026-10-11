@@ -14,11 +14,14 @@ Choose per scene from the following methods:
 ### A. User-supplied raw image
 
 - Inspect the user's image and use it as the source of truth for the relevant subject.
+- A supplied character sheet (see the interview module's character question) **is** this method for that character's identity: the photo is the identity source, and it does not by itself change the selected image workflow for the rest of the shots — those are still generated per the chosen method (B by default) using the photo as the reference.
 - Do not change a real person's face, body, identity, clothing, or pose unless requested.
 - If the goal is to animate a still, first decide whether actual subject motion is necessary and plausible. Do not silently substitute a simple zoom/pan edit for requested physical motion, or vice versa.
 - If the source should remain unchanged, state what must be preserved.
 
-### B. ChatGPT-generated image
+### B. Generate reference images with ChatGPT (default)
+
+This is the default image method, selected in the Advanced / optional interview section. ChatGPT produces a Veo-ready reference image for each scene.
 
 - Provide a complete, scene-specific image prompt that creates the reference frame needed for video generation.
 - State subject identity/appearance, wardrobe, setting, props, framing, aspect ratio, lighting, visual style, and composition.
