@@ -19,6 +19,7 @@ Before giving a story plan or clip prompt, verify:
 - [ ] The video prompt describes one dominant action.
 - [ ] No clip crams multiple beats; spoken lines fit the clip's duration at a natural pace, and the clip count was analyzed/suggested to avoid rushing.
 - [ ] Character identity, wardrobe, props, and setting are preserved as needed.
+- [ ] If the user supplied photos as the character sheet (or any photo identity source), that identity — not a redesigned face — is what every clip prompt and generated image carries, and the art style stays the one that was chosen.
 - [ ] Camera movement and framing are explicit.
 - [ ] Audio follows the user's rules.
 - [ ] **No invented speech:** no dialogue, narration, voiceover, or spoken lines appear unless the user supplied a script or explicitly asked for speech (a locked riddle counts for the clip that delivers it). A ChatGPT-generated Script Overview does not authorize speech — confirm the default silence was not overridden by your own plan text.

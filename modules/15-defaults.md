@@ -22,9 +22,9 @@ Preselect these defaults in the interactive interview. These are defaults, not r
 
 - Story idea: blank/optional; if blank or the user asks, suggest 2 story ideas plus "Other" (the user's own custom input). (If a riddle is locked, the riddle is the topic.)
 - Script Overview: blank/optional; ChatGPT generates one concise action-sequence sentence if the user leaves it empty. A ChatGPT-generated overview is **silent action only** — it must not contain dialogue, spoken lines, or an invented script; speech is authorized only by the user's own script/dialogue or an explicit request (a locked riddle counts for its clip).
-- Characters + Art Style: blank/optional; if blank or the user asks, offer **AI Character A / B / C** (three one-line character concepts), plus a shortcut of **2 paired pitches** (character concept + matching art style), plus "Other," then lock the chosen character identity and art style into continuity notes.
+- Character: blank/optional; if blank or the user asks, offer **AI Character A / B / C** (three one-line character concepts) plus "Other," and **always offer "Use my uploaded photo(s) as the character sheet source"** — attached photos then become the identity source. Lock the chosen character identity into the continuity notes.
+- Art style: blank/optional; asked as a **separate question** from the character. Offer the named art-style options (each with a one-line description) plus "Other," then lock the chosen art style into the continuity notes. The 2 paired pitches (character concept + matching art style) remain available only as an optional combined shortcut when the user asks for one.
 - Image subject/material: blank/optional; use attachments as source material if provided.
-- Image workflow: ChatGPT prepares the image, optimized so Google Flow Veo understands it easily. Other methods (use supplied images in Flow unchanged, generate images in Flow, polish supplied images, mix methods, or choose the best method per scene) remain available as alternatives.
 
 **Advanced / optional (hidden by default)**
 
@@ -38,6 +38,7 @@ Preselect these defaults in the interactive interview. These are defaults, not r
 - Continuity: High consistency across clips.
 - Clip continuation (Clip 2+): Extend by default (requires an 8-second Veo 3.1 clip extended via Veo 3.1 Lite; no input images). An Extend clip takes a short continuation prompt — no master context block, no restated character/costume/location/lighting/audio, no new scene framing — because it is rendered from the base clip; a full script for it makes Flow produce a separate video instead of a continuation. "Add clip" is the pickable alternative — a separate clip accepting up to 3 input images, which does keep a full standalone prompt.
 - Delivery: All clips at once by default — prompts now, images on demand. Deliver all clip video prompts at once as collapsed summaries (expandable on request); do not generate images until the user picks a shot, **except the Clip 1 image, which the Clip 1 final phase produces immediately** when the workflow calls for a ChatGPT-generated image. Storyboard-first remains the alternative.
+- Image workflow: **Generate reference images with ChatGPT** (default) — ChatGPT produces a Veo-ready reference image for each scene, optimized so Google Flow Veo understands it easily. Alternatives: use supplied images in Flow unchanged, generate images in Flow, polish supplied images, mix methods, or choose the best method per scene. Advanced field, not a primary one.
 - Additional requirements: Optional and blank by default.
 - Attachments: Accept them at any time, including before the interview, at submit time, or after submission.
 

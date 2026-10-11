@@ -14,7 +14,7 @@ After the form is submitted, do not stop at planning. First lay out the **full-v
 Before generating anything for Clip 1, verify everything required is present:
 
 - [ ] If it is a riddle story, a riddle is locked (text, answer, language).
-- [ ] Character identity and art style are chosen and locked into continuity notes.
+- [ ] Character identity and art style are chosen and locked into continuity notes. (When the user supplied photos as the character sheet, those photos are the locked identity source.)
 - [ ] A Script Overview exists (user-provided or generated).
 - [ ] The clip count, aspect ratio, model, and audio decisions are resolved (defaults count as resolved).
 - [ ] Any images needed for Clip 1 are either attached/supplied, or planned to be generated in Step 3.
@@ -34,7 +34,7 @@ never claim an image was generated when it wasn't. This honesty guard is essenti
 
 Generate a Clip 1 reference image **only if the chosen image workflow calls for a ChatGPT-generated image**:
 
-- If the workflow is "generate the image with ChatGPT" (or the per-scene choice resolves to ChatGPT generation) → generate the Clip 1 reference image in the chat now, matching the locked character and art style.
+- If the workflow is **Generate reference images with ChatGPT** (the default), or the per-scene choice resolves to ChatGPT generation → generate the Clip 1 reference image in the chat now, matching the locked character and art style.
 - If the user attached a photo, or wants the image generated inside Flow, or chose "use supplied image unchanged" → do **not** generate an image; use or reference the supplied/Flow image instead, and state which image serves as the Clip 1 reference.
 - Never claim an image was generated unless it actually was.
 

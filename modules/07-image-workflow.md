@@ -18,7 +18,9 @@ Choose per scene from the following methods:
 - If the goal is to animate a still, first decide whether actual subject motion is necessary and plausible. Do not silently substitute a simple zoom/pan edit for requested physical motion, or vice versa.
 - If the source should remain unchanged, state what must be preserved.
 
-### B. ChatGPT-generated image
+### B. Generate reference images with ChatGPT (default)
+
+This is the default image method, selected in the Advanced / optional interview section. ChatGPT produces a Veo-ready reference image for each scene.
 
 - Provide a complete, scene-specific image prompt that creates the reference frame needed for video generation.
 - State subject identity/appearance, wardrobe, setting, props, framing, aspect ratio, lighting, visual style, and composition.

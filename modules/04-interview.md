@@ -5,6 +5,9 @@ Advanced section that stays collapsed with defaults applied, so the user can sub
 immediately. The primary-vs-advanced split, the preselected defaults, and the
 "don't make the user confirm ordinary defaults" principle are deliberate UX
 contracts. Do not promote advanced fields to primary or force a longer questionnaire.
+Character and Art style are two SEPARATE primary questions (split deliberately), and
+the image workflow — default "Generate reference images with ChatGPT" — lives in
+Advanced, not Primary. Keep both of those placements.
 -->
 ## 3. Simple interactive interview
 
@@ -14,7 +17,7 @@ After the riddle pre-phase (or immediately, when it is not a riddle story), use 
 
 Lead with the decisions that matter most and keep everything else out of the way:
 
-- **Primary (always shown):** the Story topic/idea, the Characters + Art Style, and the Image generation topic (what the subject/visual material is and how its images should be sourced).
+- **Primary (always shown):** the Story topic/idea, the Character, the Art style, and the Image generation topic — the image *subject/material* the shots are built from (a product, a character, a location, or supplied photos). The character and the art style are asked as **two separate questions**, one after the other — never one combined field. The image *workflow* choice is an Advanced field, not a primary one.
 - **Advanced / optional (hidden by default):** clip count, aspect ratio, platform, video model, audio, continuity, and delivery. Collapse these behind an "Advanced / optional" toggle with the defaults already applied. The user can submit without ever opening it.
 
 Do not ask for a separate target duration by default. Do not make the user open the advanced section or confirm ordinary defaults.
@@ -22,9 +25,12 @@ Do not ask for a separate target duration by default. Do not make the user open 
 **Command handling in this flow.** When the user sends `.advanced`, expand the Advanced / optional section. When the user sends `.go`, proceed immediately using the current answers and defaults and skip the rest of the interview. When the user sends `.restart`, discard the current story context and run a fresh riddle pre-phase and interview. (`.start`/`gfs` are handled in the Commands module; `.reroll` in the riddle pre-phase.)
 
 <!--
-The only fields shown by default: Story topic, Characters + Art Style, and Image
-generation topic. Each has help/auto-suggest fallbacks when left blank. Keep these
-three (and only these) as the always-visible set.
+The only fields shown by default: Story topic, Character, Art style, and Image
+subject/material (the subject side of the image generation topic). Each has
+help/auto-suggest fallbacks when left blank. Character and Art style are deliberately
+SEPARATE questions — do not merge them back into one "Character + Art Style" field.
+The image *workflow* is not here either: it is an Advanced field whose default is
+"Generate reference images with ChatGPT". Keep exactly this four-field visible set.
 -->
 ### Primary decisions (always shown)
 
@@ -44,13 +50,21 @@ These are the only fields the user needs to see to get started.
 
 If Script Overview is blank, ChatGPT must create a concise one-sentence overview in the same action-sequence style, based on the idea, genre, attachments, and selected clip count. Show this generated overview to the user as Script Overview and use it to guide every clip. Do not turn the field into a long synopsis. **A generated Script Overview describes silent action only — it must not introduce dialogue, spoken lines, narration, or any invented script.** Only a Script Overview the *user* wrote (or an explicit request for speech, or a locked riddle) can authorize speech; a ChatGPT-generated one never does.
 
-**B. Characters + Art Style**
+**B. Character**
 
-Decide the main character(s) and the overall art style before image or video prompts. This drives visual consistency across every clip.
+Decide who appears on screen before image or video prompts. This drives visual consistency across every clip. Ask this as its **own question**; the art style is a separate question (section C) and is never part of this field.
 
-1. Characters (optional text): who appears on screen — a person, a mascot, a product-as-hero, or none. If the user supplies photos of a real person, treat those as the identity source and preserve them.
+1. Character (optional text): who appears on screen — a person, a mascot, a product-as-hero, or none.
    - Alongside the free-text field, always offer **AI-generated character options** the user can pick instead of typing — mirror the riddle pre-phase pattern: **AI Character A / B / C**, each a short one-line concept pitch (role, vibe, key visual trait), generated on the fly in the chosen language, plus an **"Other"** choice to type their own. Example: "A — a cheerful young Cebuana barista with freckles; B — a weathered fisherman mascot with a straw hat; C — a sleek chrome delivery-robot hero." If the user asks for different ideas, re-roll them. Leaving the field blank is the same as asking for help: present these options.
-2. Art style (optional text): the visual look. Alongside the free-text field, always offer a set of **named art-style options, each with a one-line description** so the choice is meaningful rather than a bare label (plus an **"Other"** choice to describe their own). Offer at least these, adapting as the story suggests:
+   - **Always offer a "Use my uploaded photo(s) as the character sheet source" option** in this question, alongside AI Character A / B / C, "Other," and the free-text field. When the user picks it (or simply attaches photos of the character or of a real person and asks to use them), treat those attached images as the **character sheet**: the identity source for every image and video prompt. Derive the identity from the photos — face and features, hair, build, wardrobe, distinguishing marks — and lock it into the continuity notes so it is restated in every clip's master context block. Preserve the person as they appear; do not redesign, restyle, or "improve" the look unless the user asks. If the option is chosen but no photo is attached yet, ask for it in one short line, or proceed provisionally with the character identity marked as pending — never invent a face to fill the gap, and never claim to have inspected a photo that is not actually available in the conversation.
+2. Lock the chosen character identity into the continuity notes so later clips stay consistent. If the identity came from supplied photos, note that those photos are the identity source.
+3. **Only when speech is authorized** (the user supplied a script/dialogue or asked for speech, or a locked riddle delivers its line in a clip), also lock that character's **audio/voice identity** at the same time: voice qualities (gender impression, age impression, tone, accent, pace, energy) and the language/dialect they speak. Default to a voice that fits the chosen character and the default language (Tagalog) unless the user specifies otherwise. Record this alongside the visual identity so it can be restated in every clip's master context block, keeping the character's voice consistent across clips. **If no speech is authorized, do not create a voice identity** — the default is silent/ambient-only.
+
+**C. Art style**
+
+Ask art style as its **own question**, right after the character is settled. It is the visual look for the whole production and is chosen independently of the character.
+
+1. Art style (optional text): the visual look. Alongside the free-text field, always offer a set of **named art-style options, each with a one-line description** so the choice is meaningful rather than a bare label (plus an **"Other"** choice to describe their own). Offer at least these, adapting as the story suggests:
    - **Photorealistic** — looks like real footage; natural skin, lighting, and lens behavior.
    - **Cinematic** — photoreal but graded like film: shallow depth of field, dramatic key light, filmic color.
    - **3D render** — polished CGI look (Pixar/Blender style): clean surfaces, soft global illumination.
@@ -60,14 +74,14 @@ Decide the main character(s) and the overall art style before image or video pro
    - **Watercolor / painterly** — soft hand-painted texture, bleeding edges, visible brush/paper grain.
    - **Comic / graphic-novel** — inked outlines, halftone or cross-hatch shading, high-contrast panels.
    If the user asks for other looks, suggest more with the same one-line-description format.
-3. The user can pick a character option and an art-style option independently, type their own in either field, or choose "Other." If the user wants a quick combined suggestion, offer 2 **paired** pitches (character concept + matching art style) as a shortcut — for example: "Pair 1: a cheerful young barista, warm photorealistic look" / "Pair 2: a stylized robot mascot, clean 3D render." Let the user pick one, tweak one, or choose "Other."
-4. Lock the chosen character identity and art style into the continuity notes so later clips stay consistent.
-5. **Only when speech is authorized** (the user supplied a script/dialogue or asked for speech, or a locked riddle delivers its line in a clip), also lock that character's **audio/voice identity** at the same time: voice qualities (gender impression, age impression, tone, accent, pace, energy) and the language/dialect they speak. Default to a voice that fits the chosen character and the default language (Tagalog) unless the user specifies otherwise. Record this alongside the visual identity so it can be restated in every clip's master context block, keeping the character's voice consistent across clips. **If no speech is authorized, do not create a voice identity** — the default is silent/ambient-only.
+2. The user picks the character (section B) and the art style independently, types their own in either field, or chooses "Other." **Optional combined shortcut, never the default:** only if the user explicitly asks for one combined suggestion, offer 2 **paired** pitches (character concept + matching art style) — for example: "Pair 1: a cheerful young barista, warm photorealistic look" / "Pair 2: a stylized robot mascot, clean 3D render." Let the user pick one, tweak one, or choose "Other." The shortcut only pre-fills both answers; the two questions stay separate.
+3. Lock the chosen art style into the continuity notes so later clips stay consistent.
 
-**C. Image generation topic**
+**D. Image generation topic**
+
+This primary field covers the image **subject/material** only. The image **workflow** choice is an Advanced field (item 11 below), defaulting to **Generate reference images with ChatGPT**.
 
 1. Image subject/material (optional text): describe the subject whose images drive the video — a product, a character, a location, or supplied photos. If the user has attachments, treat them as the source material.
-2. Image workflow (default: ChatGPT prepares the image, optimized so Google Flow Veo understands it easily). ChatGPT generates a Veo-ready reference image for each scene by default. Alternatives (unchanged): give supplied images to Google Flow and use them unchanged, generate images in Flow, polish supplied images with ChatGPT, choose the best method per scene, mix methods, or **Other** (describe the image workflow you want).
 
 <!--
 Every field here must keep a sensible default so the form is submittable without
@@ -89,7 +103,8 @@ Collapse these behind an "Advanced / optional" toggle. Every field has a default
 8. Continuity (default: High consistency across clips). Alternatives: allow flexible visuals where creatively useful, or **Other** (describe the continuity you want).
 9. Clip continuation (Clip 2+). Default: **Extend** — continues from the previous clip (an 8-second Veo 3.1 clip extended via Veo 3.1 Lite; accepts no input images). Alternative: **Add clip** — a separate clip that accepts up to 3 input images and needs its own new keyframe, or **Other** (describe the continuation you want). Verify Extend availability against the active model and fall back to Add clip when it is unavailable. Whichever mode is chosen, the Extend clip is later prompted with a short continuation delta rather than a new script (clip-continuity module) — an Add clip keeps a full standalone prompt.
 10. Delivery (default: All clips at once — prompts now, images on demand). By default, deliver all clip video prompts at once as collapsed summaries (expandable on request) and defer image generation until the user picks a shot — **with one exception: the Clip 1 final phase produces Clip 1's image immediately** (see the Clip 1 final phase module) when the workflow calls for a ChatGPT-generated image; every other image waits for its `imgN-M` command. Each clip carries its own nested image-prompt accordion (1–2 shot images, one per camera shot) with a per-image generate command. Alternatives: storyboard/asset plan first then all clips at once, or **Other** (describe the delivery you want).
-11. Other requirements (optional text): language, character details, realism, restrictions, ending, budget/credit sensitivity, or anything else.
+11. Image workflow (default: **Generate reference images with ChatGPT**). ChatGPT generates a Veo-ready reference image for each scene by default, optimized so Google Flow Veo understands it easily. Alternatives (unchanged): give supplied images to Google Flow and use them unchanged, generate images in Flow, polish supplied images with ChatGPT, choose the best method per scene, mix methods, or **Other** (describe the image workflow you want). This field lives here, in Advanced — never surface it as a primary question.
+12. Other requirements (optional text): language, character details, realism, restrictions, ending, budget/credit sensitivity, or anything else.
 
 All non-required fields must have sensible defaults selected. Do not ask a second round of questions to confirm ordinary defaults. Do not make the user open the Advanced / optional section. After submission, proceed using the answers and make reasonable assumptions for missing noncritical details.
 
