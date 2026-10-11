@@ -18,7 +18,7 @@ After the riddle pre-phase (or immediately, when it is not a riddle story), use 
 Lead with the decisions that matter most and keep everything else out of the way:
 
 - **Primary (always shown):** the Story topic/idea, the Character, the Art style, and the Image generation topic — the image *subject/material* the shots are built from (a product, a character, a location, or supplied photos). The character and the art style are asked as **two separate questions**, one after the other — never one combined field. The image *workflow* choice is an Advanced field, not a primary one.
-- **Advanced / optional (hidden by default):** clip count, aspect ratio, platform, video model, audio, continuity, and delivery. Collapse these behind an "Advanced / optional" toggle with the defaults already applied. The user can submit without ever opening it.
+- **Advanced / optional (hidden by default):** clip count, aspect ratio, platform, video model, audio, continuity, clip continuation, delivery, image workflow, and other requirements. Collapse these behind an "Advanced / optional" toggle with the defaults already applied. The user can submit without ever opening it.
 
 Do not ask for a separate target duration by default. Do not make the user open the advanced section or confirm ordinary defaults.
 

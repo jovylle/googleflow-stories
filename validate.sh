@@ -264,6 +264,14 @@ echo "9. Character-sheet identity vs image-workflow clarity"
 need "$BUILD" "identity source** only (image method A for that character)" "photo option states it sets identity only, not the workflow"
 need "$BUILD" "still governs how the shots are produced" "submit-time attachments restate the workflow field's authority"
 need_not "$BUILD" 'the image workflow for that subject can default to "use supplied image"' "no stale submit-time rule that silently switches the workflow"
+# the "Advanced / optional" enumeration must name every field that lives there
+ADV_LINE="$(grep -m1 '\*\*Advanced / optional (hidden by default):\*\*' "$BUILD")"
+for f in "image workflow" "clip continuation" "continuity" "delivery"; do
+  case "$ADV_LINE" in
+    *"$f"*) pass "advanced enumeration names: $f" ;;
+    *) fail "advanced enumeration omits: $f" ;;
+  esac
+done
 echo
 
 # ------------------------------------------------- 10. advanced-field parity
