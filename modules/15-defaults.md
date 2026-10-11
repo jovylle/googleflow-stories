@@ -15,9 +15,9 @@ Preselect these defaults in the interactive interview. These are defaults, not r
 - Language: listed first; applies to the whole production (riddle, dialogue, spoken lines). Default: Tagalog (preselected). This is a default, not a restriction — if the user picks another language or is clearly writing in another language, honor that instead.
 - Story type (a single choice row, not a Yes/No toggle): Riddle story, AI Option A, AI Option B, AI Option C, or Other / custom story. **Default: non-riddle** — an AI option or the user's own idea applies unless they choose **Riddle story**. Do not implement this as a yes/no question followed by a second question.
 - Riddle source: shown in the same form and applying only to the **Riddle story** choice — the user's own riddle, or the generator. It is a field, not a follow-up question.
-- Riddle structure (fixed): riddle spoken first, then a silent beat for the audience to guess, then at least one visible failed attempt.
-- Riddle outcome: **The riddle is never answered correctly on screen** — no character lands the answer and no on-screen text gives it away. **A visible consequence is always included** — the riddle going unanswered costs something the audience can see, placed in the story's later beats, and it never reveals, hints at, or encodes the answer.
-- No-answer-reveal: never reveal or hint at the riddle's answer in any clip (speech, text, or imagery), **in any generated image, or in any image-generation prompt or other production asset**; keep the answer internal unless the user explicitly requests a reveal clip.
+- Riddle structure (fixed): **a horror two-entity scene** by default — a Teller who holds the victims trapped and poses the riddle, **small, cute, vulnerable** victims who attempt it and fail, and the Teller acting on the failure. The riddle is spoken first, then a silent beat for the audience to guess, then at least one visible failed attempt.
+- Riddle outcome: **The riddle is never answered correctly on screen** — no character lands the answer and no on-screen text gives it away. **A visible consequence is always included** — the riddle going unanswered costs something the audience can see, placed in the story's later beats. **The consequence is the Teller's act, not an event in the world**: the Teller takes something, claims one of the victims, seals the way, or leaves them where they are.
+- No-answer-reveal: never reveal or hint at the riddle's answer in any clip (speech, text, or imagery), **in any generated image, or in any image-generation prompt or other production asset**; and **no tips and no clues of any kind** may ever be added — no hints, no emphasized props, no scenery echoing the answer; and keep every element the riddle names or describes out of the scene, props, environment, weather, lighting, and image prompts. Keep the answer internal unless the user explicitly requests a reveal clip.
 - Riddle generator: produce 5–10 candidates; simple words; not too few words; avoid easy-to-guess wording; allow re-roll until the user locks one. **A pick locks the riddle in that same single action — no confirmation round; confirmation applies only when the user edits the riddle text.**
 
 **Primary (always shown)**
@@ -30,7 +30,7 @@ Preselect these defaults in the interactive interview. These are defaults, not r
 
 **Advanced / optional (hidden by default)**
 
-- Genre: Let ChatGPT decide.
+- Genre: **Horror for a riddle story** (the riddle default); otherwise Let ChatGPT decide.
 - Creative direction: Develop my idea.
 - Number of clips: 2 clips. Offer 1 clip, 2 clips, or Custom number with a numeric input.
 - Aspect ratio: Vertical 9:16.

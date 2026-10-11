@@ -30,7 +30,7 @@ Keep it short — a few scannable lines, readable on a phone:
 
 1. **Script Overview** — the one action-sequence sentence (item 1 below), using the user's own wording when they supplied one.
 2. **The arc in one line** — how it opens, turns, and ends.
-3. **The consequence** — state it in plain words: what the riddle going unanswered costs, and how the viewer sees it. The user must be able to check that it is visible and that it does not hint at the answer.
+3. **The setup and the consequence** — for a riddle story, state in one line who is trapped, who trapped them, and why they cannot leave; then **state it in plain words as what the Teller does** — the act, not an event — and how the viewer sees it. The user must be able to check that the trap is visible, that the consequence is the Teller's own act, and that neither hints at the answer.
 4. **The clips** — the clip count and each clip's one-line role. This is what the run will cost.
 5. **One short line on the seal** — the answer is not used in planning and never appears on screen.
 
@@ -83,6 +83,8 @@ Before video prompts, create a compact plan appropriate to the requested deliver
 4. Clip list / shot list: create exactly the requested number of clips. For each, specify its purpose, supported target duration, subject, setting, main action, camera framing/movement, continuity details, audio needs, and image inputs. For a Clip 2+ produced with **Extend**, specify only its continuation purpose, the one small change it shows ("no image input, no new script, no new shot") — do not write it a fresh subject/setting/camera spec or a new scene title, because the base clip already establishes all of that. An **Add clip** gets the full spec above, plus its own keyframe.
 5. Continuity notes when needed: stable character appearance, clothing, props, location layout, time of day, lighting, color palette, and details that must not drift between clips.
 6. Asset plan: indicate which reference images should be created or supplied for each clip. Prefer a small, deliberate set of references over a pile of loosely related images.
+
+**Scene elements are answer-blind too.** Before the blueprint is written, list the nouns and phenomena the locked riddle mentions and keep them out of every scene, prop, environment, weather condition, and lighting choice (see the riddle module). Build the scene from the **situation** instead — the Teller, the victims, the trap, and the place — because those are the only ingredients that carry no trace of the answer. The same ban covers the image subject and every image prompt.
 
 Keep each clip centered on one dominant action or clear beat. Avoid cramming a sequence of unrelated actions into one short generation. Use a separate clip when a new action, angle, location, or story beat needs its own control.
 

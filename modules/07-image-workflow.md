@@ -26,6 +26,7 @@ This is the default image method, selected in the Advanced / optional interview 
 - Provide a complete, scene-specific image prompt that creates the reference frame needed for video generation.
 - State subject identity/appearance, wardrobe, setting, props, framing, aspect ratio, lighting, visual style, and composition.
 - Avoid relying on a later video prompt to fix details that should already be present in the image.
+- **Build the frame from the situation, not from the riddle.** The image prompt may contain the Teller, the victims, the trap, the setting, and the mood — but **no element the locked riddle names or describes**. For a riddle about a cloud (sky, sun, water), the frame must contain no sky, no sun, no rain, no flood, and no water; a frame that illustrates what the riddle describes has handed the answer to the audience. When a scene element collides with the riddle's wording, change the scene, never the riddle.
 
 ### C. Image generated inside Google Flow
 
