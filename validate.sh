@@ -484,6 +484,28 @@ need "docs/HANDOFF.md" "build/google-flow-story-maker.md" "the handoff names the
 need "docs/HANDOFF.md" "docs/SUMMARY.md" "the handoff points at the version history"
 echo
 
+# ------------------------------------------------------- 25. the .auto skip path
+# .auto is the one command that skips both forms AND the checkpoint, on explicit
+# invocation only. Guards pin: the typed count-sentence extension, the explicit
+# checkpoint prohibition (v2.16.0 in a new guise otherwise), the .go distinction,
+# the auto-lock quality gate, the mukbang speech authorization, the checklist
+# lock, and the anti-state-inference rule (bare attachments never trigger).
+echo "25. The .auto skip path"
+need "$BUILD" "the one skip command" "the count sentence names .auto as the one skip command"
+need "$BUILD" "neither a form nor a checkpoint" ".auto is typed outside the form count"
+need "$BUILD" "for that run only" "the .auto skip is scoped to one run"
+need "$BUILD" "do not present the Story Overview checkpoint" "the checkpoint is explicitly barred on .auto runs"
+need "$BUILD" "Bare attachments never trigger" "attachments alone never start an auto run"
+need "$BUILD" "does not create a riddle or set a story type" ".go and .auto cannot be conflated"
+need "$BUILD" "generate one candidate that passes the riddle rules" "auto-lock keeps the riddle quality gate"
+need "$BUILD" "self-check before locking it" "auto-lock self-checks before locking"
+need "$BUILD" "carries its own speech authorization" ".auto mukbang authorizes its voiceover"
+need "$MODULES/16-checklist.md" "On an \`.auto\` run" "the checklist locks the .auto path"
+need "$MODULES/16-checklist.md" "no partial form" "the checklist bars partial forms on .auto"
+need_not "$BUILD" "auto counts as a form" ".auto is never folded into the form count"
+need_not "$BUILD" "generate a shortlist" "no pick-list resurrection on the auto path"
+echo
+
 echo "----------------------------------------"
 echo "checks: $CHECKED   failed: $FAILED"
 [ "$FAILED" -eq 0 ] && echo "validate: PASS" || echo "validate: FAIL"

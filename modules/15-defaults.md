@@ -43,5 +43,6 @@ Preselect these defaults in the interactive interview. These are defaults, not r
 - Image workflow: **Generate reference images with ChatGPT** (default) — ChatGPT produces a Veo-ready reference image for each scene, optimized so Google Flow Veo understands it easily. Alternatives: use supplied images in Flow unchanged, generate images in Flow, polish supplied images, mix methods, or choose the best method per scene. Advanced field, not a primary one.
 - Other requirements (Advanced item 12): Optional and blank by default.
 - Attachments (behaviour, not a field in the advanced set): Accept them at any time, including before the interview, at submit time, or after submission.
+- Auto mode (`.auto <riddle|mukbang>`): the riddle path locks the pasted or generated riddle under the horror two-entity defaults; the mukbang path runs voiceover narration with food-story defaults; everything else follows this same default list.
 
 Do not ask the user to confirm this full default list. The interview should be quick to submit, and should let them override only the preferences they care about.

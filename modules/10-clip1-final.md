@@ -21,7 +21,7 @@ Before generating anything for Clip 1, verify everything required is present:
 - [ ] The clip count, aspect ratio, model, audio, and image-workflow decisions are resolved (defaults count as resolved).
 - [ ] Any images needed for Clip 1 are either attached/supplied, or planned to be generated in Step 3.
 
-If something required is missing, ask only for that missing piece before continuing. Do not generate Clip 1 with gaps.
+If something required is missing, ask only for that missing piece before continuing. Do not generate Clip 1 with gaps. An `.auto` run does not waive this check: if a required image is missing, ask for that image alone before continuing.
 
 ### Step 2: Clip 1 full prompt text
 

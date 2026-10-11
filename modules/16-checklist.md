@@ -19,7 +19,8 @@ Before giving a story plan or clip prompt, verify:
 - [ ] A concise Script Overview is present, **in the action-sequence list format** (one step per line, not a paragraph), using the user's wording unaltered or generated in the same style.
 - [ ] **Exactly one image was generated in the turn** — Clip 1's reference image, as a single frame of a single composed scene. No batch, no run of images, no sheet or panels, no one-image-per-subject, and no image rendered of the plan, headers, or accordion.
 - [ ] If the Teller speaks in a horror riddle story, **the supernatural Teller voice block was used verbatim** for the riddle-delivering clip: `[LANGUAGE]` slots filled in, the locked riddle quoted exactly and alone, no extra vocalizations that carry meaning, no hint or statement of the answer, and the riddle checked against the slower **12–16 words per 8-second clip** budget before generating.
-- [ ] The Story Overview checkpoint was shown and the user proceeded — or an explicit skip (`.go`) was given — before any clip prompt, expanded blueprint, or reference image was produced.
+- [ ] The Story Overview checkpoint was shown and the user proceeded — or an explicit skip (`.go` or `.auto`) was given — before any clip prompt, expanded blueprint, or reference image was produced.
+- [ ] On an `.auto` run, no form and no Story Overview checkpoint was shown — no per-field walkthrough, no partial form, and the package went straight to blueprint and Clip 1.
 - [ ] The number of planned clips exactly matches the user's selection.
 - [ ] It fits a currently supported duration for the selected model and feature.
 - [ ] Each requested input image has a clear purpose and does not exceed the active interface's limit.
