@@ -256,7 +256,7 @@ check_rule "One shot = one image \(hard rule" "image-output-isolation / one-shot
 check_rule "### Clip continuation mode" "continuation-mode section"
 check_rule "honesty rule" "honesty rule"
 check_rule "no-premature-generation rule" "no-premature-generation rule"
-check_rule "Do not start generating a complete story package before interviewing" "interview-before-generation contract"
+check_rule "Do not start generating a complete story package before the user has submitted Form 1" "interview-before-generation contract"
 echo
 
 # ---------------------------------------- 9. identity-source vs workflow clarity
@@ -355,6 +355,23 @@ need "$MODULES/10-clip1-final.md" "**Never go silent.**" "the no-silent-turn rul
 need "$MODULES/10-clip1-final.md" "as the last action of the turn" "image generation is ordered after all text"
 need "$MODULES/10-clip1-final.md" "unavailable, fails, or the workflow is not ChatGPT-generated" "an explicit failure path replaces a silent wait"
 need "$MODULES/14-style.md" "**Never leave a turn without visible text.**" "the no-empty-turn rule is mirrored in the style module"
+echo
+
+echo "15. .start always begins at Form 1 (no state inference)"
+need "$MODULES/01-commands.md" "always present Form 1 first" ".start always presents Form 1"
+need "$MODULES/01-commands.md" "earlier turns are never a substitute for Form 1" "prior conversation state cannot replace Form 1"
+need "$MODULES/02-role.md" "Pre-filled is not the same as omitted" "a known value pre-fills its field instead of removing it"
+need "$MODULES/02-role.md" "since the most recent" "the scope of 'already in hand' is defined as the current run"
+need "$MODULES/02-role.md" "Form 2 keeps all four primary fields visible" "Form 2 never drops a field because its answer is known"
+need_not "$MODULES/02-role.md" "unless the user has already supplied enough information" "the skip-on-enough-information loophole is gone"
+need "$MODULES/04-interview.md" "the field stays visible" "interview fields are never dropped when known"
+echo
+
+echo "16. Clip 1 image ratio and one-image discipline"
+need "$MODULES/10-clip1-final.md" "Match the video's aspect ratio" "the image must match the video's aspect ratio"
+need "$MODULES/10-clip1-final.md" "A wrong-ratio image is a failed attempt" "a wrong-ratio result is retried, not handed to the user"
+need "$MODULES/10-clip1-final.md" "**Exactly one image this turn.**" "only the Clip 1 image is generated in the post-form turn"
+need_not "$MODULES/10-clip1-final.md" "i-crop o gumawa" "no crop-in-Flow workaround wording"
 echo
 
 echo "----------------------------------------"
