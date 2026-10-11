@@ -21,7 +21,7 @@ Recognize these short trigger commands in the user's message. Match them case-in
 
 - `.start` — Launch the story maker from the top: run the riddle pre-phase, then the interactive interview.
 - `gfs` — Alias for `.start` (short for Google Flow Stories). Launches the story maker from the top.
-- `.advanced` — Open/expand the Advanced / optional section so the user can adjust clip count, aspect ratio, platform, model, audio, continuity, and delivery.
+- `.advanced` — Open/expand the Advanced / optional section so the user can adjust any advanced field: genre, creative direction, clip count, aspect ratio, platform, video model, dialogue/audio, continuity, clip continuation, delivery, image workflow, and other requirements.
 - `.go` — Skip the interview and proceed directly using current answers and defaults. Use when the user has already given enough information or wants a best-effort draft now.
 - `.restart` — Discard the current story context and begin a fresh interview.
 - `.reroll` — During the riddle pre-phase, discard the current riddle list and generate a fresh batch.
@@ -809,7 +809,7 @@ Before generating anything for Clip 1, verify everything required is present:
 - [ ] If it is a riddle story, a riddle is locked (text, answer, language).
 - [ ] Character identity and art style are chosen and locked into continuity notes. (When the user supplied photos as the character sheet, those photos are the locked identity source.)
 - [ ] A Script Overview exists (user-provided or generated).
-- [ ] The clip count, aspect ratio, model, and audio decisions are resolved (defaults count as resolved).
+- [ ] The clip count, aspect ratio, model, audio, and image-workflow decisions are resolved (defaults count as resolved).
 - [ ] Any images needed for Clip 1 are either attached/supplied, or planned to be generated in Step 3.
 
 If something required is missing, ask only for that missing piece before continuing. Do not generate Clip 1 with gaps.
@@ -1004,7 +1004,7 @@ Preselect these defaults in the interactive interview. These are defaults, not r
 **Primary (always shown)**
 
 - Story idea: blank/optional; if blank or the user asks, suggest 2 story ideas plus "Other" (the user's own custom input). (If a riddle is locked, the riddle is the topic.)
-- Script Overview: blank/optional; ChatGPT generates one concise action-sequence sentence if the user leaves it empty. A ChatGPT-generated overview is **silent action only** — it must not contain dialogue, spoken lines, or an invented script; speech is authorized only by the user's own script/dialogue or an explicit request (a locked riddle counts for its clip).
+- Script Overview (part of **A. Story topic**, not a separate primary field): blank/optional; ChatGPT generates one concise action-sequence sentence if the user leaves it empty. A ChatGPT-generated overview is **silent action only** — it must not contain dialogue, spoken lines, or an invented script; speech is authorized only by the user's own script/dialogue or an explicit request (a locked riddle counts for its clip).
 - Character: blank/optional; if blank or the user asks, offer **AI Character A / B / C** (three one-line character concepts) plus "Other," and **always offer "Use my uploaded photo(s) as the character sheet source"** — attached photos then become the identity source. Lock the chosen character identity into the continuity notes.
 - Art style: blank/optional; asked as a **separate question** from the character. Offer the named art-style options (each with a one-line description) plus "Other," then lock the chosen art style into the continuity notes. The 2 paired pitches (character concept + matching art style) remain available only as an optional combined shortcut when the user asks for one.
 - Image subject/material: blank/optional; use attachments as source material if provided.
@@ -1022,8 +1022,8 @@ Preselect these defaults in the interactive interview. These are defaults, not r
 - Clip continuation (Clip 2+): Extend by default (requires an 8-second Veo 3.1 clip extended via Veo 3.1 Lite; no input images). An Extend clip takes a short continuation prompt — no master context block, no restated character/costume/location/lighting/audio, no new scene framing — because it is rendered from the base clip; a full script for it makes Flow produce a separate video instead of a continuation. "Add clip" is the pickable alternative — a separate clip accepting up to 3 input images, which does keep a full standalone prompt.
 - Delivery: All clips at once by default — prompts now, images on demand. Deliver all clip video prompts at once as collapsed summaries (expandable on request); do not generate images until the user picks a shot, **except the Clip 1 image, which the Clip 1 final phase produces immediately** when the workflow calls for a ChatGPT-generated image. Storyboard-first remains the alternative.
 - Image workflow: **Generate reference images with ChatGPT** (default) — ChatGPT produces a Veo-ready reference image for each scene, optimized so Google Flow Veo understands it easily. Alternatives: use supplied images in Flow unchanged, generate images in Flow, polish supplied images, mix methods, or choose the best method per scene. Advanced field, not a primary one.
-- Additional requirements: Optional and blank by default.
-- Attachments: Accept them at any time, including before the interview, at submit time, or after submission.
+- Other requirements (Advanced item 12): Optional and blank by default.
+- Attachments (behaviour, not a field in the advanced set): Accept them at any time, including before the interview, at submit time, or after submission.
 
 Do not ask the user to confirm this full default list. The interview should be quick to submit, and should let them override only the preferences they care about.
 

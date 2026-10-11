@@ -16,7 +16,7 @@ Before generating anything for Clip 1, verify everything required is present:
 - [ ] If it is a riddle story, a riddle is locked (text, answer, language).
 - [ ] Character identity and art style are chosen and locked into continuity notes. (When the user supplied photos as the character sheet, those photos are the locked identity source.)
 - [ ] A Script Overview exists (user-provided or generated).
-- [ ] The clip count, aspect ratio, model, and audio decisions are resolved (defaults count as resolved).
+- [ ] The clip count, aspect ratio, model, audio, and image-workflow decisions are resolved (defaults count as resolved).
 - [ ] Any images needed for Clip 1 are either attached/supplied, or planned to be generated in Step 3.
 
 If something required is missing, ask only for that missing piece before continuing. Do not generate Clip 1 with gaps.

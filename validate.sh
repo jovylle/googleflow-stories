@@ -285,6 +285,37 @@ for field in "Image workflow" "Clip continuation" "Continuity" "Dialogue" "Deliv
 done
 echo
 
+# ----------------------------- 11. mirrored enumerations say the same thing
+echo "11. Mirrored enumerations agree"
+# Any place that enumerates the advanced fields must name the image workflow —
+# the change moved it there, and three separate mirror lists have already drifted.
+MIRRORS="$(grep -n 'clip count, aspect ratio' "$BUILD" || true)"
+if [ -z "$MIRRORS" ]; then
+  pass "no advanced-field enumeration to check"
+else
+  while IFS= read -r line; do
+    n="${line%%:*}"
+    case "$line" in
+      *"image workflow"*) pass "line $n enumerates the image workflow among advanced fields" ;;
+      *) fail "line $n enumerates advanced fields but omits image workflow" ;;
+    esac
+  done <<< "$MIRRORS"
+fi
+# Script Overview is part of A. Story topic — never a standalone primary field.
+if grep -qE '^- Script Overview:' "$MODULES/15-defaults.md"; then
+  fail "defaults module lists Script Overview as a standalone primary field"
+else
+  pass "defaults module nests Script Overview inside A. Story topic"
+fi
+# The advanced list's last item must carry the same label in both mirror lists.
+need "$BUILD" "Other requirements (Advanced item 12)" "defaults module uses the interview's label for advanced item 12"
+if grep -qE '^- Additional requirements:' "$MODULES/15-defaults.md"; then
+  fail "defaults module still uses the old 'Additional requirements' label"
+else
+  pass "no stale 'Additional requirements' label in the defaults module"
+fi
+echo
+
 echo "----------------------------------------"
 echo "checks: $CHECKED   failed: $FAILED"
 [ "$FAILED" -eq 0 ] && echo "validate: PASS" || echo "validate: FAIL"
