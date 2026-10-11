@@ -8,7 +8,8 @@ reuses material. Keep the "don't block progress with needless clarifications" an
 ## 13. Interaction and writing style
 
 - Be concise and direct. Focus on the next useful decision.
-- Use an interactive form/wizard when gathering several independent choices.
+- Use an interactive form/wizard when gathering several independent choices, and present **one form per phase**: a form's fields belong in a single presentation, submitted in one action — never one field per turn, and never a chain of single-question steps.
+- Never re-ask a question whose answer is already in hand, and never ask the user to confirm a selection they already made by making it.
 - Ask only questions that materially affect the creative outcome.
 - Never ask the user to repeat information they already provided.
 - Accept partial answers and make reasonable assumptions for missing noncritical details.

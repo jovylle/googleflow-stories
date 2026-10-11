@@ -34,9 +34,9 @@ googleflow-stories/
 ├── modules/                     # authored source (19 files, filename order = doc order)
 │   ├── 00-header.md             # title, {{VERSION}}, purpose, research baseline date
 │   ├── 01-commands.md           # trigger vocabulary + implicit routing  (unnumbered "## Commands")
-│   ├── 02-role.md               # §1  persona + interview-before-generation contract
-│   ├── 03-riddle-prephase.md    # §2  language-first, riddle generator, answer-blind planning, pacing
-│   ├── 04-interview.md          # §3  primary vs advanced wizard, attachments, Other-on-every-field
+│   ├── 02-role.md               # §1  persona, the exactly-two-forms contract, interview-before-generation
+│   ├── 03-riddle-prephase.md    # §2  FORM 1 of 2 (one setup form), riddle generator, answer-blind planning, pacing
+│   ├── 04-interview.md          # §3  FORM 2 of 2 (one form, primary vs advanced), attachments, Other-on-every-field
 │   ├── 05-story-planning.md     # §4  full-video blueprint + master context block
 │   ├── 06-model-rules.md        # §5  dated Flow capability snapshot + Extend rule
 │   ├── 07-image-workflow.md     # §6  per-scene image methods A–E, one-shot-one-image
@@ -99,18 +99,21 @@ order, section numbering, cross-reference resolution, field shape and stale-phra
 
 ### 3.3 Riddle pre-phase *(03-riddle-prephase.md)*
 
-- **OBS-RIDDLE-001** — When the story maker starts, the system shall run the riddle pre-phase before opening the main interview form. *(03:11)*
-- **OBS-RIDDLE-002** — Before the first question, the system shall show one short line stating the user may attach reference images and notes at any time. *(03:13)*
-- **OBS-RIDDLE-003** — The system shall ask language first, defaulting to Tagalog preselected. *(03:26)*
-- **OBS-RIDDLE-004** — When the user chooses "Riddle story", the system shall then ask whether the user has their own riddle or wants generated riddles. *(03:28-30)*
-- **OBS-RIDDLE-005** — When generating riddles, the system shall produce 5–10 candidates, each with a concrete, ordinary, guessable answer noted beside it. *(03:50-52,64)*
-- **OBS-RIDDLE-006** — The system shall reject any riddle candidate whose answer is an abstract or genre label rather than a concrete thing. *(03:55)*
-- **OBS-RIDDLE-007** — When the user locks a riddle, the system shall record its text, answer, and language and preserve the wording exactly. *(03:78)*
-- **OBS-RIDDLE-008** — While planning a riddle story, the system shall build the plot, visuals, and reactions from the riddle's text/mood only, treating the answer as sealed. *(03:92)*
-- **OBS-RIDDLE-009** — After drafting the plan and prompts, the system shall run exactly one leak check against the sealed answer. *(03:94)*
-- **OBS-RIDDLE-010** — For riddle stories, the system shall never reveal or hint the answer in speech, on-screen text, captions, imagery, image prompts, or production assets. *(03:101-109; 16:13)*
-- **OBS-RIDDLE-011** — The system shall derive the clip count from the specific riddle's length, not a fixed template. *(03:133-136)*
-- **OBS-RIDDLE-012** — The system shall budget spoken lines at roughly 2–3 words/second (≈16–24 words per 8s clip). *(03:129)*
+- **OBS-RIDDLE-001** — When the story maker starts, the system shall present **Form 1 of 2** (the setup form) before opening the main interview form, as **one** form in a single message submittable in one action; submitting it produces Form 2. *(03:14-16; **updated v2.13.0** — this was previously a chain of separate questions)*
+- **OBS-RIDDLE-002** — Before the first question, the system shall show one short line stating the user may attach reference images and notes at any time. *(03:18)*
+- **OBS-RIDDLE-003** — Form 1 shall list language first, defaulting to Tagalog preselected. *(03:32)*
+- **OBS-RIDDLE-004** — Form 1 shall carry the story type (Riddle story / AI Option A / AI Option B / AI Option C / Other / custom) **and**, in that same form, the riddle source — never as a separate follow-up question. *(03:33-41; **updated v2.13.0** — the riddle source was previously asked as a follow-up after the story-type answer)*
+- **OBS-RIDDLE-004b** — On submit of Form 1 the system shall route once (non-riddle → straight to Form 2 with the idea carried pre-filled; own riddle → lock immediately; generate → present the candidate list once), and shall not ask anything the form already answered. *(03:43-47; added v2.13.0)*
+- **OBS-RIDDLE-005** — When generating riddles, the system shall produce 5–10 candidates, each with a concrete, ordinary, guessable answer noted beside it. *(03:63-65,77)*
+- **OBS-RIDDLE-006** — The system shall reject any riddle candidate whose answer is an abstract or genre label rather than a concrete thing. *(03:68)*
+- **OBS-RIDDLE-007** — Selecting a riddle from the list shall lock it **in that same single action**, with no confirmation card, no re-listing, and no confirm-after-pick; a confirmation round shall be required **only** when the user edits the riddle text. *(03:89-90; **updated v2.13.0** — was pick, then confirm)*
+- **OBS-RIDDLE-008** — On lock, the system shall record the riddle's text, answer, and language and preserve the wording exactly. *(03:92)*
+- **OBS-RIDDLE-008b** — After locking a riddle, the system shall immediately open Form 2, with no intervening recap or confirmation turn. *(03:93; added v2.13.0)*
+- **OBS-RIDDLE-009** — While planning a riddle story, the system shall build the plot, visuals, and reactions from the riddle's text/mood only, treating the answer as sealed. *(03:107)*
+- **OBS-RIDDLE-010** — After drafting the plan and prompts, the system shall run exactly one leak check against the sealed answer. *(03:109)*
+- **OBS-RIDDLE-011** — For riddle stories, the system shall never reveal or hint the answer in speech, on-screen text, captions, imagery, image prompts, or production assets. *(03:116-124; 16:13)*
+- **OBS-RIDDLE-012** — The system shall derive the clip count from the specific riddle's length, not a fixed template. *(03:148-151)*
+- **OBS-RIDDLE-013** — The system shall budget spoken lines at roughly 2–3 words/second (≈16–24 words per 8s clip). *(03:144)*
 
 ### 3.4 Interview *(04-interview.md)*
 
@@ -118,6 +121,7 @@ order, section numbering, cross-reference resolution, field shape and stale-phra
 - **OBS-INT-002** — The system shall hide clip count, aspect ratio, platform, video model, audio, continuity, clip continuation, delivery, **image workflow**, and other requirements behind an "Advanced / optional" toggle with defaults applied. *(04:16; image workflow moved here in v2.12.0)*
 - **OBS-INT-009** — When the user picks "Use my uploaded photo(s) as the character sheet source," the system shall treat the attached photos as the locked identity source, preserve the person as they appear, and ask for a photo instead of inventing a face when none is attached. *(04:B1; added v2.12.0)*
 - **OBS-INT-010** — The system shall default the image workflow to **"Generate reference images with ChatGPT"**, and a supplied character sheet shall be an identity source (method A) only, not a silent workflow switch. *(04:item 11, submit-time attachments; 07:A; added v2.12.0)*
+- **OBS-INT-011** — The interview shall be presented as **Form 2 of 2**: all four primary fields together in one form in one message, submitted in a single action, never as a sequence of steps or per-field turns, and never re-asking anything Form 1 already collected or re-confirming a locked riddle. *(04:14-16; added v2.13.0 — this is the fix for the ~8-turn opening)*
 - **OBS-INT-003** — The system shall allow immediate submit without opening Advanced or confirming ordinary defaults. *(04:89)*
 - **OBS-INT-004** — For every multiple-choice field, the system shall provide an "Other" option that accepts custom input verbatim. *(04:91)*
 - **OBS-INT-005** — When the form is presented, the system shall tell the user (one short line) they may attach images and notes before submitting. *(04:104)*
@@ -217,7 +221,8 @@ order, section numbering, cross-reference resolution, field shape and stale-phra
 ## 5. Inferred Acceptance Criteria
 
 - **AC-001 — Build reproducibility.** Given `modules/` and `version.txt`, when `./build.sh` runs, then `build/google-flow-story-maker.md` equals a fresh concatenation with `{{VERSION}}` substituted and exits 0. *(verified true)*
-- **AC-002 — Command launch.** Given a fresh project, when the user types `.start` or `gfs`, then the riddle pre-phase (language first) runs before the interview. *(03:11,26)*
+- **AC-002 — Command launch.** Given a fresh project, when the user types `.start` or `gfs`, then **Form 1 of 2** (language first, as one form) runs before the interview, and submitting it produces **Form 2 of 2**. *(03:14-16,32; updated v2.13.0)*
+- **AC-007 — Two-form opening.** Given a fresh project and a riddle story with "Generate riddles for me," when the user works through to production, then the interaction asks for at most two form submissions plus one single-tap riddle pick — no per-field interview turns and no riddle confirmation round. *(02:12; 03:16,43-47,89-93; 04:16; added v2.13.0)*
 - **AC-003 — Fast submit.** Given the interview, when the user submits without opening Advanced, then generation proceeds using documented defaults. *(04:89; 15)*
 - **AC-004 — Answer never leaks.** Given a locked riddle, when clips and images are produced, then no speech/text/imagery/image-prompt reveals the answer. *(03:92-109)*
 - **AC-005 — One image per command.** Given a clip summary, when the user sends `imgN-M`, then exactly one image is revealed and generated. *(11:33,37)*
@@ -249,13 +254,23 @@ No security-class issues found beyond the intentional secret-sealing rules (whic
 - **F7 — FIXED (v2.11.8).** An Extend clip now gets a short continuation delta, not a new script: master block and standalone-prompt rules are scoped to independently generated clips (Clip 1 and Add clips), with the contract owned by `09-clip-continuity.md` and cross-referenced from 05/06/08/10/11/15/16 and interview field 9. See `specs/extend-clip-continuation.md`.
 - **F8 — FIXED (v2.11.9).** Default is now **ambient-only / no speech**; a ChatGPT-generated Script Overview never authorizes speech; voice identity is gated on authorized speech; the master audio rule forbids inventing dialogue. See `specs/speech-default.md`.
 - **F2 — CLOSED BY DESIGN (v2.12.0).** The competing counts are gone: the character question offers **AI Character A/B/C** + "Other" + the photo option, and the 2 paired pitches are now an explicitly opt-in shortcut inside the *Art style* question ("never the default"), so the two answers stay independent.
-- **F5, F6 — OPEN (P3).** Story-idea count (3 vs 2) and riddle Yes/No framing intentionally left unchanged; documented here for a later pass.
+- **F5 — OPEN (P3).** Story-idea count (3 in the pre-phase vs 2 in the interview help) intentionally left unchanged; documented here for a later pass.
+- **F6 — FIXED (v2.13.0).** The Yes/No framing is gone. `15-defaults.md` now describes the same single choice row the pre-phase presents (Riddle story / AI Option A/B/C / Other), with **non-riddle** as the default and an explicit "not a Yes/No toggle followed by a second question" instruction. The riddle source is a field in that form, not a follow-up.
 
 ### Resolution status — v2.12.0 (`dev`)
 
 - **Interview split.** The primary set is Story topic / Character / Art style / Image generation topic (subject-material only). The combined "Characters + Art Style" field is gone; Art style is its own question carrying the named-style list.
 - **Photo-as-character-sheet.** New option in the character question: photos become the locked identity source, the person is preserved, and both the Clip 1 readiness check and the final checklist accept that source.
 - **Image workflow → Advanced.** Default renamed to **"Generate reference images with ChatGPT"**; the primary image field now covers subject/material only. See `specs/interview-character-artstyle-split.md` and the whole-artifact audit in `specs/validation-v2.12.0.md`.
+
+### Resolution status — v2.13.0 (`dev`)
+
+The opening was observed in a live ChatGPT project taking ~8 turns before production: a confirmation card per riddle pick, a re-listing instead of a lock, and the Form 2 fields arriving one per turn ("Hakbang 1", "Hakbang 2", …). The cause was instruction wording, not model drift — `02-role.md` literally asked for "manageable, interactive steps", and the pre-phase was specified as a chain of questions with a follow-up and a pick-then-confirm lock.
+
+- **Two-form contract.** `02-role.md` now states the whole opening is exactly two forms; `03` is **Form 1 of 2** (one setup form), `04` is **Form 2 of 2** (one production form presented in a single message). Per-field sequencing and re-asking settled answers are banned in `02`, `04`, and `14-style.md`.
+- **Riddle source folded into Form 1.** The own-vs-generate follow-up question is gone; the choice is field 3 of the same form. Routing happens once on submit.
+- **Single-tap lock.** Picking a riddle locks it in that same action, with no confirmation card and no re-listing; confirmation survives only for an edited riddle. Locking is immediately followed by Form 2 with no intervening turn.
+- **Guards.** `validate.sh` §12 pins all of the above, including `need_not` traps for the stale phrasings that caused the problem. Check count 76 → 87.
 
 ---
 

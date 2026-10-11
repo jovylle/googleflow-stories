@@ -317,6 +317,26 @@ else
 fi
 echo
 
+# ------------------------------------------------- 12. two-form flow contract
+# The opening interaction must be exactly two forms: Form 1 (setup) produces
+# Form 2 (production). Earlier wording ("manageable, interactive steps", a chained
+# follow-up question, pick-then-confirm locking) is what made ChatGPT spread the
+# opening across ~8 turns — one field per turn, with a confirmation card per riddle.
+# These guards keep that from creeping back in.
+echo "12. Two-form flow contract"
+need "$BUILD" "**Form 1 of 2**" "Form 1 is labeled in the build"
+need "$BUILD" "**Form 2 of 2**" "Form 2 is labeled in the build"
+need "$BUILD" "The whole opening is exactly two forms" "two-form contract stated in the role module"
+need_not "$BUILD" "manageable, interactive steps" "no stale 'manageable, interactive steps' wording"
+need_not "$BUILD" "ask a follow-up" "no chained follow-up-question pattern"
+need "$MODULES/03-riddle-prephase.md" "All three fields, in this one form" "Form 1 carries its three setup fields in one form"
+need "$MODULES/03-riddle-prephase.md" "locks it in that same single action" "a riddle pick locks in one action, with no confirmation round"
+need_not "$MODULES/03-riddle-prephase.md" "the user picks (or edits and confirms)" "no stale pick-then-confirm lock wording"
+need "$INT" "Present all four primary fields together" "Form 2 presents its primary fields in one form"
+need_not "$INT" "Step 1: Story topic" "no per-field sequencing in the interview module"
+need_not "$INT" "Hakbang" "no step-by-step interview framing"
+echo
+
 echo "----------------------------------------"
 echo "checks: $CHECKED   failed: $FAILED"
 [ "$FAILED" -eq 0 ] && echo "validate: PASS" || echo "validate: FAIL"

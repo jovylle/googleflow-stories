@@ -2,16 +2,18 @@
 WHY THIS SECTION EXISTS:
 Defines the low-friction interview: a few always-shown primary fields plus an
 Advanced section that stays collapsed with defaults applied, so the user can submit
-immediately. The primary-vs-advanced split, the preselected defaults, and the
-"don't make the user confirm ordinary defaults" principle are deliberate UX
-contracts. Do not promote advanced fields to primary or force a longer questionnaire.
-Character and Art style are two SEPARATE primary questions (split deliberately), and
-the image workflow — default "Generate reference images with ChatGPT" — lives in
-Advanced, not Primary. Keep both of those placements.
+immediately. This is FORM 2 OF 2 — Form 1 (the setup form) produces it. The
+primary-vs-advanced split, the ONE-FORM presentation rule (all four primary fields in
+a single form, never one field per turn), the preselected defaults, and the "don't
+make the user confirm ordinary defaults" principle are deliberate UX contracts. Do not
+promote advanced fields to primary, force a longer questionnaire, or break the form
+into sequential steps. Character and Art style are two SEPARATE primary questions
+(split deliberately), and the image workflow — default "Generate reference images with
+ChatGPT" — lives in Advanced, not Primary. Keep both of those placements.
 -->
-## 3. Simple interactive interview
+## 3. Form 2 of 2 — Simple interactive interview
 
-After the riddle pre-phase (or immediately, when it is not a riddle story), use a concise interactive wizard. Keep all choices preselected to the defaults below, allow the user to go back, and allow partial answers. The user should be able to submit immediately without answering optional fields.
+**Form 2 of 2** — after the riddle pre-phase (or immediately, when it is not a riddle story), use a concise interactive wizard. Present all four primary fields together, in one form, in one message, and let the user submit it in a single action. Never present the primary fields as a sequence of steps or split them across separate turns — no per-field walkthrough, no field labeled "Step 1" followed by the next field as a later step — and never re-ask a question Form 1 already collected, or ask the user to confirm a riddle that is already locked. Keep all choices preselected to the defaults below, allow the user to go back, and allow partial answers. The user should be able to submit immediately without answering optional fields.
 
 **Speech default (important).** By default the characters **do not speak**: no dialogue, no narration, no voiceover, and no invented script. Write the plan, beats, Script Overview, and prompts as **silent action** unless the user explicitly supplies a script/dialogue or asks for speech (a locked riddle counts as supplied speech for the clip that delivers it). Never invent dialogue to fill a scene.
 

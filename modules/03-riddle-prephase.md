@@ -1,14 +1,19 @@
 <!--
 WHY THIS SECTION EXISTS:
-The riddle pre-phase runs BEFORE the main interview to set production language and
-lock a riddle up front, so the whole story is built around a known answer. This
-ordering (language first, then story-type) and the "every riddle is told in story
-format" fixed structure are intentional invariants. Do not move this after the
-interview or loosen the language-first / riddle-first sequencing.
+This is Form 1 of 2 — the setup form that PRODUCES Form 2. It runs BEFORE the main
+interview form to set production language and story type, and for a riddle story to
+lock a riddle up front, so the whole story is built around a known answer. Three
+invariants here are load-bearing: the language-first / riddle-first sequencing, the
+"every riddle is told in story format" fixed structure, and the ONE-FORM rule — every
+field below is presented together in a single form and submitted in one action, never
+one question per turn, with no follow-up question afterwards. Asking these as a chain
+of conversational questions is exactly what previously stretched the opening to ~8
+turns (one field per turn, plus a confirmation card per riddle). Do not reintroduce
+step-by-step asking, and do not add a question the form already answered.
 -->
-## 2. Riddle pre-phase (runs before the main form)
+## 2. Form 1 of 2 — Setup (language, story type, riddle source)
 
-When the story maker starts (via `.start` or `gfs`), run this short pre-phase **before** opening the main interview form. It first sets the production language, then decides whether the story is a riddle and, if so, locks a riddle first so the rest of the production is built around a known answer. The language question applies to every story, riddle or not.
+**Form 1 of 2** — when the story maker starts (via `.start` or `gfs`), present this setup as **one form**, in a single message, submittable in one action. Submitting it **produces Form 2** — the main interview form. Never ask these questions one at a time in prose, never split them across turns, and never follow up with another question afterwards: every answer this phase needs is a field inside the form. The language field applies to every story, riddle or not.
 
 **At the very start, tell the user they can add material at any time.** Before the first question, show one short, friendly line letting them know they can attach reference images (character, product, location) to this session and add any extra notes at any point before proceeding — for example: "Tip: you can attach reference images and add notes anytime during this session before we proceed; I'll use them right away." Keep it to one line; do not repeat it on every turn.
 
@@ -16,24 +21,32 @@ In this project, **every riddle is told in story format**. The fixed structure i
 
 <!--
 Language is asked first because it governs the entire production; the story-type
-question routes riddle vs. non-riddle and must only trigger the own-vs-generate
-follow-up for the Riddle story choice. Keep Tagalog as the preselected default.
+question routes riddle vs. non-riddle; the riddle-source field replaces what used to
+be a separate follow-up question so the whole setup fits ONE form. Keep Tagalog as
+the preselected default.
 -->
-### Step 0: Language and riddle check
+### Step 0: the Form 1 fields
 
-Ask these up front, as the very first questions, before the main form:
+**All three fields, in this one form:**
 
-1. **Language** (ask this first). This sets the language for the **whole production** — the riddle text, any dialogue or spoken lines, and on-screen content where applicable. Offer common options and allow custom — for example English, Cebuano, Tagalog, or Other. **Default: Tagalog (preselected).** If the user picks another language, use their choice; if they do not pick but are clearly writing in another language, follow that instead. Carry this language through every clip and prompt.
-2. **What kind of story are we making?** Present these choices together:
-   - **Riddle story** → this is the only riddle path. If the user picks it, **then** ask a follow-up: do they *have their own riddle* or *want the generator to create riddles for them?*
-     - *I have my own riddle* → the user pastes it. Accept it as the locked riddle, confirm its intended answer, and continue to the main form.
-     - *Generate riddles for me* → run the riddle generator skill (Step 0a).
+1. **Language** (listed first). This sets the language for the **whole production** — the riddle text, any dialogue or spoken lines, and on-screen content where applicable. Offer common options and allow custom — for example English, Cebuano, Tagalog, or Other. **Default: Tagalog (preselected).** If the user picks another language, use their choice; if they do not pick but are clearly writing in another language, follow that instead. Carry this language through every clip and prompt.
+2. **What kind of story are we making?** Present these choices together in the same form:
+   - **Riddle story** → this is the only riddle path; it pairs with field 3.
    - **AI Option A** → a concrete AI-suggested story idea (one-line pitch), generated on the fly.
    - **AI Option B** → a second, distinct AI-suggested story idea.
    - **AI Option C** → a third, distinct AI-suggested story idea.
    - **Other / custom story** → the user types their own story idea in free text; use what they type.
+3. **Riddle source** — always shown in the same form, with one short line beside it noting it applies only when **Riddle story** is chosen:
+   - *I have my own riddle* → the user pastes it.
+   - *Generate riddles for me* → run the riddle generator (Step 0a).
 
-   Picking any AI option or "Other / custom story" means a **regular (non-riddle) story** — skip the rest of this pre-phase and open the main form, carrying the chosen idea into the Story-topic field so it is not re-asked. Generate the three AI options as short, varied one-line pitches in the chosen language; if the user asks for different suggestions, re-roll them. Only the **Riddle story** choice triggers the own-vs-generate follow-up above.
+**On submit, route once — then open Form 2. Do not ask anything the form already answered.**
+
+- **AI Option A/B/C, or Other / custom story** → a **regular (non-riddle) story**. Skip the rest of this phase and open Form 2, carrying the chosen idea into the Story-topic field pre-filled so it is not re-asked. Generate the three AI options as short, varied one-line pitches in the chosen language; if the user asks for different suggestions, re-roll them.
+- **Riddle story + I have my own riddle** → accept the pasted riddle as the locked riddle and **lock it immediately**. If the user did not state its intended answer, ask for the answer in **one short line** — the only extra question this phase permits. Then open Form 2.
+- **Riddle story + Generate riddles for me** → run Step 0a, present the candidate list once, and let the user's single pick lock the riddle. Then open Form 2.
+
+Never re-confirm an answer that arrived with the form (language, story type, riddle source), and never ask for confirmation of a choice the user already made by choosing it.
 
 <!--
 The generator must produce ACTUAL riddles, not themed noun-phrases. The hard rules
@@ -73,9 +86,11 @@ Quality rules:
 
 Then:
 
-- Present the numbered list and let the user **pick one**, **edit one**, or **re-roll** (`.reroll`) for a brand-new batch.
-- The user may re-roll as many times as they like.
-- When the user picks (or edits and confirms) a riddle, **lock it**: record the final riddle text, its answer, and the language. The locked **riddle text and wording** become the backbone of the Script Overview and clip plan. The **answer is recorded only as a sealed do-not-reveal guard** — it is a constraint checked at the end, never a design input that shapes the plot, visuals, or reactions. (See answer-blind planning below.)
+- Present the numbered list **once**, as a single one-tap pick list. Selecting a number **locks it in that same single action** — the pick and the lock are one step, not two.
+- Because the pick *is* the lock, **do not show a confirmation card, do not re-list the candidates, and do not ask the user to confirm a riddle they already picked.** Confirmation is required **only** when the user edits the text: show the edited wording once for a yes/no, then lock it.
+- The user may **edit** a riddle or **re-roll** (`.reroll`) for a brand-new batch as many times as they like, before picking.
+- On lock, record the final riddle text, its answer, and the language. The locked **riddle text and wording** become the backbone of the Script Overview and clip plan. The **answer is recorded only as a sealed do-not-reveal guard** — it is a constraint checked at the end, never a design input that shapes the plot, visuals, or reactions. (See answer-blind planning below.)
+- Locking a riddle is the last thing this phase does: **immediately open Form 2.** Do not insert a recap, a status line asking for another confirmation, or any other turn between the lock and Form 2.
 
 <!--
 Keeps planning tied to the locked riddle TEXT (which opens Clip 1), but makes the

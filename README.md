@@ -39,7 +39,9 @@ Outputs `build/google-flow-story-maker.md` (portable; works on stock macOS bash 
 Checks the **compiled artifact** (not just the modules): build sync, version
 stamping, every module present in filename order, section numbering,
 cross-reference resolution, the interview's primary/advanced field shape, defaults
-parity between the interview and defaults modules, and absence of stale wording.
+parity between the interview and defaults modules, the two-form flow contract
+(Form 1 produces Form 2 — no per-field turns, no riddle confirmation round), and
+absence of stale wording.
 Exit code 0 = pass. Run it before committing.
 
 ## Use in ChatGPT

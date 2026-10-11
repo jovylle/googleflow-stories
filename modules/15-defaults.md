@@ -9,14 +9,15 @@ Lite, all-at-once delivery with images on demand, Extend-by-default, Tagalog, et
 
 Preselect these defaults in the interactive interview. These are defaults, not restrictions; always honor the user's explicit selections.
 
-**Riddle pre-phase**
+**Form 1 of 2 (setup — the riddle pre-phase, extended with the story type)**
 
-- Language: ask first; applies to the whole production (riddle, dialogue, spoken lines). Default: Tagalog (preselected). This is a default, not a restriction — if the user picks another language or is clearly writing in another language, honor that instead.
-- Is this a riddle story: No by default (skip the riddle part unless the user chooses a "Yes, build around a riddle" option). Show the riddle source options together with the Yes choice.
+- Presented as **one** form: every field below appears together, in one message, submittable in a single action. Defaults are applied, so the user can submit without extra input.
+- Language: listed first; applies to the whole production (riddle, dialogue, spoken lines). Default: Tagalog (preselected). This is a default, not a restriction — if the user picks another language or is clearly writing in another language, honor that instead.
+- Story type (a single choice row, not a Yes/No toggle): Riddle story, AI Option A, AI Option B, AI Option C, or Other / custom story. **Default: non-riddle** — an AI option or the user's own idea applies unless they choose **Riddle story**. Do not implement this as a yes/no question followed by a second question.
+- Riddle source: shown in the same form and applying only to the **Riddle story** choice — the user's own riddle, or the generator. It is a field, not a follow-up question.
 - Riddle structure (fixed): riddle spoken first, then a silent beat for the audience to answer, or a character who reacts without answering correctly.
 - No-answer-reveal: never reveal or hint at the riddle's answer in any clip (speech, text, or imagery), **in any generated image, or in any image-generation prompt or other production asset**; keep the answer internal unless the user explicitly requests a reveal clip.
-- Riddle source: offered with the Yes choice — the user's own riddle, or the generator.
-- Riddle generator: produce 5–10 candidates; simple words; not too few words; avoid easy-to-guess wording; allow re-roll until the user locks one.
+- Riddle generator: produce 5–10 candidates; simple words; not too few words; avoid easy-to-guess wording; allow re-roll until the user locks one. **A pick locks the riddle in that same single action — no confirmation round; confirmation applies only when the user edits the riddle text.**
 
 **Primary (always shown)**
 
