@@ -8,12 +8,12 @@ versions share), and only the `specs/` file for whatever you are about to change
 
 | Repo | Version | Branch / HEAD | Checks | Remote |
 |---|---|---|---|---|
-| `lab/googleflow-stories` (**canonical rules** — you are here) | **2.21.0** | `dev` / `4c96cfd` | `./validate.sh` → **194 / 0** | GitHub `jovylle/googleflow-stories`, in sync |
+| `lab/googleflow-stories` (**canonical rules** — you are here) | **2.22.0** | `dev` / `6d766a1` | `./validate.sh` → **207 / 0** | GitHub `jovylle/googleflow-stories`, `master` at `05d81ec` (v2.21.0 release merge), `dev` one ahead |
 | `lab/flow-story-gpt` (distilled ChatGPT pack) | 1.0.0 | `master` / `5bb876c` | `./validate-gpt.sh` → 28 / 0 | **none — local only** |
 | `lab/flow-story-gem` (Gemini + hand-over zip) | 1.0.0 | `master` / `6c3d417` | `./validate-gem.sh` → 36 / 0 | **none — local only** |
 
-Canonical artifact: `build/google-flow-story-maker.md`, **1,220 lines / 141,661 chars**, working tree
-clean. `master` is at `e9738b5` (v2.12.0) and is deliberately **nine versions behind `dev`**.
+Canonical artifact: `build/google-flow-story-maker.md`, **1,226 lines / 144,863 chars**, working tree
+clean. `master` is at `05d81ec` (v2.21.0, released 2026-10-12 by merging `dev`) and is **one version behind `dev`**.
 
 ### Version chain since v2.12.0 (all on `dev`)
 
@@ -28,12 +28,14 @@ clean. `master` is at `e9738b5` (v2.12.0) and is deliberately **nine versions be
 | 2.19.0 | `1fa995a` | Script Overview renders as a markdown list, not a paragraph |
 | 2.20.0 | `7bfdfe2` | One image per request — no batches, sheets, or panels, and the plan is never rendered as an image |
 | 2.21.0 | `4c96cfd` | The supernatural Teller voice (riddle horror), vendored from a prompt the user proved in Veo 3.1 Lite, + the heavy-voice duration budget |
+| 2.22.0 | `6d766a1` | The `.auto` skip command (`.auto riddle` / `.auto mukbang` + free text): locks the story path, applies all defaults, skips both forms and the checkpoint for that run only; bare attachments never trigger it; `.reroll` re-locks one fresh candidate |
 
 ## What to do next, in order
 
-1. **Re-paste the artifact.** The live ChatGPT project is still running **v2.12.0** — none of the nine
+1. **Re-paste the artifact.** The live ChatGPT project is still running **v2.12.0** — none of the ten
    versions of fixes above are in it. Paste `build/google-flow-story-maker.md` and rerun a Tagalog
-   `.start riddle` end to end. This is the only step that produces evidence.
+   `.start riddle` end to end, then smoke-test `.auto riddle` and `.auto mukbang` (with a photo).
+   This is the only step that produces evidence.
 2. **Calibrate the heavy-voice word budget.** v2.21.0 set it to **12–16 words per 8-second clip**
    from the voice's stated pace (~1.5–2 words/sec), not from a timing. Ask the user for the riddle's
    word count and whether it fit their 8s clip, then correct the figure in `03-riddle-prephase.md`
@@ -64,8 +66,9 @@ clean. `master` is at `e9738b5` (v2.12.0) and is deliberately **nine versions be
   is **7,681 of 8,000 chars — 319 chars of headroom**, and v2.21.0's voice block alone is **1,620
   chars** (its whole section, 4,163). The voice block has to live in a **knowledge file** (retrieved)
   or the pack needs a genuine re-distill — pasting it into the instruction field is impossible.
-- **`dev` → `master` merge** (the release step) is not taken. Unmerged by choice; `dev` is ahead.
+- **`dev` → `master` merge** is taken through v2.21.0 (`05d81ec`, 2026-10-12). Note for the next release: `master`'s old release commit was itself a merge whose side `dev` never had, so `--ff-only` fails — merge with `--no-ff` (it applied with zero conflicts this time), rebuild, revalidate, then commit and push.
 - **Neither pack repo has a git remote.** They exist only on this disk.
+- **Form 2 sometimes renders with no submit button.** Reported 2026-10-12: the fields show, the submit control doesn't (long form + collapsed Advanced suspected). Workaround is `.go` or a prose line with the picks. Fix queued: require a visible submit button plus the text fallback in `04-interview.md`, mirrored in the checklist with guards — buttons are progressive enhancement only, same rule as the image `imgN-M` buttons.
 - **The website / parallel-storybuilding system** the user asked about earlier was deferred with
   "make this properly work first". Do not re-raise it unprompted. If it is ever built, hold it to one
   rule: it consumes the compiled artifact and `validate.sh` as its source of truth, and re-implements
@@ -76,7 +79,7 @@ clean. `master` is at `e9738b5` (v2.12.0) and is deliberately **nine versions be
 ```bash
 cd /Volumes/DevSSD/fore/lab/googleflow-stories
 printf '2.22.0\n' > version.txt   # bump first; the build substitutes {{VERSION}}
-./build.sh && ./validate.sh       # 194 checks today (plus docs/HANDOFF.md freshness)
+./build.sh && ./validate.sh       # 207 checks today (plus docs/HANDOFF.md freshness)
 
 # while working on one area, read only the new section's red:
 ./validate.sh 2>&1 | sed -n '/^23\./,$p'
