@@ -174,6 +174,8 @@ order, section numbering, cross-reference resolution, field shape and stale-phra
 - **OBS-VP-001** — The system shall build each prompt in steps 0–8 with the master context block first. *(08:12-22)*
 - **OBS-VP-002** — Unless dialogue/script is supplied or speech is requested, the system shall specify no dialogue, narration, subtitles, captions, or text overlays (ambient only). *(08:34-40)*
 - **OBS-VP-003** — When voiceover narration is chosen, the system shall have Veo generate the voiceover itself and not require a user-recorded track. *(08:49-55)*
+- **OBS-VP-004** — For a horror riddle story, the system shall use the **supernatural Teller voice block verbatim** as the voice and audio direction of the riddle-delivering clip — printed inside the video prompt (one text prompt carries picture and audio), with the `[LANGUAGE]` slots filled and the locked riddle quoted exactly and alone. The entity says nothing else: no extra words, no added growls or whispers that carry meaning, no improvised lines, and never any hint or statement of the answer; the atmospheric layering stays wordless texture. The block is horror-scoped only, its negative tail is kept rather than paraphrased, and the Teller's voice traits are restated (never the riddle) in any later clip where it speaks. *(08:`supernatural Teller voice`; 15:39; 16:20; added v2.21.0)*
+- **OBS-VP-005** — The system shall budget a horror riddle's spoken line at the heavy voice's slower pace — roughly **12–16 words per 8-second clip**, not the 16–24 figure that applies to ordinary narration — and check the locked riddle against it **before generating**; when it will not fit, it shall offer an approved trim, delivery across two clips, or a longer-duration model rather than squeezing the recitation. *(03:105,179,181; 08:`slower than a normal speaking pace`; 16:20; added v2.21.0)*
 
 ### 3.9 Clip continuity *(09-clip-continuity.md)*
 
@@ -254,6 +256,7 @@ order, section numbering, cross-reference resolution, field shape and stale-phra
 - **AC-014 — The default riddle scene, and no leak through the scene.** Given a riddle story with the default settings, when the story is planned, then the scene is horror with a Teller who holds visibly trapped small/vulnerable victims and poses the riddle, the consequence is the Teller's own act and not any event the riddle's wording describes, and neither the scene, props, environment, weather, lighting, image subject, nor image prompt contains any noun the riddle names or any tip or clue of any kind. *(03:22-27,36,38,152-153; 05:33,87; 07:29; 15:18-20; 16:15-17; added v2.18.0)*
 - **AC-015 — Script Overview renders as a list.** Given a planned story, when the Script Overview is shown — in the Story Overview checkpoint, the delivered package, or a generated fallback — it appears as a short markdown list with one action step per line, not a paragraph; when the user supplied their own overview, its wording is preserved unaltered and simply split at their own boundaries. *(05:31,80; 04:48,53; 11:65; 15:26; 16:19; 10:20; added v2.19.0)*
 - **AC-016 — One image, and only one.** Given a submitted plan or Form 2 in a riddle run, when the package is delivered, then **exactly one image** is generated (Clip 1's reference image) as a single frame of a single composed scene; no batch, run, sheet, panel set, or one-image-per-subject appears, the plan itself is never rendered as an image, and every further image waits for its own `imgN-M`. *(07:10-16,29; 08a:24; 10:49; 16:20; added v2.20.0)*
+- **AC-017 — The Teller sounds like an entity.** Given a horror riddle story whose Teller speaks, when the riddle-delivering clip prompt is written, then it carries the **supernatural Teller voice block verbatim** with the language filled in and the locked riddle quoted exactly and alone — no extra vocalizations that carry meaning and no hint or statement of the answer — and the riddle has been checked against the heavy voice's **12–16 words per 8-second clip** budget before generating, with an approved trim, a two-clip delivery, or a longer-duration model offered instead of a squeezed recitation. *(08; 03:105,179,181; 15:39; 16:20; added v2.21.0)*
 - **AC-003 — Fast submit.** Given the interview, when the user submits without opening Advanced, then generation proceeds using documented defaults. *(04:89; 15)*
 - **AC-004 — Answer never leaks.** Given a locked riddle, when clips and images are produced, then no speech/text/imagery/image-prompt reveals the answer. *(03:106-123)*
 - **AC-005 — One image per command.** Given a clip summary, when the user sends `imgN-M`, then exactly one image is revealed and generated. *(11:33,37)*
@@ -293,6 +296,35 @@ No security-class issues found beyond the intentional secret-sealing rules (whic
 - **Interview split.** The primary set is Story topic / Character / Art style / Image generation topic (subject-material only). The combined "Characters + Art Style" field is gone; Art style is its own question carrying the named-style list.
 - **Photo-as-character-sheet.** New option in the character question: photos become the locked identity source, the person is preserved, and both the Clip 1 readiness check and the final checklist accept that source.
 - **Image workflow → Advanced.** Default renamed to **"Generate reference images with ChatGPT"**; the primary image field now covers subject/material only. See `specs/interview-character-artstyle-split.md` and the whole-artifact audit in `specs/validation-v2.12.0.md`.
+
+### Resolution status — v2.21.0 (`dev`)
+
+**The Teller's voice was a one-line note; it is now the strongest audio asset in the file.**
+
+The user hand-tested a 215-word voice prompt directly in **Veo 3.1 Lite** and got a genuinely frightening Tagalog supernatural voice out of it — the first time the audio side of a riddle story has been solved. Their report: *"wowowow in horror making audio sound this perfectly worked!!, Veo 3.1 lite able to produce scary tagalog voice"*, with the prompt pasted. The instruction that followed: *"we need how the prompt made the Veo model speak in deep voice so we can use it on our horror."*
+
+What the artifact had, before this version:
+
+| Mechanism | Was | Now |
+|---|---|---|
+| Audio direction (prompt step 7) | "dialogue, ambience, sound effects, or silence as requested" | points at the voice block for a speaking Teller |
+| Master audio rule | only what to **forbid** (no dialogue/VO/text) | unchanged |
+| Voice identity | a six-adjective list in the interview (`04:63`) | the interview list **plus** a full vendored production block |
+| Audio production detail | none anywhere | sub-bass resonance, layered harmonics, pitch instability, drones, decaying echoes, spatial reverb |
+| Spoken-word budget | 16–24 words / 8s for everything | **12–16 words / 8s** when the heavy voice is used |
+
+Why the source prompt works, for the record: it separates **voice identity** (bass-heavy, ancient, hollow, nonhuman) from **audio production** (resonance, layering, reverb), it pins **language pronunciation and intonation** explicitly — which is what stops Tagalog being delivered in a foreign accent — and it closes with **negative constraints**, including the comparison that actually pins the timbre: *"not a normal human lowering their voice."* All of that is preserved verbatim.
+
+**Three things were added, not just copied:**
+
+- **The spoken-line slot.** The source prompt was **215 words with zero words for the entity to say** — no quoted line anywhere — so pasted alone it relies on the model *inventing* the Tagalog. Fine for a voice test, fatal for a riddle: the audience cannot guess a riddle the video never asked, and improvised Tagalog horror lines are a direct answer-leak risk (the v2.18.0 class of bug). The block now carries `The entity speaks exactly this line… : "[THE LOCKED RIDDLE, VERBATIM]"` with **no added growls, whispers, or vocalizations that carry meaning** — the atmospheric layering stays wordless texture. This matters because the source prompt itself invites extra vocalizations ("overlapping whispers", "some syllables come from far away").
+- **A duration budget that tells the truth.** Slow deliberate cadence plus long ominous pauses is *not* 2–3 words per second, and the artifact's 16–24-words-per-8s budget was calibrated for ordinary narration. Shipping the voice without this would have reproduced the earlier "squeezed delivery" defect on every riddle. The heavy voice now budgets **12–16 words per 8-second clip**, checked **before generating**, with an approved trim, a two-clip delivery, or a longer-duration model offered instead of a squeeze.
+- **A horror scope.** The block is opt-in for horror riddle stories only — a cozy or whimsical riddle story keeps an ordinary voice description, and small cute victims do not get a demon voice.
+
+Model note: it was proven on **Veo 3.1 Lite**, which is already the artifact's default video model, so no model default changed.
+
+- **Guards.** `validate.sh` §23, 12 checks. Count 179 → 191.
+- **Calibration is provisional.** The 12–16 figure is derived from the voice's stated pace (≈1.5–2 words/second), not from a timed recording. The user has been asked for the actual word count and whether it fit in their 8-second clip; when that number arrives, recalibrate the figure in `03`, `08`, and the checklist together.
 
 ### Resolution status — v2.20.0 (`dev`)
 

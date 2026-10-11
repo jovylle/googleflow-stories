@@ -458,6 +458,21 @@ need "$MODULES/10-clip1-final.md" "one image, of one composed scene" "the Clip 1
 need "$MODULES/16-checklist.md" "Exactly one image was generated in the turn" "the checklist verifies the image count"
 echo
 
+echo "23. The supernatural Teller voice (riddle horror) + its slower duration budget"
+need "$MODULES/08-video-prompt.md" "### The supernatural Teller voice (riddle horror)" "the voice block has its own section"
+need "$MODULES/08-video-prompt.md" "A terrifying supernatural entity speaks in" "the vendored deep-voice template is present"
+need "$MODULES/08-video-prompt.md" "not a normal human lowering their voice" "the timbre-pinning negative line survives"
+need "$MODULES/08-video-prompt.md" "The entity speaks exactly this line, in" "the spoken-line slot exists (the source prompt had none)"
+need "$MODULES/08-video-prompt.md" "no added growls, whispers, or vocalizations that carry meaning" "no extra vocalizations"
+need "$MODULES/08-video-prompt.md" "never any hint or statement of the answer" "the voice block cannot leak the answer"
+need "$MODULES/08-video-prompt.md" "Do not use it for a story that is not horror" "the block is horror-scoped"
+need "$MODULES/08-video-prompt.md" "It is slower than a normal speaking pace" "the heavy voice costs duration"
+need "$MODULES/08-video-prompt.md" "12–16 words per 8-second clip" "the heavy-voice word budget is stated"
+need "$MODULES/03-riddle-prephase.md" "12–16 words per 8-second clip" "the riddle budget carries the heavy-voice figure"
+need "$MODULES/15-defaults.md" "supernatural Teller voice block" "the defaults point at the voice block"
+need "$MODULES/16-checklist.md" "the supernatural Teller voice block was used verbatim" "the checklist verifies the voice block"
+echo
+
 echo "----------------------------------------"
 echo "checks: $CHECKED   failed: $FAILED"
 [ "$FAILED" -eq 0 ] && echo "validate: PASS" || echo "validate: FAIL"
