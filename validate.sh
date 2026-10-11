@@ -295,10 +295,11 @@ if [ -z "$MIRRORS" ]; then
 else
   while IFS= read -r line; do
     n="${line%%:*}"
-    case "$line" in
-      *"image workflow"*) pass "line $n enumerates the image workflow among advanced fields" ;;
-      *) fail "line $n enumerates advanced fields but omits image workflow" ;;
-    esac
+    if printf '%s' "$line" | grep -Eqi 'image[ -]?workflow'; then
+      pass "line $n enumerates the image workflow among advanced fields"
+    else
+      fail "line $n enumerates advanced fields but omits image workflow"
+    fi
   done <<< "$MIRRORS"
 fi
 # Script Overview is part of A. Story topic — never a standalone primary field.
