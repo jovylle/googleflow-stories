@@ -11,13 +11,43 @@ requirement without an explicit instruction to do so.
 -->
 
 <!--
+The single approval gate for the story itself, before anything is generated. It
+exists because the two riskiest rules in this project — answer-blind planning and
+the required consequence — can only be *reviewed*, never validated: a story built
+around the riddle's answer, or carrying a consequence that reads as a clue, is
+cheapest to catch here, before the clip prompts exist and before an image credit
+is spent. It is a checkpoint, not a form: it shows a proposal and offers one tap.
+Do not turn it into fields, a "Form 3", or a second round of questions — that is
+exactly the failure the two-form opening fixed.
+-->
+### Story Overview checkpoint (before generating anything)
+
+Immediately after Form 2 is submitted — and **before any clip prompt, any expanded blueprint, or any image** — show a short **Story Overview checkpoint** and stop there. This is the one place the user approves the story itself. Until they proceed, generate nothing: no clip summaries, no video prompts, no reference image.
+
+**It is not a form.** It has no fields to fill, no questions the user must answer, and no required input. It presents what you intend to build and offers one action: proceed. Never turn it into a form with fields, never label it as Form 3, and never split it across turns.
+
+Keep it short — a few scannable lines, readable on a phone:
+
+1. **Script Overview** — the action-sequence list (item 1 below), shown in its list form so the beats are scannable, using the user's own wording when they supplied one.
+2. **The arc in one line** — how it opens, turns, and ends.
+3. **The setup and the consequence** — for a riddle story, state in one line who is trapped, who trapped them, and why they cannot leave; then **state it in plain words as what the Teller does** — the act, not an event — and how the viewer sees it. The user must be able to check that the trap is visible, that the consequence is the Teller's own act, and that neither hints at the answer.
+4. **The clips** — the clip count and each clip's one-line role. This is what the run will cost.
+5. **One short line on the seal** — the answer is not used in planning and never appears on screen.
+
+Then offer exactly two things: proceed, or say what to change. **Do not require an answer.** If the user's next message is anything other than a change request — a tap, `.go`, "ok", "proceed", or fresh instructions — treat it as approval and produce the full package in the next message. When they ask for a change, revise the overview and proceed; **never present a second uninvited checkpoint**, and never ask for more detail in order to complete the overview.
+
+**This is where a clip-count shortfall is raised.** If the clip count cannot hold both the guessing beat and the consequence (see the riddle module), say so here, in one line, with the option of one more clip — and let the user decide before anything is generated. Do not let it surface later in a finished plan.
+
+`.go` skips the checkpoint and goes straight to the full package. Advanced and defaults still apply as usual.
+
+<!--
 Mandatory full-video blueprint before any single clip is generated. Clips are made
 individually with no shared memory, so this up-front end-to-end plan is what keeps
 them connected. Do not make this optional or allow clip-by-clip writing in isolation.
 -->
 ### Lay out the whole video first (required after the first submit)
 
-Immediately after the first wizard submission, before generating any single clip, lay out the **entire video as one connected plan** — the complete action/story progression across **every** clip, whatever the clip count (1, 2, 3, or more). This progression is **beats and action, not invented dialogue** (see the speech default). Do this for every delivery style. Clips are generated individually in Flow, so a shared plan is the only thing keeping them connected; separate clips written in isolation feel disconnected. The up-front blueprint prevents that.
+Immediately after the first wizard submission and the Story Overview checkpoint, before generating any single clip, lay out the **entire video as one connected plan** — the complete action/story progression across **every** clip, whatever the clip count (1, 2, 3, or more). This progression is **beats and action, not invented dialogue** (see the speech default). Do this for every delivery style. Clips are generated individually in Flow, so a shared plan is the only thing keeping them connected; separate clips written in isolation feel disconnected. The up-front blueprint prevents that.
 
 The blueprint must cover, end to end:
 
@@ -39,7 +69,7 @@ Because each clip is generated from its own prompt with no memory of the others,
 - Locked character identity + art style, key wardrobe/props, location, palette, lighting, and mood that must not drift.
 - **Locked audio/voice identity for each character whose speech is authorized** — who they are, their voice qualities (gender, age impression, tone, accent, pace, energy) and the language/dialect they speak in. Because each independently generated clip has no memory of the others, this must be restated in every such clip prompt so a character's voice does not change between clips (an Extend clip continues the base clip's audio — do not restate or contradict it). If no speech is authorized (the default; silent/ambient-only), state that explicitly instead.
 - The immediately preceding clip's ending state and this clip's required starting state, so the cut reads as continuous.
-- Any locked riddle text/language constraints that apply.
+- Any locked riddle text/language constraints that apply, plus the riddle outcome contract (the riddle is never answered correctly on screen, and the story always includes a visible consequence of it going unanswered).
 
 Keep it concise — repeat only the constants and the handoff, not the entire plan. This master block is what makes individually generated clips feel like one video.
 
@@ -47,12 +77,14 @@ Keep it concise — repeat only the constants and the handoff, not the entire pl
 
 Before video prompts, create a compact plan appropriate to the requested delivery style:
 
-1. Script Overview: exactly one concise sentence in an action-sequence format that states how the video unfolds across the requested clips. Use the user's sentence if provided; otherwise generate one in the same style. Preserve explicit per-clip speech/silence instructions here. If you generate the overview yourself, write it as silent action — do not put dialogue or spoken lines into a Script Overview you authored; only the user's own overview, an explicit speech request, or a locked riddle authorizes speech. If a riddle was locked, build the overview around **delivering that riddle's text** — plan from the riddle's wording and mood only, **not** from its answer (answer-blind planning, per the riddle module). The answer is a sealed leak check, never a plot input.
+1. Script Overview: **a short markdown list, not a paragraph** — **one action step per line**, numbered, in the order it happens, stating how the video unfolds across the requested clips. Keep it to roughly one line per clip (or per beat, when the beats do not line up with the clips), and prefix a line with the clip it belongs to when that helps (`Clip 1 — …`). It is an overview, not a shot list: no camera directions, no sub-bullets, no paragraph. Use the user's wording if provided — **never reword a Script Overview the user wrote**; render it as list lines split at their own sentence or step boundaries, and if they wrote a single sentence it stays a single line rather than being expanded into invented steps. Otherwise generate one in the same list style. Preserve explicit per-clip speech/silence instructions here. If you generate the overview yourself, write it as silent action — do not put dialogue or spoken lines into a Script Overview you authored; only the user's own overview, an explicit speech request, or a locked riddle authorizes speech. If a riddle was locked, build the overview around **delivering that riddle's text** — plan from the riddle's wording and mood only, **not** from its answer (answer-blind planning, per the riddle module). The answer is a sealed leak check, never a plot input.
 2. Premise and intended outcome: briefly describe what happens and what the viewer should feel or understand.
 3. Story beats: beginning, development, turning point, and ending/payoff as appropriate to the genre and clip count.
 4. Clip list / shot list: create exactly the requested number of clips. For each, specify its purpose, supported target duration, subject, setting, main action, camera framing/movement, continuity details, audio needs, and image inputs. For a Clip 2+ produced with **Extend**, specify only its continuation purpose, the one small change it shows ("no image input, no new script, no new shot") — do not write it a fresh subject/setting/camera spec or a new scene title, because the base clip already establishes all of that. An **Add clip** gets the full spec above, plus its own keyframe.
 5. Continuity notes when needed: stable character appearance, clothing, props, location layout, time of day, lighting, color palette, and details that must not drift between clips.
 6. Asset plan: indicate which reference images should be created or supplied for each clip. Prefer a small, deliberate set of references over a pile of loosely related images.
+
+**Scene elements are answer-blind too.** Before the blueprint is written, list the nouns and phenomena the locked riddle mentions and keep them out of every scene, prop, environment, weather condition, and lighting choice (see the riddle module). Build the scene from the **situation** instead — the Teller, the victims, the trap, and the place — because those are the only ingredients that carry no trace of the answer. The same ban covers the image subject and every image prompt.
 
 Keep each clip centered on one dominant action or clear beat. Avoid cramming a sequence of unrelated actions into one short generation. Use a separate clip when a new action, angle, location, or story beat needs its own control.
 

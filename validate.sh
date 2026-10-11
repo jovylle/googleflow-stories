@@ -256,7 +256,7 @@ check_rule "One shot = one image \(hard rule" "image-output-isolation / one-shot
 check_rule "### Clip continuation mode" "continuation-mode section"
 check_rule "honesty rule" "honesty rule"
 check_rule "no-premature-generation rule" "no-premature-generation rule"
-check_rule "Do not start generating a complete story package before interviewing" "interview-before-generation contract"
+check_rule "Do not start generating a complete story package before the user has submitted Form 1" "interview-before-generation contract"
 echo
 
 # ---------------------------------------- 9. identity-source vs workflow clarity
@@ -315,6 +315,173 @@ if grep -qE '^- Additional requirements:' "$MODULES/15-defaults.md"; then
 else
   pass "no stale 'Additional requirements' label in the defaults module"
 fi
+echo
+
+# ------------------------------------------------- 12. two-form flow contract
+# The opening interaction must be exactly two forms: Form 1 (setup) produces
+# Form 2 (production). Earlier wording ("manageable, interactive steps", a chained
+# follow-up question, pick-then-confirm locking) is what made ChatGPT spread the
+# opening across ~8 turns — one field per turn, with a confirmation card per riddle.
+# These guards keep that from creeping back in.
+echo "12. Two-form flow contract"
+need "$BUILD" "**Form 1 of 2**" "Form 1 is labeled in the build"
+need "$BUILD" "**Form 2 of 2**" "Form 2 is labeled in the build"
+need "$BUILD" "The whole opening is exactly two forms" "two-form contract stated in the role module"
+need_not "$BUILD" "manageable, interactive steps" "no stale 'manageable, interactive steps' wording"
+need_not "$BUILD" "ask a follow-up" "no chained follow-up-question pattern"
+need "$MODULES/03-riddle-prephase.md" "All three fields, in this one form" "Form 1 carries its three setup fields in one form"
+need "$MODULES/03-riddle-prephase.md" "locks it in that same single action" "a riddle pick locks in one action, with no confirmation round"
+need_not "$MODULES/03-riddle-prephase.md" "the user picks (or edits and confirms)" "no stale pick-then-confirm lock wording"
+need "$INT" "Present all four primary fields together" "Form 2 presents its primary fields in one form"
+need_not "$INT" "Step 1: Story topic" "no per-field sequencing in the interview module"
+need_not "$INT" "Hakbang" "no step-by-step interview framing"
+echo
+
+echo "13. Riddle outcome contract (never answered + consequence)"
+need "$MODULES/03-riddle-prephase.md" "The riddle is never answered correctly on screen" "the never-answered outcome is stated"
+need "$MODULES/03-riddle-prephase.md" "A visible consequence is always included" "the consequence rule is stated"
+need "$MODULES/03-riddle-prephase.md" "do not drop either silently" "clip-count conflict with the consequence has a defined resolution"
+need "$MODULES/15-defaults.md" "The riddle is never answered correctly on screen" "defaults mirror the never-answered outcome"
+need "$MODULES/15-defaults.md" "A visible consequence is always included" "defaults mirror the consequence rule"
+need "$MODULES/16-checklist.md" "the riddle is never answered correctly on screen" "the final checklist verifies the outcome contract"
+need "$MODULES/05-story-planning.md" "riddle outcome contract" "story planning carries the outcome contract"
+need_not "$MODULES/03-riddle-prephase.md" "or another character who reacts but never answers correctly" "no optional either/or riddle structure"
+need_not "$MODULES/03-riddle-prephase.md" "reacts without answering correctly" "no optional-answering wording in the reveal rule"
+need_not "$MODULES/15-defaults.md" "or a character who reacts without answering correctly" "no optional answering in the defaults mirror"
+echo
+
+echo "14. Clip 1 turn never goes silent"
+need "$MODULES/10-clip1-final.md" "**Never go silent.**" "the no-silent-turn rule is stated"
+need "$MODULES/10-clip1-final.md" "as the last action of the turn" "image generation is ordered after all text"
+need "$MODULES/10-clip1-final.md" "unavailable, fails, or the workflow is not ChatGPT-generated" "an explicit failure path replaces a silent wait"
+need "$MODULES/14-style.md" "**Never leave a turn without visible text.**" "the no-empty-turn rule is mirrored in the style module"
+echo
+
+echo "15. .start always begins at Form 1 (no state inference)"
+need "$MODULES/01-commands.md" "always present Form 1 first" ".start always presents Form 1"
+need "$MODULES/01-commands.md" "earlier turns are never a substitute for Form 1" "prior conversation state cannot replace Form 1"
+need "$MODULES/02-role.md" "Pre-filled is not the same as omitted" "a known value pre-fills its field instead of removing it"
+need "$MODULES/02-role.md" "since the most recent" "the scope of 'already in hand' is defined as the current run"
+need "$MODULES/02-role.md" "Form 2 keeps all four primary fields visible" "Form 2 never drops a field because its answer is known"
+need_not "$MODULES/02-role.md" "unless the user has already supplied enough information" "the skip-on-enough-information loophole is gone"
+need "$MODULES/04-interview.md" "the field stays visible" "interview fields are never dropped when known"
+echo
+
+echo "16. Clip 1 image ratio and one-image discipline"
+need "$MODULES/10-clip1-final.md" "Match the video's aspect ratio" "the image must match the video's aspect ratio"
+need "$MODULES/10-clip1-final.md" "A wrong-ratio image is a failed attempt" "a wrong-ratio result is retried, not handed to the user"
+need "$MODULES/10-clip1-final.md" "**Exactly one image this turn.**" "only the Clip 1 image is generated in the post-form turn"
+need_not "$MODULES/10-clip1-final.md" "i-crop o gumawa" "no crop-in-Flow workaround wording"
+echo
+
+echo "17. Story Overview checkpoint (before generating anything)"
+need "$MODULES/05-story-planning.md" "before any clip prompt, any expanded blueprint, or any image" "the checkpoint precedes all generation"
+need "$MODULES/05-story-planning.md" "It is not a form" "the checkpoint is distinguished from a form"
+need "$MODULES/05-story-planning.md" "never label it as Form 3" "the checkpoint is not a third form"
+need "$MODULES/05-story-planning.md" "state it in plain words" "the consequence is surfaced for review"
+need "$MODULES/05-story-planning.md" "never present a second uninvited checkpoint" "no round-trip creep"
+need "$MODULES/05-story-planning.md" "This is where a clip-count shortfall is raised" "the clip-count shortfall is raised at the checkpoint"
+need "$MODULES/05-story-planning.md" "skips the checkpoint and goes straight to the full package" "the checkpoint is skippable"
+need "$MODULES/02-role.md" "plus one Story Overview checkpoint" "the two-form contract names the checkpoint"
+need "$MODULES/11-output-format.md" "First, the Story Overview checkpoint" "the default delivery honours the checkpoint"
+need "$MODULES/16-checklist.md" "Story Overview checkpoint was shown" "the checklist verifies the gate"
+echo
+
+echo "18. Riddle re-roll affordance stays visible"
+need "$MODULES/03-riddle-prephase.md" "Always show the re-roll affordance in the same message as the pick list" "the pick list must show the re-roll path"
+need "$MODULES/03-riddle-prephase.md" "Reroll riddles" "the optional re-roll button is specified"
+need "$MODULES/03-riddle-prephase.md" "Re-present the affordance every time the list is shown" "the re-roll control survives a re-roll"
+need "$MODULES/03-riddle-prephase.md" "mean removing the edit and re-roll affordances" "removing the confirmation card does not remove the controls"
+need "$MODULES/03-riddle-prephase.md" "A re-roll means a genuinely fresh batch" "re-roll produces new riddles, not reshuffled ones"
+echo
+
+echo "19. Riddles do not close on a first-person self-question"
+need "$MODULES/03-riddle-prephase.md" "Do not end the riddle with" "the Ano ako? ending is banned"
+need "$MODULES/03-riddle-prephase.md" "any equivalent first-person self-question" "all first-person self-questions are banned, not just the exact phrase"
+need "$MODULES/03-riddle-prephase.md" "recited by a character to an audience" "the ban is justified by the recital framing"
+need "$MODULES/03-riddle-prephase.md" "never a first-person one" "the permitted impersonal close is stated"
+need "$MODULES/03-riddle-prephase.md" "a riddle the user supplies is preserved exactly as written" "the user's own riddle is still preserved verbatim"
+need "$MODULES/16-checklist.md" "not end in a first-person self-question" "the checklist verifies the riddle ending"
+echo
+
+echo "20. Default riddle story: horror, two entities, no clues, no re-used riddle nouns"
+need "$MODULES/03-riddle-prephase.md" "The default riddle story is a horror scene with two sides" "the default two-entity horror structure is stated"
+need "$MODULES/03-riddle-prephase.md" "Genre: horror by default" "riddle stories default to horror"
+need "$MODULES/03-riddle-prephase.md" "holds the victims where they are" "the Teller is the one who traps them"
+need "$MODULES/03-riddle-prephase.md" "The trap is shown, not implied" "the trap must be established visually"
+need "$MODULES/03-riddle-prephase.md" "The consequence is the Teller's act, not an event in the world" "the consequence comes from the Teller"
+need "$MODULES/03-riddle-prephase.md" "No tips and no clues" "no hints of any kind"
+need "$MODULES/03-riddle-prephase.md" "A consequence that dramatizes what the riddle's wording describes" "the raining-bridge leak is named"
+need "$MODULES/03-riddle-prephase.md" "because it depicts the answer's own description" "why that consequence is a leak"
+need_not "$MODULES/03-riddle-prephase.md" "follow from the riddle's wording, mood, and situation" "the old rule that licensed the leak is gone"
+need "$MODULES/03-riddle-prephase.md" "Write the riddle so the reciter is never the" "riddles must be impersonal when recited"
+need "$MODULES/03-riddle-prephase.md" "repeated as an old rhyme" "the quoted-riddle escape hatch for the user's own riddle"
+need "$MODULES/03-riddle-prephase.md" "The riddle's own words are off-limits as scene material" "the riddle's nouns are banned from the scene"
+need "$MODULES/03-riddle-prephase.md" "a washed-out bridge would hand the answer straight to the audience" "the worked example from the failing run"
+need "$MODULES/03-riddle-prephase.md" "Never add a tip or a clue" "the no-clue rule in the reveal section"
+need "$MODULES/05-story-planning.md" "Scene elements are answer-blind too" "the blueprint bans riddle nouns from the scene"
+need "$MODULES/05-story-planning.md" "state it in plain words as what the Teller does" "the checkpoint shows the consequence as the Teller's act"
+need "$MODULES/07-image-workflow.md" "Build the frame from the situation, not from the riddle" "image prompts are built from the situation"
+need "$MODULES/11-output-format.md" "No citations, links, or foreign text" "junk citations are banned from the package"
+need "$MODULES/15-defaults.md" "Horror for a riddle story" "the defaults module carries the horror default"
+need "$MODULES/15-defaults.md" "a horror two-entity scene" "the defaults module carries the structure"
+need "$MODULES/15-defaults.md" "small, cute, vulnerable" "victim characters are the riddle default"
+need "$MODULES/15-defaults.md" "no tips and no clues of any kind" "the defaults module carries the no-clue rule"
+need "$MODULES/16-checklist.md" "the consequence is the Teller's own act" "the checklist verifies the consequence source"
+need "$MODULES/16-checklist.md" "no tip or clue of any kind is present" "the checklist verifies no clues"
+need "$MODULES/16-checklist.md" "no citations, links, source titles, or unrelated text" "the checklist verifies no junk text"
+echo
+
+echo "21. Script Overview is a list, not a paragraph"
+need "$MODULES/05-story-planning.md" "a short markdown list, not a paragraph" "the overview format is a list"
+need "$MODULES/05-story-planning.md" "one action step per line" "the overview is one step per line"
+need "$MODULES/05-story-planning.md" "never reword a Script Overview the user wrote" "the user's own overview wording is preserved"
+need "$MODULES/04-interview.md" "Script Overview (a short action-sequence list, optional text)" "the Form 2 field asks for a list"
+need "$MODULES/04-interview.md" "as a list, not a paragraph" "the Form 2 field states the list form"
+need "$MODULES/11-output-format.md" "Script Overview (a short action-sequence list)" "the delivered package returns a list"
+need "$MODULES/15-defaults.md" "a short action-sequence list" "the defaults module states the list form"
+need "$MODULES/16-checklist.md" "in the action-sequence list format" "the checklist verifies the list format"
+need "$MODULES/10-clip1-final.md" "in the action-sequence list form" "the Clip 1 gate verifies the list form"
+echo
+
+echo "22. One image per request: no batches, no sheets, no panels"
+need "$MODULES/06-model-rules.md" "images are generated one at a time, on demand" "images are produced one at a time"
+need "$MODULES/06-model-rules.md" "is a labeling rule, never a list of images to generate" "image roles are labels, not a production list"
+need_not "$MODULES/06-model-rules.md" "Treat this as a practical planning target" "the batch-affording planning target is gone"
+need "$MODULES/07-image-workflow.md" "A batch of images is never a delivery" "a batch is not a delivery"
+need "$MODULES/07-image-workflow.md" "never one image per subject" "multi-subject fields mean one composed frame"
+need "$MODULES/07-image-workflow.md" "an image library for style references" "reference lookups are banned"
+need "$MODULES/07-image-workflow.md" "One request produces exactly one image" "one request = one image"
+need "$MODULES/08a-shot-composition.md" "One frame per request, never a batch" "the shot rules forbid a batch"
+need "$MODULES/11-output-format.md" "The header text is never an image" "accordion headers are text, never rendered as images"
+need "$MODULES/10-clip1-final.md" "one image, of one composed scene" "the Clip 1 image is one composed scene"
+need "$MODULES/16-checklist.md" "Exactly one image was generated in the turn" "the checklist verifies the image count"
+echo
+
+echo "23. The supernatural Teller voice (riddle horror) + its slower duration budget"
+need "$MODULES/08-video-prompt.md" "### The supernatural Teller voice (riddle horror)" "the voice block has its own section"
+need "$MODULES/08-video-prompt.md" "A terrifying supernatural entity speaks in" "the vendored deep-voice template is present"
+need "$MODULES/08-video-prompt.md" "not a normal human lowering their voice" "the timbre-pinning negative line survives"
+need "$MODULES/08-video-prompt.md" "The entity speaks exactly this line, in" "the spoken-line slot exists (the source prompt had none)"
+need "$MODULES/08-video-prompt.md" "no added growls, whispers, or vocalizations that carry meaning" "no extra vocalizations"
+need "$MODULES/08-video-prompt.md" "never any hint or statement of the answer" "the voice block cannot leak the answer"
+need "$MODULES/08-video-prompt.md" "Do not use it for a story that is not horror" "the block is horror-scoped"
+need "$MODULES/08-video-prompt.md" "It is slower than a normal speaking pace" "the heavy voice costs duration"
+need "$MODULES/08-video-prompt.md" "12–16 words per 8-second clip" "the heavy-voice word budget is stated"
+need "$MODULES/03-riddle-prephase.md" "12–16 words per 8-second clip" "the riddle budget carries the heavy-voice figure"
+need "$MODULES/15-defaults.md" "supernatural Teller voice block" "the defaults point at the voice block"
+need "$MODULES/16-checklist.md" "the supernatural Teller voice block was used verbatim" "the checklist verifies the voice block"
+echo
+
+# ------------------------------------------------------- 24. handoff freshness
+# The handoff is the resume point for a fresh session; it goes stale silently.
+# Pinning it to the current version makes a release bump a failing check until
+# the state table is updated (and it is the section a reader trusts most).
+echo "24. Handoff freshness"
+VER="$(tr -d '[:space:]' < version.txt)"
+need "docs/HANDOFF.md" "$VER" "the handoff names the current version ($VER)"
+need "docs/HANDOFF.md" "build/google-flow-story-maker.md" "the handoff names the canonical artifact"
+need "docs/HANDOFF.md" "docs/SUMMARY.md" "the handoff points at the version history"
 echo
 
 echo "----------------------------------------"

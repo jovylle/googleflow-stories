@@ -34,9 +34,9 @@ googleflow-stories/
 ├── modules/                     # authored source (19 files, filename order = doc order)
 │   ├── 00-header.md             # title, {{VERSION}}, purpose, research baseline date
 │   ├── 01-commands.md           # trigger vocabulary + implicit routing  (unnumbered "## Commands")
-│   ├── 02-role.md               # §1  persona + interview-before-generation contract
-│   ├── 03-riddle-prephase.md    # §2  language-first, riddle generator, answer-blind planning, pacing
-│   ├── 04-interview.md          # §3  primary vs advanced wizard, attachments, Other-on-every-field
+│   ├── 02-role.md               # §1  persona, the exactly-two-forms contract, interview-before-generation
+│   ├── 03-riddle-prephase.md    # §2  FORM 1 of 2 (one setup form), riddle generator, answer-blind planning, pacing
+│   ├── 04-interview.md          # §3  FORM 2 of 2 (one form, primary vs advanced), attachments, Other-on-every-field
 │   ├── 05-story-planning.md     # §4  full-video blueprint + master context block
 │   ├── 06-model-rules.md        # §5  dated Flow capability snapshot + Extend rule
 │   ├── 07-image-workflow.md     # §6  per-scene image methods A–E, one-shot-one-image
@@ -88,7 +88,7 @@ order, section numbering, cross-reference resolution, field shape and stale-phra
 
 ### 3.2 Command routing *(01-commands.md)*
 
-- **OBS-CMD-001** — When the user message contains `.start` (case-insensitive, dot optional), the system shall run the riddle pre-phase then the interactive interview. *(01:12)*
+- **OBS-CMD-001** — When the user message contains `.start` (case-insensitive, dot optional), the system shall present **Form 1 first** and then the interactive interview — **even when the conversation already contains a locked riddle, a chosen story topic, or a completed earlier run**. Earlier turns are never a substitute for Form 1; known values are pre-filled instead. *(01:12; **updated v2.15.0** — previously just "run the riddle pre-phase", which a model could treat as already satisfied by prior conversation state)*
 - **OBS-CMD-002** — When the user message contains `gfs`, the system shall treat it as an alias of `.start`. *(01:13)*
 - **OBS-CMD-003** — When the user types `.advanced`, the system shall open/expand the Advanced/optional section. *(01:14)*
 - **OBS-CMD-004** — When the user types `.go`, the system shall skip the interview and proceed with current answers and defaults. *(01:15)*
@@ -99,18 +99,30 @@ order, section numbering, cross-reference resolution, field shape and stale-phra
 
 ### 3.3 Riddle pre-phase *(03-riddle-prephase.md)*
 
-- **OBS-RIDDLE-001** — When the story maker starts, the system shall run the riddle pre-phase before opening the main interview form. *(03:11)*
-- **OBS-RIDDLE-002** — Before the first question, the system shall show one short line stating the user may attach reference images and notes at any time. *(03:13)*
-- **OBS-RIDDLE-003** — The system shall ask language first, defaulting to Tagalog preselected. *(03:26)*
-- **OBS-RIDDLE-004** — When the user chooses "Riddle story", the system shall then ask whether the user has their own riddle or wants generated riddles. *(03:28-30)*
-- **OBS-RIDDLE-005** — When generating riddles, the system shall produce 5–10 candidates, each with a concrete, ordinary, guessable answer noted beside it. *(03:50-52,64)*
-- **OBS-RIDDLE-006** — The system shall reject any riddle candidate whose answer is an abstract or genre label rather than a concrete thing. *(03:55)*
-- **OBS-RIDDLE-007** — When the user locks a riddle, the system shall record its text, answer, and language and preserve the wording exactly. *(03:78)*
-- **OBS-RIDDLE-008** — While planning a riddle story, the system shall build the plot, visuals, and reactions from the riddle's text/mood only, treating the answer as sealed. *(03:92)*
-- **OBS-RIDDLE-009** — After drafting the plan and prompts, the system shall run exactly one leak check against the sealed answer. *(03:94)*
-- **OBS-RIDDLE-010** — For riddle stories, the system shall never reveal or hint the answer in speech, on-screen text, captions, imagery, image prompts, or production assets. *(03:101-109; 16:13)*
-- **OBS-RIDDLE-011** — The system shall derive the clip count from the specific riddle's length, not a fixed template. *(03:133-136)*
-- **OBS-RIDDLE-012** — The system shall budget spoken lines at roughly 2–3 words/second (≈16–24 words per 8s clip). *(03:129)*
+- **OBS-RIDDLE-001** — When the story maker starts, the system shall present **Form 1 of 2** (the setup form) before opening the main interview form, as **one** form in a single message submittable in one action; submitting it produces Form 2. *(03:14-16; **updated v2.13.0** — this was previously a chain of separate questions)*
+- **OBS-RIDDLE-002** — Before the first question, the system shall show one short line stating the user may attach reference images and notes at any time. *(03:18)*
+- **OBS-RIDDLE-003** — Form 1 shall list language first, defaulting to Tagalog preselected. *(03:44,46)*
+- **OBS-RIDDLE-004** — Form 1 shall carry the story type (Riddle story / AI Option A / AI Option B / AI Option C / Other / custom) **and**, in that same form, the riddle source — never as a separate follow-up question. *(03:47-55; **updated v2.13.0** — the riddle source was previously asked as a follow-up after the story-type answer)*
+- **OBS-RIDDLE-004b** — On submit of Form 1 the system shall route once (non-riddle → straight to Form 2 with the idea carried pre-filled; own riddle → lock immediately; generate → present the candidate list once), and shall not ask anything the form already answered. *(03:57-61; added v2.13.0)*
+- **OBS-RIDDLE-005** — When generating riddles, the system shall produce 5–10 candidates, each with a concrete, ordinary, guessable answer noted beside it. *(03:77-79,91)*
+- **OBS-RIDDLE-006** — The system shall reject any riddle candidate whose answer is an abstract or genre label rather than a concrete thing. *(03:82)*
+- **OBS-RIDDLE-007** — Selecting a riddle from the list shall lock it **in that same single action**, with no confirmation card, no re-listing, and no confirm-after-pick; a confirmation round shall be required **only** when the user edits the riddle text. *(03:103-104; **updated v2.13.0** — was pick, then confirm)*
+- **OBS-RIDDLE-008** — On lock, the system shall record the riddle's text, answer, and language and preserve the wording exactly. *(03:106)*
+- **OBS-RIDDLE-008b** — After locking a riddle, the system shall immediately open Form 2, with no intervening recap or confirmation turn. *(03:107)*
+- **OBS-RIDDLE-009** — While planning a riddle story, the system shall build the plot, visuals, and reactions from the riddle's text/mood only, treating the answer as sealed. *(03:121)*
+- **OBS-RIDDLE-010** — After drafting the plan and prompts, the system shall run exactly one leak check against the sealed answer. *(03:123)*
+- **OBS-RIDDLE-011** — For riddle stories, the system shall never reveal or hint the answer in speech, on-screen text, captions, imagery, image prompts, or production assets. *(03:130-138; 16:13)*
+- **OBS-RIDDLE-012** — The system shall derive the clip count from the specific riddle's length, not a fixed template. *(03:163)*
+- **OBS-RIDDLE-013** — The system shall budget spoken lines at roughly 2–3 words/second (≈16–24 words per 8s clip). *(03:159)*
+- **OBS-RIDDLE-016 — No first-person self-question close.** A riddle the system generates shall **not** end with "Ano ako?" or any equivalent first-person self-question, in any language. The riddle is recited by a character to an audience, so a closing "What am I?" makes the speaker sound like they are describing themselves and breaks the story — a listener who is meant to attempt an answer cannot do so sensibly once the asker has claimed to be the thing. The riddle shall work as a challenge posed to the listener: end on the final clue, or at most close with an impersonal question about the thing ("Ano ito?"). A **user-supplied** riddle is still preserved exactly as written, even if it ends that way. Checked in the pre-presentation self-check and the final checklist. *(`03:93,102`; `16:12`; added v2.17.0 — requested directly: "stop riddles to end in 'ano ako' its not needed, and it just causes us a lot of trouble")*
+- **OBS-RIDDLE-017 — The re-roll affordance is always visible.** The riddle pick list message shall always state the re-roll path in one short line in the production language (the `.reroll` reply-command is the one that must always work), with an optional `GenUI.issueNewTurn(".reroll")` button only where interactive components render. It shall be re-presented every time the list is shown, including after a re-roll, and never dropped because a list already exists. Removing the confirmation card does not remove the edit/re-roll affordances — they lived on that card and now belong to the pick list. A re-roll produces a genuinely fresh batch, not the previous riddles reordered. *(`03:106`; added v2.17.0)*
+- **OBS-RIDDLE-018 — Default riddle structure: horror, two entities, victims who cannot leave.** A riddle story shall default to **Horror** and to a two-sided scene: a **Teller** — one entity that **holds the victims where they are** and **poses the riddle to them**, owning the condition (answer and go free; fail and the Teller takes its price) — and **victims** who are **small, cute, vulnerable** characters the audience worries about. The victims shall be **visibly blocked, trapped, cornered, caged, cut off, or have the way sealed behind them**, shown before the riddle lands, so the audience can see that escaping is not an option. The Teller is never the answer and never a visual stand-in for it. *(`03:22-27`; `15:18`; `04:60`; added v2.18.0 — requested directly: "we make this by default horror theme if riddle, most of the time there's atleast 2 entites, One blocks or traped the other character/s and tells the riddle … and please setup the scenario of the victims to be blocked or trapped or path blocked")*
+- **OBS-RIDDLE-019 — The consequence is the Teller's act, never the riddle's description.** The consequence of the riddle going unanswered shall come out of the **Teller's rule and the situation** — the Teller takes something, claims one of them, seals the way, snuffs the light, marks them, or leaves them there — and **never** from what the riddle describes. A consequence that dramatizes the riddle's wording **is a leak, not a payoff, because it depicts the answer's own description**: a riddle about something that climbs to the sky and makes water pour must not be followed by rain, a flood, a storm, a dark sky, or a washed-out bridge. This rule **replaces** the earlier wording that required the consequence to "follow from the riddle's wording, mood, and situation" — that rule licensed exactly this leak in a live run. *(`03:36,38`; `15:19`; `05:33`; added v2.18.0)*
+- **OBS-RIDDLE-020 — No tips, no clues, and the riddle's nouns stay out of the scene.** No tip or clue of any kind shall be present — no hint from the Teller, no emphasized or glowing prop, no scenery or weather echoing the answer's domain, no character conveniently noticing the right thing, no caption or on-screen text. Because the riddle describes its answer, **every noun and phenomenon the locked riddle names shall be kept out of the scene, props, environment, weather, lighting, image subject, and image prompt**; when a scene seems to need one, the scene changes, never the riddle. Only the riddle's **mood** may be carried into the story. *(`03:152-153`; `05:87`; `07:29`; `16:16`; added v2.18.0 — requested directly: "never show any tips or never show the clue")*
+- **OBS-RIDDLE-021 — The riddle is impersonal when recited.** A generated riddle shall be phrased so the reciter is **never the "I"** — the Teller speaks it aloud, so a first-person line tells the audience that the Teller *is* the answer. Generated riddles use impersonal phrasing ("May isang bagay na…"). A first-person riddle is permitted only when the scene makes it unmistakable that it is quoted from something other than the speaker (read off a note, a sign, or a page, or repeated as an old rhyme). A user-supplied riddle is still preserved verbatim. *(`03:107`; added v2.18.0 — generalizes the v2.17.0 "Ano ako?" fix to the recital framing)*
+- **OBS-PKG-001 — No citations, links, or foreign text.** A delivery shall contain only the story package: no sources, publication titles, article or video names, URLs, footnotes, or text in another language that is not part of the production. Unrelated lines are deleted before delivery. *(`11:52`; `16:17`; added v2.18.0 — a live run emitted two stray foreign-language source titles into the blueprint)*
+- **OBS-RIDDLE-014 — Riddle never answered.** Every riddle story shall show the riddle **going unanswered**: a silent guessing beat **and** at least one character who attempts it and fails (guesses wrong, gives up, cannot answer). The requirement is an *and*, not an either/or — a story where someone answers correctly is not a valid riddle story. *(03:20,32; 15:18-19; 16:14; added v2.14.0)*
+- **OBS-RIDDLE-015 — Consequence always included.** Every riddle story shall include a visible consequence of the riddle going unanswered — the failure costs something the audience can see (a loss, change, danger, price, lost opportunity) — placed in the story's later beats and landing through action/imagery. It is a story beat, never a clue: it must not reveal, hint at, depict, or be reverse-engineerable into the answer. *(03:34; 15:19; 16:14; 05:42; added v2.14.0; **partly superseded by OBS-RIDDLE-019 — v2.18.0** replaced the "follow from the riddle's wording/mood/situation" clause that licensed the leak)*
 
 ### 3.4 Interview *(04-interview.md)*
 
@@ -118,6 +130,9 @@ order, section numbering, cross-reference resolution, field shape and stale-phra
 - **OBS-INT-002** — The system shall hide clip count, aspect ratio, platform, video model, audio, continuity, clip continuation, delivery, **image workflow**, and other requirements behind an "Advanced / optional" toggle with defaults applied. *(04:16; image workflow moved here in v2.12.0)*
 - **OBS-INT-009** — When the user picks "Use my uploaded photo(s) as the character sheet source," the system shall treat the attached photos as the locked identity source, preserve the person as they appear, and ask for a photo instead of inventing a face when none is attached. *(04:B1; added v2.12.0)*
 - **OBS-INT-010** — The system shall default the image workflow to **"Generate reference images with ChatGPT"**, and a supplied character sheet shall be an identity source (method A) only, not a silent workflow switch. *(04:item 11, submit-time attachments; 07:A; added v2.12.0)*
+- **OBS-INT-011** — The interview shall be presented as **Form 2 of 2**: all four primary fields together in one form in one message, submitted in a single action, never as a sequence of steps or per-field turns, and never re-asking anything Form 1 already collected or re-confirming a locked riddle. *(04:16; added v2.13.0 — this is the fix for the ~8-turn opening)*
+- **OBS-INT-012 — Known values pre-fill, never remove.** "Already in hand" shall mean a value the user submitted in a form **during the current run (since the most recent `.start`)** — never something that merely appeared earlier in the conversation, in an attachment, or in the Instructions. A known value shall be shown pre-filled in its field; **pre-filled is not the same as omitted**. The system shall never present a partial form asking only for what looks missing, and never skip a whole form because the conversation appears to know the answers. *(02:13-14; 04:46-47; added v2.15.0)*
+- **OBS-INT-013 — Skipping requires the user.** The only authorization to skip a form shall be the user saying to skip (a skip command such as `.go`, or plain words meaning skip the setup). Having enough information already shall not authorize skipping — it pre-fills the form, which is still shown. *(02:16; added v2.15.0)*
 - **OBS-INT-003** — The system shall allow immediate submit without opening Advanced or confirming ordinary defaults. *(04:89)*
 - **OBS-INT-004** — For every multiple-choice field, the system shall provide an "Other" option that accepts custom input verbatim. *(04:91)*
 - **OBS-INT-005** — When the form is presented, the system shall tell the user (one short line) they may attach images and notes before submitting. *(04:104)*
@@ -127,7 +142,10 @@ order, section numbering, cross-reference resolution, field shape and stale-phra
 
 ### 3.5 Story planning *(05-story-planning.md)*
 
-- **OBS-PLAN-001** — Immediately after the first submit, before generating any clip, the system shall lay out the entire video as one connected plan across every clip. *(05:20)*
+- **OBS-PLAN-001** — Immediately after the first submit — **and after the Story Overview checkpoint** — before generating any clip, the system shall lay out the entire video as one connected plan across every clip. *(05:50; updated v2.16.0)*
+- **OBS-PLAN-005 — Story Overview checkpoint.** Immediately after Form 2 is submitted and before any clip prompt, expanded blueprint, or image, the system shall show a short Story Overview checkpoint — Script Overview, the arc in one line, the consequence in plain words, the clip count with each clip's one-line role, and a line confirming the seal — then stop. It is **not a form**: no fields, no required input, never labeled Form 3, never split across turns. It shall not require an answer: anything other than a change request (a tap, `.go`, "ok", "proceed", or fresh instructions) is approval, and the full package follows in the next message. A change request is revised and proceeded from; a second uninvited checkpoint is never presented. `.go` skips it entirely. *(05:14-42; 02:12; 11:51-52; 16:16; added v2.16.0)*
+- **OBS-PLAN-006 — Clip-count shortfall raised at the checkpoint.** If the clip count cannot hold both the guessing beat and the consequence, the system shall raise it at the checkpoint in one line, with the option of one more clip, and let the user decide before anything is generated — never let it surface in a finished plan. *(05:38; moved from post-hoc in v2.16.0)*
+- **OBS-PLAN-007 — The Script Overview is a list, not a paragraph.** The Script Overview shall be rendered as a **short markdown list** — **one action step per line**, numbered, in the order it happens, roughly one line per clip (or per beat), optionally prefixed with the clip it belongs to (`Clip 1 — …`). It is an overview, not a shot list: no camera directions, no sub-bullets, no paragraph. A Script Overview the **user** wrote is **never reworded** — it is rendered as list lines split at their own sentence or step boundaries, and a single sentence stays a single line rather than being expanded into invented steps. A generated overview uses the same list style and stays silent-action only. *(05:80; 04:48,53; 11:65; 15:26; 16:19; 10:20; added v2.19.0 — requested directly: "can you also make the Script Overview in a markdown format or list format instead of just a paragraph")*
 - **OBS-PLAN-002** — The system shall place a master context block at the top of every clip prompt. *(05:34-44; 08:14)*
 - **OBS-PLAN-003** — The blueprint shall cover Script Overview, premise/outcome, story beats, an exact clip/shot list, continuity notes, and an asset plan. *(05:46-53)*
 - **OBS-PLAN-004** — The system shall keep each clip centered on one dominant beat. *(05:55; 03:128)*
@@ -137,6 +155,7 @@ order, section numbering, cross-reference resolution, field shape and stale-phra
 - **OBS-MODEL-001** — When current capabilities affect the output and web access exists, the system shall check official compatibility documentation before advising. *(06:11)*
 - **OBS-MODEL-002** — The system shall treat the listed per-model capabilities as a dated snapshot (2026-10-10), not guarantees. *(06:19,68)*
 - **OBS-MODEL-003** — The system shall state that all Veo 3.1 8s clips can be extended, but extension itself must run on Veo 3.1 Lite and accepts no input images. *(06:54-56)*
+- **OBS-MODEL-004** — The system shall treat the "1-3 images per clip" figure as **an attach ceiling, not a generation quota or a plan**: images are generated **one at a time, on demand**, and the image-role list (character/environment/prop) is a labeling rule, never a production list. *(06:77-81; added v2.20.0)*
 
 ### 3.7 Image workflow *(07, 08a)*
 
@@ -146,12 +165,17 @@ order, section numbering, cross-reference resolution, field shape and stale-phra
 - **OBS-IMG-004** — The system shall not describe an image as generated unless it actually was. *(07:36)*
 - **OBS-IMG-005** — When calling the image model, the system shall pass a scene-only prompt for one shot with no production docs, labels, dialogue, or secrets. *(08a:36-43)*
 - **OBS-IMG-006** — When image generation fails or returns a composite, the system shall retry a simplified single-shot prompt, never combine shots. *(08a:22,44)*
+- **OBS-IMG-007** — The system shall produce **exactly one image per request**, and a delivery turn shall generate exactly one image — Clip 1's. A batch is never a delivery: no run of images, no one-image-per-clip/subject/role, no character sheet, model sheet, turnaround, contact sheet, or panel set; when several subjects are named, they are composed into **one** frame. *(07:10-16,29; 08a:24; 10:49; 16:20; added v2.20.0)*
+- **OBS-IMG-008** — The system shall not render the plan itself — blueprint, clip list, image accordion, header lines, storyboard, or section headings — as an image. *(11:31; 08a:24; added v2.20.0)*
+- **OBS-IMG-009** — The system shall not search the web or an image library for style references, nor carry page or source titles into the package. *(07:15; added v2.20.0)*
 
 ### 3.8 Video prompt *(08-video-prompt.md)*
 
 - **OBS-VP-001** — The system shall build each prompt in steps 0–8 with the master context block first. *(08:12-22)*
 - **OBS-VP-002** — Unless dialogue/script is supplied or speech is requested, the system shall specify no dialogue, narration, subtitles, captions, or text overlays (ambient only). *(08:34-40)*
 - **OBS-VP-003** — When voiceover narration is chosen, the system shall have Veo generate the voiceover itself and not require a user-recorded track. *(08:49-55)*
+- **OBS-VP-004** — For a horror riddle story, the system shall use the **supernatural Teller voice block verbatim** as the voice and audio direction of the riddle-delivering clip — printed inside the video prompt (one text prompt carries picture and audio), with the `[LANGUAGE]` slots filled and the locked riddle quoted exactly and alone. The entity says nothing else: no extra words, no added growls or whispers that carry meaning, no improvised lines, and never any hint or statement of the answer; the atmospheric layering stays wordless texture. The block is horror-scoped only, its negative tail is kept rather than paraphrased, and the Teller's voice traits are restated (never the riddle) in any later clip where it speaks. *(08:`supernatural Teller voice`; 15:39; 16:20; added v2.21.0)*
+- **OBS-VP-005** — The system shall budget a horror riddle's spoken line at the heavy voice's slower pace — roughly **12–16 words per 8-second clip**, not the 16–24 figure that applies to ordinary narration — and check the locked riddle against it **before generating**; when it will not fit, it shall offer an approved trim, delivery across two clips, or a longer-duration model rather than squeezing the recitation. *(03:105,179,181; 08:`slower than a normal speaking pace`; 16:20; added v2.21.0)*
 
 ### 3.9 Clip continuity *(09-clip-continuity.md)*
 
@@ -165,7 +189,11 @@ order, section numbering, cross-reference resolution, field shape and stale-phra
 - **OBS-CLIP1-001** — After submit, the system shall lay out the full-video blueprint and then produce Clip 1 (not stop at planning). *(10:10)*
 - **OBS-CLIP1-002** — Before generating Clip 1, the system shall run a readiness check (riddle locked, identity/style locked, Script Overview present, decisions resolved, images available or planned). *(10:14-22)*
 - **OBS-CLIP1-003** — The system shall generate a Clip 1 image only when the chosen workflow calls for a ChatGPT-generated image. *(10:35-38)*
-- **OBS-CLIP1-004** — When generating the Clip 1 image, the system shall pass a scene-only prompt free of blueprint, labels, dialogue, and secrets. *(10:41)*
+- **OBS-CLIP1-004** — When generating the Clip 1 image, the system shall pass a scene-only prompt free of blueprint, labels, dialogue, and secrets. *(10:45)*
+- **OBS-CLIP1-005 — Turn never goes silent.** The system shall write the blueprint and Clip 1's prompt text **before** generating the reference image, generate the image **as the last action of the turn**, and open the turn with one short line saying the image is being generated and may take a moment — never an empty or placeholder reply. *(10:12; 14:13; added v2.14.0)*
+- **OBS-CLIP1-006 — Explicit failure path.** If image generation is unavailable, fails, or the workflow is not ChatGPT-generated, the system shall say so in one short line immediately and still deliver the rest of the package (blueprint, Clip 1 prompt, remaining clip headers), rather than stalling until the user asks for progress. *(10:12; 14:13; added v2.14.0)*
+- **OBS-CLIP1-007 — Image matches the video's aspect ratio.** The Clip 1 image prompt shall state the target aspect ratio explicitly and require a composition that fills it (a vertical portrait image for a vertical production, usable without cropping). The system shall check the returned orientation and, if it is wrong, say so in one line and regenerate with the ratio stated more forcefully — a wrong-ratio image is a failed attempt, not a delivery note, and "crop it in Flow" is not the remedy while a regeneration is available. *(10:47; added v2.15.0)*
+- **OBS-CLIP1-008 — Exactly one image this turn.** The post-form turn shall generate only the Clip 1 reference image — no images for the character/continuity section, the blueprint section, or any other section. Every other image waits for its `imgN-M` command. *(10:49; added v2.15.0)*
 
 ### 3.11 Output format *(11-output-format.md)*
 
@@ -217,9 +245,20 @@ order, section numbering, cross-reference resolution, field shape and stale-phra
 ## 5. Inferred Acceptance Criteria
 
 - **AC-001 — Build reproducibility.** Given `modules/` and `version.txt`, when `./build.sh` runs, then `build/google-flow-story-maker.md` equals a fresh concatenation with `{{VERSION}}` substituted and exits 0. *(verified true)*
-- **AC-002 — Command launch.** Given a fresh project, when the user types `.start` or `gfs`, then the riddle pre-phase (language first) runs before the interview. *(03:11,26)*
+- **AC-002 — Command launch.** Given a fresh project, when the user types `.start` or `gfs`, then **Form 1 of 2** (language first, as one form) runs before the interview, and submitting it produces **Form 2 of 2**. *(03:14-16,44,46; updated v2.13.0)*
+- **AC-007 — Two-form opening.** Given a fresh project and a riddle story with "Generate riddles for me," when the user works through to production, then the interaction asks for at most two form submissions plus one single-tap riddle pick — no per-field interview turns and no riddle confirmation round. *(02:12; 03:16,57-61,103-107; 04:16; added v2.13.0)*
+- **AC-008 — Riddle outcome.** Given a locked riddle story, when the plan and clips are produced, then no character ever answers the riddle correctly, the guessing beat and at least one failed attempt both appear, and the video shows a visible consequence of the riddle going unanswered that does not hint at or encode the answer. *(03:20,32,34; 16:14; added v2.14.0)*
+- **AC-009 — No silent turn.** Given the Form 2 submission, when Clip 1 is produced, then the user sees the blueprint and Clip 1's prompt text before the reference image finishes, and the turn never returns an empty or placeholder reply. *(10:12; 14:13; added v2.14.0)*
+- **AC-010 — `.start` restarts at Form 1.** Given a conversation that already contains a locked riddle and a chosen story topic, when the user types `.start`, then Form 1 is presented again with those values pre-filled — nothing is skipped because it looked already known. *(01:12; 02:13-16; added v2.15.0)*
+- **AC-011 — Form 2 stays whole.** Given a riddle locked during the current run, when Form 2 is presented, then all four primary fields are visible with the known ones pre-filled — no field is dropped and no partial "what's still missing" form is shown. *(02:13-14; 04:16,46-47; added v2.15.0)*
+- **AC-012 — Story Overview gate before spending.** Given a submitted Form 2, when the run continues, then a short Story Overview checkpoint (overview, arc, consequence, clip roles, seal line) appears before any clip prompt, expanded blueprint, or image is produced; a plain "proceed" or a tap continues into the full package; and a change request is revised then proceeded from — never a second uninvited checkpoint, never a form with fields. *(05:14-42; 11:51-52; added v2.16.0)*
+- **AC-013 — Riddle ends as a challenge to the listener.** Given generated riddle candidates, when the pick list is shown, then no candidate ends in a first-person self-question such as "Ano ako?", each works as a challenge posed to the listener, and the pick list message visibly states the re-roll path (re-presented after every re-roll); a user-supplied riddle is still preserved verbatim. *(03:93,102,106; 16:12; added v2.17.0)*
+- **AC-014 — The default riddle scene, and no leak through the scene.** Given a riddle story with the default settings, when the story is planned, then the scene is horror with a Teller who holds visibly trapped small/vulnerable victims and poses the riddle, the consequence is the Teller's own act and not any event the riddle's wording describes, and neither the scene, props, environment, weather, lighting, image subject, nor image prompt contains any noun the riddle names or any tip or clue of any kind. *(03:22-27,36,38,152-153; 05:33,87; 07:29; 15:18-20; 16:15-17; added v2.18.0)*
+- **AC-015 — Script Overview renders as a list.** Given a planned story, when the Script Overview is shown — in the Story Overview checkpoint, the delivered package, or a generated fallback — it appears as a short markdown list with one action step per line, not a paragraph; when the user supplied their own overview, its wording is preserved unaltered and simply split at their own boundaries. *(05:31,80; 04:48,53; 11:65; 15:26; 16:19; 10:20; added v2.19.0)*
+- **AC-016 — One image, and only one.** Given a submitted plan or Form 2 in a riddle run, when the package is delivered, then **exactly one image** is generated (Clip 1's reference image) as a single frame of a single composed scene; no batch, run, sheet, panel set, or one-image-per-subject appears, the plan itself is never rendered as an image, and every further image waits for its own `imgN-M`. *(07:10-16,29; 08a:24; 10:49; 16:20; added v2.20.0)*
+- **AC-017 — The Teller sounds like an entity.** Given a horror riddle story whose Teller speaks, when the riddle-delivering clip prompt is written, then it carries the **supernatural Teller voice block verbatim** with the language filled in and the locked riddle quoted exactly and alone — no extra vocalizations that carry meaning and no hint or statement of the answer — and the riddle has been checked against the heavy voice's **12–16 words per 8-second clip** budget before generating, with an approved trim, a two-clip delivery, or a longer-duration model offered instead of a squeezed recitation. *(08; 03:105,179,181; 15:39; 16:20; added v2.21.0)*
 - **AC-003 — Fast submit.** Given the interview, when the user submits without opening Advanced, then generation proceeds using documented defaults. *(04:89; 15)*
-- **AC-004 — Answer never leaks.** Given a locked riddle, when clips and images are produced, then no speech/text/imagery/image-prompt reveals the answer. *(03:92-109)*
+- **AC-004 — Answer never leaks.** Given a locked riddle, when clips and images are produced, then no speech/text/imagery/image-prompt reveals the answer. *(03:106-123)*
 - **AC-005 — One image per command.** Given a clip summary, when the user sends `imgN-M`, then exactly one image is revealed and generated. *(11:33,37)*
 - **AC-006 — Continuity handoff.** Given Clip 2+, when it uses Extend, then it takes no image input and continues from the prior frame; when it uses Add clip, then it has its own new keyframe. *(09:36-54)*
 
@@ -249,13 +288,147 @@ No security-class issues found beyond the intentional secret-sealing rules (whic
 - **F7 — FIXED (v2.11.8).** An Extend clip now gets a short continuation delta, not a new script: master block and standalone-prompt rules are scoped to independently generated clips (Clip 1 and Add clips), with the contract owned by `09-clip-continuity.md` and cross-referenced from 05/06/08/10/11/15/16 and interview field 9. See `specs/extend-clip-continuation.md`.
 - **F8 — FIXED (v2.11.9).** Default is now **ambient-only / no speech**; a ChatGPT-generated Script Overview never authorizes speech; voice identity is gated on authorized speech; the master audio rule forbids inventing dialogue. See `specs/speech-default.md`.
 - **F2 — CLOSED BY DESIGN (v2.12.0).** The competing counts are gone: the character question offers **AI Character A/B/C** + "Other" + the photo option, and the 2 paired pitches are now an explicitly opt-in shortcut inside the *Art style* question ("never the default"), so the two answers stay independent.
-- **F5, F6 — OPEN (P3).** Story-idea count (3 vs 2) and riddle Yes/No framing intentionally left unchanged; documented here for a later pass.
+- **F5 — OPEN (P3).** Story-idea count (3 in the pre-phase vs 2 in the interview help) intentionally left unchanged; documented here for a later pass.
+- **F6 — FIXED (v2.13.0).** The Yes/No framing is gone. `15-defaults.md` now describes the same single choice row the pre-phase presents (Riddle story / AI Option A/B/C / Other), with **non-riddle** as the default and an explicit "not a Yes/No toggle followed by a second question" instruction. The riddle source is a field in that form, not a follow-up.
 
 ### Resolution status — v2.12.0 (`dev`)
 
 - **Interview split.** The primary set is Story topic / Character / Art style / Image generation topic (subject-material only). The combined "Characters + Art Style" field is gone; Art style is its own question carrying the named-style list.
 - **Photo-as-character-sheet.** New option in the character question: photos become the locked identity source, the person is preserved, and both the Clip 1 readiness check and the final checklist accept that source.
 - **Image workflow → Advanced.** Default renamed to **"Generate reference images with ChatGPT"**; the primary image field now covers subject/material only. See `specs/interview-character-artstyle-split.md` and the whole-artifact audit in `specs/validation-v2.12.0.md`.
+
+### Resolution status — v2.21.0 (`dev`)
+
+**The Teller's voice was a one-line note; it is now the strongest audio asset in the file.**
+
+The user hand-tested a 215-word voice prompt directly in **Veo 3.1 Lite** and got a genuinely frightening Tagalog supernatural voice out of it — the first time the audio side of a riddle story has been solved. Their report: *"wowowow in horror making audio sound this perfectly worked!!, Veo 3.1 lite able to produce scary tagalog voice"*, with the prompt pasted. The instruction that followed: *"we need how the prompt made the Veo model speak in deep voice so we can use it on our horror."*
+
+What the artifact had, before this version:
+
+| Mechanism | Was | Now |
+|---|---|---|
+| Audio direction (prompt step 7) | "dialogue, ambience, sound effects, or silence as requested" | points at the voice block for a speaking Teller |
+| Master audio rule | only what to **forbid** (no dialogue/VO/text) | unchanged |
+| Voice identity | a six-adjective list in the interview (`04:63`) | the interview list **plus** a full vendored production block |
+| Audio production detail | none anywhere | sub-bass resonance, layered harmonics, pitch instability, drones, decaying echoes, spatial reverb |
+| Spoken-word budget | 16–24 words / 8s for everything | **12–16 words / 8s** when the heavy voice is used |
+
+Why the source prompt works, for the record: it separates **voice identity** (bass-heavy, ancient, hollow, nonhuman) from **audio production** (resonance, layering, reverb), it pins **language pronunciation and intonation** explicitly — which is what stops Tagalog being delivered in a foreign accent — and it closes with **negative constraints**, including the comparison that actually pins the timbre: *"not a normal human lowering their voice."* All of that is preserved verbatim.
+
+**Three things were added, not just copied:**
+
+- **The spoken-line slot.** The source prompt was **215 words with zero words for the entity to say** — no quoted line anywhere — so pasted alone it relies on the model *inventing* the Tagalog. Fine for a voice test, fatal for a riddle: the audience cannot guess a riddle the video never asked, and improvised Tagalog horror lines are a direct answer-leak risk (the v2.18.0 class of bug). The block now carries `The entity speaks exactly this line… : "[THE LOCKED RIDDLE, VERBATIM]"` with **no added growls, whispers, or vocalizations that carry meaning** — the atmospheric layering stays wordless texture. This matters because the source prompt itself invites extra vocalizations ("overlapping whispers", "some syllables come from far away").
+- **A duration budget that tells the truth.** Slow deliberate cadence plus long ominous pauses is *not* 2–3 words per second, and the artifact's 16–24-words-per-8s budget was calibrated for ordinary narration. Shipping the voice without this would have reproduced the earlier "squeezed delivery" defect on every riddle. The heavy voice now budgets **12–16 words per 8-second clip**, checked **before generating**, with an approved trim, a two-clip delivery, or a longer-duration model offered instead of a squeeze.
+- **A horror scope.** The block is opt-in for horror riddle stories only — a cozy or whimsical riddle story keeps an ordinary voice description, and small cute victims do not get a demon voice.
+
+Model note: it was proven on **Veo 3.1 Lite**, which is already the artifact's default video model, so no model default changed.
+
+- **Guards.** `validate.sh` §23, 12 checks. Count 179 → 191.
+- **Calibration is provisional.** The 12–16 figure is derived from the voice's stated pace (≈1.5–2 words/second), not from a timed recording. The user has been asked for the actual word count and whether it fit in their 8-second clip; when that number arrives, recalibrate the figure in `03`, `08`, and the checklist together.
+
+### Resolution status — v2.20.0 (`dev`)
+
+**The image count was ambiguous, and every number in the file pointed up.**
+
+Observed live in a Tagalog `.start riddle` run (riddle locked on *Salamin*): the package came back as **about eight images in a row, all multi-panel storyboards**, when the run owes **one standalone Clip 1 reference image**. Pasted in as a bug report; the report text itself did not survive ingestion, so the diagnosis is from the transcript symptom plus the artifact.
+
+The one-image rule was **already present five or six times** (including `10:49`, nearly verbatim). So the failure was not a missing rule — it was **six places saying more**:
+
+| Pull upward | Where |
+|---|---|
+| "1-3 images per clip… treat this as a practical planning target" | `06:77` — the single strongest pull; 3 clips × 1-3 ≈ the observed count |
+| "**Clearly identify the role of every image**" + a role list (character / environment / prop) | `06:81` — reads as *produce one per role* |
+| "produces a Veo-ready reference image **for each scene**" | `07:24` |
+| "a single clip can carry **up to two shots** … supply two images" | `08a`, `06:78` |
+| The method's own name: "Generate reference image**s** with ChatGPT" | `07:27` |
+| A nested image **accordion** of `[imgN-M]` headers per clip | `11:31` — the multipanel-storyboard shape is what rendering a header list as a picture looks like |
+
+Fixes:
+
+- **The ceiling is a ceiling.** `06:77` — the 1-3 figure is how many references a clip may **attach at most**; it is not a quota and not a generation plan. Images are generated **one at a time, on demand**.
+- **Roles are labels.** `06:81` — naming the image roles is a labeling rule, never a list to produce one of each.
+- **A batch is never a delivery.** `07:10` — a package turn produces **exactly one** image; several in a row is a failure, not a bonus. Named bans: one per clip, per subject, per role, variations, character/model/turnaround/contact sheets, panel sets.
+- **Several subjects are still one frame.** `07:12` — victims + Teller + trap is **one composed scene in one frame**, never one image per subject.
+- **The plan is never an image.** `11:31` + `08a:24` — every `[imgN-M]` header, summary, and accordion line is text only; never render the blueprint, header list, accordion, storyboard, or headings as a picture.
+- **No reference lookups.** `07:15` — no web or image-library search for style references, and no page/source titles in the package (this is also the pathway that leaked Pinterest/Civitai titles into a real blueprint).
+- **Guards.** `validate.sh` §22, 11 checks — including a `need_not` on the old "practical planning target" wording, so the upward pull cannot come back. Count 168 → 179.
+
+**Honest limit.** The validator proves these sentences are *present*, not that a run *obeys* them. The mechanical change is real (the batch-affording sentence is deleted, not overridden), but the proof only arrives on the next live run.
+
+### Resolution status — v2.19.0 (`dev`)
+
+**The Script Overview is now a list, not a paragraph.**
+
+Requested directly: *"can you also make the Script Overview in a markdown format or list format instead of just a paragraph."*
+
+The overview was specified as *"exactly one concise sentence in an action-sequence format"* — a prose blob, which is the worst shape for the one artifact the user actually reads and checks. It is now **a short markdown list: one action step per line, numbered, in order**, roughly one line per clip, optionally prefixed with the clip it belongs to. Still an overview and not a shot list — no camera directions, no sub-bullets.
+
+- **Changed at all seven sites**, because the format has to agree everywhere or the model will pick whichever one it read last: the definition (`05:80`), the checkpoint (`05:31`), the Form 2 field and its generated fallback (`04:48,53`), the returned package (`11:65`), the defaults (`15:26`), the final checklist (`16:19`), and the Clip 1 readiness gate (`10:20`).
+- **The user's own wording is still safe.** A Script Overview the *user* wrote is never reworded: it is rendered as list lines split at their own sentence or step boundaries — and if they wrote a single sentence, it stays a single line rather than being expanded into invented steps. Otherwise this change would have quietly rewritten the user's own instruction, which is the one thing in the plan that is theirs.
+- **Guards.** `validate.sh` §21, 9 checks. Count 159 → 168.
+
+### Resolution status — v2.18.0 (`dev`)
+
+**The answer kept leaking through the image and the plot. The rule that allowed it was the bug.**
+
+Diagnosed from a real run the user pasted. Locked riddle: answer **Ulap (cloud)** — *"Wala akong pakpak ngunit nakaaakyat sa langit … Kapag ako'y nagtipon, maaaring bumuhos ang tubig."* The delivered package then produced: an image subject with **"may madilim na kalangitan sa likuran"** (a dark sky behind the character), and a consequence of **"may malayong kahoy na tulay na bumigay"** (a distant wooden bridge gave way). Dark sky + a bridge destroyed by water = **cloud**. Nothing was ever "revealed" in words — the *scene* did the revealing.
+
+The cause was the rule itself. It read: the consequence "must follow from the riddle's wording, mood, and situation **only**." But a riddle **is a description of its answer** — its three lines literally name sky, sun, and pouring water. So following the rule required dramatizing the answer's own description. That sentence was the instruction to leak. It is now **deleted**, and `validate.sh` §20 has a `need_not` guard that fails if it ever comes back.
+
+**Structural fix — the user's design is what makes the leak impossible.** Rather than another "don't leak" warning, the default riddle story is now a two-sided horror scene: a **Teller** that has the **small, cute, vulnerable victims** visibly trapped (blocked, cornered, cut off) and poses the riddle, then **acts** when they fail. Because the consequence is now the Teller's own act — it takes something, seals the way, leaves them there — it is generated from the Teller's rule instead of from the riddle's content, so it has no channel through which to encode the answer. The fix is not vigilance; it is removing the pathway.
+
+- **Structural blindness, not a leak check.** New rule: **everything the riddle names is banned from the scene, props, environment, weather, lighting, image subject, and image prompt.** Only the riddle's *mood* may be carried over. This is mechanically followable in a way that "does this hint at the answer?" is not — the cloud riddle's sky ban is precisely what would have killed the dark-sky frame. Caught at three layers: the plan (`05`), the frame (`07`), and the checklist (`16`).
+- **No tips and no clues, ever.** Nothing may help the audience toward the answer — no nudging line, glowing prop, echoing scenery, convenient glance, or on-screen text.
+- **The Teller can no longer sound like the answer.** v2.17.0 removed the "Ano ako?" ending; that was half of it. Since the *Teller* now recites the riddle, any first-person line makes the Teller claim to be the answer. Generated riddles are now **impersonal** ("May isang bagay na…"); a first-person riddle is allowed only when the scene makes clear it is quoted off a note, sign, or page, or repeated as an old rhyme. The user's own riddle is still verbatim.
+- **Junk text.** The same run emitted two stray foreign-language source titles (a video title and an article title) into the blueprint. Now banned: no citations, links, source titles, or unrelated text in a delivery (OBS-PKG-001).
+- **Guards.** `validate.sh` §20, 25 checks — including the `need_not` that pins the deleted rule. Count 134 → 159.
+
+### Resolution status — v2.17.0 (`dev`)
+
+Two riddle-generation corrections.
+
+- **The re-roll control disappeared — a regression I introduced in v2.13.0.** The v2.13.0 comment records that the old opening had *"a confirmation card per riddle"*. That card was where the pick/edit/re-roll controls actually rendered. v2.13.0 correctly removed the card (the pick *is* the lock — one step, not two), but nothing relocated the controls: the instruction only ever *stated* that a user *may* re-roll, it never required a re-roll affordance to be **shown**. With the card gone, the model rendered a bare numbered list with no path back. Fix: the pick-list message must always carry the re-roll path in one short line in the production language (`.reroll` is the path that must always work; a `GenUI.issueNewTurn(".reroll")` button is added only where interactive components render, following the same optional-buttons convention as the output-format module), re-presented every time the list is shown, and never dropped because a list already exists. Removing the confirmation card does not remove the controls. A re-roll means a genuinely fresh batch, not the previous riddles reordered.
+- **Riddles no longer close on "Ano ako?."** Requested directly. The reason is structural, not stylistic: the riddle is **recited by a character to an audience**, so a first-person self-question makes the speaker sound like they are describing *themselves* — and then the listener who is supposed to attempt an answer cannot do so sensibly, which fights the whole v2.14.0 outcome contract (a character who attempts and fails). The riddle must work as a challenge **posed to the listener**: end on the final clue, or at most close with an impersonal question about the thing ("Ano ito?"), never a first-person one. This applies to generated riddles only — a **user-supplied** riddle is still preserved exactly as written, preserving the existing verbatim-lock invariant. Enforced in the pre-presentation self-check and the final checklist.
+- **Guards.** `validate.sh` §18 (5 checks) and §19 (6 checks). Count 123 → 134.
+
+### Resolution status — v2.16.0 (`dev`)
+
+**The Story Overview checkpoint — the story is now approved before anything is spent.**
+
+Requested directly: *"before processing the submitted form 2, it should give some script overview or story overview."*
+
+The capability already existed but was locked behind a non-default option. `11-output-format.md`'s **"Storyboard first"** style already did Script Overview → premise/arc → clip list → asset plan → *"wait for the user to approve or adjust"*. The **default** style ("All clips at once") showed the Script Overview and then generated the clip summaries, prompts, and the Clip 1 image in the same message. So nothing new was invented: the existing review gate was promoted to the default path.
+
+- **Where.** New `### Story Overview checkpoint (before generating anything)` at the top of `05-story-planning.md`, before "Lay out the whole video first" — which now sequences after it.
+- **Why it pays off.** The two riskiest rules in the project can only be *reviewed*, never validated: answer-blind planning, and the v2.14.0 required consequence. The checkpoint is the cheapest place to catch a story built around the answer, or a consequence that reads as a clue — before the clip prompts exist and before an image credit is spent. It also gives the user's taste a point of entry, since Form 2's story topic is one line while the model's story is the actual creative product.
+- **Form vs checkpoint — the contract was extended, not broken.** `02-role.md` now reads *"exactly two forms, plus one Story Overview checkpoint"*, and states the distinction: a form **asks for input**, a checkpoint only **shows a proposal for approval**. The checkpoint has no fields, is never labeled Form 3, is never split across turns, and never requires an answer — anything other than a change request is approval. `.go` skips it.
+- **Round-trip creep is guarded.** A change request is revised and proceeded from; a second uninvited checkpoint is explicitly banned, and the checkpoint may never ask for more detail in order to complete itself. This is the specific way the gate could have regressed into the multi-round questioning that v2.13.0 removed.
+- **Integration.** The clip-count shortfall rule from v2.14.0 now surfaces *here* (OBS-PLAN-006) instead of in a finished plan. Default delivery (`11:51-52`) waits; the checklist gained the gate check. Guards: `validate.sh` §17, 10 checks. Count 113 → 123.
+
+### Resolution status — v2.15.0 (`dev`)
+
+Two defects from the second live run, both surfaced by the same `.start`.
+
+- **Form 1 skipped; Form 2 arrived partial.** Observed: `.start` in a thread that already held a locked riddle and a story topic produced **no Form 1 at all** — and a "Visual Setup" carrying only Character and Art style, i.e. 2 of Form 2's 4 primary fields, with a story topic the model had inferred rather than the user chosen. Two instruction gaps allowed it: `02-role.md` said "never re-ask a question whose answer is already in hand" (added in v2.13.0 — **my wording**, ambiguous about scope) and the older interview-before-generation rule carried an escape hatch, "unless the user has already supplied enough information". Both let the model treat prior conversation state as settled input. Fixes: `.start` now always presents Form 1 and states that earlier turns are never a substitute; "already in hand" is scoped to values submitted in a form **during the current run**; **pre-filled is not the same as omitted**; Form 2 keeps all four primary fields visible; and the only way to skip a form is the user saying to skip it.
+- **Clip 1 image wrong aspect ratio.** Observed: the reference image came back landscape for a vertical 9:16 production, and the run's remedy was to tell the user to crop in Flow. The rule now requires the prompt to state the ratio explicitly, the returned orientation to be checked, and a regeneration before any crop workaround — "a wrong-ratio image is a failed attempt, not a delivery note". Also pinned: **exactly one image this turn** (the observed captions in the continuity and blueprint sections suggest extra images were generated).
+- **Guards.** `validate.sh` §15 and §16. Check count 101 → 112. The named-rule cross-reference for the interview-before-generation contract was re-pointed at its new defining sentence.
+
+### Resolution status — v2.14.0 (`dev`)
+
+Two follow-ups from the first live run of v2.13.0.
+
+- **Riddle outcome contract (never answered + consequence).** The fixed structure was an either/or ("a silent beat … *or* another character who reacts but never answers correctly"), which allowed a story where nobody visibly fails to solve the riddle and nothing is lost. Now the guessing beat **and** at least one failed attempt are both required, and every riddle story must show a visible consequence of the riddle going unanswered — placed in a later beat, landing through action/imagery, and answer-blind so it cannot encode the solution. Mirrored in `15-defaults.md`, `16-checklist.md`, and `05-story-planning.md`.
+- **No silent turn (Clip 1 image stall).** Observed: after Form 2 was submitted, the chat sat on an empty reply while the reference image generated, and only produced the blueprint/prompts after the user prompted it. Nothing in the artifact asked for a pause, so the fix is turn *ordering* rather than a new stop condition: the blueprint and Clip 1 prompt text are written **before** the image is generated, the image is the **last** action of the turn, the turn opens with a one-line "generating the reference image now" notice, and an explicit failure path (unavailable / failed / not a ChatGPT-generated workflow) delivers the rest of the package instead of stalling. Stated in `10-clip1-final.md` and mirrored in `14-style.md`.
+- **Guards.** `validate.sh` §13 and §14 pin both, including `need_not` traps for the old either/or wording. Check count 87 → 100.
+
+### Resolution status — v2.13.0 (`dev`)
+
+The opening was observed in a live ChatGPT project taking ~8 turns before production: a confirmation card per riddle pick, a re-listing instead of a lock, and the Form 2 fields arriving one per turn ("Hakbang 1", "Hakbang 2", …). The cause was instruction wording, not model drift — `02-role.md` literally asked for "manageable, interactive steps", and the pre-phase was specified as a chain of questions with a follow-up and a pick-then-confirm lock.
+
+- **Two-form contract.** `02-role.md` now states the whole opening is exactly two forms; `03` is **Form 1 of 2** (one setup form), `04` is **Form 2 of 2** (one production form presented in a single message). Per-field sequencing and re-asking settled answers are banned in `02`, `04`, and `14-style.md`.
+- **Riddle source folded into Form 1.** The own-vs-generate follow-up question is gone; the choice is field 3 of the same form. Routing happens once on submit.
+- **Single-tap lock.** Picking a riddle locks it in that same action, with no confirmation card and no re-listing; confirmation survives only for an edited riddle. Locking is immediately followed by Form 2 with no intervening turn.
+- **Guards.** `validate.sh` §12 pins all of the above, including `need_not` traps for the stale phrasings that caused the problem. Check count 76 → 87.
 
 ---
 

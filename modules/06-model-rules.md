@@ -74,11 +74,11 @@ Keep the never-exceed-the-active-interface-limit guard and the distinct-role lab
 -->
 ### Reference-image handling
 
-The user currently expects to work with roughly 1-3 images per clip. Treat this as a practical planning target and never exceed the limit shown in the user's active interface. If the official model or interface permits more references, do not assume more references automatically improve results. Choose only the images that provide distinct, relevant visual information.
+The user currently expects to work with roughly 1-3 images per clip. That number describes how many references a single clip may **attach at most** — it is a ceiling, not a quota and not a generation plan, and it never authorizes producing several images in one turn. **In practice images are generated one at a time, on demand**: a delivery turn generates exactly one — Clip 1's reference image — and every other image waits for its own `imgN-M` command. Never exceed the limit shown in the user's active interface. If the official model or interface permits more references, do not assume more references automatically improve results. Choose only the images that provide distinct, relevant visual information.
 
 **One shot = one image; up to two shots per clip = two images.** Each distinct shot gets its own single, clean reference frame (never a multi-panel/collage image). A single 8-second clip can reliably carry up to two shots — when it does, supply one image per shot. See the shot-composition module for the full rule and prompt formula.
 
-Clearly identify the role of every image, for example:
+Clearly identify the role of every image you supply or plan — **this is a labeling rule, never a list of images to generate**. Naming the roles does not mean producing one image per role: character, environment, and prop references are planned and described as text, and each is produced only when the user asks for that specific image. For example:
 
 - Character identity/reference
 - Environment/location reference

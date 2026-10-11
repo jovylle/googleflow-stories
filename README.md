@@ -13,10 +13,15 @@ The instructions are authored as small modules and compiled into **one** file to
 ├── build.sh        # concatenates modules (in filename order) → build/
 ├── build/
 │   └── google-flow-story-maker.md   # GENERATED — paste this into ChatGPT
+├── docs/           # SUMMARY.md (version history) + HANDOFF.md (resume point)
 ├── specs/          # reverse spec, per-change specs, A/B evidence
 ├── validate.sh     # structural validation of the compiled file
 └── README.md
 ```
+
+**Resuming work here?** Read `docs/HANDOFF.md` first — it carries the current state, the next
+steps in order, the unactioned defects, and the open questions. Nothing else needs a previous
+conversation.
 
 - Modules are concatenated in **filename order** (`00-`, `01-`, `02-`, …), so the numeric prefixes define the document order.
 - The `{{VERSION}}` placeholder in `modules/00-header.md` is replaced with the contents of `version.txt` at build time.
@@ -39,7 +44,9 @@ Outputs `build/google-flow-story-maker.md` (portable; works on stock macOS bash 
 Checks the **compiled artifact** (not just the modules): build sync, version
 stamping, every module present in filename order, section numbering,
 cross-reference resolution, the interview's primary/advanced field shape, defaults
-parity between the interview and defaults modules, and absence of stale wording.
+parity between the interview and defaults modules, the two-form flow contract
+(Form 1 produces Form 2 — no per-field turns, no riddle confirmation round), and
+absence of stale wording.
 Exit code 0 = pass. Run it before committing.
 
 ## Use in ChatGPT

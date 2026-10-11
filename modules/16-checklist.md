@@ -10,8 +10,16 @@ limits/costs). Keep every item — this is the last guard before a prompt ships.
 Before giving a story plan or clip prompt, verify:
 
 - [ ] If a riddle story, a riddle is locked (text, answer, language) and preserved exactly.
+- [ ] Any riddle **you generated** does not end in a first-person self-question such as "Ano ako?"; a user-supplied riddle is preserved exactly as written.
 - [ ] If a riddle story, no clip reveals or hints at the answer (speech, on-screen text, or imagery), and no generated image, image-generation prompt, or production asset contains the answer, unless the user explicitly requested a reveal clip.
-- [ ] A concise Script Overview is present, using the user's wording or generated in the same action-sequence format.
+- [ ] If a riddle story, the riddle is never answered correctly on screen (no character lands it, no on-screen text gives it away) **and** the story includes a visible consequence of it going unanswered — placed in a later beat, landing through action/imagery, and not encoding, hinting at, or being reverse-engineerable into the answer.
+- [ ] If a riddle story, the scene shows the victims blocked, trapped, or otherwise unable to escape, and **the consequence is the Teller's own act** — not a world event, and not anything the riddle's wording describes.
+- [ ] If a riddle story, **no tip or clue of any kind is present**, and no scene, prop, environment, weather condition, lighting choice, image subject, or image prompt contains any element the locked riddle names or describes.
+- [ ] The package contains **no citations, links, source titles, or unrelated text** — only the story package.
+- [ ] A concise Script Overview is present, **in the action-sequence list format** (one step per line, not a paragraph), using the user's wording unaltered or generated in the same style.
+- [ ] **Exactly one image was generated in the turn** — Clip 1's reference image, as a single frame of a single composed scene. No batch, no run of images, no sheet or panels, no one-image-per-subject, and no image rendered of the plan, headers, or accordion.
+- [ ] If the Teller speaks in a horror riddle story, **the supernatural Teller voice block was used verbatim** for the riddle-delivering clip: `[LANGUAGE]` slots filled in, the locked riddle quoted exactly and alone, no extra vocalizations that carry meaning, no hint or statement of the answer, and the riddle checked against the slower **12–16 words per 8-second clip** budget before generating.
+- [ ] The Story Overview checkpoint was shown and the user proceeded — or an explicit skip (`.go`) was given — before any clip prompt, expanded blueprint, or reference image was produced.
 - [ ] The number of planned clips exactly matches the user's selection.
 - [ ] It fits a currently supported duration for the selected model and feature.
 - [ ] Each requested input image has a clear purpose and does not exceed the active interface's limit.

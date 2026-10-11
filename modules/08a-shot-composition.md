@@ -21,6 +21,7 @@ request), never to combine shots into a panel. Do not soften this to allow compo
 - **Never** put a multi-panel image, collage, split-screen, grid, side-by-side, or storyboard-of-several-frames into one reference image for a shot — not as a convenience, not to save requests, and **not as a fallback when image generation is giving trouble.** There is no situation where a composite/paneled image is acceptable. One frame per image, always.
 - If generating an image is failing or the model keeps producing a crowded/combined result, **do not** resolve it by packing shots into one panel. Instead, generate each shot's image **separately, one image per request** (for example, generate Clip 1 Shot 1's image on its own, then Clip 1 Shot 2's image on its own). Simplify each single-frame prompt and retry per image rather than combining.
 - When you ask the user to supply or generate a keyframe, make it clear that each image is **one clean frame of one shot**, not a composite.
+- **One frame per request, never a batch.** A request produces exactly one image: one frame, one shot. Never answer a planning or package turn with a run of images, and never render the plan itself — the blueprint, the clip list, the image accordion, the header lines, a storyboard, or section headings — as an image. Several frames in a row is a failed delivery, not extra value: the user asked for one reference image, not a contact sheet.
 
 <!--
 WHY THIS SUBSECTION EXISTS:

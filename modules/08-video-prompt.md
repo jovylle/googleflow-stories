@@ -20,7 +20,7 @@ Recommended structure:
 4. Camera and composition: shot size, angle, camera movement, focus, and whether the camera stays fixed.
 5. Lighting and visual style: concrete, consistent details.
 6. Continuity constraints: unchanged identity, wardrobe, props, location, and positions as required.
-7. Audio direction: dialogue, ambience, sound effects, or silence as requested.
+7. Audio direction: dialogue, ambience, sound effects, or silence as requested. When a horror riddle story's Teller speaks, use the supernatural Teller voice block below instead of a one-line description.
 8. Ending condition: where the action and camera should end, especially if the next clip must continue from it.
 
 Use concise, concrete language. Do not overload every prompt with redundant adjectives or excessive negative instructions. Prioritize the instructions that affect the visible result most.
@@ -59,6 +59,33 @@ Exception path to the master audio rule: in voiceover mode, Veo GENERATES the
 narration itself (the user never records/supplies a voice track) and may still add
 ambient effects. Keep the "Veo makes the VO" expectation and the duration budgeting.
 -->
+### The supernatural Teller voice (riddle horror)
+
+In a riddle story the Teller's voice is the whole soundtrack — it speaks the riddle, and everything around it is silence. **Use this block as the voice and audio direction of the clip that delivers the riddle, printed verbatim inside the clip prompt.** Fill the `[LANGUAGE]` slots with the production language (Tagalog by default) and replace the quoted line with the **locked riddle, character for character**.
+
+```
+A terrifying supernatural entity speaks in [LANGUAGE] with an impossibly deep, inhuman male voice. The voice is extremely bass-heavy, unnaturally low, ancient, hollow, and deeply unsettling, with a slow deliberate cadence and long, ominous pauses between words.
+
+The voice sounds as if it exists everywhere at once, surrounding the listener from every direction. Layer the same voice with subtle overlapping whispers, distant echoes, cavernous reverberation, and a faint demonic undertone. Some syllables seem to come from far away, while others sound unnervingly close to the listener's ear. The voice occasionally shifts in spatial position, creating the illusion that the entity is invisible and omnipresent.
+
+Use natural, fluent [LANGUAGE] pronunciation with authentic [LANGUAGE] intonation. The delivery is calm, controlled, cold, threatening, and disturbingly nonhuman. Every word should feel heavy, as if spoken by an ancient creature that has existed for thousands of years.
+
+Audio production: extremely deep sub-bass resonance, layered low-frequency vocal harmonics, subtle pitch instability, dark atmospheric drones, long decaying echoes, and wide spatial reverb. Keep the speech intelligible despite the distortion. The voice must sound like an impossible supernatural presence, not a normal human lowering their voice.
+
+The entity speaks exactly this line, in [LANGUAGE], and nothing else: "[THE LOCKED RIDDLE, VERBATIM]"
+
+No comedy, no exaggerated cartoon demon voice, no screaming, no cheerful delivery, no accent from another language, no background music overpowering the speech. Horror atmosphere only.
+```
+
+How to use it:
+
+- **It goes in the video prompt, not in a separate audio field.** Veo generates picture and audio in one pass from one text prompt, so the block is part of the same prompt that carries the scene. This block replaces a thin "deep scary voice" phrase — it is the difference between an entity and a man lowering his voice.
+- **The line is exact and alone.** The quoted riddle is the only thing the entity says: **no extra words, no added growls, whispers, or vocalizations that carry meaning**, no second sentence, no repetition, no improvised lines — and **never any hint or statement of the answer**. The atmospheric layering stays wordless: breath, reverb, and drones are texture, never content.
+- **Keep the negative tail.** "No comedy, no exaggerated cartoon demon voice, no screaming, no cheerful delivery, no accent from another language, no background music overpowering the speech" is doing real work — keep those lines rather than paraphrasing them away, and keep the pronunciation sentence, which is what stops the chosen language sounding like it is being read in a foreign accent.
+- **Continuity across clips.** If the Teller speaks again in a later clip, restate its voice traits (depth, hollowness, cadence, spatial layering, language) in short form. Never re-print or re-speak the riddle itself — a locked riddle is delivered once, in its own clip.
+- **Horror only.** Do not use it for a story that is not horror. A cozy, mystery, or whimsical riddle story keeps an ordinary voice description; small cute victims do not get a demon voice.
+- **It is slower than a normal speaking pace.** The slow deliberate cadence and long ominous pauses mean the riddle takes noticeably longer than the standard budget: plan roughly **12–16 words per 8-second clip** in this voice, not 16–24. Check the locked riddle against that figure **before generating**. If it will not fit, offer the options — an approved trim, delivery across two clips, or a longer-duration model — and never squeeze the recitation to make it fit.
+
 ### Voiceover-narration stories
 
 When the user chooses voiceover narration, the story is carried by a narrator speaking over the visuals (for example, a food/cooking short with quick clips of someone preparing a dish). In this mode:

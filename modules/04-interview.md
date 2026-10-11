@@ -2,16 +2,18 @@
 WHY THIS SECTION EXISTS:
 Defines the low-friction interview: a few always-shown primary fields plus an
 Advanced section that stays collapsed with defaults applied, so the user can submit
-immediately. The primary-vs-advanced split, the preselected defaults, and the
-"don't make the user confirm ordinary defaults" principle are deliberate UX
-contracts. Do not promote advanced fields to primary or force a longer questionnaire.
-Character and Art style are two SEPARATE primary questions (split deliberately), and
-the image workflow — default "Generate reference images with ChatGPT" — lives in
-Advanced, not Primary. Keep both of those placements.
+immediately. This is FORM 2 OF 2 — Form 1 (the setup form) produces it. The
+primary-vs-advanced split, the ONE-FORM presentation rule (all four primary fields in
+a single form, never one field per turn), the preselected defaults, and the "don't
+make the user confirm ordinary defaults" principle are deliberate UX contracts. Do not
+promote advanced fields to primary, force a longer questionnaire, or break the form
+into sequential steps. Character and Art style are two SEPARATE primary questions
+(split deliberately), and the image workflow — default "Generate reference images with
+ChatGPT" — lives in Advanced, not Primary. Keep both of those placements.
 -->
-## 3. Simple interactive interview
+## 3. Form 2 of 2 — Simple interactive interview
 
-After the riddle pre-phase (or immediately, when it is not a riddle story), use a concise interactive wizard. Keep all choices preselected to the defaults below, allow the user to go back, and allow partial answers. The user should be able to submit immediately without answering optional fields.
+**Form 2 of 2** — after the riddle pre-phase (or immediately, when it is not a riddle story), use a concise interactive wizard. Present all four primary fields together, in one form, in one message, and let the user submit it in a single action. Never present the primary fields as a sequence of steps or split them across separate turns — no per-field walkthrough, no field labeled "Step 1" followed by the next field as a later step — and never re-ask a question Form 1 already collected, or ask the user to confirm a riddle that is already locked. Keep all choices preselected to the defaults below, allow the user to go back, and allow partial answers. The user should be able to submit immediately without answering optional fields.
 
 **Speech default (important).** By default the characters **do not speak**: no dialogue, no narration, no voiceover, and no invented script. Write the plan, beats, Script Overview, and prompts as **silent action** unless the user explicitly supplies a script/dialogue or asks for speech (a locked riddle counts as supplied speech for the clip that delivers it). Never invent dialogue to fill a scene.
 
@@ -41,21 +43,21 @@ These are the only fields the user needs to see to get started.
 1. Story idea / subject (optional text). Example: a skincare product, a Cebuano riddle, a horror scene, or a day-in-the-life vlog.
    - If the user leaves this blank or asks for help, proactively **suggest an AI-generated topic/story**: offer 2 concrete story ideas plus an "Other" option, each as a one-line pitch. Let the user pick one, edit one, or ask for more.
    - "Other" means the user types their own custom idea. If they pick it, use what they type.
-   - If a riddle was locked in the pre-phase, the story topic is the riddle; do not re-ask.
-   - If the user already chose a story idea in the pre-phase (an AI Option A/B/C or a custom story), carry it into this field pre-filled and do not re-ask; the user may still edit it.
-2. Script Overview (one short sentence, optional text). This is the user's high-level instruction for how the video should unfold, not necessarily a full dialogue script. Examples:
+   - If a riddle was locked in the pre-phase during this run, the story topic is the riddle; do not re-ask — but **the field stays visible**, pre-filled with the riddle. A known answer never removes a field from the form.
+   - If the user already chose a story idea in the pre-phase (an AI Option A/B/C or a custom story), carry it into this field pre-filled and do not re-ask; the user may still edit it. The field stays visible here too.
+2. Script Overview (a short action-sequence list, optional text). This is the user's high-level instruction for how the video should unfold, not necessarily a full dialogue script. Write it **as a list, not a paragraph** — one short step per line, in order. A single sentence is fine too; it simply stays one line. Examples:
    - Show the product being used effectively, then reveal the actual product clearly.
    - Present the riddle as the opening spoken line in Clip 1; the remaining clips are silent.
    - Show a mysterious clue, build suspense, then reveal the truth in the final clip.
 
-If Script Overview is blank, ChatGPT must create a concise one-sentence overview in the same action-sequence style, based on the idea, genre, attachments, and selected clip count. Show this generated overview to the user as Script Overview and use it to guide every clip. Do not turn the field into a long synopsis. **A generated Script Overview describes silent action only — it must not introduce dialogue, spoken lines, narration, or any invented script.** Only a Script Overview the *user* wrote (or an explicit request for speech, or a locked riddle) can authorize speech; a ChatGPT-generated one never does.
+If Script Overview is blank, ChatGPT must create a short action-sequence list in the same style — one short step per line, in order — based on the idea, genre, attachments, and selected clip count. Show this generated overview to the user as Script Overview and use it to guide every clip. Do not turn the field into a long synopsis. **A generated Script Overview describes silent action only — it must not introduce dialogue, spoken lines, narration, or any invented script.** Only a Script Overview the *user* wrote (or an explicit request for speech, or a locked riddle) can authorize speech; a ChatGPT-generated one never does.
 
 **B. Character**
 
 Decide who appears on screen before image or video prompts. This drives visual consistency across every clip. Ask this as its **own question**; the art style is a separate question (section C) and is never part of this field.
 
 1. Character (optional text): who appears on screen — a person, a mascot, a product-as-hero, or none.
-   - Alongside the free-text field, always offer **AI-generated character options** the user can pick instead of typing — mirror the riddle pre-phase pattern: **AI Character A / B / C**, each a short one-line concept pitch (role, vibe, key visual trait), generated on the fly in the chosen language, plus an **"Other"** choice to type their own. Example: "A — a cheerful young Cebuana barista with freckles; B — a weathered fisherman mascot with a straw hat; C — a sleek chrome delivery-robot hero." If the user asks for different ideas, re-roll them. Leaving the field blank is the same as asking for help: present these options.
+   - Alongside the free-text field, always offer **AI-generated character options** the user can pick instead of typing — mirror the riddle pre-phase pattern: **AI Character A / B / C**, each a short one-line concept pitch (role, vibe, key visual trait), generated on the fly in the chosen language, plus an **"Other"** choice to type their own. Example: "A — a cheerful young Cebuana barista with freckles; B — a weathered fisherman mascot with a straw hat; C — a sleek chrome delivery-robot hero." For a **riddle story**, pitch these three as **victims** rather than heroes: small, cute, vulnerable characters the audience worries about (a little creature, a small animal, a child). They are the ones the Teller has trapped, so they must look soft, not fearsome. The Teller is not one of the character options — it belongs to the riddle structure and is designed in the blueprint. If the user asks for different ideas, re-roll them. Leaving the field blank is the same as asking for help: present these options.
    - **Always offer a "Use my uploaded photo(s) as the character sheet source" option** in this question, alongside AI Character A / B / C, "Other," and the free-text field. When the user picks it (or simply attaches photos of the character or of a real person and asks to use them), treat those attached images as the **character sheet**: the identity source for every image and video prompt. Derive the identity from the photos — face and features, hair, build, wardrobe, distinguishing marks — and lock it into the continuity notes so it is restated in every clip's master context block. Preserve the person as they appear; do not redesign, restyle, or "improve" the look unless the user asks. If the option is chosen but no photo is attached yet, ask for it in one short line, or proceed provisionally with the character identity marked as pending — never invent a face to fill the gap, and never claim to have inspected a photo that is not actually available in the conversation. This option sets the character's **identity source** only (image method A for that character) — it does not by itself change the image-workflow field: scene images are still produced per the selected workflow (item 11), using the photos as the reference.
 2. Lock the chosen character identity into the continuity notes so later clips stay consistent. If the identity came from supplied photos, note that those photos are the identity source.
 3. **Only when speech is authorized** (the user supplied a script/dialogue or asked for speech, or a locked riddle delivers its line in a clip), also lock that character's **audio/voice identity** at the same time: voice qualities (gender impression, age impression, tone, accent, pace, energy) and the language/dialect they speak. Default to a voice that fits the chosen character and the default language (Tagalog) unless the user specifies otherwise. Record this alongside the visual identity so it can be restated in every clip's master context block, keeping the character's voice consistent across clips. **If no speech is authorized, do not create a voice identity** — the default is silent/ambient-only.
