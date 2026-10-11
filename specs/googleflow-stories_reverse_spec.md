@@ -1,6 +1,7 @@
 # Reverse-Engineered Specification: Google Flow Story Maker
 
-> **Analyzed:** 2026-10-10 · **Branch:** `dev` · **Version:** 2.11.6 (findings F1–F4 patched in 2.11.7)
+> **Analyzed:** 2026-10-10 · **Branch:** `dev` · **Version at analysis:** 2.11.6 (F1–F4 patched in 2.11.7, F7 in 2.11.8, F8 in 2.11.9, interview split in 2.12.0)
+> **Current at reading:** 2.12.0 — the `file:line` citations below are from the analyzed version and drift as modules change; verify by content, not by line.
 > **Method:** spec-miner (code-evidence grounded). Every observation cites a `file:line`.
 > **Status:** Observed facts vs. inferences are separated; contradictions are listed under Findings.
 
@@ -53,7 +54,8 @@ googleflow-stories/
 ├── docs/chatgpt-interactive-components-cheatsheet.md  # reference only; excluded from build
 ├── build/google-flow-story-maker.md                    # GENERATED — do not hand-edit
 ├── version.txt · build.sh · copy.sh · publish.sh · build-and-copy.sh
-└── specs/                       # this document
+├── validate.sh                  # structural validator for the compiled artifact (v2.12.0)
+└── specs/                       # this document + per-change specs + evidence/
 ```
 
 ### Data flow
@@ -67,7 +69,8 @@ modules/*.md (sorted) --cat--> temp --sed s/{{VERSION}}/$(cat version.txt)/--> b
 Build guarantees (verified): modules are concatenated in **filename order** with a blank
 line between each; the `{{VERSION}}` token in `00-header.md` is replaced; the output is
 written to `build/`. At analysis time `build/` was **byte-identical** to a fresh rebuild
-(in sync; version `2.11.6`).
+(in sync; version `2.11.6`). `./validate.sh` (added v2.12.0) re-checks that plus module
+order, section numbering, cross-reference resolution, field shape and stale-phrase absence.
 
 ---
 
@@ -111,8 +114,10 @@ written to `build/`. At analysis time `build/` was **byte-identical** to a fresh
 
 ### 3.4 Interview *(04-interview.md)*
 
-- **OBS-INT-001** — The system shall show only Story topic, Characters + Art Style, and Image generation topic by default. *(04:15)*
-- **OBS-INT-002** — The system shall hide clip count, aspect ratio, platform, model, audio, continuity, and delivery behind an "Advanced / optional" toggle with defaults applied. *(04:16)*
+- **OBS-INT-001** — The system shall show only **Story topic, Character, Art style, and Image generation topic (subject/material)** by default, with Character and Art style as **two separate questions**. *(04:15; **updated v2.12.0** — was one combined "Characters + Art Style" field)*
+- **OBS-INT-002** — The system shall hide clip count, aspect ratio, platform, video model, audio, continuity, clip continuation, delivery, **image workflow**, and other requirements behind an "Advanced / optional" toggle with defaults applied. *(04:16; image workflow moved here in v2.12.0)*
+- **OBS-INT-009** — When the user picks "Use my uploaded photo(s) as the character sheet source," the system shall treat the attached photos as the locked identity source, preserve the person as they appear, and ask for a photo instead of inventing a face when none is attached. *(04:B1; added v2.12.0)*
+- **OBS-INT-010** — The system shall default the image workflow to **"Generate reference images with ChatGPT"**, and a supplied character sheet shall be an identity source (method A) only, not a silent workflow switch. *(04:item 11, submit-time attachments; 07:A; added v2.12.0)*
 - **OBS-INT-003** — The system shall allow immediate submit without opening Advanced or confirming ordinary defaults. *(04:89)*
 - **OBS-INT-004** — For every multiple-choice field, the system shall provide an "Other" option that accepts custom input verbatim. *(04:91)*
 - **OBS-INT-005** — When the form is presented, the system shall tell the user (one short line) they may attach images and notes before submitting. *(04:104)*
@@ -136,7 +141,7 @@ written to `build/`. At analysis time `build/` was **byte-identical** to a fresh
 ### 3.7 Image workflow *(07, 08a)*
 
 - **OBS-IMG-001** — The system shall use exactly one clean frame per shot, never a collage/grid/split-screen/panel. *(07:10; 08a:18-23)*
-- **OBS-IMG-002** — The system shall select the image method per scene from A (user-supplied), B (ChatGPT-generated), C (in-Flow), D (polish), E (mixed). *(07:12-41)*
+- **OBS-IMG-002** — The system shall select the image method per scene from A (user-supplied), B (**Generate reference images with ChatGPT** — the default), C (in-Flow), D (polish), E (mixed). *(07:12-42; B renamed and marked default in v2.12.0)*
 - **OBS-IMG-003** — The system shall not alter a real person's face/body/identity/clothing unless requested. *(07:17,34)*
 - **OBS-IMG-004** — The system shall not describe an image as generated unless it actually was. *(07:36)*
 - **OBS-IMG-005** — When calling the image model, the system shall pass a scene-only prompt for one shot with no production docs, labels, dialogue, or secrets. *(08a:36-43)*
@@ -205,7 +210,7 @@ written to `build/`. At analysis time `build/` was **byte-identical** to a fresh
 - Riddle answer is sealed: never in clips, images, image prompts, or assets. *(03:101-109; 08a:42; 16:13)*
 
 ### No testing infrastructure
-- There is no test suite; the only mechanical verification is the build-sync check.
+- There is no behavioural test suite. Mechanical verification is `./validate.sh` (build sync, version stamping, module order, section numbering, cross-reference resolution, stale-phrase absence, interview field shape, defaults parity) plus content review. Behavioural changes are verified by A/B runs of the compiled artifact — see `specs/evidence/`.
 
 ---
 
@@ -243,7 +248,14 @@ No security-class issues found beyond the intentional secret-sealing rules (whic
 - **F4 — FIXED.** Added a "Command handling in this flow" note to `04-interview.md` wiring `.advanced`, `.go`, and `.restart`.
 - **F7 — FIXED (v2.11.8).** An Extend clip now gets a short continuation delta, not a new script: master block and standalone-prompt rules are scoped to independently generated clips (Clip 1 and Add clips), with the contract owned by `09-clip-continuity.md` and cross-referenced from 05/06/08/10/11/15/16 and interview field 9. See `specs/extend-clip-continuation.md`.
 - **F8 — FIXED (v2.11.9).** Default is now **ambient-only / no speech**; a ChatGPT-generated Script Overview never authorizes speech; voice identity is gated on authorized speech; the master audio rule forbids inventing dialogue. See `specs/speech-default.md`.
+- **F2 — CLOSED BY DESIGN (v2.12.0).** The competing counts are gone: the character question offers **AI Character A/B/C** + "Other" + the photo option, and the 2 paired pitches are now an explicitly opt-in shortcut inside the *Art style* question ("never the default"), so the two answers stay independent.
 - **F5, F6 — OPEN (P3).** Story-idea count (3 vs 2) and riddle Yes/No framing intentionally left unchanged; documented here for a later pass.
+
+### Resolution status — v2.12.0 (`dev`)
+
+- **Interview split.** The primary set is Story topic / Character / Art style / Image generation topic (subject-material only). The combined "Characters + Art Style" field is gone; Art style is its own question carrying the named-style list.
+- **Photo-as-character-sheet.** New option in the character question: photos become the locked identity source, the person is preserved, and both the Clip 1 readiness check and the final checklist accept that source.
+- **Image workflow → Advanced.** Default renamed to **"Generate reference images with ChatGPT"**; the primary image field now covers subject/material only. See `specs/interview-character-artstyle-split.md` and the whole-artifact audit in `specs/validation-v2.12.0.md`.
 
 ---
 
@@ -260,8 +272,8 @@ No security-class issues found beyond the intentional secret-sealing rules (whic
 
 ## 8. Release Readiness — `dev` → `master`
 
-- **Divergence:** `dev` is **7 commits ahead of `origin/master`** and **8 ahead of local `master`**; linear history, **no merge commits**; `origin/master` is an ancestor of `dev` → **fast-forward merge**.
-- **Version:** `master` = `2.9.0` → `dev` = `2.11.6`.
+- **Divergence (refreshed for v2.12.0):** `dev` is **12 commits ahead of `origin/master`** and **13 ahead of local `master`**; linear history, **no merge commits**; `origin/master` is an ancestor of `dev` → **fast-forward merge**.
+- **Version:** `master` = `2.9.0` → `dev` = `2.12.0`.
 - **Scope shipped:** riddle hardening (03, 08a, 09), interview `Other` rule (04), answer-blind planning (03), `publish.sh`, and the docs cheatsheet. 13 files, +662/−52.
 - **Build:** `build/` is **in sync** with modules + version on `dev`. ✅
 - **New on dev, absent from master:** `publish.sh`, `docs/chatgpt-interactive-components-cheatsheet.md`. Neither is part of the compiled output — no build impact.
@@ -276,6 +288,6 @@ No security-class issues found beyond the intentional secret-sealing rules (whic
 1. **Fix F1 first (P1).** Make the Clip 1/on-demand boundary explicit in all four modules (04, 10, 11, 15). Pick one canonical sentence: e.g. *"By default, produce the Clip 1 image now; defer Clips 2+ to on-demand `imgN-M`."*
 2. **Reconcile F2/F3 (P2).** Pick one character-option count (recommend 3 to match the pre-phase pattern, or 2 to match the paired shortcut) and either add a "Clip continuation" advanced field or remove it from the defaults.
 3. **Wire or prune F4.** Reference `.advanced` in the interview module, and `.go`/`.restart` where they apply — or drop them from the command list to avoid promising unhandled triggers.
-4. **Add a build-sync guard.** A tiny CI/pre-commit check that `build/` equals a fresh rebuild would catch hand-edits and version drift.
+4. **Add a build-sync guard. — DONE (v2.12.0).** `./validate.sh` performs the build-sync check plus artifact-structure checks; wire it into a pre-commit hook or CI if desired.
 5. **Date-stamp the modules** the same way the cheatsheet is stamped, and note a re-verify cadence for the model-capability snapshot.
 6. **Document F5/F6** as intentional, or align the counts.

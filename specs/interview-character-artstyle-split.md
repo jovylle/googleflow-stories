@@ -26,7 +26,7 @@ The optional "2 paired pitches" shortcut (character concept + matching art style
 
 ## Verification
 
-- `./build.sh` → version **2.12.0**, 19 modules, **1076 lines**; `build/google-flow-story-maker.md` in sync with the modules.
+- `./build.sh` → version **2.12.0**, 19 modules, **1077 lines**; `build/google-flow-story-maker.md` in sync with the modules.
 - No stale combined label remains: `grep -rn "Characters + Art Style" modules/ build/ README.md` → none.
 - Compiled artifact contains `**B. Character**`, `**C. Art style**`, `**D. Image generation topic**`, the character-sheet option, and `Generate reference images with ChatGPT` in the Advanced item, the defaults module, the image-workflow module, and the Clip 1 phase.
 - Advanced list numbering in `04-interview` reads 1–12 with image workflow at 11.
