@@ -13,10 +13,15 @@ The instructions are authored as small modules and compiled into **one** file to
 ├── build.sh        # concatenates modules (in filename order) → build/
 ├── build/
 │   └── google-flow-story-maker.md   # GENERATED — paste this into ChatGPT
+├── docs/           # SUMMARY.md (version history) + HANDOFF.md (resume point)
 ├── specs/          # reverse spec, per-change specs, A/B evidence
 ├── validate.sh     # structural validation of the compiled file
 └── README.md
 ```
+
+**Resuming work here?** Read `docs/HANDOFF.md` first — it carries the current state, the next
+steps in order, the unactioned defects, and the open questions. Nothing else needs a previous
+conversation.
 
 - Modules are concatenated in **filename order** (`00-`, `01-`, `02-`, …), so the numeric prefixes define the document order.
 - The `{{VERSION}}` placeholder in `modules/00-header.md` is replaced with the contents of `version.txt` at build time.

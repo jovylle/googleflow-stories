@@ -473,6 +473,17 @@ need "$MODULES/15-defaults.md" "supernatural Teller voice block" "the defaults p
 need "$MODULES/16-checklist.md" "the supernatural Teller voice block was used verbatim" "the checklist verifies the voice block"
 echo
 
+# ------------------------------------------------------- 24. handoff freshness
+# The handoff is the resume point for a fresh session; it goes stale silently.
+# Pinning it to the current version makes a release bump a failing check until
+# the state table is updated (and it is the section a reader trusts most).
+echo "24. Handoff freshness"
+VER="$(tr -d '[:space:]' < version.txt)"
+need "docs/HANDOFF.md" "$VER" "the handoff names the current version ($VER)"
+need "docs/HANDOFF.md" "build/google-flow-story-maker.md" "the handoff names the canonical artifact"
+need "docs/HANDOFF.md" "docs/SUMMARY.md" "the handoff points at the version history"
+echo
+
 echo "----------------------------------------"
 echo "checks: $CHECKED   failed: $FAILED"
 [ "$FAILED" -eq 0 ] && echo "validate: PASS" || echo "validate: FAIL"
