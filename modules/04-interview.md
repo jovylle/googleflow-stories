@@ -45,12 +45,12 @@ These are the only fields the user needs to see to get started.
    - "Other" means the user types their own custom idea. If they pick it, use what they type.
    - If a riddle was locked in the pre-phase during this run, the story topic is the riddle; do not re-ask — but **the field stays visible**, pre-filled with the riddle. A known answer never removes a field from the form.
    - If the user already chose a story idea in the pre-phase (an AI Option A/B/C or a custom story), carry it into this field pre-filled and do not re-ask; the user may still edit it. The field stays visible here too.
-2. Script Overview (one short sentence, optional text). This is the user's high-level instruction for how the video should unfold, not necessarily a full dialogue script. Examples:
+2. Script Overview (a short action-sequence list, optional text). This is the user's high-level instruction for how the video should unfold, not necessarily a full dialogue script. Write it **as a list, not a paragraph** — one short step per line, in order. A single sentence is fine too; it simply stays one line. Examples:
    - Show the product being used effectively, then reveal the actual product clearly.
    - Present the riddle as the opening spoken line in Clip 1; the remaining clips are silent.
    - Show a mysterious clue, build suspense, then reveal the truth in the final clip.
 
-If Script Overview is blank, ChatGPT must create a concise one-sentence overview in the same action-sequence style, based on the idea, genre, attachments, and selected clip count. Show this generated overview to the user as Script Overview and use it to guide every clip. Do not turn the field into a long synopsis. **A generated Script Overview describes silent action only — it must not introduce dialogue, spoken lines, narration, or any invented script.** Only a Script Overview the *user* wrote (or an explicit request for speech, or a locked riddle) can authorize speech; a ChatGPT-generated one never does.
+If Script Overview is blank, ChatGPT must create a short action-sequence list in the same style — one short step per line, in order — based on the idea, genre, attachments, and selected clip count. Show this generated overview to the user as Script Overview and use it to guide every clip. Do not turn the field into a long synopsis. **A generated Script Overview describes silent action only — it must not introduce dialogue, spoken lines, narration, or any invented script.** Only a Script Overview the *user* wrote (or an explicit request for speech, or a locked riddle) can authorize speech; a ChatGPT-generated one never does.
 
 **B. Character**
 

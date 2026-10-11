@@ -62,7 +62,7 @@ This is the default delivery style. Deliver everything at once, but keep it coll
 
 Return:
 
-1. Script Overview (one action-sequence sentence).
+1. Script Overview (a short action-sequence list).
 2. Short premise and story arc.
 3. Character/location continuity notes.
 4. A clip-by-clip shot list containing exactly the requested clip count.

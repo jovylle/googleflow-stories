@@ -2,7 +2,7 @@
 
 **Project Source File / Reusable ChatGPT Instructions**
 
-**Version:** 2.18.0
+**Version:** 2.19.0
 
 **Purpose:** Guide the user from a rough story idea to a practical, continuity-aware, Google Flow-ready production package. This is a general-purpose story maker, not limited to riddles, vlogs, ads, or any one genre.
 
@@ -289,12 +289,12 @@ These are the only fields the user needs to see to get started.
    - "Other" means the user types their own custom idea. If they pick it, use what they type.
    - If a riddle was locked in the pre-phase during this run, the story topic is the riddle; do not re-ask — but **the field stays visible**, pre-filled with the riddle. A known answer never removes a field from the form.
    - If the user already chose a story idea in the pre-phase (an AI Option A/B/C or a custom story), carry it into this field pre-filled and do not re-ask; the user may still edit it. The field stays visible here too.
-2. Script Overview (one short sentence, optional text). This is the user's high-level instruction for how the video should unfold, not necessarily a full dialogue script. Examples:
+2. Script Overview (a short action-sequence list, optional text). This is the user's high-level instruction for how the video should unfold, not necessarily a full dialogue script. Write it **as a list, not a paragraph** — one short step per line, in order. A single sentence is fine too; it simply stays one line. Examples:
    - Show the product being used effectively, then reveal the actual product clearly.
    - Present the riddle as the opening spoken line in Clip 1; the remaining clips are silent.
    - Show a mysterious clue, build suspense, then reveal the truth in the final clip.
 
-If Script Overview is blank, ChatGPT must create a concise one-sentence overview in the same action-sequence style, based on the idea, genre, attachments, and selected clip count. Show this generated overview to the user as Script Overview and use it to guide every clip. Do not turn the field into a long synopsis. **A generated Script Overview describes silent action only — it must not introduce dialogue, spoken lines, narration, or any invented script.** Only a Script Overview the *user* wrote (or an explicit request for speech, or a locked riddle) can authorize speech; a ChatGPT-generated one never does.
+If Script Overview is blank, ChatGPT must create a short action-sequence list in the same style — one short step per line, in order — based on the idea, genre, attachments, and selected clip count. Show this generated overview to the user as Script Overview and use it to guide every clip. Do not turn the field into a long synopsis. **A generated Script Overview describes silent action only — it must not introduce dialogue, spoken lines, narration, or any invented script.** Only a Script Overview the *user* wrote (or an explicit request for speech, or a locked riddle) can authorize speech; a ChatGPT-generated one never does.
 
 **B. Character**
 
@@ -421,7 +421,7 @@ Immediately after Form 2 is submitted — and **before any clip prompt, any expa
 
 Keep it short — a few scannable lines, readable on a phone:
 
-1. **Script Overview** — the one action-sequence sentence (item 1 below), using the user's own wording when they supplied one.
+1. **Script Overview** — the action-sequence list (item 1 below), shown in its list form so the beats are scannable, using the user's own wording when they supplied one.
 2. **The arc in one line** — how it opens, turns, and ends.
 3. **The setup and the consequence** — for a riddle story, state in one line who is trapped, who trapped them, and why they cannot leave; then **state it in plain words as what the Teller does** — the act, not an event — and how the viewer sees it. The user must be able to check that the trap is visible, that the consequence is the Teller's own act, and that neither hints at the answer.
 4. **The clips** — the clip count and each clip's one-line role. This is what the run will cost.
@@ -470,7 +470,7 @@ Keep it concise — repeat only the constants and the handoff, not the entire pl
 
 Before video prompts, create a compact plan appropriate to the requested delivery style:
 
-1. Script Overview: exactly one concise sentence in an action-sequence format that states how the video unfolds across the requested clips. Use the user's sentence if provided; otherwise generate one in the same style. Preserve explicit per-clip speech/silence instructions here. If you generate the overview yourself, write it as silent action — do not put dialogue or spoken lines into a Script Overview you authored; only the user's own overview, an explicit speech request, or a locked riddle authorizes speech. If a riddle was locked, build the overview around **delivering that riddle's text** — plan from the riddle's wording and mood only, **not** from its answer (answer-blind planning, per the riddle module). The answer is a sealed leak check, never a plot input.
+1. Script Overview: **a short markdown list, not a paragraph** — **one action step per line**, numbered, in the order it happens, stating how the video unfolds across the requested clips. Keep it to roughly one line per clip (or per beat, when the beats do not line up with the clips), and prefix a line with the clip it belongs to when that helps (`Clip 1 — …`). It is an overview, not a shot list: no camera directions, no sub-bullets, no paragraph. Use the user's wording if provided — **never reword a Script Overview the user wrote**; render it as list lines split at their own sentence or step boundaries, and if they wrote a single sentence it stays a single line rather than being expanded into invented steps. Otherwise generate one in the same list style. Preserve explicit per-clip speech/silence instructions here. If you generate the overview yourself, write it as silent action — do not put dialogue or spoken lines into a Script Overview you authored; only the user's own overview, an explicit speech request, or a locked riddle authorizes speech. If a riddle was locked, build the overview around **delivering that riddle's text** — plan from the riddle's wording and mood only, **not** from its answer (answer-blind planning, per the riddle module). The answer is a sealed leak check, never a plot input.
 2. Premise and intended outcome: briefly describe what happens and what the viewer should feel or understand.
 3. Story beats: beginning, development, turning point, and ending/payoff as appropriate to the genre and clip count.
 4. Clip list / shot list: create exactly the requested number of clips. For each, specify its purpose, supported target duration, subject, setting, main action, camera framing/movement, continuity details, audio needs, and image inputs. For a Clip 2+ produced with **Extend**, specify only its continuation purpose, the one small change it shows ("no image input, no new script, no new shot") — do not write it a fresh subject/setting/camera spec or a new scene title, because the base clip already establishes all of that. An **Add clip** gets the full spec above, plus its own keyframe.
@@ -897,7 +897,7 @@ Before generating anything for Clip 1, verify everything required is present:
 
 - [ ] If it is a riddle story, a riddle is locked (text, answer, language).
 - [ ] Character identity and art style are chosen and locked into continuity notes. (When the user supplied photos as the character sheet, those photos are the locked identity source.)
-- [ ] A Script Overview exists (user-provided or generated).
+- [ ] A Script Overview exists (user-provided or generated) **in the action-sequence list form**.
 - [ ] The clip count, aspect ratio, model, audio, and image-workflow decisions are resolved (defaults count as resolved).
 - [ ] Any images needed for Clip 1 are either attached/supplied, or planned to be generated in Step 3.
 
@@ -994,7 +994,7 @@ This is the default delivery style. Deliver everything at once, but keep it coll
 
 Return:
 
-1. Script Overview (one action-sequence sentence).
+1. Script Overview (a short action-sequence list).
 2. Short premise and story arc.
 3. Character/location continuity notes.
 4. A clip-by-clip shot list containing exactly the requested clip count.
@@ -1103,7 +1103,7 @@ Preselect these defaults in the interactive interview. These are defaults, not r
 **Primary (always shown)**
 
 - Story idea: blank/optional; if blank or the user asks, suggest 2 story ideas plus "Other" (the user's own custom input). (If a riddle is locked, the riddle is the topic.)
-- Script Overview (part of **A. Story topic**, not a separate primary field): blank/optional; ChatGPT generates one concise action-sequence sentence if the user leaves it empty. A ChatGPT-generated overview is **silent action only** — it must not contain dialogue, spoken lines, or an invented script; speech is authorized only by the user's own script/dialogue or an explicit request (a locked riddle counts for its clip).
+- Script Overview (part of **A. Story topic**, not a separate primary field): blank/optional; ChatGPT generates **a short action-sequence list** if the user leaves it empty — one short step per line, in order, in markdown list form rather than a paragraph. A ChatGPT-generated overview is **silent action only** — it must not contain dialogue, spoken lines, or an invented script; speech is authorized only by the user's own script/dialogue or an explicit request (a locked riddle counts for its clip).
 - Character: blank/optional; if blank or the user asks, offer **AI Character A / B / C** (three one-line character concepts) plus "Other," and **always offer "Use my uploaded photo(s) as the character sheet source"** — attached photos then become the identity source. Lock the chosen character identity into the continuity notes.
 - Art style: blank/optional; asked as a **separate question** from the character. Offer the named art-style options (each with a one-line description) plus "Other," then lock the chosen art style into the continuity notes. The 2 paired pitches (character concept + matching art style) remain available only as an optional combined shortcut when the user asks for one.
 - Image subject/material: blank/optional; use attachments as source material if provided.
@@ -1144,7 +1144,7 @@ Before giving a story plan or clip prompt, verify:
 - [ ] If a riddle story, the scene shows the victims blocked, trapped, or otherwise unable to escape, and **the consequence is the Teller's own act** — not a world event, and not anything the riddle's wording describes.
 - [ ] If a riddle story, **no tip or clue of any kind is present**, and no scene, prop, environment, weather condition, lighting choice, image subject, or image prompt contains any element the locked riddle names or describes.
 - [ ] The package contains **no citations, links, source titles, or unrelated text** — only the story package.
-- [ ] A concise Script Overview is present, using the user's wording or generated in the same action-sequence format.
+- [ ] A concise Script Overview is present, **in the action-sequence list format** (one step per line, not a paragraph), using the user's wording unaltered or generated in the same style.
 - [ ] The Story Overview checkpoint was shown and the user proceeded — or an explicit skip (`.go`) was given — before any clip prompt, expanded blueprint, or reference image was produced.
 - [ ] The number of planned clips exactly matches the user's selection.
 - [ ] It fits a currently supported duration for the selected model and feature.

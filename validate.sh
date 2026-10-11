@@ -432,6 +432,18 @@ need "$MODULES/16-checklist.md" "no tip or clue of any kind is present" "the che
 need "$MODULES/16-checklist.md" "no citations, links, source titles, or unrelated text" "the checklist verifies no junk text"
 echo
 
+echo "21. Script Overview is a list, not a paragraph"
+need "$MODULES/05-story-planning.md" "a short markdown list, not a paragraph" "the overview format is a list"
+need "$MODULES/05-story-planning.md" "one action step per line" "the overview is one step per line"
+need "$MODULES/05-story-planning.md" "never reword a Script Overview the user wrote" "the user's own overview wording is preserved"
+need "$MODULES/04-interview.md" "Script Overview (a short action-sequence list, optional text)" "the Form 2 field asks for a list"
+need "$MODULES/04-interview.md" "as a list, not a paragraph" "the Form 2 field states the list form"
+need "$MODULES/11-output-format.md" "Script Overview (a short action-sequence list)" "the delivered package returns a list"
+need "$MODULES/15-defaults.md" "a short action-sequence list" "the defaults module states the list form"
+need "$MODULES/16-checklist.md" "in the action-sequence list format" "the checklist verifies the list format"
+need "$MODULES/10-clip1-final.md" "in the action-sequence list form" "the Clip 1 gate verifies the list form"
+echo
+
 echo "----------------------------------------"
 echo "checks: $CHECKED   failed: $FAILED"
 [ "$FAILED" -eq 0 ] && echo "validate: PASS" || echo "validate: FAIL"
