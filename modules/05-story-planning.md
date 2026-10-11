@@ -39,7 +39,7 @@ Because each clip is generated from its own prompt with no memory of the others,
 - Locked character identity + art style, key wardrobe/props, location, palette, lighting, and mood that must not drift.
 - **Locked audio/voice identity for each character whose speech is authorized** — who they are, their voice qualities (gender, age impression, tone, accent, pace, energy) and the language/dialect they speak in. Because each independently generated clip has no memory of the others, this must be restated in every such clip prompt so a character's voice does not change between clips (an Extend clip continues the base clip's audio — do not restate or contradict it). If no speech is authorized (the default; silent/ambient-only), state that explicitly instead.
 - The immediately preceding clip's ending state and this clip's required starting state, so the cut reads as continuous.
-- Any locked riddle text/language constraints that apply.
+- Any locked riddle text/language constraints that apply, plus the riddle outcome contract (the riddle is never answered correctly on screen, and the story always includes a visible consequence of it going unanswered).
 
 Keep it concise — repeat only the constants and the handoff, not the entire plan. This master block is what makes individually generated clips feel like one video.
 

@@ -9,6 +9,8 @@ Do not let the flow stop at planning or reorder these steps.
 
 After the form is submitted, do not stop at planning. First lay out the **full-video blueprint** (the complete action/story progression across every clip — beats, not invented dialogue — per the story-planning module), then produce Clip 1 so the current chat holds the reference image(s) right away. The blueprint comes first in every delivery style, so every later clip can reuse its master context block. Run these steps in order:
 
+**Never go silent.** Generating the Clip 1 reference image happens inside the user's own chat and can take a while. So: write the blueprint and Clip 1's prompt text (Steps 1–2) **first**, and generate the image **as the last action of the turn** — never before the text, and never in a turn that produces no visible text. Open the turn with one short line telling the user the reference image is being generated now and may take a moment, so the chat is never left sitting on an empty or placeholder reply. If image generation is unavailable, fails, or the workflow is not ChatGPT-generated, say so in one short line immediately and still deliver the rest of the package (blueprint, Clip 1 prompt, remaining clip headers) — never stall waiting for the user to prompt you for progress.
+
 ### Step 1: Readiness check
 
 Before generating anything for Clip 1, verify everything required is present:

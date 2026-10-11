@@ -17,7 +17,23 @@ step-by-step asking, and do not add a question the form already answered.
 
 **At the very start, tell the user they can add material at any time.** Before the first question, show one short, friendly line letting them know they can attach reference images (character, product, location) to this session and add any extra notes at any point before proceeding — for example: "Tip: you can attach reference images and add notes anytime during this session before we proceed; I'll use them right away." Keep it to one line; do not repeat it on every turn.
 
-In this project, **every riddle is told in story format**. The fixed structure is: the riddle is spoken **first**, then the story continues with either a silent beat where the audience is meant to answer, or another character who reacts but never answers correctly. Build every riddle story on this structure by default; do not leave it to the Script Overview to reinvent.
+In this project, **every riddle is told in story format**. The fixed structure is: the riddle is spoken **first**, then a silent beat where the audience is meant to answer, **and** a character who attempts it and fails. Build every riddle story on this structure by default; do not leave it to the Script Overview to reinvent.
+
+<!--
+Riddle outcome contract: the riddle is NEVER solved on screen and the story ALWAYS
+shows a consequence of that. Both halves are hard requirements, not options — a story
+where someone answers correctly, or where nothing is lost, is not a valid riddle
+story. The consequence must stay answer-blind: it dramatizes the failure to solve, it
+never encodes the solution. Keep the user-requested reveal exception (below) as the
+only override.
+-->
+### The riddle outcome (fixed for every riddle story)
+
+**The riddle is never answered correctly on screen.** No character lands the answer, no on-screen text gives it away, and the audience is never handed a solution. The story shows the attempt and the failure: a character guesses and is wrong, gives up, cannot answer, or says something that is not the answer. This is an **and**, not an either/or — every riddle story needs the silent guessing beat **and** at least one visible failed attempt. A story in which someone answers correctly is not a valid riddle story.
+
+**A visible consequence is always included.** Every riddle story must show a consequence of the riddle going unanswered — the failure to solve it costs something the audience can see: a loss, a change, a danger, a price paid, an opportunity gone. The consequence is a story beat, never a clue. It must follow from the riddle's wording, mood, and situation **only**, and must not reveal, hint at, depict, or be reverse-engineerable into the answer; after it lands, a viewer must still be unable to deduce the answer from the video. Put it in the story's later beats rather than the opening clip, and let it land through action and imagery rather than dialogue that explains it. The only exception is a user-requested reveal clip (see the no-answer-reveal rule).
+
+**If the clip count cannot hold both the guessing beat and the consequence, do not drop either silently.** When the chosen or analyzed clip count leaves no room for a separate consequence beat — for example a two-clip story whose second clip is already the silent guessing beat — fold the consequence into the final moment of that beat, or tell the user in one line that one more clip would let the consequence land properly and let them decide. Never silently ship a riddle story with no consequence, and never resolve the conflict by letting a character answer the riddle.
 
 <!--
 Language is asked first because it governs the entire production; the story-type
@@ -102,7 +118,7 @@ end-of-plan leak check, not a design seed. Preserve exact riddle wording/languag
 -->
 ### After the riddle is set
 
-Carry the locked riddle into the main form and story plan. Apply the fixed riddle structure: the riddle is the **opening spoken line** (in Clip 1), followed by a silent beat for the audience to answer, or a character who reacts without answering correctly. Keep later clips consistent with this and preserve the riddle's exact wording and language.
+Carry the locked riddle into the main form and story plan. Apply the fixed riddle structure and the riddle outcome contract above: the riddle is the **opening spoken line** (in Clip 1), followed by a silent beat for the audience to guess, then at least one character who attempts it and fails, and the story always includes a visible consequence of the riddle going unanswered. Keep later clips consistent with this and preserve the riddle's exact wording and language.
 
 **Answer-blind planning (build the plot from the riddle, not the answer).** Design the Script Overview, story arc, every clip's action, the imagery, and all character reactions using **only the riddle's wording, tone, and mood** — as if you did **not** know the answer. The entire plan must be derivable from the riddle text alone. Do **not** let the answer influence settings, props, visual motifs, character behavior, or shot choices; the answer must not "show through" the production. Treat the recorded answer as sealed: you consult it only in the leak check below, never while generating ideas.
 
@@ -119,7 +135,8 @@ For any riddle story, **never reveal or hint at the answer** in the video output
 
 - Do not state, spell, imply, or visually depict the answer in any clip's spoken lines, on-screen text, captions, or imagery.
 - Do not add clues beyond the riddle's own wording that would make the answer easy to deduce. Reacting characters must not accidentally give it away.
-- The silent beat is for the audience to guess; leave it unanswered. If a character reacts, they react without answering correctly.
+- The silent beat is for the audience to guess; leave it unanswered, and never let a character answer correctly. If a character reacts, they guess wrong, give up, or cannot answer.
+- The story still needs its consequence beat (see the riddle outcome contract): the unanswered riddle must cost something visible. The consequence must not reveal, hint at, or depict the answer, and must not be a clue dressed as a plot beat.
 - The internal answer is recorded only to guide planning and keep the team consistent — it is never surfaced to the viewer.
 - If the user explicitly asks for a reveal clip, confirm first, then treat that as an intentional exception for that specific clip only.
 

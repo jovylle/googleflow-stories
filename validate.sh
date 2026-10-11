@@ -337,6 +337,26 @@ need_not "$INT" "Step 1: Story topic" "no per-field sequencing in the interview 
 need_not "$INT" "Hakbang" "no step-by-step interview framing"
 echo
 
+echo "13. Riddle outcome contract (never answered + consequence)"
+need "$MODULES/03-riddle-prephase.md" "The riddle is never answered correctly on screen" "the never-answered outcome is stated"
+need "$MODULES/03-riddle-prephase.md" "A visible consequence is always included" "the consequence rule is stated"
+need "$MODULES/03-riddle-prephase.md" "do not drop either silently" "clip-count conflict with the consequence has a defined resolution"
+need "$MODULES/15-defaults.md" "The riddle is never answered correctly on screen" "defaults mirror the never-answered outcome"
+need "$MODULES/15-defaults.md" "A visible consequence is always included" "defaults mirror the consequence rule"
+need "$MODULES/16-checklist.md" "the riddle is never answered correctly on screen" "the final checklist verifies the outcome contract"
+need "$MODULES/05-story-planning.md" "riddle outcome contract" "story planning carries the outcome contract"
+need_not "$MODULES/03-riddle-prephase.md" "or another character who reacts but never answers correctly" "no optional either/or riddle structure"
+need_not "$MODULES/03-riddle-prephase.md" "reacts without answering correctly" "no optional-answering wording in the reveal rule"
+need_not "$MODULES/15-defaults.md" "or a character who reacts without answering correctly" "no optional answering in the defaults mirror"
+echo
+
+echo "14. Clip 1 turn never goes silent"
+need "$MODULES/10-clip1-final.md" "**Never go silent.**" "the no-silent-turn rule is stated"
+need "$MODULES/10-clip1-final.md" "as the last action of the turn" "image generation is ordered after all text"
+need "$MODULES/10-clip1-final.md" "unavailable, fails, or the workflow is not ChatGPT-generated" "an explicit failure path replaces a silent wait"
+need "$MODULES/14-style.md" "**Never leave a turn without visible text.**" "the no-empty-turn rule is mirrored in the style module"
+echo
+
 echo "----------------------------------------"
 echo "checks: $CHECKED   failed: $FAILED"
 [ "$FAILED" -eq 0 ] && echo "validate: PASS" || echo "validate: FAIL"
