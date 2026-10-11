@@ -40,6 +40,7 @@ modules/*.md   →   build.sh   →   build/google-flow-story-maker.md   →   p
 | v2.13.0 | **Two-form opening** — Form 1 (setup) *produces* Form 2 (production) | ~8 turns of per-field questioning. `02-role.md` literally said "manageable, interactive steps" |
 | v2.14.0 | **Riddle outcome contract** + no-silent-turn rule | The riddle ending was an *either/or*, so failing to answer was optional and a consequence was never required. Turn ordering let the chat sit on an empty reply while the image rendered |
 | v2.15.0 | **`.start` always begins at Form 1** + image ratio discipline | In a thread already holding a locked riddle, `.start` skipped Form 1 entirely and showed 2 of Form 2's 4 fields. The image came back landscape for a 9:16 production |
+| v2.16.0 | **Story Overview checkpoint** — the story is approved before anything is generated | The review gate existed but only under the non-default "Storyboard first" style; the default generated everything (including an image credit) in the same message as the overview |
 
 ## The pattern worth naming
 

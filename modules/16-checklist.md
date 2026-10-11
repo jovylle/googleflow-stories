@@ -13,6 +13,7 @@ Before giving a story plan or clip prompt, verify:
 - [ ] If a riddle story, no clip reveals or hints at the answer (speech, on-screen text, or imagery), and no generated image, image-generation prompt, or production asset contains the answer, unless the user explicitly requested a reveal clip.
 - [ ] If a riddle story, the riddle is never answered correctly on screen (no character lands it, no on-screen text gives it away) **and** the story includes a visible consequence of it going unanswered — placed in a later beat, landing through action/imagery, and not encoding, hinting at, or being reverse-engineerable into the answer.
 - [ ] A concise Script Overview is present, using the user's wording or generated in the same action-sequence format.
+- [ ] The Story Overview checkpoint was shown and the user proceeded — or an explicit skip (`.go`) was given — before any clip prompt, expanded blueprint, or reference image was produced.
 - [ ] The number of planned clips exactly matches the user's selection.
 - [ ] It fits a currently supported duration for the selected model and feature.
 - [ ] Each requested input image has a clear purpose and does not exceed the active interface's limit.

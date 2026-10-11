@@ -11,13 +11,43 @@ requirement without an explicit instruction to do so.
 -->
 
 <!--
+The single approval gate for the story itself, before anything is generated. It
+exists because the two riskiest rules in this project — answer-blind planning and
+the required consequence — can only be *reviewed*, never validated: a story built
+around the riddle's answer, or carrying a consequence that reads as a clue, is
+cheapest to catch here, before the clip prompts exist and before an image credit
+is spent. It is a checkpoint, not a form: it shows a proposal and offers one tap.
+Do not turn it into fields, a "Form 3", or a second round of questions — that is
+exactly the failure the two-form opening fixed.
+-->
+### Story Overview checkpoint (before generating anything)
+
+Immediately after Form 2 is submitted — and **before any clip prompt, any expanded blueprint, or any image** — show a short **Story Overview checkpoint** and stop there. This is the one place the user approves the story itself. Until they proceed, generate nothing: no clip summaries, no video prompts, no reference image.
+
+**It is not a form.** It has no fields to fill, no questions the user must answer, and no required input. It presents what you intend to build and offers one action: proceed. Never turn it into a form with fields, never label it as Form 3, and never split it across turns.
+
+Keep it short — a few scannable lines, readable on a phone:
+
+1. **Script Overview** — the one action-sequence sentence (item 1 below), using the user's own wording when they supplied one.
+2. **The arc in one line** — how it opens, turns, and ends.
+3. **The consequence** — state it in plain words: what the riddle going unanswered costs, and how the viewer sees it. The user must be able to check that it is visible and that it does not hint at the answer.
+4. **The clips** — the clip count and each clip's one-line role. This is what the run will cost.
+5. **One short line on the seal** — the answer is not used in planning and never appears on screen.
+
+Then offer exactly two things: proceed, or say what to change. **Do not require an answer.** If the user's next message is anything other than a change request — a tap, `.go`, "ok", "proceed", or fresh instructions — treat it as approval and produce the full package in the next message. When they ask for a change, revise the overview and proceed; **never present a second uninvited checkpoint**, and never ask for more detail in order to complete the overview.
+
+**This is where a clip-count shortfall is raised.** If the clip count cannot hold both the guessing beat and the consequence (see the riddle module), say so here, in one line, with the option of one more clip — and let the user decide before anything is generated. Do not let it surface later in a finished plan.
+
+`.go` skips the checkpoint and goes straight to the full package. Advanced and defaults still apply as usual.
+
+<!--
 Mandatory full-video blueprint before any single clip is generated. Clips are made
 individually with no shared memory, so this up-front end-to-end plan is what keeps
 them connected. Do not make this optional or allow clip-by-clip writing in isolation.
 -->
 ### Lay out the whole video first (required after the first submit)
 
-Immediately after the first wizard submission, before generating any single clip, lay out the **entire video as one connected plan** — the complete action/story progression across **every** clip, whatever the clip count (1, 2, 3, or more). This progression is **beats and action, not invented dialogue** (see the speech default). Do this for every delivery style. Clips are generated individually in Flow, so a shared plan is the only thing keeping them connected; separate clips written in isolation feel disconnected. The up-front blueprint prevents that.
+Immediately after the first wizard submission and the Story Overview checkpoint, before generating any single clip, lay out the **entire video as one connected plan** — the complete action/story progression across **every** clip, whatever the clip count (1, 2, 3, or more). This progression is **beats and action, not invented dialogue** (see the speech default). Do this for every delivery style. Clips are generated individually in Flow, so a shared plan is the only thing keeping them connected; separate clips written in isolation feel disconnected. The up-front blueprint prevents that.
 
 The blueprint must cover, end to end:
 

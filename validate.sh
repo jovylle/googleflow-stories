@@ -374,6 +374,19 @@ need "$MODULES/10-clip1-final.md" "**Exactly one image this turn.**" "only the C
 need_not "$MODULES/10-clip1-final.md" "i-crop o gumawa" "no crop-in-Flow workaround wording"
 echo
 
+echo "17. Story Overview checkpoint (before generating anything)"
+need "$MODULES/05-story-planning.md" "before any clip prompt, any expanded blueprint, or any image" "the checkpoint precedes all generation"
+need "$MODULES/05-story-planning.md" "It is not a form" "the checkpoint is distinguished from a form"
+need "$MODULES/05-story-planning.md" "never label it as Form 3" "the checkpoint is not a third form"
+need "$MODULES/05-story-planning.md" "state it in plain words" "the consequence is surfaced for review"
+need "$MODULES/05-story-planning.md" "never present a second uninvited checkpoint" "no round-trip creep"
+need "$MODULES/05-story-planning.md" "This is where a clip-count shortfall is raised" "the clip-count shortfall is raised at the checkpoint"
+need "$MODULES/05-story-planning.md" "skips the checkpoint and goes straight to the full package" "the checkpoint is skippable"
+need "$MODULES/02-role.md" "plus one Story Overview checkpoint" "the two-form contract names the checkpoint"
+need "$MODULES/11-output-format.md" "First, the Story Overview checkpoint" "the default delivery honours the checkpoint"
+need "$MODULES/16-checklist.md" "Story Overview checkpoint was shown" "the checklist verifies the gate"
+echo
+
 echo "----------------------------------------"
 echo "checks: $CHECKED   failed: $FAILED"
 [ "$FAILED" -eq 0 ] && echo "validate: PASS" || echo "validate: FAIL"

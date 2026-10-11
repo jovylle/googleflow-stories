@@ -135,7 +135,9 @@ order, section numbering, cross-reference resolution, field shape and stale-phra
 
 ### 3.5 Story planning *(05-story-planning.md)*
 
-- **OBS-PLAN-001** — Immediately after the first submit, before generating any clip, the system shall lay out the entire video as one connected plan across every clip. *(05:20)*
+- **OBS-PLAN-001** — Immediately after the first submit — **and after the Story Overview checkpoint** — before generating any clip, the system shall lay out the entire video as one connected plan across every clip. *(05:50; updated v2.16.0)*
+- **OBS-PLAN-005 — Story Overview checkpoint.** Immediately after Form 2 is submitted and before any clip prompt, expanded blueprint, or image, the system shall show a short Story Overview checkpoint — Script Overview, the arc in one line, the consequence in plain words, the clip count with each clip's one-line role, and a line confirming the seal — then stop. It is **not a form**: no fields, no required input, never labeled Form 3, never split across turns. It shall not require an answer: anything other than a change request (a tap, `.go`, "ok", "proceed", or fresh instructions) is approval, and the full package follows in the next message. A change request is revised and proceeded from; a second uninvited checkpoint is never presented. `.go` skips it entirely. *(05:14-42; 02:12; 11:51-52; 16:16; added v2.16.0)*
+- **OBS-PLAN-006 — Clip-count shortfall raised at the checkpoint.** If the clip count cannot hold both the guessing beat and the consequence, the system shall raise it at the checkpoint in one line, with the option of one more clip, and let the user decide before anything is generated — never let it surface in a finished plan. *(05:38; moved from post-hoc in v2.16.0)*
 - **OBS-PLAN-002** — The system shall place a master context block at the top of every clip prompt. *(05:34-44; 08:14)*
 - **OBS-PLAN-003** — The blueprint shall cover Script Overview, premise/outcome, story beats, an exact clip/shot list, continuity notes, and an asset plan. *(05:46-53)*
 - **OBS-PLAN-004** — The system shall keep each clip centered on one dominant beat. *(05:55; 03:128)*
@@ -235,6 +237,7 @@ order, section numbering, cross-reference resolution, field shape and stale-phra
 - **AC-009 — No silent turn.** Given the Form 2 submission, when Clip 1 is produced, then the user sees the blueprint and Clip 1's prompt text before the reference image finishes, and the turn never returns an empty or placeholder reply. *(10:12; 14:13; added v2.14.0)*
 - **AC-010 — `.start` restarts at Form 1.** Given a conversation that already contains a locked riddle and a chosen story topic, when the user types `.start`, then Form 1 is presented again with those values pre-filled — nothing is skipped because it looked already known. *(01:12; 02:13-16; added v2.15.0)*
 - **AC-011 — Form 2 stays whole.** Given a riddle locked during the current run, when Form 2 is presented, then all four primary fields are visible with the known ones pre-filled — no field is dropped and no partial "what's still missing" form is shown. *(02:13-14; 04:16,46-47; added v2.15.0)*
+- **AC-012 — Story Overview gate before spending.** Given a submitted Form 2, when the run continues, then a short Story Overview checkpoint (overview, arc, consequence, clip roles, seal line) appears before any clip prompt, expanded blueprint, or image is produced; a plain "proceed" or a tap continues into the full package; and a change request is revised then proceeded from — never a second uninvited checkpoint, never a form with fields. *(05:14-42; 11:51-52; added v2.16.0)*
 - **AC-003 — Fast submit.** Given the interview, when the user submits without opening Advanced, then generation proceeds using documented defaults. *(04:89; 15)*
 - **AC-004 — Answer never leaks.** Given a locked riddle, when clips and images are produced, then no speech/text/imagery/image-prompt reveals the answer. *(03:106-123)*
 - **AC-005 — One image per command.** Given a clip summary, when the user sends `imgN-M`, then exactly one image is revealed and generated. *(11:33,37)*
@@ -274,6 +277,20 @@ No security-class issues found beyond the intentional secret-sealing rules (whic
 - **Interview split.** The primary set is Story topic / Character / Art style / Image generation topic (subject-material only). The combined "Characters + Art Style" field is gone; Art style is its own question carrying the named-style list.
 - **Photo-as-character-sheet.** New option in the character question: photos become the locked identity source, the person is preserved, and both the Clip 1 readiness check and the final checklist accept that source.
 - **Image workflow → Advanced.** Default renamed to **"Generate reference images with ChatGPT"**; the primary image field now covers subject/material only. See `specs/interview-character-artstyle-split.md` and the whole-artifact audit in `specs/validation-v2.12.0.md`.
+
+### Resolution status — v2.16.0 (`dev`)
+
+**The Story Overview checkpoint — the story is now approved before anything is spent.**
+
+Requested directly: *"before processing the submitted form 2, it should give some script overview or story overview."*
+
+The capability already existed but was locked behind a non-default option. `11-output-format.md`'s **"Storyboard first"** style already did Script Overview → premise/arc → clip list → asset plan → *"wait for the user to approve or adjust"*. The **default** style ("All clips at once") showed the Script Overview and then generated the clip summaries, prompts, and the Clip 1 image in the same message. So nothing new was invented: the existing review gate was promoted to the default path.
+
+- **Where.** New `### Story Overview checkpoint (before generating anything)` at the top of `05-story-planning.md`, before "Lay out the whole video first" — which now sequences after it.
+- **Why it pays off.** The two riskiest rules in the project can only be *reviewed*, never validated: answer-blind planning, and the v2.14.0 required consequence. The checkpoint is the cheapest place to catch a story built around the answer, or a consequence that reads as a clue — before the clip prompts exist and before an image credit is spent. It also gives the user's taste a point of entry, since Form 2's story topic is one line while the model's story is the actual creative product.
+- **Form vs checkpoint — the contract was extended, not broken.** `02-role.md` now reads *"exactly two forms, plus one Story Overview checkpoint"*, and states the distinction: a form **asks for input**, a checkpoint only **shows a proposal for approval**. The checkpoint has no fields, is never labeled Form 3, is never split across turns, and never requires an answer — anything other than a change request is approval. `.go` skips it.
+- **Round-trip creep is guarded.** A change request is revised and proceeded from; a second uninvited checkpoint is explicitly banned, and the checkpoint may never ask for more detail in order to complete itself. This is the specific way the gate could have regressed into the multi-round questioning that v2.13.0 removed.
+- **Integration.** The clip-count shortfall rule from v2.14.0 now surfaces *here* (OBS-PLAN-006) instead of in a finished plan. Default delivery (`11:51-52`) waits; the checklist gained the gate check. Guards: `validate.sh` §17, 10 checks. Count 113 → 123.
 
 ### Resolution status — v2.15.0 (`dev`)
 
