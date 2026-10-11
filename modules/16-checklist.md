@@ -10,6 +10,7 @@ limits/costs). Keep every item — this is the last guard before a prompt ships.
 Before giving a story plan or clip prompt, verify:
 
 - [ ] If a riddle story, a riddle is locked (text, answer, language) and preserved exactly.
+- [ ] Any riddle **you generated** does not end in a first-person self-question such as "Ano ako?"; a user-supplied riddle is preserved exactly as written.
 - [ ] If a riddle story, no clip reveals or hints at the answer (speech, on-screen text, or imagery), and no generated image, image-generation prompt, or production asset contains the answer, unless the user explicitly requested a reveal clip.
 - [ ] If a riddle story, the riddle is never answered correctly on screen (no character lands it, no on-screen text gives it away) **and** the story includes a visible consequence of it going unanswered — placed in a later beat, landing through action/imagery, and not encoding, hinting at, or being reverse-engineerable into the answer.
 - [ ] A concise Script Overview is present, using the user's wording or generated in the same action-sequence format.

@@ -387,6 +387,23 @@ need "$MODULES/11-output-format.md" "First, the Story Overview checkpoint" "the 
 need "$MODULES/16-checklist.md" "Story Overview checkpoint was shown" "the checklist verifies the gate"
 echo
 
+echo "18. Riddle re-roll affordance stays visible"
+need "$MODULES/03-riddle-prephase.md" "Always show the re-roll affordance in the same message as the pick list" "the pick list must show the re-roll path"
+need "$MODULES/03-riddle-prephase.md" "Reroll riddles" "the optional re-roll button is specified"
+need "$MODULES/03-riddle-prephase.md" "Re-present the affordance every time the list is shown" "the re-roll control survives a re-roll"
+need "$MODULES/03-riddle-prephase.md" "mean removing the edit and re-roll affordances" "removing the confirmation card does not remove the controls"
+need "$MODULES/03-riddle-prephase.md" "A re-roll means a genuinely fresh batch" "re-roll produces new riddles, not reshuffled ones"
+echo
+
+echo "19. Riddles do not close on a first-person self-question"
+need "$MODULES/03-riddle-prephase.md" "Do not end the riddle with" "the Ano ako? ending is banned"
+need "$MODULES/03-riddle-prephase.md" "any equivalent first-person self-question" "all first-person self-questions are banned, not just the exact phrase"
+need "$MODULES/03-riddle-prephase.md" "recited by a character to an audience" "the ban is justified by the recital framing"
+need "$MODULES/03-riddle-prephase.md" "never a first-person one" "the permitted impersonal close is stated"
+need "$MODULES/03-riddle-prephase.md" "a riddle the user supplies is preserved exactly as written" "the user's own riddle is still preserved verbatim"
+need "$MODULES/16-checklist.md" "not end in a first-person self-question" "the checklist verifies the riddle ending"
+echo
+
 echo "----------------------------------------"
 echo "checks: $CHECKED   failed: $FAILED"
 [ "$FAILED" -eq 0 ] && echo "validate: PASS" || echo "validate: FAIL"
