@@ -155,6 +155,7 @@ order, section numbering, cross-reference resolution, field shape and stale-phra
 - **OBS-MODEL-001** — When current capabilities affect the output and web access exists, the system shall check official compatibility documentation before advising. *(06:11)*
 - **OBS-MODEL-002** — The system shall treat the listed per-model capabilities as a dated snapshot (2026-10-10), not guarantees. *(06:19,68)*
 - **OBS-MODEL-003** — The system shall state that all Veo 3.1 8s clips can be extended, but extension itself must run on Veo 3.1 Lite and accepts no input images. *(06:54-56)*
+- **OBS-MODEL-004** — The system shall treat the "1-3 images per clip" figure as **an attach ceiling, not a generation quota or a plan**: images are generated **one at a time, on demand**, and the image-role list (character/environment/prop) is a labeling rule, never a production list. *(06:77-81; added v2.20.0)*
 
 ### 3.7 Image workflow *(07, 08a)*
 
@@ -164,6 +165,9 @@ order, section numbering, cross-reference resolution, field shape and stale-phra
 - **OBS-IMG-004** — The system shall not describe an image as generated unless it actually was. *(07:36)*
 - **OBS-IMG-005** — When calling the image model, the system shall pass a scene-only prompt for one shot with no production docs, labels, dialogue, or secrets. *(08a:36-43)*
 - **OBS-IMG-006** — When image generation fails or returns a composite, the system shall retry a simplified single-shot prompt, never combine shots. *(08a:22,44)*
+- **OBS-IMG-007** — The system shall produce **exactly one image per request**, and a delivery turn shall generate exactly one image — Clip 1's. A batch is never a delivery: no run of images, no one-image-per-clip/subject/role, no character sheet, model sheet, turnaround, contact sheet, or panel set; when several subjects are named, they are composed into **one** frame. *(07:10-16,29; 08a:24; 10:49; 16:20; added v2.20.0)*
+- **OBS-IMG-008** — The system shall not render the plan itself — blueprint, clip list, image accordion, header lines, storyboard, or section headings — as an image. *(11:31; 08a:24; added v2.20.0)*
+- **OBS-IMG-009** — The system shall not search the web or an image library for style references, nor carry page or source titles into the package. *(07:15; added v2.20.0)*
 
 ### 3.8 Video prompt *(08-video-prompt.md)*
 
@@ -249,6 +253,7 @@ order, section numbering, cross-reference resolution, field shape and stale-phra
 - **AC-013 — Riddle ends as a challenge to the listener.** Given generated riddle candidates, when the pick list is shown, then no candidate ends in a first-person self-question such as "Ano ako?", each works as a challenge posed to the listener, and the pick list message visibly states the re-roll path (re-presented after every re-roll); a user-supplied riddle is still preserved verbatim. *(03:93,102,106; 16:12; added v2.17.0)*
 - **AC-014 — The default riddle scene, and no leak through the scene.** Given a riddle story with the default settings, when the story is planned, then the scene is horror with a Teller who holds visibly trapped small/vulnerable victims and poses the riddle, the consequence is the Teller's own act and not any event the riddle's wording describes, and neither the scene, props, environment, weather, lighting, image subject, nor image prompt contains any noun the riddle names or any tip or clue of any kind. *(03:22-27,36,38,152-153; 05:33,87; 07:29; 15:18-20; 16:15-17; added v2.18.0)*
 - **AC-015 — Script Overview renders as a list.** Given a planned story, when the Script Overview is shown — in the Story Overview checkpoint, the delivered package, or a generated fallback — it appears as a short markdown list with one action step per line, not a paragraph; when the user supplied their own overview, its wording is preserved unaltered and simply split at their own boundaries. *(05:31,80; 04:48,53; 11:65; 15:26; 16:19; 10:20; added v2.19.0)*
+- **AC-016 — One image, and only one.** Given a submitted plan or Form 2 in a riddle run, when the package is delivered, then **exactly one image** is generated (Clip 1's reference image) as a single frame of a single composed scene; no batch, run, sheet, panel set, or one-image-per-subject appears, the plan itself is never rendered as an image, and every further image waits for its own `imgN-M`. *(07:10-16,29; 08a:24; 10:49; 16:20; added v2.20.0)*
 - **AC-003 — Fast submit.** Given the interview, when the user submits without opening Advanced, then generation proceeds using documented defaults. *(04:89; 15)*
 - **AC-004 — Answer never leaks.** Given a locked riddle, when clips and images are produced, then no speech/text/imagery/image-prompt reveals the answer. *(03:106-123)*
 - **AC-005 — One image per command.** Given a clip summary, when the user sends `imgN-M`, then exactly one image is revealed and generated. *(11:33,37)*
@@ -288,6 +293,35 @@ No security-class issues found beyond the intentional secret-sealing rules (whic
 - **Interview split.** The primary set is Story topic / Character / Art style / Image generation topic (subject-material only). The combined "Characters + Art Style" field is gone; Art style is its own question carrying the named-style list.
 - **Photo-as-character-sheet.** New option in the character question: photos become the locked identity source, the person is preserved, and both the Clip 1 readiness check and the final checklist accept that source.
 - **Image workflow → Advanced.** Default renamed to **"Generate reference images with ChatGPT"**; the primary image field now covers subject/material only. See `specs/interview-character-artstyle-split.md` and the whole-artifact audit in `specs/validation-v2.12.0.md`.
+
+### Resolution status — v2.20.0 (`dev`)
+
+**The image count was ambiguous, and every number in the file pointed up.**
+
+Observed live in a Tagalog `.start riddle` run (riddle locked on *Salamin*): the package came back as **about eight images in a row, all multi-panel storyboards**, when the run owes **one standalone Clip 1 reference image**. Pasted in as a bug report; the report text itself did not survive ingestion, so the diagnosis is from the transcript symptom plus the artifact.
+
+The one-image rule was **already present five or six times** (including `10:49`, nearly verbatim). So the failure was not a missing rule — it was **six places saying more**:
+
+| Pull upward | Where |
+|---|---|
+| "1-3 images per clip… treat this as a practical planning target" | `06:77` — the single strongest pull; 3 clips × 1-3 ≈ the observed count |
+| "**Clearly identify the role of every image**" + a role list (character / environment / prop) | `06:81` — reads as *produce one per role* |
+| "produces a Veo-ready reference image **for each scene**" | `07:24` |
+| "a single clip can carry **up to two shots** … supply two images" | `08a`, `06:78` |
+| The method's own name: "Generate reference image**s** with ChatGPT" | `07:27` |
+| A nested image **accordion** of `[imgN-M]` headers per clip | `11:31` — the multipanel-storyboard shape is what rendering a header list as a picture looks like |
+
+Fixes:
+
+- **The ceiling is a ceiling.** `06:77` — the 1-3 figure is how many references a clip may **attach at most**; it is not a quota and not a generation plan. Images are generated **one at a time, on demand**.
+- **Roles are labels.** `06:81` — naming the image roles is a labeling rule, never a list to produce one of each.
+- **A batch is never a delivery.** `07:10` — a package turn produces **exactly one** image; several in a row is a failure, not a bonus. Named bans: one per clip, per subject, per role, variations, character/model/turnaround/contact sheets, panel sets.
+- **Several subjects are still one frame.** `07:12` — victims + Teller + trap is **one composed scene in one frame**, never one image per subject.
+- **The plan is never an image.** `11:31` + `08a:24` — every `[imgN-M]` header, summary, and accordion line is text only; never render the blueprint, header list, accordion, storyboard, or headings as a picture.
+- **No reference lookups.** `07:15` — no web or image-library search for style references, and no page/source titles in the package (this is also the pathway that leaked Pinterest/Civitai titles into a real blueprint).
+- **Guards.** `validate.sh` §22, 11 checks — including a `need_not` on the old "practical planning target" wording, so the upward pull cannot come back. Count 168 → 179.
+
+**Honest limit.** The validator proves these sentences are *present*, not that a run *obeys* them. The mechanical change is real (the batch-affording sentence is deleted, not overridden), but the proof only arrives on the next live run.
 
 ### Resolution status — v2.19.0 (`dev`)
 

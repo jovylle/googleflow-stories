@@ -44,6 +44,7 @@ modules/*.md   →   build.sh   →   build/google-flow-story-maker.md   →   p
 | v2.17.0 | **Re-roll control stays visible** + riddles stop closing on "Ano ako?" | Removing the per-riddle confirmation card in v2.13.0 also removed the only place the reroll control rendered; "Ano ako?" made the reciting character claim to be the answer |
 | v2.18.0 | **The answer showed through the scene.** Default riddle story is now a horror two-entity scene (Teller + trapped small victims), and everything the riddle names is banned from the visuals | The rule "the consequence must follow from the riddle's wording" *required* dramatizing the answer's own description — a cloud riddle got a dark sky and a washed-out bridge |
 | v2.19.0 | **Script Overview is a markdown list** — one action step per line, instead of a prose paragraph | It was specified as "exactly one concise sentence", which is the worst shape for the one artifact the user actually reads and checks |
+| v2.20.0 | **One image means one image.** A package turn generates exactly one image (Clip 1's), never a batch, sheet, or panel set — and never an image of the plan itself | Six places in the file said *more*: "1-3 images per clip" as a **planning target**, "identify the role of every image" with a role list, "for each scene", "up to two shots = two images", the plural in the method's name, and an image accordion of headers. A run returned ~8 multi-panel storyboards instead of one Clip 1 frame |
 
 ## The pattern worth naming
 

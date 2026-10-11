@@ -444,6 +444,20 @@ need "$MODULES/16-checklist.md" "in the action-sequence list format" "the checkl
 need "$MODULES/10-clip1-final.md" "in the action-sequence list form" "the Clip 1 gate verifies the list form"
 echo
 
+echo "22. One image per request: no batches, no sheets, no panels"
+need "$MODULES/06-model-rules.md" "images are generated one at a time, on demand" "images are produced one at a time"
+need "$MODULES/06-model-rules.md" "is a labeling rule, never a list of images to generate" "image roles are labels, not a production list"
+need_not "$MODULES/06-model-rules.md" "Treat this as a practical planning target" "the batch-affording planning target is gone"
+need "$MODULES/07-image-workflow.md" "A batch of images is never a delivery" "a batch is not a delivery"
+need "$MODULES/07-image-workflow.md" "never one image per subject" "multi-subject fields mean one composed frame"
+need "$MODULES/07-image-workflow.md" "an image library for style references" "reference lookups are banned"
+need "$MODULES/07-image-workflow.md" "One request produces exactly one image" "one request = one image"
+need "$MODULES/08a-shot-composition.md" "One frame per request, never a batch" "the shot rules forbid a batch"
+need "$MODULES/11-output-format.md" "The header text is never an image" "accordion headers are text, never rendered as images"
+need "$MODULES/10-clip1-final.md" "one image, of one composed scene" "the Clip 1 image is one composed scene"
+need "$MODULES/16-checklist.md" "Exactly one image was generated in the turn" "the checklist verifies the image count"
+echo
+
 echo "----------------------------------------"
 echo "checks: $CHECKED   failed: $FAILED"
 [ "$FAILED" -eq 0 ] && echo "validate: PASS" || echo "validate: FAIL"
