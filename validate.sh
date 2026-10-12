@@ -564,6 +564,22 @@ need_not "$BUILD" "story-type words always trigger" "no always-trigger reading"
 need_not "$BUILD" "a bare attachment starts the auto path" "attachments never start a run"
 echo
 
+# ------------------------------------------------------- 29. tagalog indirect description
+# Riddle clues must turn on words of the chosen language used obliquely (Tagalog
+# default: mukha/mata/kamay, double meanings) — wordplay as misdirection. Guards
+# pin the technique, the worked example, the checklist mirror, the user-riddle
+# carve-out, and trap spooky-word indirection and direct naming.
+echo "29. Tagalog indirect-description rule"
+need "$MODULES/03-riddle-prephase.md" "words used obliquely" "the rule is stated as a technique"
+need "$MODULES/03-riddle-prephase.md" "may mukha ngunit walang mata" "the Tagalog example is present"
+need "$MODULES/03-riddle-prephase.md" "never rewrites a user-supplied riddle" "the user-riddle carve-out is scoped"
+need "$BUILD" "the wordplay itself is the misdirection, not decoration" "the rule survives the build"
+need "$BUILD" "orasan" "the example survives the build"
+need "$MODULES/16-checklist.md" "words used obliquely" "the rule is mirrored in the checklist"
+need_not "$MODULES/03-riddle-prephase.md" "words chosen for spookiness" "indirection never comes from spooky words"
+need_not "$BUILD" "clues may directly name the answer" "no direct-description reading survives"
+echo
+
 echo "----------------------------------------"
 echo "checks: $CHECKED   failed: $FAILED"
 [ "$FAILED" -eq 0 ] && echo "validate: PASS" || echo "validate: FAIL"
