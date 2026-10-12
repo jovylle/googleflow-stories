@@ -8,12 +8,12 @@ versions share), and only the `specs/` file for whatever you are about to change
 
 | Repo | Version | Branch / HEAD | Checks | Remote |
 |---|---|---|---|---|
-| `lab/googleflow-stories` (**canonical rules** — you are here) | **2.23.0** | `dev` / `be16e61` | `./validate.sh` → **215 / 0** | GitHub `jovylle/googleflow-stories`, `master` at `05d81ec` (v2.21.0 release merge), `dev` two ahead |
+| `lab/googleflow-stories` (**canonical rules** — you are here) | **2.24.0** | `dev` / `8eb1b1f` | `./validate.sh` → **228 / 0** | GitHub `jovylle/googleflow-stories`, `master` at `05d81ec` (v2.21.0 release merge), `dev` three ahead |
 | `lab/flow-story-gpt` (distilled ChatGPT pack) | 1.0.0 | `master` / `5bb876c` | `./validate-gpt.sh` → 28 / 0 | **none — local only** |
 | `lab/flow-story-gem` (Gemini + hand-over zip) | 1.0.0 | `master` / `6c3d417` | `./validate-gem.sh` → 36 / 0 | **none — local only** |
 
-Canonical artifact: `build/google-flow-story-maker.md`, **1,227 lines / 145,722 chars**, working tree
-clean. `master` is at `05d81ec` (v2.21.0, released 2026-10-12 by merging `dev`) and is **two versions behind `dev`**.
+Canonical artifact: `build/google-flow-story-maker.md`, **1,231 lines / 147,368 chars**, working tree
+clean. `master` is at `05d81ec` (v2.21.0, released 2026-10-12 by merging `dev`) and is **three versions behind `dev`**.
 
 ### Version chain since v2.12.0 (all on `dev`)
 
@@ -30,12 +30,14 @@ clean. `master` is at `05d81ec` (v2.21.0, released 2026-10-12 by merging `dev`) 
 | 2.21.0 | `4c96cfd` | The supernatural Teller voice (riddle horror), vendored from a prompt the user proved in Veo 3.1 Lite, + the heavy-voice duration budget |
 | 2.22.0 | `6d766a1` | The `.auto` skip command (`.auto riddle` / `.auto mukbang` + free text): locks the story path, applies all defaults, skips both forms and the checkpoint for that run only; bare attachments never trigger it; `.reroll` re-locks one fresh candidate |
 | 2.23.0 | `be16e61` | Neutral riddle generation: candidates are written as if no story exists yet, genre mood is spent on delivery only; the uncanny-answer list is trimmed to genre-agnostic ordinary things; the "good" horror example no longer ends first-person |
+| 2.24.0 | `8eb1b1f` | Allocated timestamps: every blueprint carries a clip map (Clip N of M, nominal range, beat purpose), no consequence starts before the final clip, wait and consequence are never compressed into one block, and the shortfall offer covers all three beats |
 
 ## What to do next, in order
 
-1. **Re-paste the artifact.** The live ChatGPT project is still running **v2.12.0** — none of the eleven
+1. **Re-paste the artifact.** The live ChatGPT project is still running **v2.12.0** — none of the twelve
    versions of fixes above are in it. Paste `build/google-flow-story-maker.md` and rerun a Tagalog
-   `.start riddle` end to end (the riddle list should now be neutrally worded with ordinary answers),
+   `.start riddle` end to end (the riddle list should now be neutrally worded with ordinary answers,
+   and the checkpoint should show a timestamped clip map with the wait held in its own clip),
    then smoke-test `.auto riddle` and `.auto mukbang` (with a photo).
    This is the only step that produces evidence.
 2. **Calibrate the heavy-voice word budget.** v2.21.0 set it to **12–16 words per 8-second clip**
@@ -81,7 +83,7 @@ clean. `master` is at `05d81ec` (v2.21.0, released 2026-10-12 by merging `dev`) 
 ```bash
 cd /Volumes/DevSSD/fore/lab/googleflow-stories
 printf '2.22.0\n' > version.txt   # bump first; the build substitutes {{VERSION}}
-./build.sh && ./validate.sh       # 215 checks today (plus docs/HANDOFF.md freshness)
+./build.sh && ./validate.sh       # 228 checks today (plus docs/HANDOFF.md freshness)
 
 # while working on one area, read only the new section's red:
 ./validate.sh 2>&1 | sed -n '/^23\./,$p'
