@@ -8,12 +8,12 @@ versions share), and only the `specs/` file for whatever you are about to change
 
 | Repo | Version | Branch / HEAD | Checks | Remote |
 |---|---|---|---|---|
-| `lab/googleflow-stories` (**canonical rules** — you are here) | **2.27.0** | `dev` / `7133c37` | `./validate.sh` → **258 / 0** | GitHub `jovylle/googleflow-stories`, `master` at `05d81ec` (v2.21.0 release merge), `dev` six ahead |
+| `lab/googleflow-stories` (**canonical rules** — you are here) | **2.28.0** | `dev` / `132d806` | `./validate.sh` → **264 / 0** | GitHub `jovylle/googleflow-stories`, `master` at `05d81ec` (v2.21.0 release merge), `dev` seven ahead |
 | `lab/flow-story-gpt` (distilled ChatGPT pack) | 1.0.0 | `master` / `5bb876c` | `./validate-gpt.sh` → 28 / 0 | **none — local only** |
 | `lab/flow-story-gem` (Gemini + hand-over zip) | 1.0.0 | `master` / `6c3d417` | `./validate-gem.sh` → 36 / 0 | **none — local only** |
 
-Canonical artifact: `build/google-flow-story-maker.md`, **1,236 lines / 150,448 chars**, working tree
-clean. `master` is at `05d81ec` (v2.21.0, released 2026-10-12 by merging `dev`) and is **six versions behind `dev`**.
+Canonical artifact: `build/google-flow-story-maker.md`, **1,239 lines / 150,997 chars**, working tree
+clean. `master` is at `05d81ec` (v2.21.0, released 2026-10-12 by merging `dev`) and is **seven versions behind `dev`**.
 
 ### Version chain since v2.12.0 (all on `dev`)
 
@@ -34,13 +34,15 @@ clean. `master` is at `05d81ec` (v2.21.0, released 2026-10-12 by merging `dev`) 
 | 2.25.0 | `76f246f` | Story-type words trigger `.auto`: `horror riddle` / `mukbang` (+ photo) starts the run with no `.start` or typed command; bare attachments, questions, negations, and mid-run mentions never trigger |
 | 2.26.0 | `5b72ba5` | Tagalog indirect-description rule: clues turn on words used obliquely (`mukha`/`mata`/`kamay`, double meanings) — wordplay as misdirection, never spooky words, never rewriting a user riddle |
 | 2.27.0 | `7133c37` | Overview text-only: no hero/grid/storyboard sheets ever, checkpoint turn imageless, Clip 1 the run's sole image; the old storyboard-first instructions that licensed the sheet are rewritten |
+| 2.28.0 | `132d806` | Riddle spoken-only: speech authorization never authorizes text — the locked riddle reaches the audience through the Teller's voice alone, even when on-screen text is requested |
 
 ## What to do next, in order
 
-1. **Re-paste the artifact.** The live ChatGPT project is still running **v2.12.0** — none of the fifteen
+1. **Re-paste the artifact.** The live ChatGPT project is still running **v2.12.0** — none of the sixteen
    versions of fixes above are in it. Paste `build/google-flow-story-maker.md` and just say `horror riddle`
    (no `.start` needed anymore) for a Tagalog end-to-end: neutral riddle list with oblique wordplay
-   (`mukha`/`kamay`-style clues), text-only overview, timestamped clip map with the wait in its own clip.
+   (`mukha`/`kamay`-style clues), text-only overview, spoken-only riddle (never displayed),
+   timestamped clip map with the wait in its own clip.
    Then say `mukbang` with a photo.
    This is the only step that produces evidence.
 2. **Calibrate the heavy-voice word budget.** v2.21.0 set it to **12–16 words per 8-second clip**
@@ -86,7 +88,7 @@ clean. `master` is at `05d81ec` (v2.21.0, released 2026-10-12 by merging `dev`) 
 ```bash
 cd /Volumes/DevSSD/fore/lab/googleflow-stories
 printf '2.22.0\n' > version.txt   # bump first; the build substitutes {{VERSION}}
-./build.sh && ./validate.sh       # 258 checks today (plus docs/HANDOFF.md freshness)
+./build.sh && ./validate.sh       # 264 checks today (plus docs/HANDOFF.md freshness)
 
 # while working on one area, read only the new section's red:
 ./validate.sh 2>&1 | sed -n '/^23\./,$p'
