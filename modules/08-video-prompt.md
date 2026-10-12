@@ -54,7 +54,7 @@ If the user explicitly asks for dialogue, narration, or on-screen text, follow t
 
 A locked riddle is spoken-only: the riddle text reaches the audience through the Teller's speech alone and never as on-screen text, subtitles, captions, or overlays.
 
-Do not invent dialogue or a script to fill a scene: if the user did not supply speech or ask for it, the clip is silent by default. An `.auto mukbang` run carries its own speech authorization: it is a voiceover-narration story (see below), so Veo generates the voiceover plus ambient sound with no further speech request. A Script Overview you generated yourself does **not** count as authorization to speak — only the user's own script/dialogue, an explicit request, or a locked riddle does.
+Do not invent dialogue or a script to fill a scene: if the user did not supply speech or ask for it, the clip is silent by default. An `.auto mukbang` run carries no standing speech authorization: it is silent of speech by default — no talking, no narration, and no voiceover in any clip; the soundtrack is ASMR food and eating sounds only (chewing, sizzle, crunch, slurp, ambient room tone as appropriate). If the user explicitly asks for narration or voiceover on the mukbang, follow that request the same way any other explicit speech request is followed; otherwise the no-speech default holds for every clip. A Script Overview you generated yourself does **not** count as authorization to speak — only the user's own script/dialogue, an explicit request, or a locked riddle does.
 
 <!--
 Exception path to the master audio rule: in voiceover mode, Veo GENERATES the

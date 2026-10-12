@@ -488,8 +488,9 @@ echo
 # .auto is the one command that skips both forms AND the checkpoint, on explicit
 # invocation only. Guards pin: the typed count-sentence extension, the explicit
 # checkpoint prohibition (v2.16.0 in a new guise otherwise), the .go distinction,
-# the auto-lock quality gate, the mukbang speech authorization, the checklist
-# lock, and the anti-state-inference rule (bare attachments never trigger).
+# the auto-lock quality gate, the checklist lock, and the anti-state-inference
+# rule (bare attachments never trigger). The mukbang-ASMR default lives in §32;
+# the old standing voiceover authorization is retired there, not here.
 echo "25. The .auto skip path"
 need "$BUILD" "the one skip command" "the count sentence names .auto as the one skip command"
 need "$BUILD" "neither a form nor a checkpoint" ".auto is typed outside the form count"
@@ -499,7 +500,6 @@ need "$BUILD" "Bare attachments never trigger" "attachments alone never start an
 need "$BUILD" "does not create a riddle or set a story type" ".go and .auto cannot be conflated"
 need "$BUILD" "generate one candidate that passes the riddle rules" "auto-lock keeps the riddle quality gate"
 need "$BUILD" "self-check before locking it" "auto-lock self-checks before locking"
-need "$BUILD" "carries its own speech authorization" ".auto mukbang authorizes its voiceover"
 need "$MODULES/16-checklist.md" "On an \`.auto\` run" "the checklist locks the .auto path"
 need "$MODULES/16-checklist.md" "no partial form" "the checklist bars partial forms on .auto"
 need_not "$BUILD" "auto counts as a form" ".auto is never folded into the form count"
@@ -612,6 +612,21 @@ need "$BUILD" "never as on-screen text, subtitles, captions, or overlays" "the r
 need "$MODULES/08-video-prompt.md" "and nothing else — it is spoken-only" "re-scope sentence in module 08"
 need "$MODULES/16-checklist.md" "delivered as Teller speech only" "checklist mirrors the rule"
 need_not "$BUILD" "counts as explicitly supplied speech" "old licensing sentence retired"
+echo
+
+# ------------------------------------------------------- 32. mukbang ASMR default
+# A mukbang run is silent of speech by default — ASMR eating sounds only. The old
+# standing voiceover authorization ("carries its own speech authorization") is
+# retired: the need_not below fires pre-edit and flips with its removal.
+echo "32. Mukbang ASMR default"
+need "$MODULES/01-commands.md" "silent of speech by default" "01 runs mukbang silent of speech"
+need "$MODULES/01-commands.md" "If the user explicitly asks for narration or voiceover on the mukbang" "01 carries the follow-the-user clause"
+need "$MODULES/08-video-prompt.md" "carries no standing speech authorization" "08 retires the standing authorization"
+need "$MODULES/08-video-prompt.md" "chewing, sizzle, crunch, slurp" "08 names the ASMR inventory"
+need "$MODULES/15-defaults.md" "the mukbang path runs ASMR food and eating sounds" "defaults mirror the ASMR audio"
+need "$MODULES/16-checklist.md" "every clip is silent of speech by default" "checklist mirrors the no-speech rule"
+need "$BUILD" "silent of speech by default" "the rule survives the build"
+need_not "$BUILD" "carries its own speech authorization" "no standing voiceover license survives"
 echo
 
 echo "----------------------------------------"
