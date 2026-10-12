@@ -506,6 +506,22 @@ need_not "$BUILD" "auto counts as a form" ".auto is never folded into the form c
 need_not "$BUILD" "generate a shortlist" "no pick-list resurrection on the auto path"
 echo
 
+# ------------------------------------------------------- 26. neutral riddle generation
+# Generated riddles are written as if no story exists yet; genre mood lives in
+# delivery only. Guards pin the neutrality rule, the rewritten genre paragraph,
+# the checklist mirror, and trap the two outvoting sentences that told the model
+# to mood the wording (the license behind horror-theme answers).
+echo "26. Neutral riddle generation"
+need "$MODULES/03-riddle-prephase.md" "Generate every candidate neutrally, as if no story exists yet" "the neutrality rule is stated"
+need "$MODULES/03-riddle-prephase.md" "no genre, no setting, no characters, and no Teller" "generation excludes story context"
+need "$MODULES/03-riddle-prephase.md" "none of its mood reaches the riddle text" "mood is directed away from the riddle"
+need "$MODULES/03-riddle-prephase.md" "spend the genre entirely on how the riddle is delivered" "mood has a permitted replacement"
+need "$BUILD" "as if no story exists yet" "the neutrality rule survives the build"
+need "$MODULES/16-checklist.md" "generated neutrally" "the checklist verifies neutral generation"
+need_not "$MODULES/03-riddle-prephase.md" "apply the mood to the" "no mood-into-wording rule remains"
+need_not "$MODULES/03-riddle-prephase.md" "dread lives in the phrasing" "no dread-in-the-wording claim remains"
+echo
+
 echo "----------------------------------------"
 echo "checks: $CHECKED   failed: $FAILED"
 [ "$FAILED" -eq 0 ] && echo "validate: PASS" || echo "validate: FAIL"

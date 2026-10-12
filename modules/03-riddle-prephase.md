@@ -80,9 +80,9 @@ Never re-confirm an answer that arrived with the form (language, story type, rid
 <!--
 The generator must produce ACTUAL riddles, not themed noun-phrases. The hard rules
 below define a riddle (indirect clues → one concrete ordinary answer), reject
-abstract/genre "answers" (e.g. "hateful ghost", "monster doppelganger"), and apply
-genre mood to the WORDING, not the answer (horror = eerie phrasing, ordinary answer
-like shadow/mirror/clock). The simple-words, not-too-short, not-too-easy, and
+abstract/genre "answers" (e.g. "hateful ghost", "monster doppelganger"), and keep
+generation neutral (no genre mood in wording or answer — ordinary answer like
+shadow/mirror/clock, plain clues; mood lives in delivery). The simple-words, not-too-short, not-too-easy, and
 spoken-duration rules keep riddles fair and clip-length — do not relax them. The
 self-check at the end is a quality gate: drop any candidate whose answer is not a
 real guessable thing. Added after a session produced non-riddles for horror.
@@ -95,6 +95,7 @@ Generate a list of **5–10 candidate riddles** in the chosen language, each wit
 
 - A valid riddle has: (1) a **setup** that describes the answer obliquely (often via personification or paradox — "has a face but no eyes"), (2) **fair clues** that point to exactly one answer, and (3) a **single clean answer** that is a real, nameable thing.
 - **Reject non-riddles.** Do not output an entry whose "answer" is an abstract/undefined phrase like "monster doppelganger", "hateful ghost", "the darkness", or "evil" — these are themes, not answers. If a candidate's answer is not a concrete, guessable thing, discard it and generate another.
+- **Generate every candidate neutrally, as if no story exists yet.** At generation time, assume no genre, no setting, no characters, and no Teller, and do not let the chosen story type, its context, or the surrounding conversation shape the riddle's wording or answer. A generated riddle is always an ordinary thing described by clues drawn from the thing itself, with no dread, no scare, and no reference to how it will be told or who will speak it. Mood belongs only to the story that delivers the riddle: the delivery, the voice, the scene, and the situation, never the riddle's text or its answer. This applies to riddles **you generate**; a riddle the user supplies is preserved exactly as written.
 
 Quality rules:
 
@@ -107,11 +108,11 @@ Quality rules:
 - **Write the riddle so the reciter is never the "I".** The Teller speaks the riddle aloud to the victims, so any first-person line makes the Teller sound like it is describing *itself* — a cloud riddle recited in the first person tells the audience that the Teller is the cloud. Phrase generated riddles **impersonally** instead, so the riddle is obviously *about something else* and the speaker is obviously asking rather than confessing: "May isang bagay na…" / "There is a thing that…". A first-person riddle is acceptable only when the scene makes it unmistakable that it is quoted from something other than the speaker — read off a note, a sign, or a page, or repeated as an old rhyme — with that framing visible.
 - Note the answer beside each option so the user can judge quality.
 
-**Genre and mood (including horror).** A riddle story defaults to **horror** (see the default structure above): the dread lives in the phrasing, the situation, and the Teller, never in the answer. When a genre like horror, mystery, or fantasy is chosen, apply the mood to the **wording and imagery of the riddle**, not to the answer. The answer stays an ordinary concrete thing; the clues are what feel eerie, suspenseful, or whimsical.
+**Genre and mood (including horror).** A riddle story defaults to **horror** (see the default structure above): the dread lives in the situation, the Teller, and the delivery, never in the answer. When a genre such as horror, mystery, or fantasy is chosen, none of its mood reaches the riddle text: generate the riddle neutrally under the neutrality rule, and spend the genre entirely on how the riddle is delivered and on the scene it is spoken in.
 
-- *Horror example (good):* answer = **shadow** → "I follow where you walk but make no sound, I grow tall at dusk and vanish in the dark. What am I?" The dread is in the phrasing; the answer is a plain object.
+- *Horror example (good):* answer = **shadow** → "It follows where you walk but makes no sound, it grows tall at dusk and vanishes in the dark. Ano ito?" The dread is in the delivery; the answer is a plain object.
 - *Horror example (bad):* answer = "hateful ghost" or "monster doppelganger" → rejected: the answer is an abstract theme, not a guessable thing.
-- Good horror answers are ordinary things that *feel* uncanny when described obliquely: shadow, mirror, reflection, breath, heartbeat, footsteps, a clock ticking, a candle, a locked door, an empty chair, the wind, a photograph.
+- Good answers are ordinary things described from the thing itself: shadow, echo, mirror, clock, candle, wind, footprints, a book. Do not reach for objects chosen because they feel uncanny — the eeriness belongs to the delivery, never to the answer.
 
 **Self-check before presenting.** For each candidate, silently confirm: the answer is one concrete ordinary thing, the clues point only to that thing, a listener could plausibly guess it, and the riddle does **not** end in a first-person self-question such as "Ano ako?". Drop and replace any candidate that fails. Only present entries that pass.
 
@@ -137,7 +138,7 @@ end-of-plan leak check, not a design seed. Preserve exact riddle wording/languag
 
 Carry the locked riddle into the main form and story plan. Apply the fixed riddle structure and the riddle outcome contract above: the riddle is the **opening spoken line** (in Clip 1), followed by a silent beat for the audience to guess, then at least one character who attempts it and fails, and the story always includes a visible consequence of the riddle going unanswered. Keep later clips consistent with this and preserve the riddle's exact wording and language.
 
-**Answer-blind planning (build the plot from the riddle, not the answer).** Design the Script Overview, story arc, every clip's action, the imagery, and all character reactions using **only the riddle's wording, tone, and mood** — as if you did **not** know the answer. The entire plan must be derivable from the riddle text alone. Do **not** let the answer influence settings, props, visual motifs, character behavior, or shot choices; the answer must not "show through" the production. Treat the recorded answer as sealed: you consult it only in the leak check below, never while generating ideas.
+**Answer-blind planning (build the plot from the riddle, not the answer).** Design the Script Overview, story arc, every clip's action, the imagery, and all character reactions using **only the riddle's wording and tone** — as if you did **not** know the answer. The entire plan must be derivable from the riddle text alone. Do **not** let the answer influence settings, props, visual motifs, character behavior, or shot choices; the answer must not "show through" the production. Treat the recorded answer as sealed: you consult it only in the leak check below, never while generating ideas.
 
 **Final leak check (consult the answer once, at the end).** After the plan and each clip/image prompt are drafted, review them **once** against the sealed answer purely to confirm nothing reveals or hints at it — no spoken line, on-screen text, caption, prop, visual motif, or reacting character gives it away. If anything leaks, revise that specific element so the plan again stands on the riddle text alone. This is the only point the answer is used; it is a check, not a prompt.
 
