@@ -629,6 +629,22 @@ need "$BUILD" "silent of speech by default" "the rule survives the build"
 need_not "$BUILD" "carries its own speech authorization" "no standing voiceover license survives"
 echo
 
+# ------------------------------------------------------- 33. flat riddle endings
+# Veo 3.1 renders Tagalog '?' intonation as inviting; the Teller issues a
+# challenge, not an invitation. Generated riddles close on a flat statement with
+# a period — the worked example included. User riddles stay verbatim.
+echo "33. Flat riddle endings"
+need "$MODULES/03-riddle-prephase.md" "A generated riddle never ends with a question mark" "the flat-ending rule is stated"
+need "$MODULES/03-riddle-prephase.md" "End on the final clue as a flat" "clues close flat"
+need "$MODULES/03-riddle-prephase.md" "never a question mark" "the impersonal closer takes a period"
+need "$MODULES/03-riddle-prephase.md" "even if it ends with a question mark" "the verbatim carve-out survives"
+need "$MODULES/03-riddle-prephase.md" "or with a trailing question mark" "the self-check covers the ending"
+need "$MODULES/16-checklist.md" "does not end with a question mark" "the checklist mirrors the ban"
+need "$BUILD" "A generated riddle never ends with a question mark" "the rule survives the build"
+need_not "$MODULES/03-riddle-prephase.md" "at most close with an impersonal question" "the old permission is gone"
+need_not "$MODULES/03-riddle-prephase.md" "vanishes in the dark. Ano ito?" "the worked example is flat"
+echo
+
 echo "----------------------------------------"
 echo "checks: $CHECKED   failed: $FAILED"
 [ "$FAILED" -eq 0 ] && echo "validate: PASS" || echo "validate: FAIL"
