@@ -8,12 +8,12 @@ versions share), and only the `specs/` file for whatever you are about to change
 
 | Repo | Version | Branch / HEAD | Checks | Remote |
 |---|---|---|---|---|
-| `lab/googleflow-stories` (**canonical rules** — you are here) | **2.25.0** | `dev` / `76f246f` | `./validate.sh` → **241 / 0** | GitHub `jovylle/googleflow-stories`, `master` at `05d81ec` (v2.21.0 release merge), `dev` four ahead |
+| `lab/googleflow-stories` (**canonical rules** — you are here) | **2.26.0** | `dev` / `5b72ba5` | `./validate.sh` → **249 / 0** | GitHub `jovylle/googleflow-stories`, `master` at `05d81ec` (v2.21.0 release merge), `dev` five ahead |
 | `lab/flow-story-gpt` (distilled ChatGPT pack) | 1.0.0 | `master` / `5bb876c` | `./validate-gpt.sh` → 28 / 0 | **none — local only** |
 | `lab/flow-story-gem` (Gemini + hand-over zip) | 1.0.0 | `master` / `6c3d417` | `./validate-gem.sh` → 36 / 0 | **none — local only** |
 
-Canonical artifact: `build/google-flow-story-maker.md`, **1,233 lines / 148,749 chars**, working tree
-clean. `master` is at `05d81ec` (v2.21.0, released 2026-10-12 by merging `dev`) and is **four versions behind `dev`**.
+Canonical artifact: `build/google-flow-story-maker.md`, **1,234 lines / 149,538 chars**, working tree
+clean. `master` is at `05d81ec` (v2.21.0, released 2026-10-12 by merging `dev`) and is **five versions behind `dev`**.
 
 ### Version chain since v2.12.0 (all on `dev`)
 
@@ -32,13 +32,15 @@ clean. `master` is at `05d81ec` (v2.21.0, released 2026-10-12 by merging `dev`) 
 | 2.23.0 | `be16e61` | Neutral riddle generation: candidates are written as if no story exists yet, genre mood is spent on delivery only; the uncanny-answer list is trimmed to genre-agnostic ordinary things; the "good" horror example no longer ends first-person |
 | 2.24.0 | `8eb1b1f` | Allocated timestamps: every blueprint carries a clip map (Clip N of M, nominal range, beat purpose), no consequence starts before the final clip, wait and consequence are never compressed into one block, and the shortfall offer covers all three beats |
 | 2.25.0 | `76f246f` | Story-type words trigger `.auto`: `horror riddle` / `mukbang` (+ photo) starts the run with no `.start` or typed command; bare attachments, questions, negations, and mid-run mentions never trigger |
+| 2.26.0 | `5b72ba5` | Tagalog indirect-description rule: clues turn on words used obliquely (`mukha`/`mata`/`kamay`, double meanings) — wordplay as misdirection, never spooky words, never rewriting a user riddle |
 
 ## What to do next, in order
 
-1. **Re-paste the artifact.** The live ChatGPT project is still running **v2.12.0** — none of the thirteen
+1. **Re-paste the artifact.** The live ChatGPT project is still running **v2.12.0** — none of the fourteen
    versions of fixes above are in it. Paste `build/google-flow-story-maker.md` and just say `horror riddle`
-   (no `.start` needed anymore) for a Tagalog end-to-end: neutral riddle list, timestamped clip map with
-   the wait in its own clip. Then say `mukbang` with a photo.
+   (no `.start` needed anymore) for a Tagalog end-to-end: neutral riddle list with oblique wordplay
+   (`mukha`/`kamay`-style clues), timestamped clip map with the wait in its own clip.
+   Then say `mukbang` with a photo.
    This is the only step that produces evidence.
 2. **Calibrate the heavy-voice word budget.** v2.21.0 set it to **12–16 words per 8-second clip**
    from the voice's stated pace (~1.5–2 words/sec), not from a timing. Ask the user for the riddle's
@@ -83,7 +85,7 @@ clean. `master` is at `05d81ec` (v2.21.0, released 2026-10-12 by merging `dev`) 
 ```bash
 cd /Volumes/DevSSD/fore/lab/googleflow-stories
 printf '2.22.0\n' > version.txt   # bump first; the build substitutes {{VERSION}}
-./build.sh && ./validate.sh       # 241 checks today (plus docs/HANDOFF.md freshness)
+./build.sh && ./validate.sh       # 249 checks today (plus docs/HANDOFF.md freshness)
 
 # while working on one area, read only the new section's red:
 ./validate.sh 2>&1 | sed -n '/^23\./,$p'
@@ -103,7 +105,7 @@ shows up as failures rather than passing quietly.
   Teller voice block**.
 - `modules/10-clip1-final.md` — the Clip 1 gate: exactly one image, one composed scene, ratio checked.
 - `modules/16-checklist.md` — the self-check a run performs before delivering.
-- `validate.sh` — §1–§24; §20 riddle-structure, §21 Script Overview list, §22 image count, §23 voice block, §24 handoff freshness.
+- `validate.sh` — one section per fix area, plus a handoff-freshness section; §20 riddle-structure, §21 Script Overview list, §22 image count, §23 voice block.
 - `docs/SUMMARY.md` — one row per version, plus the failure class they share.
 - `specs/googleflow-stories_reverse_spec.md` — the reverse spec: observations (`OBS-*`), acceptance
   criteria (`AC-*`), and a resolution-status block per version. `specs/image-count-one-per-request.md`

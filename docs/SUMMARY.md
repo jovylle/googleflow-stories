@@ -1,6 +1,6 @@
 # Google Flow Story Maker — Status Summary
 
-*As of v2.25.0 · 2026-10-12 · branch `dev`*
+*As of v2.26.0 · 2026-10-12 · branch `dev`*
 
 ## What it is
 
@@ -50,6 +50,7 @@ modules/*.md   →   build.sh   →   build/google-flow-story-maker.md   →   p
 | v2.23.0 | **Neutral riddle generation** — candidates are written as if no story exists yet; horror mood goes to delivery, never to riddle text or answer | Live runs returned non-riddles for horror: answers were themes (`multo`, `kababalaghan`), every riddle first-person ending `Ano ako?` — all already banned, all outvoted by the horror context. The old text even licensed the drift ("apply the mood to the wording") |
 | v2.24.0 | **Allocated timestamps** — the blueprint carries a per-clip map (range + beat purpose), the consequence is held to the final clip, and the shortfall offer covers the wait too | Live runs collapsed the thinking beat: straight from riddle to consequence with no pause. The rule existed as prose with no timestamps, so nothing held the pause open; ranges are nominal 8s blocks, and the checkpoint now shows the allocation before any clip is spent |
 | v2.25.0 | **Story-type words start the run** — `horror riddle`, `mukbang` + photo, no command needed | The project exists to make stories, so naming the product is the command; the trigger is request-shaped (questions, negations, bare photos, and mid-run mentions never fire), which keeps the v2.15.0 state-inference hole shut |
+| v2.26.0 | **Tagalog indirect-description rule** — clues turn on oblique everyday words, wordplay as misdirection | The generator named answers directly or reached for spooky words; now `orasan`-style clues work through `mukha`/`kamay` double meanings, scoped to generated riddles in the chosen language |
 
 ## The pattern worth naming
 
