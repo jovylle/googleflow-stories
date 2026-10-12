@@ -1,6 +1,6 @@
 # Google Flow Story Maker — Status Summary
 
-*As of v2.22.0 · 2026-10-12 · branch `dev`*
+*As of v2.23.0 · 2026-10-12 · branch `dev`*
 
 ## What it is
 
@@ -47,6 +47,7 @@ modules/*.md   →   build.sh   →   build/google-flow-story-maker.md   →   p
 | v2.20.0 | **One image means one image.** A package turn generates exactly one image (Clip 1's), never a batch, sheet, or panel set — and never an image of the plan itself | Six places in the file said *more*: "1-3 images per clip" as a **planning target**, "identify the role of every image" with a role list, "for each scene", "up to two shots = two images", the plural in the method's name, and an image accordion of headers. A run returned ~8 multi-panel storyboards instead of one Clip 1 frame |
 | v2.21.0 | **The supernatural Teller voice**, vendored from a prompt the user proved in Veo 3.1 Lite — plus the spoken-line slot it was missing and a duration budget that reflects the voice's slower pace | The audio side of a riddle story was one line in the prompt ("dialogue, ambience, sound effects, or silence as requested") and a six-adjective voice note. The proven prompt is 215 words of voice + audio production, with the negative-constraint tail doing the real work |
 | v2.22.0 | **The `.auto` skip command** — `.auto riddle` / `.auto mukbang` locks the story path, applies defaults, and skips both forms plus the checkpoint for that run only | Users who know what they want were paying the full two-form + checkpoint cost every run; the checkpoint gate (v2.16.0) stays default-on for interactive runs, `.auto` is explicit per-run skip authorization |
+| v2.23.0 | **Neutral riddle generation** — candidates are written as if no story exists yet; horror mood goes to delivery, never to riddle text or answer | Live runs returned non-riddles for horror: answers were themes (`multo`, `kababalaghan`), every riddle first-person ending `Ano ako?` — all already banned, all outvoted by the horror context. The old text even licensed the drift ("apply the mood to the wording") |
 
 ## The pattern worth naming
 
