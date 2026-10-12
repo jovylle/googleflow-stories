@@ -1,6 +1,6 @@
 # Google Flow Story Maker — Status Summary
 
-*As of v2.29.0 · 2026-10-12 · branch `dev`*
+*As of v2.30.0 · 2026-10-12 · branch `dev`*
 
 ## What it is
 
@@ -54,6 +54,7 @@ modules/*.md   →   build.sh   →   build/google-flow-story-maker.md   →   p
 | v2.27.0 | **Overview text-only** — the checkpoint is prose, Clip 1 is the run's sole image | Your screenshot caught the overview rendered as a hero + style-grid + storyboard sheet with the riddle as readable text; the old storyboard-first instructions licensed it, so they were rewritten, not just overruled |
 | v2.28.0 | **Riddle spoken-only** — speech permission is never text permission | Your video showed the riddle displayed on screen; the "counts as supplied speech" sentence licensed it, so it now ends in "and nothing else," with the ban holding even when text is requested |
 | v2.29.0 | **Mukbang ASMR default** — silent of speech, eating sounds only | Mukbang shipped with a standing voiceover authorization; now no talking, narration, or voiceover unless you ask — chewing, sizzle, crunch, slurp carry the soundtrack |
+| v2.30.0 | **Flat riddle endings** — no trailing `?`, command not invitation | Veo 3.1's Tagalog question intonation sounded inviting; generated riddles now close flat on a period (`Ano ito.`), while your pasted riddles stay verbatim |
 
 ## The pattern worth naming
 
