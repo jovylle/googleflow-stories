@@ -599,6 +599,21 @@ need_not "$BUILD" "storyboard image" "no storyboard-image permission survives"
 need_not "$BUILD" "visual-style reference grid" "no style-grid wording survives"
 echo
 
+# ------------------------------------------------------- 31. riddle spoken only
+# The live run displayed the locked riddle as on-screen text. 08:53's "counts as
+# explicitly supplied speech" licensed it. Guards pin the re-scope (speech, never
+# text), the standalone rule, and the checklist mirror. The need_not trap fires
+# pre-edit on the old sentence and flips green with its removal — that flip is
+# the proof.
+echo "31. Riddle spoken-only"
+need "$BUILD" "counts as supplied speech for the clip that delivers it" "speech authorization is re-scoped"
+need "$BUILD" "spoken-only" "the spoken-only label survives the build"
+need "$BUILD" "never as on-screen text, subtitles, captions, or overlays" "the riddle-text ban survives the build"
+need "$MODULES/08-video-prompt.md" "and nothing else — it is spoken-only" "re-scope sentence in module 08"
+need "$MODULES/16-checklist.md" "delivered as Teller speech only" "checklist mirrors the rule"
+need_not "$BUILD" "counts as explicitly supplied speech" "old licensing sentence retired"
+echo
+
 echo "----------------------------------------"
 echo "checks: $CHECKED   failed: $FAILED"
 [ "$FAILED" -eq 0 ] && echo "validate: PASS" || echo "validate: FAIL"

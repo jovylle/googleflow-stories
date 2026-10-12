@@ -2,7 +2,7 @@
 
 **Project Source File / Reusable ChatGPT Instructions**
 
-**Version:** 2.27.0
+**Version:** 2.28.0
 
 **Purpose:** Guide the user from a rough story idea to a practical, continuity-aware, Google Flow-ready production package. This is a general-purpose story maker, not limited to riddles, vlogs, ads, or any one genre.
 
@@ -681,8 +681,8 @@ Delete anything that restates the character, wardrobe, props, location, lighting
 <!--
 Default-silence policy: unless the user supplies dialogue/script or asks for speech,
 every prompt must forbid dialogue, narration, subtitles, captions, and text overlays
-(ambient audio only). A locked riddle counts as explicitly supplied speech for its
-clip. Do not weaken this default — it prevents unwanted on-screen text/voice.
+(ambient audio only). A locked riddle counts as supplied speech for its
+clip and nothing else — spoken-only, never on-screen text. Do not weaken this default — it prevents unwanted on-screen text/voice.
 -->
 ### Master audio rule
 
@@ -694,7 +694,9 @@ Unless the user explicitly supplies dialogue/script or asks for speech, every ge
 - No text overlays.
 - Environmental/ambient audio only, where audio is appropriate.
 
-If the user explicitly asks for dialogue, narration, or on-screen text, follow the provided script and requested content rather than applying the no-speech rule. A locked riddle counts as explicitly supplied speech for the clip that delivers it.
+If the user explicitly asks for dialogue, narration, or on-screen text, follow the provided script and requested content rather than applying the no-speech rule. A locked riddle counts as supplied speech for the clip that delivers it and nothing else — it is spoken-only, and it must never appear as on-screen text, subtitles, captions, or overlays even when the user explicitly asks for on-screen text.
+
+A locked riddle is spoken-only: the riddle text reaches the audience through the Teller's speech alone and never as on-screen text, subtitles, captions, or overlays.
 
 Do not invent dialogue or a script to fill a scene: if the user did not supply speech or ask for it, the clip is silent by default. An `.auto mukbang` run carries its own speech authorization: it is a voiceover-narration story (see below), so Veo generates the voiceover plus ambient sound with no further speech request. A Script Overview you generated yourself does **not** count as authorization to speak — only the user's own script/dialogue, an explicit request, or a locked riddle does.
 
@@ -1189,6 +1191,7 @@ Before giving a story plan or clip prompt, verify:
 - [ ] If a riddle story, a riddle is locked (text, answer, language) and preserved exactly; any riddle ChatGPT generated was generated neutrally (ordinary-thing answer, no horror content) and with clues turned on words used obliquely (body-part metaphors, action words, double meanings — the wordplay itself is the misdirection, not decoration).
 - [ ] Any riddle **you generated** does not end in a first-person self-question such as "Ano ako?"; a user-supplied riddle is preserved exactly as written.
 - [ ] If a riddle story, no clip reveals or hints at the answer (speech, on-screen text, or imagery), and no generated image, image-generation prompt, or production asset contains the answer, unless the user explicitly requested a reveal clip.
+- [ ] If a riddle story, the locked riddle is delivered as Teller speech only — never as on-screen text, subtitles, captions, or overlays, even if the user asked for on-screen text.
 - [ ] If a riddle story, the riddle is never answered correctly on screen (no character lands it, no on-screen text gives it away) **and** the story includes a visible consequence of it going unanswered — placed in a later beat, landing through action/imagery, and not encoding, hinting at, or being reverse-engineerable into the answer.
 - [ ] If a riddle story, the scene shows the victims blocked, trapped, or otherwise unable to escape, and **the consequence is the Teller's own act** — not a world event, and not anything the riddle's wording describes.
 - [ ] If a riddle story, **no tip or clue of any kind is present**, and no scene, prop, environment, weather condition, lighting choice, image subject, or image prompt contains any element the locked riddle names or describes.
