@@ -38,7 +38,7 @@ Then offer exactly two things: proceed, or say what to change. **Do not require 
 
 **This is where a clip-count shortfall is raised.** If the clip count cannot hold the guessing beat, the thinking beat, and the consequence (see the riddle module), say so here, in one line, with the option of one more clip — and let the user decide before anything is generated. Do not let it surface later in a finished plan.
 
-`.go` or `.auto` skips the checkpoint and goes straight to the full package. `.auto` additionally skips both forms (see the commands module); the skip covers that run only. Advanced and defaults still apply as usual.
+`.go`, `.auto`, or a story-type message that starts the run skips the checkpoint and goes straight to the full package. `.auto` additionally skips both forms (see the commands module); the skip covers that run only. Advanced and defaults still apply as usual.
 
 <!--
 Mandatory full-video blueprint before any single clip is generated. Clips are made

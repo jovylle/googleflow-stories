@@ -543,6 +543,27 @@ need "$BUILD" "no consequence starts before the final clip" "the rule survives t
 need_not "$MODULES/05-story-planning.md" "Clip 2 is the thinking beat" "no hard clip-number pinning"
 echo
 
+# ------------------------------------------------------- 28. story-type trigger
+# Naming the product type as a request IS the .auto authorization — no .start or
+# typed .auto required. Guards pin the numbered trigger cases, the Tagalog form,
+# the never-triggers list incl. the mid-run carve-out, and trap always-trigger
+# and bare-attachment-starts readings (the v2.15.0 hole in mirror image).
+echo "28. Story-type trigger"
+need "$BUILD" "naming the story type outright" "the trigger is stated in request form"
+need "$BUILD" "No \`.start\` and no typed \`.auto\` is required" "no literal command required"
+need "$BUILD" "horror na bugtong" "the Tagalog type form triggers"
+need "$BUILD" "a bare attachment with no request" "bare attachments are excluded"
+need "$BUILD" "a question or opinion ask" "questions are excluded"
+need "$BUILD" "it is a Form 1 answer or an overview change" "mid-run mentions are carved out"
+need "$MODULES/02-role.md" "typed literally" "the literal case is named"
+need "$MODULES/02-role.md" "it starts the run" "type words start a run, never hijack one"
+need "$MODULES/16-checklist.md" "incl. a story-type message" "the checklist names the trigger"
+need "$MODULES/16-checklist.md" "a bare attachment or a question never did" "the checklist bars false triggers"
+need "$BUILD" "is manual input, not an auto run" "bare input stays manual"
+need_not "$BUILD" "story-type words always trigger" "no always-trigger reading"
+need_not "$BUILD" "a bare attachment starts the auto path" "attachments never start a run"
+echo
+
 echo "----------------------------------------"
 echo "checks: $CHECKED   failed: $FAILED"
 [ "$FAILED" -eq 0 ] && echo "validate: PASS" || echo "validate: FAIL"
