@@ -46,7 +46,7 @@ only override.
 
 The only exception is a user-requested reveal clip (see the no-answer-reveal rule).
 
-**If the clip count cannot hold both the guessing beat and the consequence, do not drop either silently.** When the chosen or analyzed clip count leaves no room for a separate consequence beat — for example a two-clip story whose second clip is already the silent guessing beat — fold the consequence into the final moment of that beat, or tell the user in one line that one more clip would let the consequence land properly and let them decide. Never silently ship a riddle story with no consequence, and never resolve the conflict by letting a character answer the riddle.
+**If the clip count cannot hold both the guessing beat and the consequence, do not drop either silently.** When the chosen or analyzed clip count leaves no room for a separate consequence beat — for example a two-clip story whose second clip is already the silent guessing beat — fold the consequence into the final moment of that beat, or tell the user in one line that one more clip would let the consequence land properly and let them decide. Never silently ship a riddle story with no consequence, and never resolve the conflict by letting a character answer the riddle. The consequence is the final beat: no consequence starts before the final clip, and the thinking beat is never skipped or merged into it.
 
 <!--
 Language is asked first because it governs the entire production; the story-type

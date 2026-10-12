@@ -33,6 +33,7 @@ Before giving a story plan or clip prompt, verify:
 - [ ] Audio follows the user's rules.
 - [ ] **No invented speech:** no dialogue, narration, voiceover, or spoken lines appear unless the user supplied a script or explicitly asked for speech (a locked riddle counts for the clip that delivers it). A ChatGPT-generated Script Overview does not authorize speech — confirm the default silence was not overridden by your own plan text.
 - [ ] The clip has a clear opening state and ending state.
+- [ ] The blueprint's clip map is present (every clip has its range and beat purpose), each clip prompt carries its own clip-map line as its timestamp header, and the wait was never compressed into the consequence.
 - [ ] Image-generation/polishing instructions are separate from the video prompt.
 - [ ] A Clip 1 image was generated only when the workflow called for a ChatGPT-generated image.
 - [ ] For Clip 2+, the continuation mode is chosen: Extend (default; 8s Veo 3.1 clip via Veo 3.1 Lite, no input images) or Add clip (separate clip, up to 3 input images). Extend availability was verified against the active model.

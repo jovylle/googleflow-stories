@@ -522,6 +522,27 @@ need_not "$MODULES/03-riddle-prephase.md" "apply the mood to the" "no mood-into-
 need_not "$MODULES/03-riddle-prephase.md" "dread lives in the phrasing" "no dread-in-the-wording claim remains"
 echo
 
+# ------------------------------------------------------- 27. allocated timestamps
+# The thinking beat collapsed because the pause had no timestamps to hold it.
+# Guards pin: the blueprint clip map, the nominal-span hedge, the position-based
+# thinking beat, the final-clip consequence rule (+03 mirror), the prompt header
+# (+08), the checklist mirror, and the trap against hard clip-number pinning.
+echo "27. Allocated timestamps"
+need "$MODULES/05-story-planning.md" "Clip N of M, timestamp range, one-line beat purpose" "the blueprint clip map has a per-clip line format"
+need "$MODULES/05-story-planning.md" "Timestamps are nominal block spans, not exact durations" "timestamps are hedged as nominal spans"
+need "$MODULES/05-story-planning.md" "A middle clip may be a thinking beat" "the thinking beat is defined by position, not number"
+need "$MODULES/05-story-planning.md" "no consequence starts before the final clip" "the consequence is held to the final clip"
+need "$MODULES/05-story-planning.md" "do not compress them into one" "wait and consequence cannot share a block"
+need "$MODULES/05-story-planning.md" "offer one more clip in one line at the Story Overview checkpoint" "the shortfall offer names its site"
+need "$MODULES/03-riddle-prephase.md" "no consequence starts before the final clip" "the riddle module mirrors the final-clip rule"
+need "$MODULES/08-video-prompt.md" "begin each independently generated clip prompt with its clip-map line" "each prompt carries its timestamp header"
+need "$MODULES/08-video-prompt.md" "do not put timestamps inside a shot description" "timestamps stay planning-level"
+need "$MODULES/16-checklist.md" "clip map is present" "the checklist mirrors the clip-map rule"
+need "$MODULES/16-checklist.md" "carries its own clip-map line as its timestamp header" "the checklist mirrors the prompt header rule"
+need "$BUILD" "no consequence starts before the final clip" "the rule survives the build"
+need_not "$MODULES/05-story-planning.md" "Clip 2 is the thinking beat" "no hard clip-number pinning"
+echo
+
 echo "----------------------------------------"
 echo "checks: $CHECKED   failed: $FAILED"
 [ "$FAILED" -eq 0 ] && echo "validate: PASS" || echo "validate: FAIL"
