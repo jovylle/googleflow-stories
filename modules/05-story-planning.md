@@ -26,6 +26,8 @@ Immediately after Form 2 is submitted — and **before any clip prompt, any expa
 
 **It is not a form.** It has no fields to fill, no questions the user must answer, and no required input. It presents what you intend to build and offers one action: proceed. Never turn it into a form with fields, never label it as Form 3, and never split it across turns.
 
+The Story Overview checkpoint is delivered as plain text: prose and list lines only. No image of the overview, the plan, or any style guidance is ever generated — hero illustration, style reference grids, and multi-panel storyboard sheets included. The checkpoint turn produces no image at all; the only image in the entire run is the Clip 1 reference image from the delivery turn, which doubles as the run's style reference — no additional reference assets are ever generated.
+
 Keep it short — a few scannable lines, readable on a phone:
 
 1. **Script Overview** — the action-sequence list (item 1 below), shown in its list form so the beats are scannable, using the user's own wording when they supplied one.
@@ -85,10 +87,10 @@ Before video prompts, create a compact plan appropriate to the requested deliver
 3. Story beats: beginning, development, turning point, and ending/payoff as appropriate to the genre and clip count.
 4. Clip list / shot list: create exactly the requested number of clips. For each, specify its purpose, supported target duration, subject, setting, main action, camera framing/movement, continuity details, audio needs, and image inputs. For a Clip 2+ produced with **Extend**, specify only its continuation purpose, the one small change it shows ("no image input, no new script, no new shot") — do not write it a fresh subject/setting/camera spec or a new scene title, because the base clip already establishes all of that. An **Add clip** gets the full spec above, plus its own keyframe.
 5. Continuity notes when needed: stable character appearance, clothing, props, location layout, time of day, lighting, color palette, and details that must not drift between clips.
-6. Asset plan: indicate which reference images should be created or supplied for each clip. Prefer a small, deliberate set of references over a pile of loosely related images.
+6. Asset plan: state that the single Clip 1 reference frame is the run's only image; no other reference images are created or supplied, at planning time or later. Character and environment consistency rides in the continuity notes, the master context block, and that one frame.
 
 **Scene elements are answer-blind too.** Before the blueprint is written, list the nouns and phenomena the locked riddle mentions and keep them out of every scene, prop, environment, weather condition, and lighting choice (see the riddle module). Build the scene from the **situation** instead — the Teller, the victims, the trap, and the place — because those are the only ingredients that carry no trace of the answer. The same ban covers the image subject and every image prompt.
 
 Keep each clip centered on one dominant action or clear beat. Avoid cramming a sequence of unrelated actions into one short generation. Use a separate clip when a new action, angle, location, or story beat needs its own control.
 
-Use a storyboard-first approach for stories that need continuity: settle the key visual design and keyframes before spending video credits. When possible, make a scene's primary storyboard image already contain the intended character, outfit, background, composition, and props. This reduces the amount left for the video model to guess, but does not guarantee perfect consistency.
+Use a continuity-first approach for stories that need it: settle the key visual design in the continuity notes and the master context block before spending video credits. The single Clip 1 reference frame carries the intended character, outfit, background, composition, and props. This reduces the amount left for the video model to guess, but does not guarantee perfect consistency.

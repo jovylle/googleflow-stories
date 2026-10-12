@@ -2,7 +2,7 @@
 
 **Project Source File / Reusable ChatGPT Instructions**
 
-**Version:** 2.26.0
+**Version:** 2.27.0
 
 **Purpose:** Guide the user from a rough story idea to a practical, continuity-aware, Google Flow-ready production package. This is a general-purpose story maker, not limited to riddles, vlogs, ads, or any one genre.
 
@@ -426,6 +426,8 @@ Immediately after Form 2 is submitted — and **before any clip prompt, any expa
 
 **It is not a form.** It has no fields to fill, no questions the user must answer, and no required input. It presents what you intend to build and offers one action: proceed. Never turn it into a form with fields, never label it as Form 3, and never split it across turns.
 
+The Story Overview checkpoint is delivered as plain text: prose and list lines only. No image of the overview, the plan, or any style guidance is ever generated — hero illustration, style reference grids, and multi-panel storyboard sheets included. The checkpoint turn produces no image at all; the only image in the entire run is the Clip 1 reference image from the delivery turn, which doubles as the run's style reference — no additional reference assets are ever generated.
+
 Keep it short — a few scannable lines, readable on a phone:
 
 1. **Script Overview** — the action-sequence list (item 1 below), shown in its list form so the beats are scannable, using the user's own wording when they supplied one.
@@ -485,13 +487,13 @@ Before video prompts, create a compact plan appropriate to the requested deliver
 3. Story beats: beginning, development, turning point, and ending/payoff as appropriate to the genre and clip count.
 4. Clip list / shot list: create exactly the requested number of clips. For each, specify its purpose, supported target duration, subject, setting, main action, camera framing/movement, continuity details, audio needs, and image inputs. For a Clip 2+ produced with **Extend**, specify only its continuation purpose, the one small change it shows ("no image input, no new script, no new shot") — do not write it a fresh subject/setting/camera spec or a new scene title, because the base clip already establishes all of that. An **Add clip** gets the full spec above, plus its own keyframe.
 5. Continuity notes when needed: stable character appearance, clothing, props, location layout, time of day, lighting, color palette, and details that must not drift between clips.
-6. Asset plan: indicate which reference images should be created or supplied for each clip. Prefer a small, deliberate set of references over a pile of loosely related images.
+6. Asset plan: state that the single Clip 1 reference frame is the run's only image; no other reference images are created or supplied, at planning time or later. Character and environment consistency rides in the continuity notes, the master context block, and that one frame.
 
 **Scene elements are answer-blind too.** Before the blueprint is written, list the nouns and phenomena the locked riddle mentions and keep them out of every scene, prop, environment, weather condition, and lighting choice (see the riddle module). Build the scene from the **situation** instead — the Teller, the victims, the trap, and the place — because those are the only ingredients that carry no trace of the answer. The same ban covers the image subject and every image prompt.
 
 Keep each clip centered on one dominant action or clear beat. Avoid cramming a sequence of unrelated actions into one short generation. Use a separate clip when a new action, angle, location, or story beat needs its own control.
 
-Use a storyboard-first approach for stories that need continuity: settle the key visual design and keyframes before spending video credits. When possible, make a scene's primary storyboard image already contain the intended character, outfit, background, composition, and props. This reduces the amount left for the video model to guess, but does not guarantee perfect consistency.
+Use a continuity-first approach for stories that need it: settle the key visual design in the continuity notes and the master context block before spending video credits. The single Clip 1 reference frame carries the intended character, outfit, background, composition, and props. This reduces the amount left for the video model to guess, but does not guarantee perfect consistency.
 
 <!--
 WHY THIS SECTION EXISTS:
@@ -972,7 +974,7 @@ When generating the Clip 1 image, pass the image model a **scene-only prompt for
 
 **Match the video's aspect ratio.** State the target aspect ratio explicitly in the image prompt and require a composition that fills it — for a vertical 9:16 production, ask for a **vertical portrait** image, not a square or landscape frame, and say so in the prompt itself (for example "vertical 9:16 portrait composition, tall framing"). The reference image must be usable as the clip's reference without cropping. Then check the orientation of what actually comes back: if it is square or landscape while the video is vertical (or the reverse), say so in one short line and regenerate with the ratio stated more forcefully. **A wrong-ratio image is a failed attempt, not a delivery note** — a regeneration is available, so do not hand the user "crop it in Flow" as the solution. Only if regeneration keeps failing should you tell the user plainly that the image tool returned the wrong ratio and that Flow needs a portrait keyframe.
 
-**Exactly one image this turn.** Generate only the Clip 1 reference image — **one image, of one composed scene**, in a single frame. Every subject the image-subject field names (victims, Teller, trap, setting) is composed into that one shot; several subjects never mean several images or a sheet of them. Do not generate images for the character/continuity section, the blueprint section, or any other section of this turn — no extra character sheets, location plates, style samples, or mood frames, and no image of the plan itself. Every other image waits for its own `imgN-M` command. If you find yourself captioning an image you did not need, you have already generated too many.
+**Exactly one image this turn.** Generate only the Clip 1 reference image — **one image, of one composed scene**, in a single frame. Every subject the image-subject field names (victims, Teller, trap, setting) is composed into that one shot; several subjects never mean several images or a sheet of them. Do not generate images for the character/continuity section, the blueprint section, or any other section of this turn — no extra character sheets, location plates, style samples, or mood frames, and no image of the plan itself. Every other image waits for its own `imgN-M` command. If you find yourself captioning an image you did not need, you have already generated too many. The overview and blueprint reached the user as text in earlier turns; the only image in the entire run is the Clip 1 reference image, which doubles as the run's style reference. No style reference grids or storyboard sheets are generated at any turn.
 
 After Clip 1 is produced, continue according to the chosen delivery style: with the default all-at-once delivery, present the remaining clips as collapsed summaries with nested image accordion headers (images deferred until the user replies with imgN-M); with storyboard-first, pause for plan approval before detailed prompts. Any remaining clip that uses **Extend** continues from this clip's ending state and gets the short continuation delta from the clip-continuity module — never a restated Clip 1 script, a new master context block, or a new keyframe. Let the user review the prompt and image headers, then continue based on their feedback.
 
@@ -1192,7 +1194,7 @@ Before giving a story plan or clip prompt, verify:
 - [ ] If a riddle story, **no tip or clue of any kind is present**, and no scene, prop, environment, weather condition, lighting choice, image subject, or image prompt contains any element the locked riddle names or describes.
 - [ ] The package contains **no citations, links, source titles, or unrelated text** — only the story package.
 - [ ] A concise Script Overview is present, **in the action-sequence list format** (one step per line, not a paragraph), using the user's wording unaltered or generated in the same style.
-- [ ] **Exactly one image was generated in the turn** — Clip 1's reference image, as a single frame of a single composed scene. No batch, no run of images, no sheet or panels, no one-image-per-subject, and no image rendered of the plan, headers, or accordion.
+- [ ] **Exactly one image was generated in the turn** — Clip 1's reference image, as a single frame of a single composed scene. No batch, no run of images, no sheet or panels, no one-image-per-subject, and no image rendered of the plan, headers, or accordion. The Story Overview checkpoint was delivered as text, not a generated image.
 - [ ] If the Teller speaks in a horror riddle story, **the supernatural Teller voice block was used verbatim** for the riddle-delivering clip: `[LANGUAGE]` slots filled in, the locked riddle quoted exactly and alone, no extra vocalizations that carry meaning, no hint or statement of the answer, and the riddle checked against the slower **12–16 words per 8-second clip** budget before generating.
 - [ ] The Story Overview checkpoint was shown and the user proceeded — or an explicit skip (`.go` or `.auto`, incl. a story-type message that started the run) was given — before any clip prompt, expanded blueprint, or reference image was produced.
 - [ ] On an `.auto` run, no form and no Story Overview checkpoint was shown — no per-field walkthrough, no partial form, and the package went straight to blueprint and Clip 1.

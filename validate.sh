@@ -580,6 +580,25 @@ need_not "$MODULES/03-riddle-prephase.md" "words chosen for spookiness" "indirec
 need_not "$BUILD" "clues may directly name the answer" "no direct-description reading survives"
 echo
 
+# ------------------------------------------------------- 30. overview text only
+# The live run rendered the overview itself as a hero+grid+storyboard sheet with
+# the locked riddle as readable text. The one-image rule never contemplated the
+# overview being an image. Guards pin: overview is text, the three banned shapes
+# named, the checkpoint turn imageless, Clip 1 the run's sole image, checklist
+# mirror. Traps: "storyboard image" must vanish with the 05 rewrite it came from;
+# "visual-style reference grid" is preventive (no literal licensed the sheet).
+echo "30. Overview text-only"
+need "$BUILD" "The Story Overview checkpoint is delivered as plain text" "overview is text-only in the build"
+need "$BUILD" "hero illustration" "the hero shape is named"
+need "$BUILD" "multi-panel storyboard sheets" "the storyboard shape is named"
+need "$MODULES/05-story-planning.md" "storyboard sheets included" "storyboard sheets banned in planning"
+need "$MODULES/05-story-planning.md" "No image of the overview" "planning bans an overview image"
+need "$MODULES/10-clip1-final.md" "the only image in the entire run is the Clip 1 reference image" "Clip 1 states the run's sole image"
+need "$MODULES/16-checklist.md" "not a generated image" "checklist verifies text delivery"
+need_not "$BUILD" "storyboard image" "no storyboard-image permission survives"
+need_not "$BUILD" "visual-style reference grid" "no style-grid wording survives"
+echo
+
 echo "----------------------------------------"
 echo "checks: $CHECKED   failed: $FAILED"
 [ "$FAILED" -eq 0 ] && echo "validate: PASS" || echo "validate: FAIL"
