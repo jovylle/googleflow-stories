@@ -8,12 +8,12 @@ versions share), and only the `specs/` file for whatever you are about to change
 
 | Repo | Version | Branch / HEAD | Checks | Remote |
 |---|---|---|---|---|
-| `lab/googleflow-stories` (**canonical rules** — you are here) | **2.32.0** | `dev` / `1669843` | `./validate.sh` → **303 / 0** | GitHub `jovylle/googleflow-stories`, `master` at `05d81ec` (v2.21.0 release merge), `dev` eleven ahead |
+| `lab/googleflow-stories` (**canonical rules** — you are here) | **2.33.0** | `dev` / `aa75e38` | `./validate.sh` → **324 / 0** | GitHub `jovylle/googleflow-stories`, `master` at `05d81ec` (v2.21.0 release merge), `dev` twelve ahead |
 | `lab/flow-story-gpt` (distilled ChatGPT pack) | 1.0.0 | `master` / `5bb876c` | `./validate-gpt.sh` → 28 / 0 | **none — local only** |
 | `lab/flow-story-gem` (Gemini + hand-over zip) | 1.0.0 | `master` / `6c3d417` | `./validate-gem.sh` → 36 / 0 | **none — local only** |
 
-Canonical artifact: `build/google-flow-story-maker.md`, **1,251 lines / 158,018 chars**, working tree
-clean. `master` is at `05d81ec` (v2.21.0, released 2026-10-12 by merging `dev`) and is **eleven versions behind `dev`**.
+Canonical artifact: `build/google-flow-story-maker.md`, **1,253 lines / 159,927 chars**, working tree
+clean. `master` is at `05d81ec` (v2.21.0, released 2026-10-12 by merging `dev`) and is **twelve versions behind `dev`**.
 
 ### Version chain since v2.12.0 (all on `dev`)
 
@@ -39,6 +39,7 @@ clean. `master` is at `05d81ec` (v2.21.0, released 2026-10-12 by merging `dev`) 
 | 2.30.0 | `1697e78` | Flat riddle endings: generated riddles never end with `?` — the Teller issues a challenge, not an invitation; user riddles stay verbatim |
 | 2.31.0 | `3205861` | Riddle variety: the same eight-noun example list appeared twice and read as a menu — the pool is widened and named as illustrations, answers must be unique within a batch, and a re-roll differs in answer, not wording |
 | 2.32.0 | `1669843` | `.revise` single-item revision: one item changes, everything else stays locked, only the deliverables carrying it are re-emitted — a local change (riddle text) reprints just the clip that speaks it, while character/art style also regenerate the Clip 1 reference image |
+| 2.33.0 | `aa75e38` | Reference-image binding: every independently generated clip prompt names its image and must match its medium, render quality, palette, lighting, and grade; a supplied photo stays photographic; an Extend delta carries no image binding (its inheritance is the contract) |
 
 ## What to do next, in order
 
@@ -50,6 +51,8 @@ clean. `master` is at `05d81ec` (v2.21.0, released 2026-10-12 by merging `dev`) 
    timestamped clip map with the wait in its own clip.
    Then say `mukbang` with a photo (expect ASMR eating sounds, no talking). After any of it is planned,
    try `.revise riddle <new text>` and check that only the riddle-bearing clip prompt comes back.
+   Check the clip prompts carry their timestamp header, an audio line, and the reference-image binding
+   (medium, palette, lighting, grade).
    This is the only step that produces evidence.
 2. **Calibrate the heavy-voice word budget.** v2.21.0 set it to **12–16 words per 8-second clip**
    from the voice's stated pace (~1.5–2 words/sec), not from a timing. Ask the user for the riddle's
@@ -94,7 +97,7 @@ clean. `master` is at `05d81ec` (v2.21.0, released 2026-10-12 by merging `dev`) 
 ```bash
 cd /Volumes/DevSSD/fore/lab/googleflow-stories
 printf '2.22.0\n' > version.txt   # bump first; the build substitutes {{VERSION}}
-./build.sh && ./validate.sh       # 303 checks today (plus docs/HANDOFF.md freshness)
+./build.sh && ./validate.sh       # 324 checks today (plus docs/HANDOFF.md freshness)
 
 # while working on one area, read only the new section's red:
 ./validate.sh 2>&1 | sed -n '/^23\./,$p'

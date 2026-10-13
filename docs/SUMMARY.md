@@ -1,6 +1,6 @@
 # Google Flow Story Maker — Status Summary
 
-*As of v2.32.0 · 2026-10-13 · branch `dev`*
+*As of v2.33.0 · 2026-10-13 · branch `dev`*
 
 ## What it is
 
@@ -57,6 +57,7 @@ modules/*.md   →   build.sh   →   build/google-flow-story-maker.md   →   p
 | v2.30.0 | **Flat riddle endings** — no trailing `?`, command not invitation | Veo 3.1's Tagalog question intonation sounded inviting; generated riddles now close flat on a period (`Ano ito.`), while your pasted riddles stay verbatim |
 | v2.31.0 | **Riddle variety** — the example list stopped being a menu | The same eight-noun list appeared twice in the generator rules, so every batch came back alike; the pool is now widened and explicitly non-exhaustive, answers must differ within a batch, and a re-roll differs in answer, not wording |
 | v2.32.0 | **`.revise` single-item revision** — change one item, get only the affected prompts | Late changes meant re-printing the package; now `.revise <item>` keeps everything locked and re-emits only what carries the change — a riddle swap reprints just the clip that speaks it, a character or art-style change re-emits the clip prompts and regenerates the Clip 1 reference image |
+| v2.33.0 | **Reference-image binding** — the video must look like the image you gave it | Clip prompts described lighting and style in the abstract, so the video could drift from the reference image; each independently generated prompt now names its image and must match its medium, render quality, palette, lighting, and grade, a supplied photo stays photographic, and an Extend delta carries no binding because inheriting the base clip's look is the contract |
 
 ## The pattern worth naming
 
