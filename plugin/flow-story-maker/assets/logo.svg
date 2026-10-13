@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="Flow Story Maker">
+  <rect width="512" height="512" rx="96" fill="#14100E"/>
+  <circle cx="256" cy="188" r="124" fill="#E8B27D" opacity="0.12"/>
+  <circle cx="256" cy="188" r="88" fill="#E8B27D" opacity="0.26"/>
+  <path d="M256 262c30 34 46 52 46 74a46 46 0 0 1-92 0c0-22 16-40 46-74z" fill="#F2A65A"/>
+  <path d="M0 388l104-72 84 52 98-84 114 80 112-48v196H0z" fill="#2A2320"/>
+  <path d="M0 436l96-48 114 56 108-68 112 64 82-32v104H0z" fill="#3A2E28"/>
+  <path d="M256 348c0 0-30 34-30 56a30 30 0 0 0 60 0c0-22-30-56-30-56z" fill="#E8B27D" opacity="0.9"/>
+</svg>

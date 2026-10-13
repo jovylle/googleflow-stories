@@ -8,7 +8,7 @@ versions share), and only the `specs/` file for whatever you are about to change
 
 | Repo | Version | Branch / HEAD | Checks | Remote |
 |---|---|---|---|---|
-| `lab/googleflow-stories` (**canonical rules** — you are here) | **2.33.0** | `dev` / `aa75e38` | `./validate.sh` → **324 / 0** | GitHub `jovylle/googleflow-stories`, `master` at `05d81ec` (v2.21.0 release merge), `dev` twelve ahead |
+| `lab/googleflow-stories` (**canonical rules** — you are here) | **2.33.0** | `dev` / `aa75e38` | `./validate.sh` → **331 / 0** | GitHub `jovylle/googleflow-stories`, `master` at `05d81ec` (v2.21.0 release merge), `dev` twelve ahead |
 | `lab/flow-story-gpt` (distilled ChatGPT pack) | 1.0.0 | `master` / `5bb876c` | `./validate-gpt.sh` → 28 / 0 | **none — local only** |
 | `lab/flow-story-gem` (Gemini + hand-over zip) | 1.0.0 | `master` / `6c3d417` | `./validate-gem.sh` → 36 / 0 | **none — local only** |
 
@@ -41,6 +41,27 @@ clean. `master` is at `05d81ec` (v2.21.0, released 2026-10-12 by merging `dev`) 
 | 2.32.0 | `1669843` | `.revise` single-item revision: one item changes, everything else stays locked, only the deliverables carrying it are re-emitted — a local change (riddle text) reprints just the clip that speaks it, while character/art style also regenerate the Clip 1 reference image |
 | 2.33.0 | `aa75e38` | Reference-image binding: every independently generated clip prompt names its image and must match its medium, render quality, palette, lighting, and grade; a supplied photo stays photographic; an Extend delta carries no image binding (its inheritance is the contract) |
 
+## Public ChatGPT plugin (`plugin/`)
+
+The public-directory plugin package lives here and embeds a generated copy of this artifact.
+
+- **Package:** `plugin/flow-story-maker/` — portable Agent Plugins manifest (`plugin.json`), two skills
+  (`flow-story-maker` + the `get-started` onboarding skill), square SVG icons, and
+  `skills/flow-story-maker/references/gfs-instructions.md` (the generated rulebook).
+- **Build:** `./plugin/build-plugin.sh` — rebuilds the pack, stamps the plugin version from `version.txt`
+  (pack and plugin versions move together), refreshes the embedded copy, writes
+  `plugin/dist/flow-story-maker-<version>.zip` (only the current version's ZIP is kept).
+- **Validate:** `./plugin/validate-plugin.sh` (49 checks) — manifest field limits, icon rules, skills
+  layout, brand-colour contrast, freshness, secret hygiene, ZIP contents. Guarded by `validate.sh` §37
+  so the package cannot rot silently.
+- **Submission:** `plugin/docs/SUBMISSION.md` — portal steps plus what is still on the user: a published
+  privacy policy URL, developer verification, and confirming the dashboard's category list.
+- **Constraint that cannot be undone later:** the package stays **skills-only**. Adding an MCP server to
+  an existing skills-only plugin is not supported, and a ZIP with `hooks/` or `.app.json` cannot be
+  submitted at all. An MCP-backed version would have to be a second plugin.
+- **Naming:** deliberately `flow-story-maker` / "Flow Story Maker" — "Google" stays out of the name and
+  subtitle, and appears only as descriptive compatibility in the description.
+
 ## What to do next, in order
 
 1. **Re-paste the artifact.** The live ChatGPT project is still running **v2.12.0** — none of the twenty
@@ -61,6 +82,9 @@ clean. `master` is at `05d81ec` (v2.21.0, released 2026-10-12 by merging `dev`) 
    several modules is obeyed from whichever copy is read last.
 3. **Decide the three unactioned defects** (below). None are shipped; all were reported from live runs.
 4. **Then** rebuild the distilled packs, or accept that they are stale (see open items).
+5. **Publish the plugin when the pack is settled.** The ZIP is built and validates today; publishing
+   needs the user's verified developer identity and a published privacy policy URL first
+   (`plugin/docs/SUBMISSION.md`).
 
 ## Unactioned defects (reported from live runs, awaiting a go-ahead)
 
@@ -97,7 +121,7 @@ clean. `master` is at `05d81ec` (v2.21.0, released 2026-10-12 by merging `dev`) 
 ```bash
 cd /Volumes/DevSSD/fore/lab/googleflow-stories
 printf '2.22.0\n' > version.txt   # bump first; the build substitutes {{VERSION}}
-./build.sh && ./validate.sh       # 324 checks today (plus docs/HANDOFF.md freshness)
+./build.sh && ./validate.sh       # 331 checks today (plus docs/HANDOFF.md freshness)
 
 # while working on one area, read only the new section's red:
 ./validate.sh 2>&1 | sed -n '/^23\./,$p'

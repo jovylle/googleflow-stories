@@ -714,6 +714,65 @@ need_not "$MODULES/09-clip-continuity.md" "the Extend clip names its reference i
 need_not "$MODULES/10-clip1-final.md" "generate a style sample from the reference image" "the binding spawns no extra assets"
 echo
 
+# ------------------------------------------------------- 37. plugin package
+# The public ChatGPT plugin lives in plugin/ and embeds a generated copy of this
+# artifact. Guards: the package exists, its version tracks version.txt, the
+# embedded rulebook is fresh, each skill's frontmatter name matches its folder,
+# the package stays skills-only, and the package validator passes.
+echo "37. Plugin package"
+if [ -f "$ROOT/plugin/flow-story-maker/plugin.json" ]; then
+  pass "the plugin package exists"
+else
+  fail "plugin/flow-story-maker/plugin.json is missing"
+fi
+if [ -f "$ROOT/plugin/flow-story-maker/plugin.json" ]; then
+  PLUGIN_VERSION="$(python3 -c "import json;print(json.load(open('$ROOT/plugin/flow-story-maker/plugin.json'))['version'])" 2>/dev/null || echo unknown)"
+  PACK_VERSION="$(tr -d '[:space:]' < "$ROOT/version.txt")"
+  if [ "$PLUGIN_VERSION" = "$PACK_VERSION" ]; then
+    pass "the plugin version tracks version.txt ($PACK_VERSION)"
+  else
+    fail "plugin version $PLUGIN_VERSION does not match version.txt $PACK_VERSION — run ./plugin/build-plugin.sh"
+  fi
+fi
+PLUGIN_REF="$ROOT/plugin/flow-story-maker/skills/flow-story-maker/references/gfs-instructions.md"
+if [ -f "$PLUGIN_REF" ]; then
+  PLUGIN_TMP="$(mktemp)"
+  tail -n +5 "$PLUGIN_REF" > "$PLUGIN_TMP"
+  if diff -q "$PLUGIN_TMP" "$BUILD" >/dev/null 2>&1; then
+    pass "the plugin's embedded rulebook matches this build"
+  else
+    fail "the plugin's embedded rulebook is stale — run ./plugin/build-plugin.sh"
+  fi
+  rm -f "$PLUGIN_TMP"
+else
+  fail "the plugin's embedded rulebook is missing — run ./plugin/build-plugin.sh"
+fi
+for skill_dir in "$ROOT"/plugin/flow-story-maker/skills/*/; do
+  [ -d "$skill_dir" ] || continue
+  skill_name="$(basename "$skill_dir")"
+  declared="$(sed -n '1,20p' "$skill_dir/SKILL.md" 2>/dev/null | awk '/^name:[[:space:]]*/{print $2; exit}')"
+  if [ "$declared" = "$skill_name" ]; then
+    pass "skill $skill_name declares its own folder name"
+  else
+    fail "skill $skill_name declares '$declared' — must equal the folder name"
+  fi
+done
+if [ -e "$ROOT/plugin/flow-story-maker/mcp.json" ] || [ -e "$ROOT/plugin/flow-story-maker/.app.json" ] || [ -d "$ROOT/plugin/flow-story-maker/hooks" ]; then
+  fail "the plugin package picked up an MCP/app/hooks component — it must stay skills-only"
+else
+  pass "the plugin package is still skills-only"
+fi
+if [ -x "$ROOT/plugin/validate-plugin.sh" ]; then
+  if "$ROOT/plugin/validate-plugin.sh" >/dev/null 2>&1; then
+    pass "the plugin package validator passes"
+  else
+    fail "the plugin package validator fails — run ./plugin/validate-plugin.sh"
+  fi
+else
+  fail "plugin/validate-plugin.sh is missing or not executable"
+fi
+echo
+
 echo "----------------------------------------"
 echo "checks: $CHECKED   failed: $FAILED"
 [ "$FAILED" -eq 0 ] && echo "validate: PASS" || echo "validate: FAIL"

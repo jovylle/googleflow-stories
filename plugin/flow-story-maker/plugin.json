@@ -1,0 +1,53 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "flow-story-maker",
+  "version": "2.33.0",
+  "description": "Turns a story idea into a production-ready prompt package for Google Flow and Veo 3.1: a text-only story overview, a timestamped clip map, one reference-image prompt, and a copy-ready video prompt per clip, including a Tagalog horror-riddle path and a mukbang ASMR path.",
+  "author": {
+    "name": "Jovylle Bermudez",
+    "url": "https://jovylle.com"
+  },
+  "homepage": "https://github.com/jovylle/googleflow-stories",
+  "repository": "https://github.com/jovylle/googleflow-stories",
+  "keywords": [
+    "story",
+    "video",
+    "prompts",
+    "veo",
+    "flow",
+    "riddles",
+    "creative-writing",
+    "storyboard"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Flow Story Maker",
+        "shortDescription": "Story-to-video prompt packs",
+        "longDescription": "Flow Story Maker turns a rough story idea — or a single photo — into a production-ready prompt package for Google Flow and Veo 3.1. It runs a short two-form interview, plans the story, then delivers: a text-only story overview, a clip map with allocated timestamps, one reference-image prompt for the whole run, and a copy-ready video prompt for every clip, each carrying its own timestamp header, audio direction, and a binding to the reference image's look. Two specialised paths ship with it: a Tagalog horror-riddle story whose riddle stays spoken and never appears on screen, and a mukbang ASMR story that stays silent of speech and uses eating sounds. It also revises a single item on request — change the riddle text, or the character or art style, and it re-emits only the prompts that carry the change.\n\nIntended for creators who write video stories by hand in Flow and want continuity-safe prompts across clips, rather than a single one-off prompt.\n\nLimitations: it produces text prompts and plans only — it does not generate video, does not upload to Google Flow on the user's behalf, and does not guarantee any particular model output. It works inside the conversation; there is no account, no sign-in, and no data collection.",
+        "developerName": "Jovylle Bermudez",
+        "category": "Productivity",
+        "capabilities": [
+          "Plan multi-clip video stories with a timestamped clip map",
+          "Write Google Flow / Veo 3.1 video prompts per clip",
+          "Write Tagalog horror-riddle story packages",
+          "Write mukbang ASMR prompt packages from a food photo",
+          "Revise a single plan item and re-emit only the affected prompts"
+        ],
+        "defaultPrompt": [
+          "Plan a 3-clip Tagalog horror riddle story with a Flow prompt per clip.",
+          "Turn this food photo into a mukbang ASMR prompt package.",
+          "Revise just the riddle text and give me the updated clip prompts."
+        ],
+        "brandColor": "#8C3B2E",
+        "brandColorDark": "#E8B27D",
+        "composerIcon": "./assets/composer-icon.svg",
+        "logo": "./assets/logo.svg"
+      },
+      "onboardingSkill": "./skills/get-started/SKILL.md",
+      "publication": {
+        "release_notes": "First public release: two-form interview, text-only story overview, timestamped clip map, one reference image per run, per-clip Flow prompts with timestamp header, audio direction and reference-image binding, Tagalog horror-riddle path, mukbang ASMR path, and single-item revision."
+      }
+    }
+  }
+}

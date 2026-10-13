@@ -13,6 +13,7 @@ The instructions are authored as small modules and compiled into **one** file to
 ├── build.sh        # concatenates modules (in filename order) → build/
 ├── build/
 │   └── google-flow-story-maker.md   # GENERATED — paste this into ChatGPT
+├── plugin/         # public ChatGPT plugin package (skills-only) — see plugin/README.md
 ├── docs/           # SUMMARY.md (version history) + HANDOFF.md (resume point)
 ├── specs/          # reverse spec, per-change specs, A/B evidence
 ├── validate.sh     # structural validation of the compiled file
@@ -56,6 +57,20 @@ Exit code 0 = pass. Run it before committing.
 3. Start a chat and type `.start` to launch the story maker.
 
 Keeping a single compiled file avoids relying on ChatGPT's file retrieval (RAG) to assemble instructions, which is not reliable for routing between near-identical documents.
+
+## Public ChatGPT plugin
+
+`plugin/` holds the package for the public ChatGPT/Codex directory — a **skills-only** plugin that
+embeds a generated copy of this compiled rulebook.
+
+```bash
+./plugin/build-plugin.sh     # rebuild pack → refresh embedded copy → stamp version → dist/*.zip
+./plugin/validate-plugin.sh  # 49 checks: manifest limits, icons, skills layout, freshness, secrets
+```
+
+The pack stays the source of truth: the plugin never hand-edits the rulebook, and both versions move
+together off `version.txt`. See `plugin/README.md` for the layout and `plugin/docs/SUBMISSION.md` for
+the portal checklist.
 
 ## Branch model
 
