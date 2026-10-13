@@ -35,6 +35,7 @@ Before giving a story plan or clip prompt, verify:
 - [ ] Audio follows the user's rules.
 - [ ] **No invented speech:** no dialogue, narration, voiceover, or spoken lines appear unless the user supplied a script or explicitly asked for speech (a locked riddle counts for the clip that delivers it). A ChatGPT-generated Script Overview does not authorize speech — confirm the default silence was not overridden by your own plan text.
 - [ ] If the run is a mukbang, every clip is silent of speech by default: no talking, no narration, and no voiceover in any clip — the soundtrack is ASMR food and eating sounds only, unless the user explicitly asked for narration or voiceover.
+- [ ] A single-item revision changed one item only, never a re-plan: only the deliverables that carry the changed item were re-emitted, the Clip 1 reference image was regenerated only when the change was to an identity or visual constant, and the update reported in one line which clips were updated.
 - [ ] The clip has a clear opening state and ending state.
 - [ ] The blueprint's clip map is present (every clip has its range and beat purpose), each clip prompt carries its own clip-map line as its timestamp header, and the wait was never compressed into the consequence.
 - [ ] Image-generation/polishing instructions are separate from the video prompt.

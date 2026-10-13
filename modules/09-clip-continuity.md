@@ -55,6 +55,7 @@ An Extend clip is the *same take continued*. Its prompt is a short delta: what h
 - **No re-spoken dialogue.** Extend clips are silent (ambient audio only) unless the user explicitly asked for continued speech. Never re-print the previous clip's line, and never restate a locked riddle's text.
 - **Say what changes, then hold.** Name the one small change (a tilt of the head, magic brightening, a held pause), say to continue the previous clip's framing and camera movement, and give the ending state it settles into: "no cut, no new shot, no re-establishing." Roughly one short paragraph (about 40–70 words). If it runs longer, the length is a symptom of restating — cut it back.
 - **No image inputs.** Extend takes no reference image — do not plan, print, or generate one for it (see the image-needs summary).
+- **After a revision, the delta changes only if the frames do.** When a single item is revised — character, art style, wardrobe, or any other visual constant — re-emit the Extend clip's delta when the new trait is visible in its frames: it still restates nothing, but the changed detail now differs from its base clip. Leave every Extend prompt alone when the change is not visible in it.
 - **Self-check before shipping.** Read the prompt back and ask: *could this open a brand-new video with no Clip N?* If yes, it is a new script — strip every restated constant and rewrite it as a delta.
 
 Shape it like this (no master block, no restated identity, nothing that re-establishes the scene):

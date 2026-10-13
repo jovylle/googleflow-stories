@@ -662,6 +662,28 @@ need "$BUILD" "they are not a menu" "the variety rule survives the build"
 need_not "$BUILD" "described from the thing itself: shadow" "the menu-shaped sentence is retired"
 echo
 
+# ------------------------------------------------------- 35. single-item revision
+# The user asked to change one item (e.g. the riddle text) after everything is
+# ready and get only the affected clip prompts back — never a re-plan. Guards pin
+# the scope sentence, the two revision classes, the silent-swap test with its
+# re-seal, and the Extend coverage.
+echo "35. Single-item revision"
+need "$MODULES/01-commands.md" "apply the revision to that item only" "the one-item scope is stated"
+need "$MODULES/01-commands.md" "regenerate only the deliverables that carry the changed item" "the re-emit scope is stated"
+need "$MODULES/01-commands.md" "state in one line which clips were updated and reprint only those clip prompts" "the one-line update report is required"
+need "$MODULES/01-commands.md" "regenerates the Clip 1 reference image" "identity changes regenerate the reference image"
+need "$MODULES/03-riddle-prephase.md" "apply the swap silently if and only if the new riddle still fits the locked plan" "the silent-swap test is stated"
+need "$MODULES/03-riddle-prephase.md" "re-seal the answer and re-run the end-of-plan leak check" "a swap re-seals and re-checks for leaks"
+need "$MODULES/03-riddle-prephase.md" "A revision is not the reroll path" "revision and reroll are distinct"
+need "$MODULES/05-story-planning.md" "is never a re-plan" "planning forbids a re-plan on a revision"
+need "$MODULES/08-video-prompt.md" "re-emit the Extend clip's delta" "Extend deltas are re-emitted when visible"
+need "$MODULES/16-checklist.md" "one item only, never a re-plan" "the checklist mirrors the revision rule"
+need "$MODULES/11-output-format.md" "which clips were updated and reprint only those clip prompts" "the report shape is mirrored"
+need "$BUILD" "apply the revision to that item only" "the revision rule survives the build"
+need "$BUILD" "regenerates the Clip 1 reference image" "the image regeneration survives the build"
+need_not "$BUILD" "re-plan from scratch" "no re-plan escape hatch survives"
+echo
+
 echo "----------------------------------------"
 echo "checks: $CHECKED   failed: $FAILED"
 [ "$FAILED" -eq 0 ] && echo "validate: PASS" || echo "validate: FAIL"

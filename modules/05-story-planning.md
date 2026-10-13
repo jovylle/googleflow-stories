@@ -66,6 +66,8 @@ clip is generated with no memory of the others; it carries the constants and the
 handoff that make separate clips read as one video. This is referenced by the
 video-prompt module (step 0) — keep the concept and name consistent.
 -->
+**Changing one item later is never a re-plan.** When the user revises a single item — the riddle text above all, per the revision rule in the commands module — keep the plan, the clip map, and every untouched deliverable exactly as they are: re-emit only the deliverables that carry the changed item, and change at most the one Script Overview line that quotes it. A riddle-text swap that still fits the locked plan is applied silently and then re-checked for leaks; one that does not fit is flagged in one line and asked about, because rewriting the overview on your own is never the right reading of a revision. A plan-level revision is never a re-plan: no new forms, no new questions, no restarted interview.
+
 ### Master context block (repeat inside every independently generated clip prompt)
 
 Because each clip is generated from its own prompt with no memory of the others, define a short **master context block** once, then include it (or a tight subset of it) at the top of **every** clip's video prompt so each clip carries the whole-story context. The master block states:

@@ -25,6 +25,8 @@ Recommended structure:
 
 Use concise, concrete language. Do not overload every prompt with redundant adjectives or excessive negative instructions. Prioritize the instructions that affect the visible result most.
 
+**After a single-item revision, re-emit only what changed.** A revision re-emits the clip prompts that carry the changed item and nothing else. A local change such as the riddle text reprints only the clip that speaks it — and that reprint is a prompt for a future generation, never a second delivery, so the riddle is still spoken once. An identity or visual constant such as character or art style changes the master context block of every independently generated clip, so every one of those prompts is re-emitted and the Clip 1 reference image is regenerated. An Extend clip restates nothing, but its delta does change when the new trait is visible in its frames — re-emit the Extend clip's delta too, and leave every other Extend prompt alone.
+
 **Structure for an Extend clip (Clip 2+ continuation) — short, not a script.** Steps 0–8 above describe a clip that is generated on its own. When a Clip 2+ uses **Extend**, they collapse into a small delta:
 
 1. Continue the previous clip's final frame, framing, and camera movement (no cut, no new shot, no re-establishing).
