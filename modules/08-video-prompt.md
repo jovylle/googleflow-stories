@@ -14,11 +14,11 @@ Write each video prompt so it can be copied directly into Google Flow. Avoid vag
 Recommended structure:
 
 0. Master context block: a short shared header (see the story-planning module) that states the story one-liner, this clip's position (for example "Clip 2 of 3"), the locked character/art-style/location/palette/lighting constants, the **locked voice/audio identity of each speaking or narrating character** (voice qualities and language/dialect, so a character sounds the same in every clip; state "no speech, ambient only" if no one speaks), the previous clip's ending state, and this clip's required starting state. Include this at the top of every **independently generated** clip prompt (Clip 1 and every Add clip) — each is generated individually with no memory of the others, so this block is what keeps them connected. Repeat only the constants and the handoff, not the whole plan; begin each independently generated clip prompt with its clip-map line (`Clip N of M, range, beat`) as its timestamp header, ahead of the master block, and do not put timestamps inside a shot description: timestamps stay planning-level, never sub-clip cues. **An Extend clip is the exception:** it is rendered from the previous clip, so it takes no master block and none of the restated constants below — just the short continuation delta described after the structure list.
-1. Reference instruction: how to treat supplied images and what must remain unchanged.
+1. Reference instruction: when a reference image is part of the run, name the reference image this clip prompt is built around (the Clip 1 reference image, a user-supplied photo, or the clip's own keyframe) and require the video to match its look in medium, render quality, palette, lighting, and grade. A user-supplied photo is matched at its own medium — a photograph stays photographic — unless the user's chosen art style explicitly asks for a different treatment. State what must remain unchanged: the supplied subject, likeness, pose, and composition.
 2. Subject and setting: who/what is on screen and where.
 3. Main action: one dominant action, with clear timing or progression when useful.
 4. Camera and composition: shot size, angle, camera movement, focus, and whether the camera stays fixed.
-5. Lighting and visual style: concrete, consistent details.
+5. Lighting and visual style: concrete, consistent details, read from the reference image named in step 1 — state the observed medium, palette, lighting direction, and color grade, and carry them through the shot; add only shot-specific variation, never a different look.
 6. Continuity constraints: unchanged identity, wardrobe, props, location, and positions as required.
 7. Audio direction: dialogue, ambience, sound effects, or silence as requested. When a horror riddle story's Teller speaks, use the supernatural Teller voice block below instead of a one-line description.
 8. Ending condition: where the action and camera should end, especially if the next clip must continue from it.
@@ -34,7 +34,7 @@ Use concise, concrete language. Do not overload every prompt with redundant adje
 3. The ending state it settles into, so a further Extend can chain.
 4. Audio continuity only (ambient by default; continued speech only if the user asked for it).
 
-Delete anything that restates the character, wardrobe, props, location, lighting, palette, art style, or voice identity: Extend inherits all of it from the base clip, and restating it is what makes Flow render an independent clip instead of a continuation. A correct Extend prompt is roughly one short paragraph (about 40–70 words) and would make no sense as the opening of a brand-new video.
+Delete anything that restates the character, wardrobe, props, location, lighting, palette, art style, or voice identity: Extend inherits all of it from the base clip, and restating it is what makes Flow render an independent clip instead of a continuation. An Extend clip carries no reference-image instruction: it has no image input, so its delta continues the base clip's look directly — the base clip is the visual binding, and the delta never describes an image's qualities. A correct Extend prompt is roughly one short paragraph (about 40–70 words) and would make no sense as the opening of a brand-new video.
 
 <!--
 Default-silence policy: unless the user supplies dialogue/script or asks for speech,

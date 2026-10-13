@@ -684,6 +684,36 @@ need "$BUILD" "regenerates the Clip 1 reference image" "the image regeneration s
 need_not "$BUILD" "re-plan from scratch" "no re-plan escape hatch survives"
 echo
 
+# ------------------------------------------------------- 36. reference-image binding
+# The user asked that clip prompts follow the exact visual quality of the given
+# image. The binding was missing: step 1/step 5 said nothing about where the look
+# comes from. Guards pin the binding, the photo-stays-photographic carve-out, the
+# Extend carve-out (a binding would be a restatement in disguise), and the traps
+# against the vague wish-phrase and against spawning extra style assets.
+echo "36. Reference-image binding"
+need "$MODULES/08-video-prompt.md" "match its look in medium, render quality, palette, lighting, and grade" "the clip prompt binds to the reference image"
+need "$MODULES/08-video-prompt.md" "user-supplied photo is matched at its own medium" "a supplied photo keeps its own medium"
+need "$MODULES/08-video-prompt.md" "a photograph stays photographic" "photos are not silently stylized"
+need "$MODULES/08-video-prompt.md" "unless the user's chosen art style explicitly asks for a different treatment" "the art-style override is carved out"
+need "$MODULES/08-video-prompt.md" "read from the reference image named in step 1" "step 5 reads its look from the image"
+need "$MODULES/08-video-prompt.md" "state the observed medium, palette, lighting direction, and color grade" "the look is stated concretely"
+need "$MODULES/08-video-prompt.md" "continues the base clip's look directly" "the Extend carve-out is stated"
+need "$MODULES/08-video-prompt.md" "the delta never describes an image's qualities" "the Extend delta describes no image"
+need "$MODULES/09-clip-continuity.md" "carries no reference-image binding" "Extend carries no image binding"
+need "$MODULES/09-clip-continuity.md" "inheritance from the base clip is the visual contract" "inheritance is named the contract"
+need "$MODULES/09-clip-continuity.md" "binds to this keyframe the same way" "an Add clip binds to its own keyframe"
+need "$MODULES/10-clip1-final.md" "Clip 1's prompt binds to it directly" "Clip 1 binds to its own reference image"
+need "$MODULES/10-clip1-final.md" "it is matched as a photograph" "Clip 1 names the photo case"
+need "$MODULES/16-checklist.md" "names its reference image and requires the video to match that image's medium" "the checklist mirrors the binding"
+need "$MODULES/16-checklist.md" "carries no image binding — it continues the base clip's look" "the checklist mirrors the Extend carve-out"
+need "$BUILD" "match its look in medium, render quality, palette, lighting, and grade" "the binding survives the build"
+need "$BUILD" "a photograph stays photographic" "the photo rule survives the build"
+need_not "$BUILD" "the exact visual quality of the image shown" "the vague wish-phrase never ships"
+need_not "$MODULES/08-video-prompt.md" "stylize the supplied photo to match" "no photo-stylization permission"
+need_not "$MODULES/09-clip-continuity.md" "the Extend clip names its reference image" "Extend never names an image"
+need_not "$MODULES/10-clip1-final.md" "generate a style sample from the reference image" "the binding spawns no extra assets"
+echo
+
 echo "----------------------------------------"
 echo "checks: $CHECKED   failed: $FAILED"
 [ "$FAILED" -eq 0 ] && echo "validate: PASS" || echo "validate: FAIL"
