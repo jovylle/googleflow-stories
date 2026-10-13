@@ -8,12 +8,12 @@ versions share), and only the `specs/` file for whatever you are about to change
 
 | Repo | Version | Branch / HEAD | Checks | Remote |
 |---|---|---|---|---|
-| `lab/googleflow-stories` (**canonical rules** — you are here) | **2.30.0** | `dev` / `1697e78` | `./validate.sh` → **280 / 0** | GitHub `jovylle/googleflow-stories`, `master` at `05d81ec` (v2.21.0 release merge), `dev` nine ahead |
+| `lab/googleflow-stories` (**canonical rules** — you are here) | **2.31.0** | `dev` / `3205861` | `./validate.sh` → **289 / 0** | GitHub `jovylle/googleflow-stories`, `master` at `05d81ec` (v2.21.0 release merge), `dev` ten ahead |
 | `lab/flow-story-gpt` (distilled ChatGPT pack) | 1.0.0 | `master` / `5bb876c` | `./validate-gpt.sh` → 28 / 0 | **none — local only** |
 | `lab/flow-story-gem` (Gemini + hand-over zip) | 1.0.0 | `master` / `6c3d417` | `./validate-gem.sh` → 36 / 0 | **none — local only** |
 
-Canonical artifact: `build/google-flow-story-maker.md`, **1,240 lines / 152,142 chars**, working tree
-clean. `master` is at `05d81ec` (v2.21.0, released 2026-10-12 by merging `dev`) and is **nine versions behind `dev`**.
+Canonical artifact: `build/google-flow-story-maker.md`, **1,240 lines / 153,540 chars**, working tree
+clean. `master` is at `05d81ec` (v2.21.0, released 2026-10-12 by merging `dev`) and is **ten versions behind `dev`**.
 
 ### Version chain since v2.12.0 (all on `dev`)
 
@@ -37,13 +37,15 @@ clean. `master` is at `05d81ec` (v2.21.0, released 2026-10-12 by merging `dev`) 
 | 2.28.0 | `132d806` | Riddle spoken-only: speech authorization never authorizes text — the locked riddle reaches the audience through the Teller's voice alone, even when on-screen text is requested |
 | 2.29.0 | `cd47047` | Mukbang ASMR default: silent of speech — no talking, narration, or voiceover; soundtrack is eating sounds only unless narration is explicitly requested |
 | 2.30.0 | `1697e78` | Flat riddle endings: generated riddles never end with `?` — the Teller issues a challenge, not an invitation; user riddles stay verbatim |
+| 2.31.0 | `3205861` | Riddle variety: the same eight-noun example list appeared twice and read as a menu — the pool is widened and named as illustrations, answers must be unique within a batch, and a re-roll differs in answer, not wording |
 
 ## What to do next, in order
 
-1. **Re-paste the artifact.** The live ChatGPT project is still running **v2.12.0** — none of the eighteen
+1. **Re-paste the artifact.** The live ChatGPT project is still running **v2.12.0** — none of the nineteen
    versions of fixes above are in it. Paste `build/google-flow-story-maker.md` and just say `horror riddle`
    (no `.start` needed anymore) for a Tagalog end-to-end: neutral riddle list with oblique wordplay
-   (`mukha`/`kamay`-style clues), flat period endings, text-only overview, spoken-only riddle (never displayed),
+   (`mukha`/`kamay`-style clues), varied answers that are not the same eight every batch, flat period endings,
+   text-only overview, spoken-only riddle (never displayed),
    timestamped clip map with the wait in its own clip.
    Then say `mukbang` with a photo (expect ASMR eating sounds, no talking).
    This is the only step that produces evidence.
@@ -90,7 +92,7 @@ clean. `master` is at `05d81ec` (v2.21.0, released 2026-10-12 by merging `dev`) 
 ```bash
 cd /Volumes/DevSSD/fore/lab/googleflow-stories
 printf '2.22.0\n' > version.txt   # bump first; the build substitutes {{VERSION}}
-./build.sh && ./validate.sh       # 280 checks today (plus docs/HANDOFF.md freshness)
+./build.sh && ./validate.sh       # 289 checks today (plus docs/HANDOFF.md freshness)
 
 # while working on one area, read only the new section's red:
 ./validate.sh 2>&1 | sed -n '/^23\./,$p'
