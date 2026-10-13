@@ -56,8 +56,9 @@ Redeploy after any `site/` edit: `npx wrangler pages deploy site --project-name 
 - [x] ~~Product website, support page, terms~~ — **done**, see the table above.
 - [ ] **Developer identity verification** — must be completed in the organization settings before the
       panel will accept a submission, and it decides the developer name the directory displays.
-- [ ] **A primary listing icon** — `assets/logo.svg` is in the package, but the dashboard wants an
-      icon before submission; PNG/JPEG/WebP/SVG, square, ≥48×48, ≤5 MiB.
+- [ ] **A primary listing icon** — `assets/logo.svg` is in the package, and a 512×512 PNG rendered from
+      it is ready to upload at `plugin/dist/icon/flow-story-maker-512.png`. The dashboard also accepts
+      PNG/JPEG/WebP/SVG (square, ≥48×48, ≤5 MiB).
 - [ ] **Category** — `plugin.json` currently says `Productivity`. Confirm against the dashboard's own
       category list when you upload and correct it there if a better-fitting title exists.
 - [ ] **Country availability** and release notes — optional in the manifest
