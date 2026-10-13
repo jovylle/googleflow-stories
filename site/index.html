@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flow Story Maker — story-to-video prompt packs</title>
+<meta name="description" content="Flow Story Maker turns a story idea into a production-ready prompt package you paste into Google Flow / Veo 3.1. Skills-only ChatGPT plugin.">
+<style>
+:root{--ink:#0a0e14;--paper:#ece7dd;--muted:#a7b0bd;--accent:#E8B27D;--line:#232c3a;--card:#111722}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ink);color:var(--paper);font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px 80px}
+header.top{display:flex;flex-wrap:wrap;gap:8px 20px;align-items:baseline;justify-content:space-between;padding:22px 0;border-bottom:1px solid var(--line)}
+.wordmark{font-weight:700;font-size:18px;letter-spacing:.2px;color:var(--paper);text-decoration:none}
+.wordmark span{color:var(--accent)}
+nav.site{display:flex;flex-wrap:wrap;gap:4px 18px;font-size:14px}
+nav.site a{color:var(--muted);text-decoration:none}
+nav.site a:hover{color:var(--accent)}
+nav.site a[aria-current="page"]{color:var(--accent)}
+.label{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+h1{font-size:clamp(34px,7vw,56px);line-height:1.08;margin:26px 0 12px;letter-spacing:-.01em}
+h2{font-size:24px;margin:52px 0 10px}
+h3{font-size:17px;margin:26px 0 6px}
+p,li{color:var(--paper)}
+.muted{color:var(--muted)}
+a{color:var(--accent)}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+.hero-sub{font-size:19px;color:var(--muted);max-width:60ch}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin:26px 0 8px}
+.btn{display:inline-block;padding:12px 22px;border-radius:6px;font-weight:600;text-decoration:none}
+.btn.primary{background:var(--accent);color:#1a1206}
+.btn.ghost{border:1px solid var(--line);color:var(--paper)}
+.spec{border:1px solid var(--line);border-radius:8px;background:var(--card);margin:14px 0;overflow:hidden}
+.spec .row{display:grid;grid-template-columns:130px 1fr;gap:12px;padding:12px 16px;border-top:1px solid var(--line);font-size:15px}
+.spec .row:first-child{border-top:none}
+.spec .k{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px;color:var(--accent);padding-top:3px}
+@media(max-width:560px){.spec .row{grid-template-columns:1fr;gap:2px}}
+pre{background:#05080d;border:1px solid var(--line);border-radius:8px;padding:16px;overflow-x:auto;font-size:13.5px;line-height:1.6;color:var(--paper)}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.88em}
+pre code{color:var(--paper)}
+.hero-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:28px;align-items:start}
+@media(max-width:680px){.hero-grid{grid-template-columns:1fr}}
+.wire{border:1px solid var(--line);border-radius:8px;background:var(--card);padding:18px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px;line-height:2;color:var(--muted)}
+.wire b{color:var(--accent);font-weight:600}
+footer{margin-top:64px;padding-top:22px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
+footer nav{display:flex;flex-wrap:wrap;gap:4px 18px;margin-bottom:10px}
+footer nav a{color:var(--muted);text-decoration:none}
+footer nav a:hover{color:var(--accent)}
+ul.tight li{margin-bottom:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+<a class="wordmark" href="index.html">Flow <span>Story Maker</span></a>
+<nav class="site" aria-label="Site">
+<a href="index.html" aria-current="page">Home</a>
+<a href="privacy.html">Privacy</a>
+<a href="support.html">Support</a>
+<a href="terms.html">Terms</a>
+</nav>
+</header>
+
+<main>
+<p class="label">Skills-only ChatGPT plugin</p>
+<div class="hero-grid">
+<div>
+<h1>Flow Story Maker</h1>
+<p class="hero-sub">Story-to-video prompt packs for Google Flow / Veo 3.1. A rough idea in, a continuity-safe shooting package out.</p>
+<div class="cta-row">
+<a class="btn primary" href="#install">Install the plugin</a>
+<a class="btn ghost" href="support.html">Get help</a>
+</div>
+</div>
+<aside class="wire" aria-label="Run diagram">
+<b>run_01</b> · two-form interview<br>
+<b>run_02</b> · story overview (text)<br>
+<b>run_03</b> · clip map + timestamps<br>
+<b>run_04</b> · one reference image<br>
+<b>run_05</b> · prompt per clip → paste into Flow
+</aside>
+</div>
+
+<h2>What it does</h2>
+<p>The run goes in order, one step feeding the next:</p>
+<div class="spec">
+<div class="row"><span class="k">01 · interview</span><span>A short <strong>two-form interview</strong> — setup first, production answers second. Nothing to configure; it works inside the conversation.</span></div>
+<div class="row"><span class="k">02 · overview</span><span>A <strong>text-only story overview</strong> checkpoint: the arc, the setup, and the clip plan in a few scannable lines. Approve it or say what to change.</span></div>
+<div class="row"><span class="k">03 · clip map</span><span>A <strong>timestamped clip map</strong> — one line per clip with its beat, so you know what the run costs before a single prompt is written.</span></div>
+<div class="row"><span class="k">04 · image</span><span><strong>One reference image</strong> for the whole run — character, look, and style anchor. Never a batch.</span></div>
+<div class="row"><span class="k">05 · prompts</span><span>A <strong>copy-ready prompt per clip</strong>, each carrying its <strong>timestamp header</strong>, its <strong>audio direction</strong>, and a <strong>binding to the reference image's look</strong> so separately generated clips read as one video.</span></div>
+</div>
+
+<h2>Two specialised paths</h2>
+<div class="spec">
+<div class="row"><span class="k">riddle</span><span><strong>Tagalog horror-riddle stories.</strong> The riddle is spoken by a supernatural Teller and <strong>never appears on screen</strong>; the answer is sealed and never hinted at. The story always shows a visible consequence of the riddle going unanswered.</span></div>
+<div class="row"><span class="k">mukbang</span><span><strong>Mukbang ASMR packages</strong> from a food photo. Silent of speech — no talking, no narration, no voiceover; the soundtrack is ASMR food and eating sounds only.</span></div>
+</div>
+
+<h2>Change one thing, keep the rest</h2>
+<p><code>.revise</code> changes a single item without re-planning the run. Swap the riddle text and you get back only the prompts that quote it; change the character or art style and the affected clip prompts plus the reference image are re-emitted. Everything untouched stays locked.</p>
+
+<h2>What it does not do</h2>
+<ul class="tight">
+<li>Writes <strong>prompts and plans only</strong> — it does not generate video.</li>
+<li>Does <strong>not</strong> touch your Flow account or upload anything on your behalf.</li>
+<li><strong>No account, no sign-in.</strong> It runs inside your own ChatGPT conversation.</li>
+<li><strong>Collects nothing.</strong> See the <a href="privacy.html">privacy policy</a>.</li>
+</ul>
+
+<h2 id="install">Install</h2>
+<p>Flow Story Maker is a <strong>skills-only ChatGPT plugin</strong>, available from the public ChatGPT plugin directory. Install it there; there is nothing else to download or configure. To start a run, say what you want to make — for example <code>horror riddle story</code>, or attach a food photo and say <code>mukbang</code> — or type <code>.start</code> for the full interview.</p>
+<p>The rulebook it runs on is public: <a href="https://github.com/jovylle/googleflow-stories">github.com/jovylle/googleflow-stories</a>.</p>
+
+<h2>The shape of the output</h2>
+<p>A clip-map line reads like this (quoted from the rulebook):</p>
+<pre><code>Clip 2 of 3, 0:08–0:16, thinking beat: the victims hesitate while the Teller waits in silence</code></pre>
+<p>Each clip prompt then carries the same information in shooting form:</p>
+<pre><code>[timestamp header]   Clip N of M + nominal block span
+[look binding]       master context: character, style, palette, lighting
+[handoff]            previous clip's ending state -&gt; this clip's opening state
+[scene]              subject, action, camera
+[audio]              locked voice / silence + language</code></pre>
+</main>
+
+<footer>
+<nav aria-label="Footer">
+<a href="index.html">Home</a>
+<a href="privacy.html">Privacy</a>
+<a href="support.html">Support</a>
+<a href="terms.html">Terms</a>
+<a href="https://github.com/jovylle/googleflow-stories">GitHub</a>
+</nav>
+<p>Flow Story Maker by Jovylle Bermudez. Prompts you paste into Google Flow / Veo 3.1. Not affiliated with Google or OpenAI.</p>
+</footer>
+</div>
+</body>
+</html>
