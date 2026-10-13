@@ -1,2 +1,5 @@
 # Hermes agent working directory (plans, scratch) — not part of the product.
 .hermes/
+
+# Wrangler local state from Cloudflare Pages deploys.
+.wrangler/

@@ -61,6 +61,11 @@ The public-directory plugin package lives here and embeds a generated copy of th
   submitted at all. An MCP-backed version would have to be a second plugin.
 - **Naming:** deliberately `flow-story-maker` / "Flow Story Maker" — "Google" stays out of the name and
   subtitle, and appears only as descriptive compatibility in the description.
+- **Website:** `site/` in this repo, deployed to Cloudflare Pages project `flow-story-maker` on
+  **https://gfs.uft1.com** (landing + `/privacy` + `/support` + `/terms` — the four URLs the directory
+  asks for). Redeploy: `npx wrangler pages deploy site --project-name flow-story-maker --branch main`.
+  The landing page states plainly that the plugin is **not listed yet** — do not add an install claim
+  before the listing exists.
 
 ## What to do next, in order
 
@@ -82,8 +87,9 @@ The public-directory plugin package lives here and embeds a generated copy of th
    several modules is obeyed from whichever copy is read last.
 3. **Decide the three unactioned defects** (below). None are shipped; all were reported from live runs.
 4. **Then** rebuild the distilled packs, or accept that they are stale (see open items).
-5. **Publish the plugin when the pack is settled.** The ZIP is built and validates today; publishing
-   needs the user's verified developer identity and a published privacy policy URL first
+5. **Publish the plugin.** The package validates and the four listing URLs are live
+   (https://gfs.uft1.com — privacy `/privacy`, support `/support`, terms `/terms`). What is left is
+   developer identity verification, the dashboard's primary icon, and the ZIP upload
    (`plugin/docs/SUBMISSION.md`).
 
 ## Unactioned defects (reported from live runs, awaiting a go-ahead)

@@ -35,13 +35,27 @@ be broken by accident.
    scans must finish successfully before submitting.
 4. **Submit for review**, then choose when to publish once approved.
 
+## Live URLs (verified 2026-10-13)
+
+The listing's required URLs are all live on Cloudflare Pages (project `flow-story-maker`, custom
+domain `gfs.uft1.com`, source `site/` in this repo, commit `e8d065a`):
+
+| Listing field | URL |
+|---|---|
+| Product website | https://gfs.uft1.com/ |
+| Privacy policy | https://gfs.uft1.com/privacy |
+| Support | https://gfs.uft1.com/support |
+| Terms of service | https://gfs.uft1.com/terms |
+
+Redeploy after any `site/` edit: `npx wrangler pages deploy site --project-name flow-story-maker --branch main`
+
 ## Still needed from you (not in the package)
 
-- [ ] **A published privacy policy URL.** Required for submission. It can be short — a skills-only
-      plugin collects nothing — but it must state the categories of personal data collected (none),
-      the purpose of use, recipients, retention, and user controls.
-- [ ] Product website, support page, and terms-of-service URLs if you want them on the listing (the
-      dashboard asks for these; skills-only metadata validation does not require all four).
+- [x] ~~A published privacy policy URL~~ — **done**: https://gfs.uft1.com/privacy (states what is
+      collected: nothing; purpose, recipients, retention, and controls all covered).
+- [x] ~~Product website, support page, terms~~ — **done**, see the table above.
+- [ ] **Developer identity verification** — must be completed in the organization settings before the
+      panel will accept a submission, and it decides the developer name the directory displays.
 - [ ] **A primary listing icon** — `assets/logo.svg` is in the package, but the dashboard wants an
       icon before submission; PNG/JPEG/WebP/SVG, square, ≥48×48, ≤5 MiB.
 - [ ] **Category** — `plugin.json` currently says `Productivity`. Confirm against the dashboard's own

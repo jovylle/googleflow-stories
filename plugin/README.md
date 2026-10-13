@@ -43,7 +43,10 @@ hygiene, and the ZIP's contents.
 
 ## Publishing
 
-See `docs/SUBMISSION.md` for the portal checklist and the items that are still on you (published
-privacy policy URL, developer verification, country targeting). Short version: run both scripts,
+**Live at https://gfs.uft1.com** (source: `site/`, Cloudflare Pages project `flow-story-maker`;
+privacy at `/privacy`, support at `/support`, terms at `/terms` — the four URLs the directory asks for).
+
+See `docs/SUBMISSION.md` for the portal checklist and the items that are still on you (developer
+verification, the dashboard's primary icon, country targeting). Short version: run both scripts,
 upload `dist/flow-story-maker-<version>.zip` at platform.openai.com/plugins, resolve the automated
 findings, submit for review, then choose when to publish.
