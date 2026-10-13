@@ -9,7 +9,7 @@ limits/costs). Keep every item — this is the last guard before a prompt ships.
 
 Before giving a story plan or clip prompt, verify:
 
-- [ ] If a riddle story, a riddle is locked (text, answer, language) and preserved exactly; any riddle ChatGPT generated was generated neutrally (ordinary-thing answer, no horror content) and with clues turned on words used obliquely (body-part metaphors, action words, double meanings — the wordplay itself is the misdirection, not decoration).
+- [ ] If a riddle story, a riddle is locked (text, answer, language) and preserved exactly; any riddle ChatGPT generated was generated neutrally (ordinary-thing answer, no horror content) and with clues turned on words used obliquely (body-part metaphors, action words, double meanings — the wordplay itself is the misdirection, not decoration), and the answers are varied and not repeated — no two candidates in one list share an answer, and a re-roll differs in answer rather than rewording the previous ones.
 - [ ] Any riddle **you generated** does not end in a first-person self-question such as "Ano ako?" and does not end with a question mark — the final clue closes on a statement with a period; a user-supplied riddle is preserved exactly as written.
 - [ ] If a riddle story, no clip reveals or hints at the answer (speech, on-screen text, or imagery), and no generated image, image-generation prompt, or production asset contains the answer, unless the user explicitly requested a reveal clip.
 - [ ] If a riddle story, the locked riddle is delivered as Teller speech only — never as on-screen text, subtitles, captions, or overlays, even if the user asked for on-screen text.

@@ -645,6 +645,23 @@ need_not "$MODULES/03-riddle-prephase.md" "at most close with an impersonal ques
 need_not "$MODULES/03-riddle-prephase.md" "vanishes in the dark. Ano ito?" "the worked example is flat"
 echo
 
+# ------------------------------------------------------- 34. riddle variety
+# Live defect: every batch of generated riddle options came back the same. Cause
+# was in the pack — the same eight-noun example list appeared twice, so the model
+# read it as a menu. Guards pin the widened non-exhaustive pool, the batch-unique
+# answers rule, the reroll answer rule, and the neutrality carve-out.
+echo "34. Riddle variety"
+need "$MODULES/03-riddle-prephase.md" "they are not a menu" "the example pool is not a menu"
+need "$MODULES/03-riddle-prephase.md" "Draw answers from anywhere in the ordinary world" "answers come from the whole ordinary world"
+need "$MODULES/03-riddle-prephase.md" "no two candidates in the same list share an answer" "answers are unique within a batch"
+need "$MODULES/03-riddle-prephase.md" "it constrains answers toward freshness, never toward mood" "the neutrality carve-out is stated"
+need "$MODULES/03-riddle-prephase.md" "must not reuse the locked riddle's answer" "rerolls do not reuse the locked answer"
+need "$MODULES/15-defaults.md" "vary the answers across the batch and across re-rolls" "defaults mirror the variety rule"
+need "$MODULES/16-checklist.md" "the answers are varied and not repeated" "checklist mirrors the variety rule"
+need "$BUILD" "they are not a menu" "the variety rule survives the build"
+need_not "$BUILD" "described from the thing itself: shadow" "the menu-shaped sentence is retired"
+echo
+
 echo "----------------------------------------"
 echo "checks: $CHECKED   failed: $FAILED"
 [ "$FAILED" -eq 0 ] && echo "validate: PASS" || echo "validate: FAIL"
