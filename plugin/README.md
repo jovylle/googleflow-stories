@@ -35,18 +35,46 @@ supported, so if an MCP-backed version is ever wanted it has to be a second plug
 modules. It stamps the plugin's `version` from `version.txt`: **the pack version and the plugin
 version move together** — one bump releases both.
 
-`validate-plugin.sh` checks the packaged manifest against the published field limits (display name
-30, subtitle 30, description 4000, prompts ≤3×128, capabilities ≤20×120), the icon rules (square SVG
-≥48×48), the skills layout (`SKILL.md` name == directory), the skills-only boundary (no `mcp.json`,
-`hooks/`, `.app.json`, `.codex-plugin/`), brand-colour contrast, embedded-rulebook freshness, secret
-hygiene, and the ZIP's contents.
+`validate-plugin.sh` checks the packaged manifest against the published field limits (display name 30,
+subtitle 30, long description 4000, developer name 80, prompts ≤3×128 and unique, capabilities
+≤20×120, `author` and URL length caps), the four listing URLs (https, ≤1024, no embedded credentials),
+the icon rules (square ≥48×48, supported formats, ≤5 MiB — including the dashboard's 512px PNG), the
+skills layout (`SKILL.md` name == directory), the skills-only boundary (no `mcp.json`, `hooks/`,
+`.app.json`, `.codex-plugin/`), brand-colour contrast, embedded-rulebook freshness, secret hygiene, and
+the ZIP's contents. Add `CHECK_URLS=1` to also fetch the four listing URLs and assert HTTP 200; that
+one needs the network, the default run stays offline. The reported count is the number of *passing*
+checks and shrinks when a failure suppresses a downstream group (a version mismatch skips the
+ZIP-content group), so read the FAIL lines, not the total.
 
-## Publishing
+## Distribution
 
-**Live at https://gfs.uft1.com** (source: `site/`, Cloudflare Pages project `flow-story-maker`;
-privacy at `/privacy`, support at `/support`, terms at `/terms` — the four URLs the directory asks for).
+**Repo marketplace — how it installs today.** `$REPO_ROOT/.agents/plugins/marketplace.json` is a
+one-entry catalog pointing at `./plugin/flow-story-maker`. Anyone with the ChatGPT desktop app (or
+Codex CLI) installs the plugin with:
 
-See `docs/SUBMISSION.md` for the portal checklist and the items that are still on you (developer
-verification, the dashboard's primary icon, country targeting). Short version: run both scripts,
-upload `dist/flow-story-maker-<version>.zip` at platform.openai.com/plugins, resolve the automated
-findings, submit for review, then choose when to publish.
+```bash
+codex plugin marketplace add jovylle/googleflow-stories --ref dev
+```
+
+then restarts the desktop app, opens the **Plugins Directory**, picks the **Flow Story Maker
+Plugins** marketplace and installs **Flow Story Maker**. Do not add `--sparse` — `source.path` is
+resolved from the marketplace root (the repo root), so a sparse checkout of `.agents/plugins` alone
+would leave the plugin folder behind. The host copies the package into
+`~/.codex/plugins/cache/<marketplace>/<plugin>/local/`, so after editing the package, reinstall or
+refresh and restart the app; `--ref dev` is required until the branch carrying the plugin reaches the
+default branch. `validate-plugin.sh` checks the catalog (entry shape, `policy.*`, `category`, a
+`source.path` that resolves to a packaged `plugin.json` inside the root, name parity with the
+manifest) so a broken entry cannot ship quietly.
+
+**Website** — https://gfs.uft1.com (source: `site/`, Cloudflare Pages project `flow-story-maker`;
+privacy at `/privacy`, support at `/support`, terms at `/terms`). Redeploy after any `site/` edit:
+`npx wrangler pages deploy site --project-name flow-story-maker --branch main`.
+
+## The public plugin directory (currently closed to skills-only)
+
+The package is submission-ready, but **OpenAI is not accepting skills-only submissions at this
+time** — a portal policy, not a package defect, and the reason the listing is not live. Two metadata
+findings from that upload also stay open until a listing is possible: the listing must not name
+another AI model or platform (ours names Google Flow and Veo 3.1, and the display name carries
+"Flow"), and the category must be confirmable from the listing text. `docs/SUBMISSION.md` records all
+three findings verbatim and what each one would require.

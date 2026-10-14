@@ -1,0 +1,23 @@
+{
+  "name": "gfs-plugins",
+  "interface": {
+    "displayName": "Flow Story Maker Plugins"
+  },
+  "plugins": [
+    {
+      "name": "flow-story-maker",
+      "interface": {
+        "displayName": "Flow Story Maker"
+      },
+      "source": {
+        "source": "local",
+        "path": "./plugin/flow-story-maker"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

@@ -652,7 +652,7 @@ echo
 # answers rule, the reroll answer rule, and the neutrality carve-out.
 echo "34. Riddle variety"
 need "$MODULES/03-riddle-prephase.md" "they are not a menu" "the example pool is not a menu"
-need "$MODULES/03-riddle-prephase.md" "Draw answers from anywhere in the ordinary world" "answers come from the whole ordinary world"
+need "$MODULES/03-riddle-prephase.md" "Answers come from the answer bank" "answers come from the bank, not from invention or the illustrations"
 need "$MODULES/03-riddle-prephase.md" "no two candidates in the same list share an answer" "answers are unique within a batch"
 need "$MODULES/03-riddle-prephase.md" "it constrains answers toward freshness, never toward mood" "the neutrality carve-out is stated"
 need "$MODULES/03-riddle-prephase.md" "must not reuse the locked riddle's answer" "rerolls do not reuse the locked answer"
@@ -735,6 +735,23 @@ if [ -f "$ROOT/plugin/flow-story-maker/plugin.json" ]; then
   fi
 fi
 PLUGIN_REF="$ROOT/plugin/flow-story-maker/skills/flow-story-maker/references/gfs-instructions.md"
+# The portal imports the listing URLs from the manifest and does not fill them
+# from homepage/author.url, so an unlisted privacy or support page is a silent
+# submission failure. Keep all four declared.
+if [ -f "$ROOT/plugin/flow-story-maker/plugin.json" ]; then
+  LISTING="$(python3 -c "
+import json,sys
+i=json.load(open('$ROOT/plugin/flow-story-maker/plugin.json'))['extensions']['com.openai']['interface']
+print(','.join(f for f in ('websiteURL','supportURL','privacyPolicyURL','termsOfServiceURL') if not i.get(f)))
+" 2>/dev/null || echo error)"
+  if [ "$LISTING" = "error" ]; then
+    fail "the plugin manifest could not be read for its listing URLs"
+  elif [ -z "$LISTING" ]; then
+    pass "the plugin manifest declares all four listing URLs"
+  else
+    fail "the plugin manifest is missing listing URL(s): $LISTING"
+  fi
+fi
 if [ -f "$PLUGIN_REF" ]; then
   PLUGIN_TMP="$(mktemp)"
   tail -n +5 "$PLUGIN_REF" > "$PLUGIN_TMP"
@@ -825,7 +842,7 @@ need "$MODULES/05-story-planning.md" "the run's one-line **creative fingerprint*
 need "$MODULES/15-defaults.md" "chosen fresh for every run** by the creative-diversity section (2a)" "the defaults defer the ensemble to section 2a"
 need "$MODULES/15-defaults.md" "and runs the creative-diversity selection (section 2a) for the run's look" "the .auto default runs the selection"
 need "$MODULES/01-commands.md" "\`.reroll visual\` — Change the **look** of a riddle production without touching the riddle" ".reroll visual exists"
-need "$MODULES/01-commands.md" "\`.reroll\` changes **riddles only** — it never changes the look of the production." ".reroll is scoped to riddles"
+need "$MODULES/01-commands.md" "\`.reroll\` changes **riddles only** — it never changes the look of the production — and a fresh batch re-runs the answer spread (section 2b)" ".reroll is scoped to riddles and re-runs the answer spread"
 need "$MODULES/01-commands.md" "Axes the user has locked (a chosen character, art style, setting, or camera) are **not** re-rolled" ".reroll visual respects locked axes"
 need "$MODULES/08a-shot-composition.md" "### Camera viewpoint (choose one explicitly, before any image)" "the viewpoint axis is enumerated"
 need "$MODULES/08a-shot-composition.md" "**Do not default to a rear-view figure facing a larger centred one.**" "the house composition is refused"
@@ -866,6 +883,123 @@ need_not "$MODULES/04-interview.md" "small, cute, vulnerable characters" "the in
 need_not "$MODULES/04-interview.md" "they must look soft, not fearsome" "the soft-looking victim instruction is gone"
 need_not "$MODULES/15-defaults.md" "small, cute, vulnerable" "the defaults no longer state the narrow victims"
 need_not "$BUILD" "small, cute, vulnerable" "the retired victim wording is gone from the build"
+echo
+
+echo "40. Answer bank: the generator's answer source (spread, families, no invention)"
+# WHY: the generator used to invent its own answer, so unrelated sessions converged on
+# the same handful of objects, and the illustrations in Step 0a (salamin, kandila,
+# anino, orasan) read as the menu. The user's 1,000-answer bank existed but was
+# referenced by nothing in this pack. These guards keep the bank wired in as the source
+# of answers, keep every other section pointing at it, and keep the spread rule that
+# stops a batch being taken from the head of the list — a list with no spread rule
+# reproduces the same few entries from the top.
+need "$MODULES/03a-answer-bank.md" "## 2c. Riddle answer bank (1000 answers)" "the answer bank module carries all 1000 answers"
+need "$MODULES/03a-answer-bank.md" "[not-an-answer]" "description-shaped entries are tagged"
+need "$MODULES/03-riddle-prephase.md" "## 2b. The answer bank (where a generated riddle's answer comes from)" "the selection protocol is its own section"
+need "$MODULES/03-riddle-prephase.md" "It is the **source of answers for every generated riddle**" "the bank is named as the answer source"
+need "$MODULES/03-riddle-prephase.md" "the bank is the set to choose from" "the bank — not the illustrations — is the set"
+need "$MODULES/03-riddle-prephase.md" "The **riddle itself is still written fresh**" "the bank supplies answers, never riddle text"
+need "$MODULES/03-riddle-prephase.md" "### Spread a batch across the whole bank" "the spread rule is its own subsection"
+need "$MODULES/03-riddle-prephase.md" "Never start at 0001, never take the first few entries" "the head of the list is refused"
+need "$MODULES/03-riddle-prephase.md" "### One family per batch, and none repeated across batches" "the family rule is stated"
+need "$MODULES/03-riddle-prephase.md" "**No two candidates in one batch may share a family.**" "variants of one answer may not share a batch"
+need "$MODULES/03-riddle-prephase.md" "### Skip entries that are not answers" "the skip rules are stated"
+need "$MODULES/03-riddle-prephase.md" "step to the next index in the spread rather than dropping the batch" "a skipped entry advances the spread"
+need "$MODULES/03-riddle-prephase.md" "ANSWERS-USED" "the used-answer record is named"
+need "$MODULES/03-riddle-prephase.md" "**Never invent a history you cannot see.**" "no claimed history that cannot be read"
+need "$MODULES/03-riddle-prephase.md" "### When no bank is available" "the no-bank fallback is stated"
+need "$MODULES/03-riddle-prephase.md" "the answer bank (section 2b)" "Form 1's generator path names the bank"
+need "$MODULES/03-riddle-prephase.md" "**Answers come from the answer bank (section 2b) — not from the examples here" "the retired ordinary-world line points at the bank"
+need "$MODULES/15-defaults.md" "Every generated answer is an entry drawn from the answer bank (sections 2b and 2c)" "the defaults name the answer source"
+need "$MODULES/16-checklist.md" "its answer came from the **answer bank** (section 2c)" "the final gate checks the answer source"
+need "$MODULES/01-commands.md" "re-runs the answer spread (section 2b) from a different starting index" ".reroll is scoped to riddles and re-runs the answer spread"
+need "$MODULES/01-commands.md" "a different part of the answer bank (section 2c)" ".reroll draws from a different part of the bank"
+need "$MODULES/03-riddle-prephase.md" "The bank module (2c) is the source of answers" "the why-comment points at the bank module's own number"
+need "$BUILD" "## 2c. Riddle answer bank (1000 answers)" "the bank survives the build"
+need "$BUILD" "## 2b. The answer bank" "the protocol survives the build"
+# The bank module is generated, so it can silently drift from its source: the
+# freshness check fails the build if modules/03a no longer matches the JSON.
+if [[ -f specs/evidence/score-answer-pool-dry-run.py && -f specs/evidence/answer-pool-dry-run.tsv ]]; then
+  pass "the answer-pool dry-run sample and its scorer are present"
+  if command -v python3 >/dev/null 2>&1; then
+    if python3 specs/evidence/score-answer-pool-dry-run.py >/dev/null 2>&1; then
+      pass "the answer-pool dry run still clears every acceptance criterion"
+    else
+      fail "the answer-pool dry run FAILS a criterion — run: python3 specs/evidence/score-answer-pool-dry-run.py"
+    fi
+    if python3 scripts/build-answer-bank.py --check >/dev/null 2>&1; then
+      pass "modules/03a-answer-bank.md matches data/riddle-answer-bank.json"
+    else
+      fail "modules/03a-answer-bank.md is STALE — run: python3 scripts/build-answer-bank.py"
+    fi
+  else
+    printf '  skip  python3 not found — answer-bank freshness NOT checked\n'
+  fi
+else
+  fail "the answer-pool dry-run sample or its scorer is missing"
+fi
+need_not "$MODULES/03-riddle-prephase.md" "Draw answers from anywhere in the ordinary world" "the invent-an-answer instruction is retired"
+need_not "$BUILD" "Draw answers from anywhere in the ordinary world" "the retired instruction is gone from the build"
+echo
+
+echo "41. Deliver everything the user came for: all prompts, the ingredient, both routes, wide picks"
+# WHY: two narrowed offers in one failure class. (1) The delivery style was named "prompts
+# now" but printed collapsed summaries and required a `1`/`2` reply per clip, so the user
+# left the delivery turn with no prompt to copy — reported live as "it seems not giving all
+# the clips prompts it should make it available to copy already" — and the image ingredient
+# and the two ways they actually generate clips in Flow (extend the previous clip, or
+# generate each clip from the same image) were never both handed over. (2) Every option set
+# the pack offers (story ideas, AI Character A/B/C, the art-style list, the generated Script
+# Overview) came back as the same few picks run after run, because a fixed set with no
+# rotation rule is read from its head — the same defect the answer bank fixed for riddle
+# answers (section 40). These guards keep the prompts, the ingredient, both routes, and a
+# wide fresh range in the pack.
+need "$MODULES/11-output-format.md" "### Delivery turn (all prompts in full and copyable; the image ingredient; one image per action)" "the delivery turn is defined by handing over the prompts"
+need "$MODULES/11-output-format.md" "Print the complete copy-ready Google Flow video prompt of **every** clip" "every clip's prompt is printed, not withheld"
+need "$MODULES/11-output-format.md" "a summary line is a header, not a substitute" "a summary may not replace a prompt"
+need "$MODULES/11-output-format.md" "Do not make the user reply \`1\`, \`2\`, … to see a prompt" "prompts are not gated behind a number reply"
+need "$MODULES/11-output-format.md" "**Both continuation routes for every Clip 2+, labelled and separate.**" "both routes are delivered side by side"
+need "$MODULES/11-output-format.md" "**The image ingredient, in the same turn.**" "the image ingredient is handed over at delivery"
+need "$MODULES/11-output-format.md" "the input image an independent clip uses, and the look an Extend clip continues" "the ingredient's two uses are named"
+need "$MODULES/11-output-format.md" "A compact view is available on request, never the default." "the compact view is opt-in, not the default"
+need "$MODULES/11-output-format.md" "never merge clips into one giant prompt" "the never-merge rule survives"
+need "$MODULES/11-output-format.md" "uses the run's ingredient — no new image" "an independent clip needs no new image"
+need "$MODULES/10-clip1-final.md" "every remaining clip's complete prompt in full" "Clip 1 continues into full prompts, not summaries"
+need "$MODULES/10-clip1-final.md" "**This image is the run's image ingredient**" "Clip 1's image is named as the run's ingredient"
+need "$MODULES/09-clip-continuity.md" "**Independent, from the run's existing image ingredient (option)**" "the same-ingredient route is its own contract"
+need "$MODULES/09-clip-continuity.md" "**No new keyframe is made.**" "the same-ingredient route makes no new keyframe"
+need "$MODULES/09-clip-continuity.md" "**Independent clip using the run's ingredient → no new image.**" "the image-needs summary covers the same-ingredient route"
+need "$MODULES/09-clip-continuity.md" "Every Clip 2+ is delivered in the Extend route and the independent route side by side" "the continuity module mirrors the two-route delivery"
+need "$MODULES/04-interview.md" "deliver **every clip's complete video prompt in full, in clip order, each in its own fenced code block**" "the interview's delivery default hands over the prompts"
+need "$MODULES/04-interview.md" "independently from the run's existing image ingredient" "the interview offers the same-ingredient route"
+need "$MODULES/15-defaults.md" "Deliver **every clip's complete video prompt in full**" "the defaults deliver the prompts in full"
+need "$MODULES/15-defaults.md" "both** continuation routes labelled side by side" "the defaults name both routes"
+need "$MODULES/05-story-planning.md" "Record which route is recommended for each Clip 2+" "the clip list records the route but withholds neither"
+need "$MODULES/16-checklist.md" "**The delivery turn printed every clip's complete prompt**" "the final gate checks the prompts were handed over"
+need "$MODULES/16-checklist.md" "**Every Clip 2+ was delivered in both routes, labelled**" "the final gate checks both routes shipped"
+need "$MODULES/16-checklist.md" "**The run's image ingredient was handed over in the delivery turn**" "the final gate checks the ingredient shipped"
+need "$BUILD" "### Delivery turn (all prompts in full and copyable" "the delivery turn survives the build"
+need "$BUILD" "**Both continuation routes for every Clip 2+, labelled and separate.**" "the two-route rule survives the build"
+# The picks the pack proposes: one rule, every site pointing at it (section 3a).
+need "$MODULES/04-interview.md" "## 3a. The picks this pack proposes (suggestion variety)" "the suggestion-variety rule is its own section"
+need "$MODULES/04-interview.md" "Draw from a wide range, not from the head of a set." "the head-of-set trap is refused"
+need "$MODULES/04-interview.md" "**Never re-offer what this conversation has already shown.**" "a shown option is not offered twice"
+need "$MODULES/04-interview.md" "Do not always start from the same place." "the set must move between runs"
+need "$MODULES/04-interview.md" "**These are the auto-mode picks.**" "the picks are named as what auto mode fills in"
+need "$MODULES/04-interview.md" "the suggestion-variety rule (section 3a)" "the interview's option sets point at the rule"
+need "$MODULES/15-defaults.md" "**suggestion-variety rule (section 3a)**" "the defaults point at the rule"
+need "$MODULES/15-defaults.md" "**these defaults are the auto-mode picks**" "the defaults say auto mode consumes them"
+need "$MODULES/15-defaults.md" "An auto run must never reuse the previous run's picks" "an auto run does not repeat the last run's picks"
+need "$MODULES/16-checklist.md" "**Every suggestion set offered this run came from the suggestion-variety rule (3a)**" "the final gate checks the picks came from a wide range"
+need "$BUILD" "## 3a. The picks this pack proposes (suggestion variety)" "the picks rule survives the build"
+# Retired: the collapsed delivery that gave the user summaries instead of prompts.
+need_not "$MODULES/11-output-format.md" "Collapsed by default = summaries only" "the collapsed-by-default delivery is retired"
+need_not "$MODULES/11-output-format.md" "### Interactive presentation (hide long prompts" "the hide-the-prompts heading is retired"
+need_not "$MODULES/11-output-format.md" "only when the user opens it" "a prompt gated behind opening a clip is retired"
+need_not "$MODULES/04-interview.md" "deliver all clip video prompts at once as collapsed summaries" "the interview no longer defaults to collapsed summaries"
+need_not "$MODULES/15-defaults.md" "as collapsed summaries (expandable on request)" "the defaults no longer collapse the prompts"
+need_not "$MODULES/10-clip1-final.md" "present the remaining clips as collapsed summaries" "Clip 1 no longer hands over summaries"
+need_not "$BUILD" "collapsed summaries (expandable on request)" "the collapsed delivery is gone from the build"
 echo
 
 echo "----------------------------------------"

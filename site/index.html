@@ -109,8 +109,13 @@ ul.tight li{margin-bottom:8px}
 </ul>
 
 <h2 id="install">How to get it</h2>
-<p>Flow Story Maker is a <strong>skills-only ChatGPT plugin</strong>, packaged for the public ChatGPT plugin directory. <strong>It is not listed yet</strong> — the submission is being prepared, so there is nothing to install today, and this page will carry the install link the moment the listing goes live.</p>
-<p>Everything it runs on is already public. The compiled rulebook is at <a href="https://github.com/jovylle/googleflow-stories">github.com/jovylle/googleflow-stories</a>: paste it into a ChatGPT project and it works the same way. To start a run, say what you want to make — for example <code>horror riddle story</code>, or attach a food photo and say <code>mukbang</code> — or type <code>.start</code> for the full interview.</p>
+<p>Flow Story Maker is a <strong>skills-only ChatGPT plugin</strong>. It is <strong>not in the public plugin directory</strong> — OpenAI is not accepting skills-only submissions at this time. It installs from this repo's own plugin marketplace instead, in the ChatGPT desktop app:</p>
+<ol>
+<li>Add the marketplace (the default branch does not carry it yet, so pin the branch):<br><code>codex plugin marketplace add jovylle/googleflow-stories --ref dev</code></li>
+<li>Restart the ChatGPT desktop app, open the <strong>Plugins Directory</strong>, choose the <strong>Flow Story Maker Plugins</strong> marketplace, and install <strong>Flow Story Maker</strong>.</li>
+</ol>
+<p>To start a run, say what you want to make — for example <code>horror riddle story</code>, or attach a food photo and say <code>mukbang</code> — or type <code>.start</code> for the full interview.</p>
+<p>No desktop app? The rulebook the plugin wraps is public at <a href="https://github.com/jovylle/googleflow-stories">github.com/jovylle/googleflow-stories</a>: paste the compiled pack into a ChatGPT project and it works the same way.</p>
 
 <h2>The shape of the output</h2>
 <p>A clip-map line reads like this (quoted from the rulebook):</p>

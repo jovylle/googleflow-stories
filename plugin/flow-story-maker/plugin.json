@@ -27,6 +27,10 @@
         "longDescription": "Flow Story Maker turns a rough story idea — or a single photo — into a production-ready prompt package for Google Flow and Veo 3.1. It runs a short two-form interview, plans the story, then delivers: a text-only story overview, a clip map with allocated timestamps, one reference-image prompt for the whole run, and a copy-ready video prompt for every clip, each carrying its own timestamp header, audio direction, and a binding to the reference image's look. Two specialised paths ship with it: a Tagalog horror-riddle story whose riddle stays spoken and never appears on screen, and a mukbang ASMR story that stays silent of speech and uses eating sounds. It also revises a single item on request — change the riddle text, or the character or art style, and it re-emits only the prompts that carry the change.\n\nIntended for creators who write video stories by hand in Flow and want continuity-safe prompts across clips, rather than a single one-off prompt.\n\nLimitations: it produces text prompts and plans only — it does not generate video, does not upload to Google Flow on the user's behalf, and does not guarantee any particular model output. It works inside the conversation; there is no account, no sign-in, and no data collection.",
         "developerName": "Jovylle Bermudez",
         "category": "Productivity",
+        "websiteURL": "https://gfs.uft1.com/",
+        "supportURL": "https://gfs.uft1.com/support",
+        "privacyPolicyURL": "https://gfs.uft1.com/privacy",
+        "termsOfServiceURL": "https://gfs.uft1.com/terms",
         "capabilities": [
           "Plan multi-clip video stories with a timestamped clip map",
           "Write Google Flow / Veo 3.1 video prompts per clip",
