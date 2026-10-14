@@ -159,9 +159,9 @@ same art-style list, because a fixed set with no rotation rule is read from its 
 time. The user's report: the picks must be "truly random ... from a wide range of option",
 and never "what I think already displayed". These are also exactly the picks auto mode
 fills in (see the defaults module), so their variety is what makes one auto run differ
-from the last one. Same defect the answer bank fixed for riddle answers (sections 2b and
-2c): a source with no sampler is read from the top. Keep every site pointing here instead
-of restating the rule.
+from the last one. Same defect the riddle answers' source rule exists to stop (riddle
+module, section 2b): a source with no sampler is read from the top. Keep every site
+pointing here instead of restating the rule.
 -->
 ## 3a. The picks this pack proposes (suggestion variety)
 

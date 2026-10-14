@@ -1,4 +1,12 @@
-# The answer bank — generated riddles stop repeating
+# The answer bank — **WITHDRAWN in v2.38.0** (kept as the record of why)
+
+> **Status: withdrawn.** The thing this spec asks for — an embedded 1,000-answer bank — shipped in
+> v2.36.0 and was removed in v2.38.0 at the user's call: *"I think the riddle 1K here is bad move ... lets not
+> include the 1k riddles."* The pack no longer ships any answer table (`modules/03a-answer-bank.md`,
+> `data/riddle-answer-bank.json` and `scripts/build-answer-bank.py` are gone; the JSON is archived outside the
+> repo). What survived is the **answer-source rule** in the riddle module §2b — draw wide across the ordinary
+> world, repeat nothing already offered, never invent — which is the defect this spec was written to fix. Read
+> this file as history, not as a description of the pack.
 
 **Change:** v2.36.0 · **Target:** `build/google-flow-story-maker.md` (the `.md` source instructions)
 **Status:** built, `./validate.sh` → **415 checks / 0 failed** · **uncommitted**

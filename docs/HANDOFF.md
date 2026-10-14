@@ -6,11 +6,34 @@ versions share), and only the `specs/` file for whatever you are about to change
 
 ## Current update (2026-10-14)
 
-The working tree carries **v2.37.2** (the review repairs) on top of **v2.37.1** (the forms guard) on top of **v2.37.0** (the delivery + picks fix),
-**v2.36.0** (the answer bank), **v2.35.0** (creative diversity) and **v2.34.0** (live-run fixes). v2.34.0 and
+The working tree carries **v2.38.0** (the 1,000-answer bank withdrawn), **v2.37.2** (the review repairs),
+**v2.37.1** (the forms guard), **v2.37.0** (the delivery + picks fix), **v2.36.0** (which introduced the bank),
+**v2.35.0** (creative diversity) and **v2.34.0** (live-run fixes). v2.34.0 and
 v2.35.0 were built together in the tree, so one commit carries that pair (`9d451b2`); **v2.36.0 and v2.37.0 ship
 together in `77318e2`** (on top of `15cf309`, because that plugin commit had already carried this pair's guards);
-**v2.37.1 shipped as `422ca5c`** (bookkeeping `a2d8833`); **v2.37.2 ships in the commit after it**.
+**v2.37.1 shipped as `422ca5c`** (bookkeeping `a2d8833`); **v2.37.2 shipped in the commit after it**;
+**v2.38.0 ships in the commit after that**.
+
+**v2.38.0 withdraws the 1,000-answer bank — the pack ships no answer table.** The user's call: *"I think the riddle
+1K here is bad move ... lets not include the 1k riddles."* What that removes:
+
+  * `modules/03a-answer-bank.md` (the generated **§2c**), `data/riddle-answer-bank.json`, its generator
+    `scripts/build-answer-bank.py`, the pool's dry-run scorer and sample, and §40's freshness check.
+  * **§2b is rewritten and keeps its job** — it was the bank's selection protocol; it is now the **answer-source
+    rule**: no list ships with the pack, answers are drawn across the ordinary world and across categories, an
+    answer already offered in the conversation is never reused (a reworded variant is still a repeat), the Step 0a
+    illustrations stay illustrations, and `.reroll` draws from categories it has not used. The defect the bank was
+    built to fix (unrelated sessions converging on the same handful of objects) is what this rule addresses.
+  * Every pointing site was retargeted, not deleted: Form 1's generator path, the Step 0a answer rule, the
+    self-check, the `.auto riddle` lock, the re-roll rule (03); `.reroll` in the commands module (01); the riddle
+    generator default (15); the final gate (16); §3a's WHY comment (04).
+  * Four retired-phrase traps make the bank's return a validation failure: the build must contain no "answer bank",
+    no "Riddle answer bank (1000 answers)", no `answer bank` in the riddle module, and the retired
+    "Draw answers from anywhere in the ordinary world" instruction stays retired.
+
+The bank's own reasoning is kept for the record in `specs/riddle-answer-pool.md` (now banner-marked as withdrawn);
+its JSON is archived outside the repo at `/Volumes/DevSSD/fore/lab/_withdrawn/riddle-answer-bank-1k.json`, so the
+list is not lost — it is simply not shipped. The artifact drops from 2,561 to **1,507 lines** (210,107 chars).
 
 **v2.37.2 is the diff review's repairs.** An independent review of v2.37.0/v2.37.1 found four real holes, plus
 four mirror sites that had not been propagated:
@@ -146,11 +169,11 @@ listing in the Directory*. Nothing was uploaded, submitted, or deployed.
 
 | Repo | Version | Branch / HEAD | Checks | Remote |
 |---|---|---|---|---|
-| `lab/googleflow-stories` (**canonical rules** — you are here) | **2.37.2** | `dev` / `393ef64` + v2.37.2 (this commit) | `./validate.sh` → **481 / 0** | GitHub `jovylle/googleflow-stories`, `master` at `05d81ec` (v2.21.0 release merge), `dev` fifteen ahead |
+| `lab/googleflow-stories` (**canonical rules** — you are here) | **2.38.0** | `dev` / `89de739` + v2.38.0 (this commit) | `./validate.sh` → **474 / 0** | GitHub `jovylle/googleflow-stories`, `master` at `05d81ec` (v2.21.0 release merge), `dev` fifteen ahead |
 | `lab/flow-story-gpt` (distilled ChatGPT pack) | 1.0.0 | `master` / `5bb876c` | `./validate-gpt.sh` → 28 / 0 | **none — local only** |
 | `lab/flow-story-gem` (Gemini + hand-over zip) | 1.0.0 | `master` / `6c3d417` | `./validate-gem.sh` → 36 / 0 | **none — local only** |
 
-Canonical artifact: `build/google-flow-story-maker.md`, **2,508 lines / 209,518 chars**, rebuilt from the
+Canonical artifact: `build/google-flow-story-maker.md`, **1,507 lines / 210,107 chars**, rebuilt from the
 modules. `master` is at `05d81ec` (v2.21.0, released 2026-10-12 by merging `dev`) and is **sixteen versions behind `dev`**.
 
 ### Version chain since v2.12.0 (all on `dev`)
@@ -179,7 +202,8 @@ modules. `master` is at `05d81ec` (v2.21.0, released 2026-10-12 by merging `dev`
 | 2.32.0 | `1669843` | `.revise` single-item revision: one item changes, everything else stays locked, only the deliverables carrying it are re-emitted — a local change (riddle text) reprints just the clip that speaks it, while character/art style also regenerate the Clip 1 reference image |
 | 2.33.0 | `aa75e38` | Reference-image binding: every independently generated clip prompt names its image and must match its medium, render quality, palette, lighting, and grade; a supplied photo stays photographic; an Extend delta carries no image binding (its inheritance is the contract) |
 | 2.34.0 | `9d451b2` | Live-run reliability: the consequence has an explicit actor and victim (**the victims pay, the Teller acts**), the Character choice cannot become the Teller, a duration shortfall is surfaced at the overview instead of squeezing the line, and Form 2 ends with a visible Submit button plus a `.go`/text fallback |
-| 2.37.2 | *(this commit)* | **The delivery pair follows each clip's own plan, and the ingredient is handed over as the run actually has it**: the two blocks are the Extend delta plus *that clip's* standalone route (ingredient-bound, or Add clip with its own keyframe); no invented image prompt for a supplied/Flow image; the ingredient-as-input capability is verified like Extend's (8s on Lite/Fast, unsupported on Quality) |
+| 2.38.0 | *(this commit)* | **The pack ships no answer table**: the 1,000-answer bank, its generator, §2c and the freshness check are gone; §2b is now the answer-source rule (draw wide, repeat nothing, never invent) and four traps fail the build if the bank comes back. Artifact 2,561 → **1,507 lines**. The list itself is archived outside the repo |
+| 2.37.2 | `89de739` | **The delivery pair follows each clip's own plan, and the ingredient is handed over as the run actually has it**: the two blocks are the Extend delta plus *that clip's* standalone route (ingredient-bound, or Add clip with its own keyframe); no invented image prompt for a supplied/Flow image; the ingredient-as-input capability is verified like Extend's (8s on Lite/Fast, unsupported on Quality) |
 | 2.37.1 | `422ca5c` | **The two forms are never skipped, and nothing is picked for the user.** §3a's blank-field licence is retired: the proposed sets are what an **auto trigger** consumes, and without one the pack presents **Form 1, then Form 2** and waits for each submission — a default is a pre-applied changeable value, a suggestion is an option, never a decision made on the user's behalf |
 | 2.37.0 | `77318e2` | **Deliver everything the user came for**: the delivery turn prints **every clip's prompt in full** (each in its own fenced code block — no summary in place of a prompt, no prompt behind a number reply), hands over the run's **image ingredient** (the Clip 1 image + its copy-ready image prompt), and prints **both** routes for each Clip 2+ (the Extend delta and the independent prompt bound to that same image, no new keyframe); and **§3a suggestion variety** makes every proposed set — story ideas, AI Character A/B/C, the art-style list, the generated Script Overview — come from a wide fresh range instead of the head of a fixed set. §14 states it: **these defaults are the auto-mode picks**, and an auto run must not reuse the last run's |
 | 2.36.0 | `77318e2` | Answer bank: the generator's answers come from the user's 1,000-answer bank (embedded as **§2c**, generated from `data/riddle-answer-bank.json`), drawn by an **even spread** across it (**§2b**) — never the head of the list, never an invented answer, never the illustrations; no two candidates in a batch may share an **answer family**, `[not-an-answer]` entries are skipped, and an `ANSWERS-USED` record is honoured when the user keeps one |
@@ -254,12 +278,12 @@ The public-directory plugin package lives here and embeds a generated copy of th
    figure). Then try `.reroll visual` and confirm the riddle text is untouched while the look changes, and
    check the plan record carries the fingerprint line while the story text does not. `specs/creative-diversity.md`
    holds the dry-run sample and the scoring rubric to judge it against.
-   For the **answer bank** (v2.36.0), start a **new session** — no conversation memory can help it there — and run
-   `horror riddle` twice. The two candidate lists must draw visibly different answers, and the same answer must
-   not come back in the second batch; no list may pair a thing with its own variant (`kandila` beside
-   `kandila sa mesa`); `salamin`, `kandila`, `anino`, and `orasan` may appear only if the spread lands there, not
-   by default; and each candidate must still show its riddle with its answer noted. `specs/riddle-answer-pool.md`
-   holds that change's dry run and rubric.
+   For the **answer source** (v2.38.0), start a **new session** — no conversation memory can help it there — and run
+   `horror riddle` twice. The two candidate lists must draw visibly different answers from visibly different kinds
+   of thing, no answer may come back in the second batch, and no list may pair a thing with its own variant
+   (`kandila` beside `kandila sa mesa`). Then confirm the withdrawal itself: nothing in the pack should mention an
+   answer bank or a list to draw from — the rule is all that ships. `specs/riddle-answer-pool.md` holds the
+   withdrawn design and why it went.
    For the **delivery + picks** (v2.37.0), after any plan is approved check the delivery turn itself: it must
    print **every** clip's full prompt (not summaries you expand with a number), hand over the Clip 1 image
    together with its copy-ready image prompt as the run's **ingredient**, and print **both** routes for each
@@ -316,7 +340,7 @@ The public-directory plugin package lives here and embeds a generated copy of th
 ```bash
 cd /Volumes/DevSSD/fore/lab/googleflow-stories
 printf '2.22.0\n' > version.txt   # bump first; the build substitutes {{VERSION}}
-./build.sh && ./validate.sh       # 481 checks today (plus docs/HANDOFF.md freshness)
+./build.sh && ./validate.sh       # 474 checks today (plus docs/HANDOFF.md freshness)
 
 # while working on one area, read only the new section's red:
 ./validate.sh 2>&1 | sed -n '/^23\./,$p'
@@ -330,11 +354,11 @@ shows up as failures rather than passing quietly.
 
 - `modules/03-riddle-prephase.md` — the riddle story's fixed horror structure, the Teller, the
   answer-blind rules, the spoken-duration budgets, **§2a the creative-diversity engine** (the nine axes,
-  the coherence test, recent-design non-reuse, the planning-only fingerprint), and **§2b the answer-bank
-  selection protocol** (even spread across the bank, one family per batch, the skip rules, the used-record).
-- `modules/03a-answer-bank.md` — **§2c, the 1,000-answer bank.** Generated, never hand-edited: edit
-  `data/riddle-answer-bank.json` and run `scripts/build-answer-bank.py`. Each line is
-  `NNNN answer [family] [not-an-answer]`; the family tag is what the batch rule checks.
+  the coherence test, recent-design non-reuse, the planning-only fingerprint), and **§2b the answer-source
+  rule** (no list ships; draw across the ordinary world and across categories; never reuse an answer already
+  offered; the illustrations are not a menu; the used-answer record is honoured if the user keeps one).
+- *(retired)* `modules/03a-answer-bank.md` — the embedded §2c 1,000-answer bank, withdrawn in v2.38.0. No
+  generator, no JSON and no freshness check remain; the list is archived outside the repo.
 - `modules/04-interview.md` — the two forms; Form 2's four primary fields (Character is pitched as
   **victims**, varied in archetype rather than all small mammals).
 - `modules/07-image-workflow.md` — the image methods A–E and the **image acceptance gate** (verify the frame
@@ -393,5 +417,5 @@ changing anything here. The short version, as it applies to this repo:
    the name of the style is not the delivery.
 9. **A set with no rotation rule is read from its head.** v2.37.0: the same two story ideas, three
    characters, and first art style came back every run — not because the list was short, but because nothing
-   moved between runs and the first entry is the de-facto default. Same fix as the answer bank (a wide range,
-   a spread, a no-repeat record), applied to what the pack *proposes* rather than what it draws as an answer.
+   moved between runs and the first entry is the de-facto default. Same fix as the riddle answers' source rule
+   (a wide range, a no-repeat rule), applied to what the pack *proposes* rather than what it draws as an answer.

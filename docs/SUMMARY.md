@@ -17,7 +17,7 @@ API. That single fact drives everything below.
 ```
 modules/*.md   →   build.sh   →   build/google-flow-story-maker.md   →   paste into ChatGPT Instructions
                                         ↑
-                                  validate.sh (481 checks, exit 0 before commit)
+                                  validate.sh (474 checks, exit 0 before commit)
 ```
 
 - **20 modules**, one concern each, concatenated in filename order. Authored
@@ -25,12 +25,12 @@ modules/*.md   →   build.sh   →   build/google-flow-story-maker.md   →   p
 - **One compiled file, not many** — deliberately. ChatGPT's file retrieval is
   not reliable for routing between near-identical documents, so the whole
   instruction set ships as a single paste.
-- **481 validator checks.** The validator tests the *compiled artifact*, not the
+- **474 validator checks.** The validator tests the *compiled artifact*, not the
   modules: build sync, version stamping, module order, section numbering,
   cross-reference resolution, interview field shape, defaults parity, the
   two-form contract, and stale-wording traps (`need_not`). Guards are written
   **red first** — a new rule fails before the module edit that satisfies it.
-- `master` = production (v2.21.0). `dev` = current work (v2.37.1 at `422ca5c`, on top of the pair committed at `77318e2`).
+- `master` = production (v2.21.0). `dev` = current work (v2.38.0, on top of the pair committed at `77318e2`).
 
 ## The versions that matter
 
@@ -58,6 +58,7 @@ modules/*.md   →   build.sh   →   build/google-flow-story-maker.md   →   p
 | v2.31.0 | **Riddle variety** — the example list stopped being a menu | The same eight-noun list appeared twice in the generator rules, so every batch came back alike; the pool is now widened and explicitly non-exhaustive, answers must differ within a batch, and a re-roll differs in answer, not wording |
 | v2.32.0 | **`.revise` single-item revision** — change one item, get only the affected prompts | Late changes meant re-printing the package; now `.revise <item>` keeps everything locked and re-emits only what carries the change — a riddle swap reprints just the clip that speaks it, a character or art-style change re-emits the clip prompts and regenerates the Clip 1 reference image |
 | v2.33.0 | **Reference-image binding** — the video must look like the image you gave it | Clip prompts described lighting and style in the abstract, so the video could drift from the reference image; each independently generated prompt now names its image and must match its medium, render quality, palette, lighting, and grade, a supplied photo stays photographic, and an Extend delta carries no binding because inheriting the base clip's look is the contract |
+| v2.38.0 | **The 1,000-answer bank is withdrawn** — the pack ships no answer table | The user's call on v2.36.0's embedded bank. §2c, `data/riddle-answer-bank.json`, its generator, the pool's dry run and §40's freshness check are gone; §2b becomes the **answer-source rule** (draw across the ordinary world and across categories, never reuse an answer already offered, the illustrations are not a menu, `.reroll` draws from unused categories) and every pointing site was retargeted. Four traps fail the build if the bank returns. Artifact 2,561 → **1,507 lines**; the list itself is archived outside the repo |
 | v2.37.2 | **The review repairs** — the two delivery blocks follow each clip's own route (Extend + ingredient-bound **or** Add clip), the ingredient hand-over has a supplied/Flow carve-out, and the ingredient-as-input capability is verified like Extend's | An independent review of v2.37.0/v2.37.1 found that "both routes for every Clip 2+" printed a keyframe-free prompt for beats the pack routes through Add clip and omitted that clip's real prompt; that the ingredient's scope swallowed Add clips; that the hand-over assumed a chat-side image even when the user supplied one or Flow made it; and that the new route named no model capability. All four fixed across 11 (both subsections), 15, 04, 05, 09, 10, 16, plus the 08/09 master-block enumerations, the 05 asset plan and Form 1's option set |
 | v2.37.1 | **The forms guard** — no autonomous picking without the user's own auto trigger; Form 1 and then Form 2 are always presented and waited for | v2.37.0's §3a said an auto-mode pick is what fills a field "when the user runs `.auto`, or leaves a field blank", which reads as permission for the pack to choose for the user — against the pack's own invariant that nothing is generated before Form 1 and Form 2 are submitted. The wording now states the limit in §3a and §14, §16 gates it, and the blank-field licence is a retired-phrase trap |
 | v2.37.0 | **Deliver everything the user came for** — the delivery turn prints every clip's full prompt, hands over the run's image ingredient, and prints both continuation routes for Clip 2+; every proposed set (story ideas, characters, art style) comes from a wide fresh range | The style was named "prompts now" but printed collapsed summaries and revealed a prompt only on a numbered reply, so the delivery turn held nothing to copy — *"it seems not giving all the clips prompts it should make it available to copy already"*. The picks had the bank's defect in miniature: a fixed set with no rotation rule is read from its head, so the same two ideas, three characters, and first art style returned every run. Now: all prompts in full in clip order, each in its own fenced block; the Clip 1 image handed over as the **ingredient** with its copy-ready prompt; **both** routes for each Clip 2+ (Extend delta, and an independent prompt bound to that same image needing no new keyframe); and **§3a** requires every proposed set to be drawn fresh from a wide range, differ in kind, and never re-offer what the conversation showed — including in auto mode, which must not reuse the last run's picks |

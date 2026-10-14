@@ -652,7 +652,7 @@ echo
 # answers rule, the reroll answer rule, and the neutrality carve-out.
 echo "34. Riddle variety"
 need "$MODULES/03-riddle-prephase.md" "they are not a menu" "the example pool is not a menu"
-need "$MODULES/03-riddle-prephase.md" "Answers come from the answer bank" "answers come from the bank, not from invention or the illustrations"
+need "$MODULES/03-riddle-prephase.md" "Answers follow the answer-source rule (section 2b)" "answers follow the source rule, not invention or the illustrations"
 need "$MODULES/03-riddle-prephase.md" "no two candidates in the same list share an answer" "answers are unique within a batch"
 need "$MODULES/03-riddle-prephase.md" "it constrains answers toward freshness, never toward mood" "the neutrality carve-out is stated"
 need "$MODULES/03-riddle-prephase.md" "must not reuse the locked riddle's answer" "rerolls do not reuse the locked answer"
@@ -842,7 +842,7 @@ need "$MODULES/05-story-planning.md" "the run's one-line **creative fingerprint*
 need "$MODULES/15-defaults.md" "chosen fresh for every run** by the creative-diversity section (2a)" "the defaults defer the ensemble to section 2a"
 need "$MODULES/15-defaults.md" "and runs the creative-diversity selection (section 2a) for the run's look" "the .auto default runs the selection"
 need "$MODULES/01-commands.md" "\`.reroll visual\` — Change the **look** of a riddle production without touching the riddle" ".reroll visual exists"
-need "$MODULES/01-commands.md" "\`.reroll\` changes **riddles only** — it never changes the look of the production — and a fresh batch re-runs the answer spread (section 2b)" ".reroll is scoped to riddles and re-runs the answer spread"
+need "$MODULES/01-commands.md" "\`.reroll\` changes **riddles only** — it never changes the look of the production — and a fresh batch re-runs the answer-source rule (section 2b)" ".reroll is scoped to riddles and re-draws answers"
 need "$MODULES/01-commands.md" "Axes the user has locked (a chosen character, art style, setting, or camera) are **not** re-rolled" ".reroll visual respects locked axes"
 need "$MODULES/08a-shot-composition.md" "### Camera viewpoint (choose one explicitly, before any image)" "the viewpoint axis is enumerated"
 need "$MODULES/08a-shot-composition.md" "**Do not default to a rear-view figure facing a larger centred one.**" "the house composition is refused"
@@ -888,58 +888,35 @@ echo
 echo "40. Answer bank: the generator's answer source (spread, families, no invention)"
 # WHY: the generator used to invent its own answer, so unrelated sessions converged on
 # the same handful of objects, and the illustrations in Step 0a (salamin, kandila,
-# anino, orasan) read as the menu. The user's 1,000-answer bank existed but was
-# referenced by nothing in this pack. These guards keep the bank wired in as the source
-# of answers, keep every other section pointing at it, and keep the spread rule that
-# stops a batch being taken from the head of the list — a list with no spread rule
-# reproduces the same few entries from the top.
-need "$MODULES/03a-answer-bank.md" "## 2c. Riddle answer bank (1000 answers)" "the answer bank module carries all 1000 answers"
-need "$MODULES/03a-answer-bank.md" "[not-an-answer]" "description-shaped entries are tagged"
-need "$MODULES/03-riddle-prephase.md" "## 2b. The answer bank (where a generated riddle's answer comes from)" "the selection protocol is its own section"
-need "$MODULES/03-riddle-prephase.md" "It is the **source of answers for every generated riddle**" "the bank is named as the answer source"
-need "$MODULES/03-riddle-prephase.md" "the bank is the set to choose from" "the bank — not the illustrations — is the set"
-need "$MODULES/03-riddle-prephase.md" "The **riddle itself is still written fresh**" "the bank supplies answers, never riddle text"
-need "$MODULES/03-riddle-prephase.md" "### Spread a batch across the whole bank" "the spread rule is its own subsection"
-need "$MODULES/03-riddle-prephase.md" "Never start at 0001, never take the first few entries" "the head of the list is refused"
-need "$MODULES/03-riddle-prephase.md" "### One family per batch, and none repeated across batches" "the family rule is stated"
-need "$MODULES/03-riddle-prephase.md" "**No two candidates in one batch may share a family.**" "variants of one answer may not share a batch"
-need "$MODULES/03-riddle-prephase.md" "### Skip entries that are not answers" "the skip rules are stated"
-need "$MODULES/03-riddle-prephase.md" "step to the next index in the spread rather than dropping the batch" "a skipped entry advances the spread"
-need "$MODULES/03-riddle-prephase.md" "ANSWERS-USED" "the used-answer record is named"
+# anino, orasan) read as the menu. An embedded 1,000-answer bank was tried as the fix and
+# then withdrawn at the user's call — the pack must not ship a data table. These guards
+# keep the surviving rule (draw wide across the ordinary world, repeat nothing, never
+# invent) wired into every site that points at it, and the need_not traps at the end make
+# the bank's return a validation failure rather than a silent re-introduction.
+need "$MODULES/03-riddle-prephase.md" "## 2b. Where a generated riddle's answer comes from" "the answer-source rule is its own section"
+need "$MODULES/03-riddle-prephase.md" "**No answer list is supplied with this pack.**" "the pack states that no answer list ships with it"
+need "$MODULES/03-riddle-prephase.md" "### Draw across the whole ordinary world, not from the top of a habit" "the wide-draw rule is its own subsection"
+need "$MODULES/03-riddle-prephase.md" "**The examples in Step 0a are illustrations, never the menu.**" "the illustrations are not the menu"
+need "$MODULES/03-riddle-prephase.md" "**Never answer with a thing you already used in this conversation**" "no answer is reused across the conversation"
+need "$MODULES/03-riddle-prephase.md" "### Spread a batch, and repeat nothing" "the batch rule is stated"
+need "$MODULES/03-riddle-prephase.md" "never the previous answers reordered or dressed in new wording" ".reroll draws genuinely fresh"
+need "$MODULES/03-riddle-prephase.md" "The **riddle itself is written fresh**" "the answer supplies the thing, never the wording"
 need "$MODULES/03-riddle-prephase.md" "**Never invent a history you cannot see.**" "no claimed history that cannot be read"
-need "$MODULES/03-riddle-prephase.md" "### When no bank is available" "the no-bank fallback is stated"
-need "$MODULES/03-riddle-prephase.md" "the answer bank (section 2b)" "Form 1's generator path names the bank"
-need "$MODULES/03-riddle-prephase.md" "**Answers come from the answer bank (section 2b) — not from the examples here" "the retired ordinary-world line points at the bank"
-need "$MODULES/15-defaults.md" "Every generated answer is an entry drawn from the answer bank (sections 2b and 2c)" "the defaults name the answer source"
-need "$MODULES/16-checklist.md" "its answer came from the **answer bank** (section 2c)" "the final gate checks the answer source"
-need "$MODULES/01-commands.md" "re-runs the answer spread (section 2b) from a different starting index" ".reroll is scoped to riddles and re-runs the answer spread"
-need "$MODULES/01-commands.md" "a different part of the answer bank (section 2c)" ".reroll draws from a different part of the bank"
-need "$MODULES/03-riddle-prephase.md" "The bank module (2c) is the source of answers" "the why-comment points at the bank module's own number"
-need "$BUILD" "## 2c. Riddle answer bank (1000 answers)" "the bank survives the build"
-need "$BUILD" "## 2b. The answer bank" "the protocol survives the build"
-# The bank module is generated, so it can silently drift from its source: the
-# freshness check fails the build if modules/03a no longer matches the JSON.
-if [[ -f specs/evidence/score-answer-pool-dry-run.py && -f specs/evidence/answer-pool-dry-run.tsv ]]; then
-  pass "the answer-pool dry-run sample and its scorer are present"
-  if command -v python3 >/dev/null 2>&1; then
-    if python3 specs/evidence/score-answer-pool-dry-run.py >/dev/null 2>&1; then
-      pass "the answer-pool dry run still clears every acceptance criterion"
-    else
-      fail "the answer-pool dry run FAILS a criterion — run: python3 specs/evidence/score-answer-pool-dry-run.py"
-    fi
-    if python3 scripts/build-answer-bank.py --check >/dev/null 2>&1; then
-      pass "modules/03a-answer-bank.md matches data/riddle-answer-bank.json"
-    else
-      fail "modules/03a-answer-bank.md is STALE — run: python3 scripts/build-answer-bank.py"
-    fi
-  else
-    printf '  skip  python3 not found — answer-bank freshness NOT checked\n'
-  fi
-else
-  fail "the answer-pool dry-run sample or its scorer is missing"
-fi
+need "$MODULES/03-riddle-prephase.md" "ANSWERS-USED" "the used-answer record is still honoured"
+need "$MODULES/03-riddle-prephase.md" "the answer-source rule (section 2b)" "Form 1's generator path names the rule"
+need "$MODULES/03-riddle-prephase.md" "**Answers follow the answer-source rule (section 2b) — drawn across the ordinary world" "the Step 0a answer line points at the rule"
+need "$MODULES/15-defaults.md" "Every generated answer follows the answer-source rule (section 2b)" "the defaults name the answer source"
+need "$MODULES/16-checklist.md" "its answer followed the **answer-source rule (section 2b)**" "the final gate checks the answer source"
+need "$MODULES/01-commands.md" "a fresh batch re-runs the answer-source rule (section 2b)" ".reroll is scoped to riddles and re-draws answers"
+need "$MODULES/04-interview.md" "Same defect the riddle answers' source rule exists to stop" "the picks rule cites the riddle rule, not a withdrawn bank"
+need "$BUILD" "## 2b. Where a generated riddle's answer comes from" "the answer-source rule survives the build"
+# The bank module and its generator are gone (v2.38.0): there is no generated
+# answer table left to drift, so the freshness check and its dry run are retired.
 need_not "$MODULES/03-riddle-prephase.md" "Draw answers from anywhere in the ordinary world" "the invent-an-answer instruction is retired"
 need_not "$BUILD" "Draw answers from anywhere in the ordinary world" "the retired instruction is gone from the build"
+need_not "$BUILD" "Riddle answer bank (1000 answers)" "the withdrawn 1,000-answer table is not shipped"
+need_not "$BUILD" "answer bank" "the withdrawn answer bank is gone from the pack"
+need_not "$MODULES/03-riddle-prephase.md" "answer bank" "the withdrawn answer bank is gone from the riddle module"
 echo
 
 echo "41. Deliver everything the user came for: all prompts, the ingredient, both routes, wide picks"
@@ -951,8 +928,8 @@ echo "41. Deliver everything the user came for: all prompts, the ingredient, bot
 # generate each clip from the same image) were never both handed over. (2) Every option set
 # the pack offers (story ideas, AI Character A/B/C, the art-style list, the generated Script
 # Overview) came back as the same few picks run after run, because a fixed set with no
-# rotation rule is read from its head — the same defect the answer bank fixed for riddle
-# answers (section 40). These guards keep the prompts, the ingredient, both routes, and a
+# rotation rule is read from its head — the same defect the riddle answers' source rule
+# prevents (section 40). These guards keep the prompts, the ingredient, both routes, and a
 # wide fresh range in the pack.
 need "$MODULES/11-output-format.md" "### Delivery turn (all prompts in full and copyable; the image ingredient; one image per action)" "the delivery turn is defined by handing over the prompts"
 need "$MODULES/11-output-format.md" "Print the complete copy-ready Google Flow video prompt of **every** clip" "every clip's prompt is printed, not withheld"

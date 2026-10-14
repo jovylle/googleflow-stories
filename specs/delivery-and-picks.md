@@ -77,7 +77,7 @@ characters, and the same first art style, run after run.
 
 This is **the answer-bank defect in miniature** — a source with no sampler is read from the top:
 
-| | answer bank (v2.36.0) | offered sets (v2.37.0) |
+| | answer bank (v2.36.0, withdrawn in v2.38.0) | offered sets (v2.37.0) |
 |---|---|---|
 | source | `data/riddle-answer-bank.json`, 1,000 entries | a wide field of story shapes / archetypes / looks |
 | sampler | even spread, stride from a non-head start | draw across the range, never the head of a fixed set |
@@ -132,7 +132,7 @@ run, never the pack's standing menu**:
 5. Offer the range and hand the choice over (always "Other"; a locked pick is never re-rolled).
 6. **These are the auto-mode picks** — an auto run must not reuse the previous run's picks.
 7. Fields, count, order, and defaults are unchanged: no new questions, no extra round trips; nothing here
-   touches a locked riddle, its answer source (2b/2c), or the ensemble (2a).
+   touches a locked riddle, its answer source (2b), or the ensemble (2a).
 8. **An offer is never a decision, and only an auto trigger authorizes picking** (v2.37.1). The sets above are what
    `.auto` consumes; without that trigger — `.auto <riddle|mukbang>`, or a message that names the story type as its
    request — the pack presents **Form 1, then Form 2** and waits for each submission, and never chooses a story
