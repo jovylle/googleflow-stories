@@ -90,6 +90,33 @@ Combine these to describe food shots, landscapes, character shots, and more.
 | Orbit shot | Moves around the subject |
 | Static shot | Stays still |
 
+<!--
+Viewpoint is a CHOICE, not an inherited default. A twelve-run sample used the
+same composition every time: camera behind the victim, looking at a larger
+figure centred ahead. Nothing selected it — it was just what the model reached
+for. This list gives the axis something to be chosen FROM and names the old
+composition as one option among many rather than the house style. Keep the
+one-shot/one-image rule and the two-shot allowance untouched.
+-->
+### Camera viewpoint (choose one explicitly, before any image)
+
+Every shot's viewpoint is **chosen and stated**, not left to the model. Pick one from this list and name it in the image prompt and in the shot description:
+
+- **Front-facing** — the subject looks into the lens.
+- **Side-on / profile** — the subject is seen across the frame.
+- **Overhead / top-down** — the camera looks straight down.
+- **Low-angle** — the camera looks up from below the subject.
+- **High-angle** — the camera looks down on the subject.
+- **Eye-level** — the camera stands at the subject's own height.
+- **Extreme wide** — the subject is small inside a large environment.
+- **Extreme close** — one detail fills the frame.
+- **Over-the-shoulder / behind** — the camera stands behind a subject looking past it.
+- **Point of view** — the camera is one character's eyes.
+- **Ground level** — the camera sits on the floor or the ground.
+- **Tracking / orbit** — the camera moves with or around the subject (then also name a movement term from the table above).
+
+**Do not default to a rear-view figure facing a larger centred one.** That single composition is the most-repeated frame in this pack's output, and it is **one option in the list above — not the house style**. Choose the viewpoint the scene actually needs: where the size relation, the trap, or the space makes another angle stronger, use it. State the chosen viewpoint in the image prompt so the image and the video prompt agree.
+
 ### Example: one 8-second clip, two shots
 
 Supply the two shot images as visual references (SHOT 1 image + SHOT 2 image), then write the prompt in this structure:

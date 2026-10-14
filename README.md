@@ -42,13 +42,15 @@ Outputs `build/google-flow-story-maker.md` (portable; works on stock macOS bash 
 ./validate.sh
 ```
 
-Checks the **compiled artifact** (not just the modules): build sync, version
+Checks the **compiled story maker artifact** (not just the modules): build sync, version
 stamping, every module present in filename order, section numbering,
 cross-reference resolution, the interview's primary/advanced field shape, defaults
 parity between the interview and defaults modules, the two-form flow contract
 (Form 1 produces Form 2 — no per-field turns, no riddle confirmation round), and
 absence of stale wording.
 Exit code 0 = pass. Run it before committing.
+The plugin package has its own validator and is not part of this check unless
+`VALIDATE_PLUGIN=1` is set explicitly.
 
 ## Use in ChatGPT
 
@@ -65,12 +67,12 @@ embeds a generated copy of this compiled rulebook.
 
 ```bash
 ./plugin/build-plugin.sh     # rebuild pack → refresh embedded copy → stamp version → dist/*.zip
-./plugin/validate-plugin.sh  # 49 checks: manifest limits, icons, skills layout, freshness, secrets
+./plugin/validate-plugin.sh  # package checks: manifest limits, icons, skills layout, freshness, secrets
 ```
 
-The pack stays the source of truth: the plugin never hand-edits the rulebook, and both versions move
-together off `version.txt`. See `plugin/README.md` for the layout and `plugin/docs/SUBMISSION.md` for
-the portal checklist.
+The plugin is a separate deliverable. Build and validate it only when working on
+the plugin; see `plugin/README.md` for its layout and `plugin/docs/SUBMISSION.md`
+for the portal checklist.
 
 ## Branch model
 

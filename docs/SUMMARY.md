@@ -1,6 +1,6 @@
 # Google Flow Story Maker — Status Summary
 
-*As of v2.33.0 · 2026-10-13 · branch `dev`*
+*As of v2.35.0 · 2026-10-14 · branch `dev`*
 
 ## What it is
 
@@ -17,7 +17,7 @@ API. That single fact drives everything below.
 ```
 modules/*.md   →   build.sh   →   build/google-flow-story-maker.md   →   paste into ChatGPT Instructions
                                         ↑
-                                  validate.sh (112 checks, exit 0 before commit)
+                                  validate.sh (386 checks, exit 0 before commit)
 ```
 
 - **19 modules**, one concern each, concatenated in filename order. Authored
@@ -25,12 +25,13 @@ modules/*.md   →   build.sh   →   build/google-flow-story-maker.md   →   p
 - **One compiled file, not many** — deliberately. ChatGPT's file retrieval is
   not reliable for routing between near-identical documents, so the whole
   instruction set ships as a single paste.
-- **112 validator checks.** The validator tests the *compiled artifact*, not the
+- **386 validator checks.** The validator tests the *compiled artifact*, not the
   modules: build sync, version stamping, module order, section numbering,
   cross-reference resolution, interview field shape, defaults parity, the
   two-form contract, and stale-wording traps (`need_not`). Guards are written
   **red first** — a new rule fails before the module edit that satisfies it.
-- `master` = production (still v2.12.0). `dev` = current work (v2.15.0).
+- `master` = production (v2.21.0). `dev` = current work (v2.35.0, uncommitted in
+  the working tree).
 
 ## The versions that matter
 
@@ -58,6 +59,7 @@ modules/*.md   →   build.sh   →   build/google-flow-story-maker.md   →   p
 | v2.31.0 | **Riddle variety** — the example list stopped being a menu | The same eight-noun list appeared twice in the generator rules, so every batch came back alike; the pool is now widened and explicitly non-exhaustive, answers must differ within a batch, and a re-roll differs in answer, not wording |
 | v2.32.0 | **`.revise` single-item revision** — change one item, get only the affected prompts | Late changes meant re-printing the package; now `.revise <item>` keeps everything locked and re-emits only what carries the change — a riddle swap reprints just the clip that speaks it, a character or art-style change re-emits the clip prompts and regenerates the Clip 1 reference image |
 | v2.33.0 | **Reference-image binding** — the video must look like the image you gave it | Clip prompts described lighting and style in the abstract, so the video could drift from the reference image; each independently generated prompt now names its image and must match its medium, render quality, palette, lighting, and grade, a supplied photo stays photographic, and an Extend delta carries no binding because inheriting the base clip's look is the contract |
+| v2.35.0 | **Creative diversity engine** — the riddle's structure is fixed, its look is chosen fresh every run | Twelve productions came back as one film: a small animal in a doorway or corridor, a much larger floating robed Teller, shot from behind the victim, ending with the way sealed. None of it was mandated — "small, cute, vulnerable" victims, passage-shaped traps, and sealing-shaped consequences were the *examples*, and nothing ever selected a camera. §2a splits the invariants from the visual defaults, settles nine axes each run, requires them to reduce to one coherent situation, blocks reuse of the recent design, and records a planning-only fingerprint; `.reroll visual` re-rolls the look without touching the riddle, the camera viewpoint is an explicit axis, and an image acceptance gate rejects a frame that swaps the species, scale, setting, or viewpoint — and **reports** a persistent mismatch instead of replanning the story around it |
 
 ## The pattern worth naming
 
@@ -74,6 +76,16 @@ None of these were content problems. They were **permission problems** — gaps
 where the model could reasonably infer a shortcut. Every fix has been to close
 the gap: replace `or` with `and`, name the order of operations, define the scope
 of a phrase, and add a guard so the wording cannot drift back.
+
+**v2.35.0 is the same class, inverted: the examples read as the spec.** The
+rulebook never required a small animal, a giant robed Teller, a corridor, or a
+rear-view camera — it *illustrated* victims with "small, cute, vulnerable",
+traps with blocked passages, and consequences with sealing and imprisonment, and
+named no camera at all. A run obeyed the illustrations and ignored the absence
+of the rules. So section 2a does to the visual defaults what earlier versions did
+to the permission gaps: names them as illustrations, requires an explicit choice
+in their place, and traps the retired phrases in the validator so the narrow
+formula cannot return by drift.
 
 This is the single most transferable lesson for anything built on top of this.
 
@@ -94,6 +106,7 @@ This is the single most transferable lesson for anything built on top of this.
   resolution notes.
 - Per-change specs: `two-form-flow.md`, `riddle-outcome-and-clip1-stall.md`,
   `session-state-and-clip1-image.md`, `interview-character-artstyle-split.md`,
-  `validation-v2.12.0.md`.
+  `validation-v2.12.0.md`, `creative-diversity.md` (v2.35.0 — the diversity
+  regression, the nine axes, the dry-run sample, and the scoring rubric).
 - `docs/chatgpt-interactive-components-cheatsheet.md` — the native-control
   reference the two forms are built from.

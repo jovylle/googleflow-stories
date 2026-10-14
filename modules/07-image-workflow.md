@@ -17,6 +17,35 @@ image was generated unless it was). The per-scene/mixed approach is intentional.
 
 **One request produces exactly one image.**
 
+<!--
+WHY THIS SUBSECTION EXISTS:
+A real run planned a turquoise salamander and a floating wooden mask inside a
+hollow tree, and accepted generated images of rabbit-and-mouse adventurers in
+temple corridors with a robed apparition — the plan had been silently rewritten
+by the image tool. Nothing checked the frame against the plan, and nothing
+required the plan to win. This gate is that check, and the "report, never
+quietly replan" rule is the important half: the plan is what the user approved.
+Keep both halves; a gate with no report rule just licenses accepting the wrong
+frame.
+-->
+### Image acceptance gate (check the frame against the plan before presenting it)
+
+A generated reference image is **not accepted until it matches the decided scene**. Before presenting any generated image, check it against the plan, in this order:
+
+- **Who is in it** — the locked victims and the locked Teller, not lookalikes or the image model's own stock characters.
+- **Their species and physical design** — the form the plan chose. An animal stays that animal; a mask stays a mask; a person stays a person. A swapped species or swapped design is a **failed frame**.
+- **Their relative scale** — the size relation the plan chose. A frame that renders the Teller larger than planned (or smaller) is a failed frame.
+- **The environment** — the planned setting and its layout, not a similar-looking one.
+- **The camera** — the planned viewpoint and composition, per the shot-composition rules.
+- **The medium and palette** — the locked art style, not a generic version of it.
+- **Nothing extra** — no props, characters, symbols, or scenery the plan did not ask for.
+- **No answer clue** — nothing the locked riddle names or describes, and nothing that hints at its answer.
+- **Nothing but the scene** — no panels, labels, captions, subtitles, storyboard frames, or production documentation (see the image-output-isolation constraint in the shot-composition module).
+
+If a **material** item fails — wrong subjects, wrong species or design, wrong scale, wrong setting, wrong viewpoint, wrong style, an unplanned prop, or a leak — **reject the frame and regenerate with a tighter, scene-only prompt** that states the failed item explicitly: name the subjects and their forms, state the size relation, state the viewpoint. Regeneration is available; a wrong frame is a failed attempt, not a delivery note.
+
+**Report a repeated failure; never quietly replan.** If regeneration keeps failing, say plainly which item the image tool will not honour and that the frame does not match the plan, then let the user decide. Do **not** edit the plan, the blueprint, the characters, the setting, or the story to match what the image returned, and never present a mismatched frame as if it were the planned scene. The plan is what the user approved; the image follows it, not the reverse.
+
 Choose per scene from the following methods:
 
 ### A. User-supplied raw image

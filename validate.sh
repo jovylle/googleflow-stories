@@ -380,7 +380,7 @@ need "$MODULES/05-story-planning.md" "It is not a form" "the checkpoint is disti
 need "$MODULES/05-story-planning.md" "never label it as Form 3" "the checkpoint is not a third form"
 need "$MODULES/05-story-planning.md" "state it in plain words" "the consequence is surfaced for review"
 need "$MODULES/05-story-planning.md" "never present a second uninvited checkpoint" "no round-trip creep"
-need "$MODULES/05-story-planning.md" "This is where a clip-count shortfall is raised" "the clip-count shortfall is raised at the checkpoint"
+need "$MODULES/05-story-planning.md" "This is where a clip-count or spoken-duration shortfall is raised" "the clip-count and duration shortfall are raised at the checkpoint"
 need "$MODULES/05-story-planning.md" "skips the checkpoint and goes straight to the full package" "the checkpoint is skippable"
 need "$MODULES/02-role.md" "plus one Story Overview checkpoint" "the two-form contract names the checkpoint"
 need "$MODULES/11-output-format.md" "First, the Story Overview checkpoint" "the default delivery honours the checkpoint"
@@ -425,7 +425,7 @@ need "$MODULES/07-image-workflow.md" "Build the frame from the situation, not fr
 need "$MODULES/11-output-format.md" "No citations, links, or foreign text" "junk citations are banned from the package"
 need "$MODULES/15-defaults.md" "Horror for a riddle story" "the defaults module carries the horror default"
 need "$MODULES/15-defaults.md" "a horror two-entity scene" "the defaults module carries the structure"
-need "$MODULES/15-defaults.md" "small, cute, vulnerable" "victim characters are the riddle default"
+need "$MODULES/15-defaults.md" "chosen fresh for every run** by the creative-diversity section (2a)" "victim and Teller forms are a per-run choice, not a fixed default"
 need "$MODULES/15-defaults.md" "no tips and no clues of any kind" "the defaults module carries the no-clue rule"
 need "$MODULES/16-checklist.md" "the consequence is the Teller's own act" "the checklist verifies the consequence source"
 need "$MODULES/16-checklist.md" "no tip or clue of any kind is present" "the checklist verifies no clues"
@@ -714,11 +714,11 @@ need_not "$MODULES/09-clip-continuity.md" "the Extend clip names its reference i
 need_not "$MODULES/10-clip1-final.md" "generate a style sample from the reference image" "the binding spawns no extra assets"
 echo
 
-# ------------------------------------------------------- 37. plugin package
-# The public ChatGPT plugin lives in plugin/ and embeds a generated copy of this
-# artifact. Guards: the package exists, its version tracks version.txt, the
-# embedded rulebook is fresh, each skill's frontmatter name matches its folder,
-# the package stays skills-only, and the package validator passes.
+# ------------------------------------------------------- 37. optional plugin package
+# The plugin is a separate deliverable. The default validation covers only the
+# story maker modules and compiled Markdown. Set VALIDATE_PLUGIN=1 to check the
+# plugin's packaged copy during plugin work, or run its own validator directly.
+if [ "${VALIDATE_PLUGIN:-0}" = "1" ]; then
 echo "37. Plugin package"
 if [ -f "$ROOT/plugin/flow-story-maker/plugin.json" ]; then
   pass "the plugin package exists"
@@ -771,6 +771,101 @@ if [ -x "$ROOT/plugin/validate-plugin.sh" ]; then
 else
   fail "plugin/validate-plugin.sh is missing or not executable"
 fi
+echo
+fi
+
+# ------------------------------------------------------- 38. live-run reliability
+echo "38. Riddle roles, pacing, and Form 2 submission"
+need "$MODULES/03-riddle-prephase.md" "The victims pay the price; the Teller performs the act" "the consequence has an explicit actor and victim"
+need "$MODULES/04-interview.md" "the chosen Character fills the victim slot only" "the Character choice cannot become the Teller"
+need "$MODULES/05-story-planning.md" "separate locked designs for the victims and the Teller" "the blueprint keeps both roles distinct"
+need "$MODULES/16-checklist.md" "victims pay the price and the Teller acts" "the final gate checks consequence direction"
+need "$MODULES/03-riddle-prephase.md" "Do not use the 24-word ceiling as proof that an 8-second clip fits" "the normal-pace ceiling is not a guaranteed fit"
+need "$MODULES/05-story-planning.md" "a third clip or a longer-duration model" "the checkpoint surfaces a duration shortfall"
+need "$MODULES/04-interview.md" "visible Submit button" "Form 2 has an explicit submission control"
+need "$MODULES/04-interview.md" "type .go or send one line with your choices" "Form 2 has a text fallback"
+need "$MODULES/16-checklist.md" "visible Submit button and a .go/text fallback" "the final gate checks Form 2 submission"
+need_not "$MODULES/03-riddle-prephase.md" "fold the consequence into the final moment of that beat" "the old beat-compression permission is gone"
+need_not "$MODULES/03-riddle-prephase.md" "the whole story can often be **1–2 clips**" "the old word-count clip shortcut is gone"
+echo
+
+# ------------------------------------------------------- 39. creative diversity
+# A twelve-run sample produced one film: a small animal cornered in a doorway by
+# something much larger and robed, shot from behind the victim, ending in the way
+# being sealed. Nothing mandated that formula — the retired victim wording
+# ("small, cute, vulnerable") plus passage-shaped trap examples and
+# sealing-shaped consequence examples read as the spec, and nothing selected a
+# camera. Guards pin the invariants-vs-defaults split, the nine axes, the
+# no-reuse rule, the planning-only fingerprint, `.reroll visual`, the camera
+# viewpoint axis, the image acceptance gate, and trap every retired phrase so the
+# narrow formula cannot drift back in.
+echo "39. Creative diversity (riddle ensemble)"
+need "$MODULES/03-riddle-prephase.md" "## 2a. Creative diversity engine (every riddle story)" "the creative-diversity section exists"
+need "$MODULES/03-riddle-prephase.md" "**None of the fixed items implies any of the free ones.**" "invariants are separated from visual defaults"
+need "$MODULES/03-riddle-prephase.md" "The victims do **not** have to be small, cute, young, soft, or animal" "the small-cute-victim requirement is explicitly retired"
+need "$MODULES/03-riddle-prephase.md" "**Horror is not darkness, robes, giants, or stone corridors.**" "the horror-look assumption is refused"
+need "$MODULES/03-riddle-prephase.md" "**Nothing fixes the Teller's shape.**" "the Teller's shape is a free axis"
+need "$MODULES/03-riddle-prephase.md" "the supernatural Teller voice block governs that delivery" "a bodiless Teller still has to speak the riddle"
+need "$MODULES/03-riddle-prephase.md" "### The axes (settle all nine, every run)" "the axes are enumerated"
+need "$MODULES/03-riddle-prephase.md" "Inverted — a Teller visibly smaller than the victim — must be weighed every run" "the inverted size relation is a first-class option"
+need "$MODULES/03-riddle-prephase.md" "and the trap does not have to be architectural" "the trap is not assumed to be a passage"
+need "$MODULES/03-riddle-prephase.md" "they are not the set to choose from" "the consequence examples are labelled illustrations"
+need "$MODULES/03-riddle-prephase.md" "### The combination has to be one situation, not a collage" "coherence is required of the combination"
+need "$MODULES/03-riddle-prephase.md" "### Do not reuse the recent design" "recent-design avoidance is stated"
+need "$MODULES/03-riddle-prephase.md" "prefer a **materially different composition** over a recoloured one" "recolouring is not variety"
+need "$MODULES/03-riddle-prephase.md" "### The fingerprint (planning only — never story, never an image prompt)" "the fingerprint is scoped"
+need "$MODULES/03-riddle-prephase.md" "It is **never** passed to the image model, in whole or in part." "the fingerprint never reaches the image prompt"
+need "$MODULES/03-riddle-prephase.md" "### Explicit choices win" "user-locked axes are never randomized away"
+need "$MODULES/03-riddle-prephase.md" "Never invent a history you cannot see" "no invented production history"
+need "$MODULES/03-riddle-prephase.md" "Then run the creative-diversity selection (section 2a)" ".auto riddle runs the selection"
+need "$MODULES/03-riddle-prephase.md" "and so is a distance that will not close" "non-architectural traps are named in the structure block"
+need "$MODULES/04-interview.md" "must **not** all be small mammals or birds" "the victim pitches must vary in form"
+need "$MODULES/04-interview.md" "differ in **archetype and form**" "the three pitches differ by archetype, not costume"
+need "$MODULES/05-story-planning.md" "the run's one-line **creative fingerprint** belongs in these continuity notes" "the blueprint carries the fingerprint"
+need "$MODULES/15-defaults.md" "chosen fresh for every run** by the creative-diversity section (2a)" "the defaults defer the ensemble to section 2a"
+need "$MODULES/15-defaults.md" "and runs the creative-diversity selection (section 2a) for the run's look" "the .auto default runs the selection"
+need "$MODULES/01-commands.md" "\`.reroll visual\` — Change the **look** of a riddle production without touching the riddle" ".reroll visual exists"
+need "$MODULES/01-commands.md" "\`.reroll\` changes **riddles only** — it never changes the look of the production." ".reroll is scoped to riddles"
+need "$MODULES/01-commands.md" "Axes the user has locked (a chosen character, art style, setting, or camera) are **not** re-rolled" ".reroll visual respects locked axes"
+need "$MODULES/08a-shot-composition.md" "### Camera viewpoint (choose one explicitly, before any image)" "the viewpoint axis is enumerated"
+need "$MODULES/08a-shot-composition.md" "**Do not default to a rear-view figure facing a larger centred one.**" "the house composition is refused"
+need "$MODULES/08a-shot-composition.md" "State the chosen viewpoint in the image prompt" "the viewpoint reaches the image prompt"
+need "$MODULES/07-image-workflow.md" "### Image acceptance gate (check the frame against the plan before presenting it)" "the acceptance gate exists"
+need "$MODULES/07-image-workflow.md" "A swapped species or swapped design is a **failed frame**." "species/design drift is a failed frame"
+need "$MODULES/07-image-workflow.md" "**Report a repeated failure; never quietly replan.**" "repeated failure is reported, not silently replanned"
+need "$MODULES/07-image-workflow.md" "never present a mismatched frame as if it were the planned scene" "a mismatched frame is never presented as the plan"
+need "$MODULES/10-clip1-final.md" "Then check the frame against the plan before showing it" "Clip 1 runs the acceptance gate"
+need "$MODULES/10-clip1-final.md" "**Never rewrite the plan to match the image.**" "Clip 1 never replans around the image"
+need "$MODULES/16-checklist.md" "the **victims and the Teller were chosen for this run**" "the final gate checks the ensemble was chosen"
+need "$MODULES/16-checklist.md" "planning-only creative fingerprint" "the final gate checks the fingerprint"
+need "$MODULES/16-checklist.md" "passed the **image acceptance gate** before being shown" "the final gate checks the acceptance gate"
+need "$MODULES/16-checklist.md" "the **viewpoint was chosen on purpose**" "the final gate checks the viewpoint choice"
+need "$BUILD" "## 2a. Creative diversity engine (every riddle story)" "the diversity section survives the build"
+need "$BUILD" "materially different composition" "the anti-recolouring rule survives the build"
+need "$BUILD" "Image acceptance gate" "the acceptance gate survives the build"
+# The dry run is the only place the variety claim is measured rather than asserted,
+# so the scorer is wired in: a sample that stops clearing its bars fails the build
+# instead of surviving in a reviewer's memory.
+if [[ -f specs/evidence/score-diversity-dry-run.py && -f specs/evidence/diversity-dry-run.tsv ]]; then
+  pass "the 12-production dry-run sample and its scorer are present"
+  if command -v python3 >/dev/null 2>&1; then
+    if python3 specs/evidence/score-diversity-dry-run.py >/dev/null 2>&1; then
+      pass "the dry run still clears every diversity acceptance criterion"
+    else
+      fail "the diversity dry run FAILS an acceptance criterion — run: python3 specs/evidence/score-diversity-dry-run.py"
+    fi
+  else
+    printf '  skip  python3 not found — diversity dry run NOT scored\n'
+  fi
+else
+  fail "the diversity dry-run sample or its scorer is missing"
+fi
+need_not "$MODULES/03-riddle-prephase.md" "**small, cute, vulnerable**" "the retired victim wording is gone from the riddle module"
+need_not "$MODULES/03-riddle-prephase.md" "Keep them small and soft rather than fearsome" "the keep-them-small instruction is gone"
+need_not "$MODULES/04-interview.md" "small, cute, vulnerable characters" "the interview no longer pitches only small victims"
+need_not "$MODULES/04-interview.md" "they must look soft, not fearsome" "the soft-looking victim instruction is gone"
+need_not "$MODULES/15-defaults.md" "small, cute, vulnerable" "the defaults no longer state the narrow victims"
+need_not "$BUILD" "small, cute, vulnerable" "the retired victim wording is gone from the build"
 echo
 
 echo "----------------------------------------"

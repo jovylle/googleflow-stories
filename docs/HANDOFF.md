@@ -4,16 +4,48 @@ Written at closeout so a fresh session can continue without reading a previous c
 **Read this file first.** Then `docs/SUMMARY.md` (the version history and the failure class the
 versions share), and only the `specs/` file for whatever you are about to change.
 
+## Current update (2026-10-14)
+
+The working tree now carries **v2.35.0** (creative diversity) on top of the still-uncommitted
+**v2.34.0** live-run fixes. Nothing since `54ee31b` has been committed, so v2.34.0 and v2.35.0
+both live only in the working tree.
+
+**v2.35.0 closes a creative-diversity regression.** Twelve sample horror-riddle productions came back as
+one film: a small animal (mouse, rabbit, chick) cornered in a doorway, corridor, or tunnel by something
+much larger that floated and wore robes, shot from behind the victim, ending with the way sealed. The
+formula was never mandated — the victim bullet said "small, cute, vulnerable", the trap bullet listed only
+passage-shaped traps, the consequence bullet listed only sealing and claiming, and nothing ever selected a
+camera. The model read the defaults as the spec. `03-riddle-prephase.md` gains **§2a, a creative-diversity
+engine**: the riddle's invariants are separated from its visual defaults, nine axes (victim form, Teller
+form, size relation, the Teller's mechanism, environment, trap, camera viewpoint, art style, consequence)
+are settled fresh every run, the combination must reduce to one coherent situation, a recent-design
+non-reuse rule applies, and a one-line planning-only **fingerprint** is written on the plan record and
+compared before the blueprint. `.reroll visual` changes the look without touching the riddle; `.auto riddle`
+runs the selection automatically. `08a` gains an explicit camera-**viewpoint** axis (the rear-view figure
+facing a larger centred one is now named as one option among many, not the house style), and `07` gains an
+**image acceptance gate** — a frame that swaps the species, the scale, the setting, or the viewpoint is
+regenerated, and a persistent failure is reported rather than the plan being silently rewritten to match the
+image. That gate is the fix for the run that planned a turquoise salamander and a floating wooden mask and
+shipped rabbit-and-mouse adventurers in a temple corridor instead.
+
+`validate.sh` has sections 38 (v2.34.0) and 39 (v2.35.0) for these contracts; the compiled artifact was
+rebuilt from the modules. The plugin package embeds a copy of the rulebook and must be rebuilt for its opt-in
+checks (`VALIDATE_PLUGIN=1`) to pass at the new version. These checks confirm wording and build consistency;
+a fresh ChatGPT/Flow run is still the only thing that can judge model behaviour.
+The older state and next-step list below are retained as a snapshot of the previous
+closeout, not as current instructions. No release, deployment, or live-project paste
+was performed by this update.
+
 ## State at closeout (2026-10-11)
 
 | Repo | Version | Branch / HEAD | Checks | Remote |
 |---|---|---|---|---|
-| `lab/googleflow-stories` (**canonical rules** — you are here) | **2.33.0** | `dev` / `aa75e38` | `./validate.sh` → **331 / 0** | GitHub `jovylle/googleflow-stories`, `master` at `05d81ec` (v2.21.0 release merge), `dev` twelve ahead |
+| `lab/googleflow-stories` (**canonical rules** — you are here) | **2.35.0** | `dev` / `54ee31b` **+ v2.34.0 & v2.35.0 uncommitted** | `./validate.sh` → **386 / 0** | GitHub `jovylle/googleflow-stories`, `master` at `05d81ec` (v2.21.0 release merge), `dev` fourteen ahead |
 | `lab/flow-story-gpt` (distilled ChatGPT pack) | 1.0.0 | `master` / `5bb876c` | `./validate-gpt.sh` → 28 / 0 | **none — local only** |
 | `lab/flow-story-gem` (Gemini + hand-over zip) | 1.0.0 | `master` / `6c3d417` | `./validate-gem.sh` → 36 / 0 | **none — local only** |
 
-Canonical artifact: `build/google-flow-story-maker.md`, **1,253 lines / 159,927 chars**, working tree
-clean. `master` is at `05d81ec` (v2.21.0, released 2026-10-12 by merging `dev`) and is **twelve versions behind `dev`**.
+Canonical artifact: `build/google-flow-story-maker.md`, **1,410 lines / 184,362 chars**, rebuilt from the
+modules and **uncommitted**. `master` is at `05d81ec` (v2.21.0, released 2026-10-12 by merging `dev`) and is **fourteen versions behind `dev`**.
 
 ### Version chain since v2.12.0 (all on `dev`)
 
@@ -40,6 +72,8 @@ clean. `master` is at `05d81ec` (v2.21.0, released 2026-10-12 by merging `dev`) 
 | 2.31.0 | `3205861` | Riddle variety: the same eight-noun example list appeared twice and read as a menu — the pool is widened and named as illustrations, answers must be unique within a batch, and a re-roll differs in answer, not wording |
 | 2.32.0 | `1669843` | `.revise` single-item revision: one item changes, everything else stays locked, only the deliverables carrying it are re-emitted — a local change (riddle text) reprints just the clip that speaks it, while character/art style also regenerate the Clip 1 reference image |
 | 2.33.0 | `aa75e38` | Reference-image binding: every independently generated clip prompt names its image and must match its medium, render quality, palette, lighting, and grade; a supplied photo stays photographic; an Extend delta carries no image binding (its inheritance is the contract) |
+| 2.34.0 | *(uncommitted)* | Live-run reliability: the consequence has an explicit actor and victim (**the victims pay, the Teller acts**), the Character choice cannot become the Teller, a duration shortfall is surfaced at the overview instead of squeezing the line, and Form 2 ends with a visible Submit button plus a `.go`/text fallback |
+| 2.35.0 | *(uncommitted)* | Creative diversity: **§2a creative-diversity engine** (invariants vs visual defaults, nine axes settled fresh each run, one-coherent-situation test, recent-design non-reuse, planning-only fingerprint), `.reroll visual`, an explicit camera-**viewpoint** axis, and an **image acceptance gate** that regenerates a frame which swaps the subjects, species, scale, setting, or viewpoint rather than letting the image quietly rewrite the plan |
 
 ## Public ChatGPT plugin (`plugin/`)
 
@@ -79,6 +113,12 @@ The public-directory plugin package lives here and embeds a generated copy of th
    try `.revise riddle <new text>` and check that only the riddle-bearing clip prompt comes back.
    Check the clip prompts carry their timestamp header, an audio line, and the reference-image binding
    (medium, palette, lighting, grade).
+   For **diversity** specifically (v2.35.0), run `horror riddle` or `.auto riddle` three or four times in the
+   same chat and compare the ensembles: different victim forms (not another small mammal), at least one Teller
+   that is not larger, different settings (not another doorway), different viewpoints (not another rear-view
+   figure). Then try `.reroll visual` and confirm the riddle text is untouched while the look changes, and
+   check the plan record carries the fingerprint line while the story text does not. `specs/creative-diversity.md`
+   holds the dry-run sample and the scoring rubric to judge it against.
    This is the only step that produces evidence.
 2. **Calibrate the heavy-voice word budget.** v2.21.0 set it to **12–16 words per 8-second clip**
    from the voice's stated pace (~1.5–2 words/sec), not from a timing. Ask the user for the riddle's
@@ -92,7 +132,7 @@ The public-directory plugin package lives here and embeds a generated copy of th
    developer identity verification, the dashboard's primary icon, and the ZIP upload
    (`plugin/docs/SUBMISSION.md`).
 
-## Unactioned defects (reported from live runs, awaiting a go-ahead)
+## Previously unactioned defects (addressed in v2.34.0; awaiting live verification)
 
 1. **The consequence names the actor but not the victim.** `03-riddle-prephase.md` says the
    consequence is the Teller's own act; a Tagalog phrasing rendered as *the Teller* being punished.
@@ -116,7 +156,7 @@ The public-directory plugin package lives here and embeds a generated copy of th
   or the pack needs a genuine re-distill — pasting it into the instruction field is impossible.
 - **`dev` → `master` merge** is taken through v2.21.0 (`05d81ec`, 2026-10-12). Note for the next release: `master`'s old release commit was itself a merge whose side `dev` never had, so `--ff-only` fails — merge with `--no-ff` (it applied with zero conflicts this time), rebuild, revalidate, then commit and push.
 - **Neither pack repo has a git remote.** They exist only on this disk.
-- **Form 2 sometimes renders with no submit button.** Reported 2026-10-12: the fields show, the submit control doesn't (long form + collapsed Advanced suspected). Workaround is `.go` or a prose line with the picks. Fix queued: require a visible submit button plus the text fallback in `04-interview.md`, mirrored in the checklist with guards — buttons are progressive enhancement only, same rule as the image `imgN-M` buttons.
+- **Form 2 sometimes rendered with no submit button.** Reported 2026-10-12: the fields showed, the submit control did not (long form + collapsed Advanced suspected). v2.34.0 now requires a visible Submit button outside Advanced and a `.go`/text fallback, mirrored in the checklist and validator. A live run still needs to confirm the control renders.
 - **The website / parallel-storybuilding system** the user asked about earlier was deferred with
   "make this properly work first". Do not re-raise it unprompted. If it is ever built, hold it to one
   rule: it consumes the compiled artifact and `validate.sh` as its source of truth, and re-implements
@@ -127,7 +167,7 @@ The public-directory plugin package lives here and embeds a generated copy of th
 ```bash
 cd /Volumes/DevSSD/fore/lab/googleflow-stories
 printf '2.22.0\n' > version.txt   # bump first; the build substitutes {{VERSION}}
-./build.sh && ./validate.sh       # 331 checks today (plus docs/HANDOFF.md freshness)
+./build.sh && ./validate.sh       # 386 checks today (plus docs/HANDOFF.md freshness)
 
 # while working on one area, read only the new section's red:
 ./validate.sh 2>&1 | sed -n '/^23\./,$p'
@@ -140,9 +180,15 @@ shows up as failures rather than passing quietly.
 ## Key files
 
 - `modules/03-riddle-prephase.md` — the riddle story's fixed horror structure, the Teller, the
-  answer-blind rules, the spoken-duration budgets.
+  answer-blind rules, the spoken-duration budgets, and **§2a the creative-diversity engine** (the nine axes,
+  the coherence test, recent-design non-reuse, the planning-only fingerprint).
 - `modules/04-interview.md` — the two forms; Form 2's four primary fields (Character is pitched as
-  **victims**).
+  **victims**, varied in archetype rather than all small mammals).
+- `modules/07-image-workflow.md` — the image methods A–E and the **image acceptance gate** (verify the frame
+  against the plan; regenerate a mismatch; report a persistent failure instead of replanning around it).
+- `modules/08a-shot-composition.md` — the one-shot/one-image hard rules and the camera vocabulary, including
+  the explicit **camera viewpoint** axis (the rear-view figure facing a larger centred one is one option, not
+  the house style).
 - `modules/08-video-prompt.md` — prompt construction, the master audio rule, and **the supernatural
   Teller voice block**.
 - `modules/10-clip1-final.md` — the Clip 1 gate: exactly one image, one composed scene, ratio checked.

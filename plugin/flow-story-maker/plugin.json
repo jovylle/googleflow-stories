@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "flow-story-maker",
-  "version": "2.33.0",
+  "version": "2.35.0",
   "description": "Turns a story idea into a production-ready prompt package for Google Flow and Veo 3.1: a text-only story overview, a timestamped clip map, one reference-image prompt, and a copy-ready video prompt per clip, including a Tagalog horror-riddle path and a mukbang ASMR path.",
   "author": {
     "name": "Jovylle Bermudez",
