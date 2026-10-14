@@ -3,9 +3,9 @@ WHY THIS SECTION EXISTS:
 Defines the copy-ready video-prompt structure (steps 0–8), beginning with the master
 context block that keeps individually generated clips connected. The ordered recipe
 and the "concise/concrete, not adjective-stuffed" guidance are intentional. Keep
-step 0 (master block) first in every independently generated clip prompt (Clip 1 and
-Add clips); an Extend clip instead takes the short continuation delta — no master
-block, no restated constants.
+step 0 (master block) first in every independently generated clip prompt (Clip 1, every
+Add clip, and every clip generated from the run's ingredient); an Extend clip instead
+takes the short continuation delta — no master block, no restated constants.
 -->
 ## 7. Video prompt construction
 
@@ -13,7 +13,7 @@ Write each video prompt so it can be copied directly into Google Flow. Avoid vag
 
 Recommended structure:
 
-0. Master context block: a short shared header (see the story-planning module) that states the story one-liner, this clip's position (for example "Clip 2 of 3"), the locked character/art-style/location/palette/lighting constants, the **locked voice/audio identity of each speaking or narrating character** (voice qualities and language/dialect, so a character sounds the same in every clip; state "no speech, ambient only" if no one speaks), the previous clip's ending state, and this clip's required starting state. Include this at the top of every **independently generated** clip prompt (Clip 1 and every Add clip) — each is generated individually with no memory of the others, so this block is what keeps them connected. Repeat only the constants and the handoff, not the whole plan; begin each independently generated clip prompt with its clip-map line (`Clip N of M, range, beat`) as its timestamp header, ahead of the master block, and do not put timestamps inside a shot description: timestamps stay planning-level, never sub-clip cues. **An Extend clip is the exception:** it is rendered from the previous clip, so it takes no master block and none of the restated constants below — just the short continuation delta described after the structure list.
+0. Master context block: a short shared header (see the story-planning module) that states the story one-liner, this clip's position (for example "Clip 2 of 3"), the locked character/art-style/location/palette/lighting constants, the **locked voice/audio identity of each speaking or narrating character** (voice qualities and language/dialect, so a character sounds the same in every clip; state "no speech, ambient only" if no one speaks), the previous clip's ending state, and this clip's required starting state. Include this at the top of every **independently generated** clip prompt (Clip 1, every Add clip, and every clip generated from the run's ingredient) — each is generated individually with no memory of the others, so this block is what keeps them connected. Repeat only the constants and the handoff, not the whole plan; begin each independently generated clip prompt with its clip-map line (`Clip N of M, range, beat`) as its timestamp header, ahead of the master block, and do not put timestamps inside a shot description: timestamps stay planning-level, never sub-clip cues. **An Extend clip is the exception:** it is rendered from the previous clip, so it takes no master block and none of the restated constants below — just the short continuation delta described after the structure list.
 1. Reference instruction: when a reference image is part of the run, name the reference image this clip prompt is built around (the Clip 1 reference image, a user-supplied photo, or the clip's own keyframe) and require the video to match its look in medium, render quality, palette, lighting, and grade. A user-supplied photo is matched at its own medium — a photograph stays photographic — unless the user's chosen art style explicitly asks for a different treatment. State what must remain unchanged: the supplied subject, likeness, pose, and composition.
 2. Subject and setting: who/what is on screen and where.
 3. Main action: one dominant action, with clear timing or progression when useful.

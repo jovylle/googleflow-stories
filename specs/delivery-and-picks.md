@@ -1,6 +1,6 @@
 # Delivery and picks — the withheld prompts and the repeated options (v2.37.0)
 
-**Status:** built, `./validate.sh` → **468 checks / 0 failed** · committed at `422ca5c` (v2.37.1), on top of `77318e2` (v2.36.0 + v2.37.0)
+**Status:** built, `./validate.sh` → **481 checks / 0 failed** · committed at `422ca5c` (v2.37.1), on top of `77318e2` (v2.36.0 + v2.37.0)
 **Date:** 2026-10-14 · **Failure class:** an offer that hands over less than it names — a subset where the
 range was asked for (a partial prompt list, and the same few picks out of a wide field)
 **Supersedes the delivery description in** `googleflow-stories_reverse_spec.md` (the "collapsed summaries"
@@ -162,7 +162,7 @@ run, never the pack's standing menu**:
 
 | # | criterion | result |
 |---|---|---|
-| 1 | `./build.sh && ./validate.sh` | ✅ **468 / 0** |
+| 1 | `./build.sh && ./validate.sh` | ✅ **481 / 0** |
 | 2 | §41 presence guards (delivery, ingredient, both routes, §3a) | ✅ 33 / 33 |
 | 3 | retired collapsed-delivery wording is gone from every site **and** the artifact | ✅ 11 / 11 traps |
 | 4 | the new §3a section survives the build, numbering stays monotonic (`3`, `3a`, `4`) | ✅ |

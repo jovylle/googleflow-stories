@@ -20,7 +20,7 @@ For each clip after the first, check:
 
 End each prompt with a specific final state when the next clip must continue directly. When appropriate, provide an optional bridge instruction or starting-frame prompt for the next clip. Do not claim perfect continuity is guaranteed: video generation may still alter details.
 
-Do not repeat the entire continuity bible in every clip if a short, unambiguous subset will work. When you repeat critical identity or reference-image constraints, do it inside each **independently generated** clip prompt (Clip 1 and every Add clip) so it remains usable if copied by itself.
+Do not repeat the entire continuity bible in every clip if a short, unambiguous subset will work. When you repeat critical identity or reference-image constraints, do it inside each **independently generated** clip prompt (Clip 1, every Add clip, and every clip generated from the run's ingredient) so it remains usable if copied by itself.
 
 **Exception — an Extend clip is not independently generated.** An Extend clip is generated *from* the previous clip, so it inherits that clip's characters, wardrobe, location, lighting, and audio on its own. Restating them does not add continuity — it tells Flow to establish them again, which is exactly how an extension ends up rendering as its own separate video with its own look instead of continuing the base clip. Extend clips therefore use the short continuation prompt defined in the continuation-mode section below, never a standalone prompt.
 
@@ -80,6 +80,7 @@ Shape it like this (no master block, no restated identity, nothing that re-estab
 - The clip is generated **on its own** — not extended from the previous clip — but built from the **same reference image the run already holds**: the Clip 1 image. This is the "just generate individual clips, same image ingredient" path, for clips produced separately that still share one look.
 - It keeps a **full standalone prompt** — master context block and all restated constants, exactly like any independently generated clip (see the rule above) — and **binds to that image** the same way Clip 1 binds to its own reference: the video matches its medium, palette, lighting, and grade.
 - **No new keyframe is made.** The ingredient already exists, so there is nothing to generate, plan, or print for this clip — no `imgN-M` command and no new image.
+- **Capability check, like Extend.** This route hands Flow an image as the clip's reference/ingredient input — the same kind of input Clip 1 uses — so verify it against the user's active model/interface before relying on it: that input is 8 seconds only on Veo 3.1 Lite and Veo 3.1 Fast, and listed as unsupported on Veo 3.1 Quality (see the model rules). If the active model or the chosen duration cannot take it, use **Extend** when the beat allows it, otherwise Add clip's own-keyframe path.
 - Choose Add clip's own-keyframe path instead only when the beat needs a new location, angle, or setup, a model other than Veo 3.1 Lite, or a duration other than 8 seconds.
 
 **Image needs by mode (summary).**
@@ -88,7 +89,7 @@ Shape it like this (no master block, no restated identity, nothing that re-estab
 - **Independent clip using the run's ingredient → no new image.** The Clip 1 reference image is its input; do not plan, request, or generate another one for it.
 - **Add clip → one new image per shot.** Plan a fresh keyframe for the clip's shot(s) — a clear, distinct camera shot that still keeps the character/style continuity. A two-shot Add clip needs two images (one per shot), per the shot-composition rule.
 
-Every Clip 2+ is delivered in the Extend route and the independent route side by side (see the output-format module), each labelled, so the user chooses in Flow — the plan records a recommendation, and never withholds the other route.
+Every Clip 2+ is delivered as two labelled blocks (see the output-format module): the **Extend** delta, and that clip's **standalone** route — the independent prompt bound to the run's existing ingredient, or the **Add clip** prompt bound to its own keyframe when the beat needs a new location/angle/setup, another model, or another duration. The plan records which route is recommended, and never withholds the other block.
 
 When a clip uses Extend, write its prompt as a **continuation delta** per the contract above — no master context block, no restated character/wardrobe/location/lighting/audio constants, no new scene framing, no image inputs, and no dialogue unless continued speech was requested. When it is generated independently, write a full standalone prompt and list its input images and roles — the run's existing ingredient, or a fresh keyframe when the beat needs its own shot. Always verify Extend availability against the user's active model/interface before relying on it.
 

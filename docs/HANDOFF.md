@@ -6,11 +6,39 @@ versions share), and only the `specs/` file for whatever you are about to change
 
 ## Current update (2026-10-14)
 
-The working tree carries **v2.37.1** (the forms guard) on top of **v2.37.0** (the delivery + picks fix),
+The working tree carries **v2.37.2** (the review repairs) on top of **v2.37.1** (the forms guard) on top of **v2.37.0** (the delivery + picks fix),
 **v2.36.0** (the answer bank), **v2.35.0** (creative diversity) and **v2.34.0** (live-run fixes). v2.34.0 and
 v2.35.0 were built together in the tree, so one commit carries that pair (`9d451b2`); **v2.36.0 and v2.37.0 ship
 together in `77318e2`** (on top of `15cf309`, because that plugin commit had already carried this pair's guards);
-**v2.37.1 ships as `422ca5c`**, on top of the bookkeeping commit `a2d8833`.
+**v2.37.1 shipped as `422ca5c`** (bookkeeping `a2d8833`); **v2.37.2 ships in the commit after it**.
+
+**v2.37.2 is the diff review's repairs.** An independent review of v2.37.0/v2.37.1 found four real holes, plus
+four mirror sites that had not been propagated:
+
+1. The continuity module routes the beat that needs a **new location/angle/setup, another model, or another
+   duration** through Add clip's own keyframe — but the delivery contract printed the Extend block plus the
+   *ingredient-bound* block for **every** Clip 2+: a keyframe-free prompt for a beat the pack itself routes through
+   Add clip, and no block for the Add-clip prompt. The pair is now **the Extend delta + that clip's standalone
+   route** (the ingredient-bound prompt, or the Add-clip prompt with its own keyframe), in module 11's two
+   subsections, 15, 04 item 10, 05, 09 and 16.
+2. "the input image every independently generated clip uses" swallowed Add clips, which bind to **their own
+   keyframe**. Scoped to clips generated from the run's ingredient (05, 10, 11).
+3. The ingredient hand-over was unconditional, but Clip 1's image exists in the chat **only** when the workflow
+   generated it there (10). A supplied photo, an image generated inside Flow, or "use supplied image unchanged"
+   has no chat-side image and no image prompt: delivery now hands over the image **as that run actually has it** —
+   the copy-ready prompt block when it was generated here, otherwise the named image, its source, and nothing
+   invented.
+4. The new independent route hands Flow an image as a reference/ingredient input with no capability check, while
+   the model rules list that input as **8 seconds only** on Veo 3.1 Lite/Fast and **unsupported** on Quality. The
+   route carries the same verify step Extend has, with Extend or the Add-clip keyframe as the fallback, and §16
+   gates it.
+
+Mirrors propagated: the master-block enumeration now reads "Clip 1, every Add clip, and every clip generated from
+the run's ingredient" (08 body + WHY comment, 09); the asset plan reconciles Add-clip keyframes as the one
+exception to "the Clip 1 frame is the run's only image" (05); Form 1's AI-option set points at §3a (03). §41 is
+66 checks, including retired-phrase traps for the fixed pair and the unconditional ingredient block. The review's
+fifth point — the plugin's embedded rulebook still at 2.35.0 — remains open and is opt-in (`VALIDATE_PLUGIN=1`)
+only.
 
 **v2.37.1 guards the forms.** v2.37.0's §3a bullet described an auto-mode pick as what fills a field "when the
 user runs `.auto`, or leaves a field blank" — which reads as a licence for the pack to choose on the user's behalf,
@@ -118,7 +146,7 @@ listing in the Directory*. Nothing was uploaded, submitted, or deployed.
 
 | Repo | Version | Branch / HEAD | Checks | Remote |
 |---|---|---|---|---|
-| `lab/googleflow-stories` (**canonical rules** — you are here) | **2.37.1** | `dev` / `422ca5c` | `./validate.sh` → **468 / 0** | GitHub `jovylle/googleflow-stories`, `master` at `05d81ec` (v2.21.0 release merge), `dev` fifteen ahead |
+| `lab/googleflow-stories` (**canonical rules** — you are here) | **2.37.2** | `dev` / `393ef64` + v2.37.2 (this commit) | `./validate.sh` → **481 / 0** | GitHub `jovylle/googleflow-stories`, `master` at `05d81ec` (v2.21.0 release merge), `dev` fifteen ahead |
 | `lab/flow-story-gpt` (distilled ChatGPT pack) | 1.0.0 | `master` / `5bb876c` | `./validate-gpt.sh` → 28 / 0 | **none — local only** |
 | `lab/flow-story-gem` (Gemini + hand-over zip) | 1.0.0 | `master` / `6c3d417` | `./validate-gem.sh` → 36 / 0 | **none — local only** |
 
@@ -151,6 +179,7 @@ modules. `master` is at `05d81ec` (v2.21.0, released 2026-10-12 by merging `dev`
 | 2.32.0 | `1669843` | `.revise` single-item revision: one item changes, everything else stays locked, only the deliverables carrying it are re-emitted — a local change (riddle text) reprints just the clip that speaks it, while character/art style also regenerate the Clip 1 reference image |
 | 2.33.0 | `aa75e38` | Reference-image binding: every independently generated clip prompt names its image and must match its medium, render quality, palette, lighting, and grade; a supplied photo stays photographic; an Extend delta carries no image binding (its inheritance is the contract) |
 | 2.34.0 | `9d451b2` | Live-run reliability: the consequence has an explicit actor and victim (**the victims pay, the Teller acts**), the Character choice cannot become the Teller, a duration shortfall is surfaced at the overview instead of squeezing the line, and Form 2 ends with a visible Submit button plus a `.go`/text fallback |
+| 2.37.2 | *(this commit)* | **The delivery pair follows each clip's own plan, and the ingredient is handed over as the run actually has it**: the two blocks are the Extend delta plus *that clip's* standalone route (ingredient-bound, or Add clip with its own keyframe); no invented image prompt for a supplied/Flow image; the ingredient-as-input capability is verified like Extend's (8s on Lite/Fast, unsupported on Quality) |
 | 2.37.1 | `422ca5c` | **The two forms are never skipped, and nothing is picked for the user.** §3a's blank-field licence is retired: the proposed sets are what an **auto trigger** consumes, and without one the pack presents **Form 1, then Form 2** and waits for each submission — a default is a pre-applied changeable value, a suggestion is an option, never a decision made on the user's behalf |
 | 2.37.0 | `77318e2` | **Deliver everything the user came for**: the delivery turn prints **every clip's prompt in full** (each in its own fenced code block — no summary in place of a prompt, no prompt behind a number reply), hands over the run's **image ingredient** (the Clip 1 image + its copy-ready image prompt), and prints **both** routes for each Clip 2+ (the Extend delta and the independent prompt bound to that same image, no new keyframe); and **§3a suggestion variety** makes every proposed set — story ideas, AI Character A/B/C, the art-style list, the generated Script Overview — come from a wide fresh range instead of the head of a fixed set. §14 states it: **these defaults are the auto-mode picks**, and an auto run must not reuse the last run's |
 | 2.36.0 | `77318e2` | Answer bank: the generator's answers come from the user's 1,000-answer bank (embedded as **§2c**, generated from `data/riddle-answer-bank.json`), drawn by an **even spread** across it (**§2b**) — never the head of the list, never an invented answer, never the illustrations; no two candidates in a batch may share an **answer family**, `[not-an-answer]` entries are skipped, and an `ANSWERS-USED` record is honoured when the user keeps one |
@@ -287,7 +316,7 @@ The public-directory plugin package lives here and embeds a generated copy of th
 ```bash
 cd /Volumes/DevSSD/fore/lab/googleflow-stories
 printf '2.22.0\n' > version.txt   # bump first; the build substitutes {{VERSION}}
-./build.sh && ./validate.sh       # 468 checks today (plus docs/HANDOFF.md freshness)
+./build.sh && ./validate.sh       # 481 checks today (plus docs/HANDOFF.md freshness)
 
 # while working on one area, read only the new section's red:
 ./validate.sh 2>&1 | sed -n '/^23\./,$p'

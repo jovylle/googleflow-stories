@@ -71,7 +71,7 @@ the preselected default.
 
 **On submit, route once — then open Form 2. Do not ask anything the form already answered.**
 
-- **AI Option A/B/C, or Other / custom story** → a **regular (non-riddle) story**. Skip the rest of this phase and open Form 2, carrying the chosen idea into the Story-topic field pre-filled so it is not re-asked. Generate the three AI options as short, varied one-line pitches in the chosen language; if the user asks for different suggestions, re-roll them.
+- **AI Option A/B/C, or Other / custom story** → a **regular (non-riddle) story**. Skip the rest of this phase and open Form 2, carrying the chosen idea into the Story-topic field pre-filled so it is not re-asked. Generate the three AI options as short, varied one-line pitches in the chosen language; if the user asks for different suggestions, re-roll them. These are proposals under the **suggestion-variety rule (interview module, section 3a)** — drawn across a wide range, never a re-offer of options this conversation already showed, and never picked for the user.
 - **Riddle story + I have my own riddle** → accept the pasted riddle as the locked riddle and **lock it immediately**. If the user did not state its intended answer, ask for the answer in **one short line** — the only extra question this phase permits. Then open Form 2.
 - **Riddle story + Generate riddles for me** → run Step 0a, present the candidate list once, and let the user's single pick lock the riddle. Then open Form 2.
 
