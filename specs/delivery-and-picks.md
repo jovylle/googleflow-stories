@@ -1,6 +1,6 @@
 # Delivery and picks — the withheld prompts and the repeated options (v2.37.0)
 
-**Status:** built, `./validate.sh` → **459 checks / 0 failed** · **uncommitted** on `dev` (HEAD `9d451b2`)
+**Status:** built, `./validate.sh` → **468 checks / 0 failed** · v2.37.0 committed at `77318e2`; v2.37.1 in the tree on top of `a2d8833`
 **Date:** 2026-10-14 · **Failure class:** an offer that hands over less than it names — a subset where the
 range was asked for (a partial prompt list, and the same few picks out of a wide field)
 **Supersedes the delivery description in** `googleflow-stories_reverse_spec.md` (the "collapsed summaries"
@@ -133,6 +133,12 @@ run, never the pack's standing menu**:
 6. **These are the auto-mode picks** — an auto run must not reuse the previous run's picks.
 7. Fields, count, order, and defaults are unchanged: no new questions, no extra round trips; nothing here
    touches a locked riddle, its answer source (2b/2c), or the ensemble (2a).
+8. **An offer is never a decision, and only an auto trigger authorizes picking** (v2.37.1). The sets above are what
+   `.auto` consumes; without that trigger — `.auto <riddle|mukbang>`, or a message that names the story type as its
+   request — the pack presents **Form 1, then Form 2** and waits for each submission, and never chooses a story
+   idea, character, art style, script, or overview for the user. A default is a value shown pre-applied on the form
+   (and changeable, including by opening Advanced); a suggestion is an option to choose from. This rule changes
+   *which options are offered*, never *who chooses*.
 
 ### 3d. Mirrors updated
 
@@ -156,7 +162,7 @@ run, never the pack's standing menu**:
 
 | # | criterion | result |
 |---|---|---|
-| 1 | `./build.sh && ./validate.sh` | ✅ **459 / 0** |
+| 1 | `./build.sh && ./validate.sh` | ✅ **468 / 0** |
 | 2 | §41 presence guards (delivery, ingredient, both routes, §3a) | ✅ 33 / 33 |
 | 3 | retired collapsed-delivery wording is gone from every site **and** the artifact | ✅ 11 / 11 traps |
 | 4 | the new §3a section survives the build, numbering stays monotonic (`3`, `3a`, `4`) | ✅ |
