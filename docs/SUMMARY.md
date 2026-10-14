@@ -30,7 +30,7 @@ modules/*.md   →   build.sh   →   build/google-flow-story-maker.md   →   p
   cross-reference resolution, interview field shape, defaults parity, the
   two-form contract, and stale-wording traps (`need_not`). Guards are written
   **red first** — a new rule fails before the module edit that satisfies it.
-- `master` = production (v2.21.0). `dev` = current work (v2.37.1, on top of the pair committed at `77318e2`).
+- `master` = production (v2.21.0). `dev` = current work (v2.37.1 at `422ca5c`, on top of the pair committed at `77318e2`).
 
 ## The versions that matter
 

@@ -1,6 +1,6 @@
 # Delivery and picks — the withheld prompts and the repeated options (v2.37.0)
 
-**Status:** built, `./validate.sh` → **468 checks / 0 failed** · v2.37.0 committed at `77318e2`; v2.37.1 in the tree on top of `a2d8833`
+**Status:** built, `./validate.sh` → **468 checks / 0 failed** · committed at `422ca5c` (v2.37.1), on top of `77318e2` (v2.36.0 + v2.37.0)
 **Date:** 2026-10-14 · **Failure class:** an offer that hands over less than it names — a subset where the
 range was asked for (a partial prompt list, and the same few picks out of a wide field)
 **Supersedes the delivery description in** `googleflow-stories_reverse_spec.md` (the "collapsed summaries"

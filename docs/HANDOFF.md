@@ -10,7 +10,7 @@ The working tree carries **v2.37.1** (the forms guard) on top of **v2.37.0** (th
 **v2.36.0** (the answer bank), **v2.35.0** (creative diversity) and **v2.34.0** (live-run fixes). v2.34.0 and
 v2.35.0 were built together in the tree, so one commit carries that pair (`9d451b2`); **v2.36.0 and v2.37.0 ship
 together in `77318e2`** (on top of `15cf309`, because that plugin commit had already carried this pair's guards);
-**v2.37.1 ships as the commit on top of the bookkeeping commit `a2d8833`**.
+**v2.37.1 ships as `422ca5c`**, on top of the bookkeeping commit `a2d8833`.
 
 **v2.37.1 guards the forms.** v2.37.0's §3a bullet described an auto-mode pick as what fills a field "when the
 user runs `.auto`, or leaves a field blank" — which reads as a licence for the pack to choose on the user's behalf,
@@ -118,7 +118,7 @@ listing in the Directory*. Nothing was uploaded, submitted, or deployed.
 
 | Repo | Version | Branch / HEAD | Checks | Remote |
 |---|---|---|---|---|
-| `lab/googleflow-stories` (**canonical rules** — you are here) | **2.37.1** | `dev` / `a2d8833` + v2.37.1 (this commit) | `./validate.sh` → **468 / 0** | GitHub `jovylle/googleflow-stories`, `master` at `05d81ec` (v2.21.0 release merge), `dev` fifteen ahead |
+| `lab/googleflow-stories` (**canonical rules** — you are here) | **2.37.1** | `dev` / `422ca5c` | `./validate.sh` → **468 / 0** | GitHub `jovylle/googleflow-stories`, `master` at `05d81ec` (v2.21.0 release merge), `dev` fifteen ahead |
 | `lab/flow-story-gpt` (distilled ChatGPT pack) | 1.0.0 | `master` / `5bb876c` | `./validate-gpt.sh` → 28 / 0 | **none — local only** |
 | `lab/flow-story-gem` (Gemini + hand-over zip) | 1.0.0 | `master` / `6c3d417` | `./validate-gem.sh` → 36 / 0 | **none — local only** |
 
@@ -151,7 +151,7 @@ modules. `master` is at `05d81ec` (v2.21.0, released 2026-10-12 by merging `dev`
 | 2.32.0 | `1669843` | `.revise` single-item revision: one item changes, everything else stays locked, only the deliverables carrying it are re-emitted — a local change (riddle text) reprints just the clip that speaks it, while character/art style also regenerate the Clip 1 reference image |
 | 2.33.0 | `aa75e38` | Reference-image binding: every independently generated clip prompt names its image and must match its medium, render quality, palette, lighting, and grade; a supplied photo stays photographic; an Extend delta carries no image binding (its inheritance is the contract) |
 | 2.34.0 | `9d451b2` | Live-run reliability: the consequence has an explicit actor and victim (**the victims pay, the Teller acts**), the Character choice cannot become the Teller, a duration shortfall is surfaced at the overview instead of squeezing the line, and Form 2 ends with a visible Submit button plus a `.go`/text fallback |
-| 2.37.1 | *(this commit)* | **The two forms are never skipped, and nothing is picked for the user.** §3a's blank-field licence is retired: the proposed sets are what an **auto trigger** consumes, and without one the pack presents **Form 1, then Form 2** and waits for each submission — a default is a pre-applied changeable value, a suggestion is an option, never a decision made on the user's behalf |
+| 2.37.1 | `422ca5c` | **The two forms are never skipped, and nothing is picked for the user.** §3a's blank-field licence is retired: the proposed sets are what an **auto trigger** consumes, and without one the pack presents **Form 1, then Form 2** and waits for each submission — a default is a pre-applied changeable value, a suggestion is an option, never a decision made on the user's behalf |
 | 2.37.0 | `77318e2` | **Deliver everything the user came for**: the delivery turn prints **every clip's prompt in full** (each in its own fenced code block — no summary in place of a prompt, no prompt behind a number reply), hands over the run's **image ingredient** (the Clip 1 image + its copy-ready image prompt), and prints **both** routes for each Clip 2+ (the Extend delta and the independent prompt bound to that same image, no new keyframe); and **§3a suggestion variety** makes every proposed set — story ideas, AI Character A/B/C, the art-style list, the generated Script Overview — come from a wide fresh range instead of the head of a fixed set. §14 states it: **these defaults are the auto-mode picks**, and an auto run must not reuse the last run's |
 | 2.36.0 | `77318e2` | Answer bank: the generator's answers come from the user's 1,000-answer bank (embedded as **§2c**, generated from `data/riddle-answer-bank.json`), drawn by an **even spread** across it (**§2b**) — never the head of the list, never an invented answer, never the illustrations; no two candidates in a batch may share an **answer family**, `[not-an-answer]` entries are skipped, and an `ANSWERS-USED` record is honoured when the user keeps one |
 | 2.35.0 | `9d451b2` | Creative diversity: **§2a creative-diversity engine** (invariants vs visual defaults, nine axes settled fresh each run, one-coherent-situation test, recent-design non-reuse, planning-only fingerprint), `.reroll visual`, an explicit camera-**viewpoint** axis, and an **image acceptance gate** that regenerates a frame which swaps the subjects, species, scale, setting, or viewpoint rather than letting the image quietly rewrite the plan |
