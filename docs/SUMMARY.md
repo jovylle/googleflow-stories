@@ -1,6 +1,6 @@
 # Google Flow Story Maker — Status Summary
 
-*As of v2.35.0 · 2026-10-14 · branch `dev`*
+*As of v2.37.0 · 2026-10-14 · branch `dev`*
 
 ## What it is
 
@@ -17,21 +17,20 @@ API. That single fact drives everything below.
 ```
 modules/*.md   →   build.sh   →   build/google-flow-story-maker.md   →   paste into ChatGPT Instructions
                                         ↑
-                                  validate.sh (386 checks, exit 0 before commit)
+                                  validate.sh (459 checks, exit 0 before commit)
 ```
 
-- **19 modules**, one concern each, concatenated in filename order. Authored
+- **20 modules**, one concern each, concatenated in filename order. Authored
   source is `modules/`; the build output is generated and never hand-edited.
 - **One compiled file, not many** — deliberately. ChatGPT's file retrieval is
   not reliable for routing between near-identical documents, so the whole
   instruction set ships as a single paste.
-- **386 validator checks.** The validator tests the *compiled artifact*, not the
+- **459 validator checks.** The validator tests the *compiled artifact*, not the
   modules: build sync, version stamping, module order, section numbering,
   cross-reference resolution, interview field shape, defaults parity, the
   two-form contract, and stale-wording traps (`need_not`). Guards are written
   **red first** — a new rule fails before the module edit that satisfies it.
-- `master` = production (v2.21.0). `dev` = current work (v2.35.0, uncommitted in
-  the working tree).
+- `master` = production (v2.21.0). `dev` = current work (v2.37.0, committed).
 
 ## The versions that matter
 
@@ -59,6 +58,8 @@ modules/*.md   →   build.sh   →   build/google-flow-story-maker.md   →   p
 | v2.31.0 | **Riddle variety** — the example list stopped being a menu | The same eight-noun list appeared twice in the generator rules, so every batch came back alike; the pool is now widened and explicitly non-exhaustive, answers must differ within a batch, and a re-roll differs in answer, not wording |
 | v2.32.0 | **`.revise` single-item revision** — change one item, get only the affected prompts | Late changes meant re-printing the package; now `.revise <item>` keeps everything locked and re-emits only what carries the change — a riddle swap reprints just the clip that speaks it, a character or art-style change re-emits the clip prompts and regenerates the Clip 1 reference image |
 | v2.33.0 | **Reference-image binding** — the video must look like the image you gave it | Clip prompts described lighting and style in the abstract, so the video could drift from the reference image; each independently generated prompt now names its image and must match its medium, render quality, palette, lighting, and grade, a supplied photo stays photographic, and an Extend delta carries no binding because inheriting the base clip's look is the contract |
+| v2.37.0 | **Deliver everything the user came for** — the delivery turn prints every clip's full prompt, hands over the run's image ingredient, and prints both continuation routes for Clip 2+; every proposed set (story ideas, characters, art style) comes from a wide fresh range | The style was named "prompts now" but printed collapsed summaries and revealed a prompt only on a numbered reply, so the delivery turn held nothing to copy — *"it seems not giving all the clips prompts it should make it available to copy already"*. The picks had the bank's defect in miniature: a fixed set with no rotation rule is read from its head, so the same two ideas, three characters, and first art style returned every run. Now: all prompts in full in clip order, each in its own fenced block; the Clip 1 image handed over as the **ingredient** with its copy-ready prompt; **both** routes for each Clip 2+ (Extend delta, and an independent prompt bound to that same image needing no new keyframe); and **§3a** requires every proposed set to be drawn fresh from a wide range, differ in kind, and never re-offer what the conversation showed — including in auto mode, which must not reuse the last run's picks |
+| v2.36.0 | **The answer bank is the generator's answer source** — a generated riddle's answer is drawn by an even spread across the user's 1,000-answer bank, not invented | A fresh session offered the same riddles every time. Nothing in the pack referenced the 1,000-answer bank the user had supplied, so each run invented an answer and converged on the illustrations in Step 0a (`salamin`, `kandila`, `anino`, `orasan`) — examples, read as the menu. The bank is embedded as §2c and §2b is the protocol that samples it: an even spread across the whole bank (never its head, never an invention), one **family** per batch (so `kandila sa mesa` can never follow `kandila`), `[not-an-answer]` entries skipped, an `ANSWERS-USED` record honoured, and the answer still sealed |
 | v2.35.0 | **Creative diversity engine** — the riddle's structure is fixed, its look is chosen fresh every run | Twelve productions came back as one film: a small animal in a doorway or corridor, a much larger floating robed Teller, shot from behind the victim, ending with the way sealed. None of it was mandated — "small, cute, vulnerable" victims, passage-shaped traps, and sealing-shaped consequences were the *examples*, and nothing ever selected a camera. §2a splits the invariants from the visual defaults, settles nine axes each run, requires them to reduce to one coherent situation, blocks reuse of the recent design, and records a planning-only fingerprint; `.reroll visual` re-rolls the look without touching the riddle, the camera viewpoint is an explicit axis, and an image acceptance gate rejects a frame that swaps the species, scale, setting, or viewpoint — and **reports** a persistent mismatch instead of replanning the story around it |
 
 ## The pattern worth naming
@@ -87,6 +88,22 @@ to the permission gaps: names them as illustrations, requires an explicit choice
 in their place, and traps the retired phrases in the validator so the narrow
 formula cannot return by drift.
 
+**v2.37.0 is the same class a third time, in the other direction: a rule that hands over less than it names.**
+The delivery style was called "prompts now" while the mechanism printed collapsed summaries and revealed a
+prompt only on a numbered reply, so the prompt text — the one thing the user came for — was absent from the
+delivery turn. And the option sets the pack *proposes* (story ideas, character concepts, art-style names) came
+back as the same few picks every run, because a fixed set with no rotation rule is read from its head. Same fix
+shape as the bank's: hand over the whole thing (every prompt, the ingredient, both routes) and give the proposed
+sets a wide range, a spread, and a no-repeat record (§3a).
+
+**v2.36.0 is the same class again: a rule that asks for a property with nothing that can produce it.**
+The pack already said answers were drawn "from anywhere in the ordinary world" and that they varied — but
+"the ordinary world" named no pool, "vary" named no sampling rule, and nothing recorded what had already
+been used, so the only answers with any presence in the context were the four illustrations printed in Step
+0a. The fix is not another sentence asking for variety; it is a real pool (the bank), a sampling rule that
+spreads across it, a family rule that catches a thing and its own variant, and a used-record. Any pack that
+asks for a property it never supplies is one session away from converging.
+
 This is the single most transferable lesson for anything built on top of this.
 
 ## Honest limits
@@ -107,6 +124,10 @@ This is the single most transferable lesson for anything built on top of this.
 - Per-change specs: `two-form-flow.md`, `riddle-outcome-and-clip1-stall.md`,
   `session-state-and-clip1-image.md`, `interview-character-artstyle-split.md`,
   `validation-v2.12.0.md`, `creative-diversity.md` (v2.35.0 — the diversity
-  regression, the nine axes, the dry-run sample, and the scoring rubric).
+  regression, the nine axes, the dry-run sample, and the scoring rubric),
+  `riddle-answer-pool.md` (v2.36.0 — the repetition defect, the bank's contents,
+  the selection protocol, the dry run, and the scoring rubric),
+  `delivery-and-picks.md` (v2.37.0 — the withheld prompts, the image ingredient,
+  the two continuation routes, and the suggestion-variety rule).
 - `docs/chatgpt-interactive-components-cheatsheet.md` — the native-control
   reference the two forms are built from.

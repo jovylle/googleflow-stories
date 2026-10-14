@@ -1,0 +1,31 @@
+batch	cand	index	answer	family	picker_note
+1	1	0317	atis	atis	spread
+1	2	0517	peklat	peklat	spread
+1	3	0717	kahero	kahero	spread
+1	4	0917	pinturang natuklap	pintura	spread
+1	5	0117	buwaya	buwaya	spread
+2	1	0742	graphics card	graphics	spread
+2	2	0942	ilaw sa ilalim ng pinto	pinto	spread
+2	3	0142	tuna	tuna	spread
+2	4	0342	sitaw	sitaw	spread
+2	5	0542	retina	retina	spread
+3	1	0088	kama	kama	spread
+3	2	0288	ukoy	ukoy	spread
+3	3	0488	gilagid	gilagid	spread
+3	4	0688	tren	tren	spread
+3	5	0888	pakpak ng bentilador	bentilador	spread
+4	1	0559	toaster	toaster	spread
+4	2	0759	dictionary	dictionary	spread
+4	3	0976	salamin sa kusina	salamin	stepped +17 (family taken)
+4	4	0159	linta	linta	spread
+4	5	0359	pipino	pipino	spread
+5	1	0913	buton ng elevator	elevator	spread
+5	2	0113	agila	agila	spread
+5	3	0313	lychee	lychee	spread
+5	4	0513	paa	paa	spread
+5	5	0713	designer	designer	spread
+6	1	0205	tinapa	tinapa	spread
+6	2	0405	bulaklak	bulaklak	spread
+6	3	0605	clothespin	clothespin	spread
+6	4	0805	bagal	bagal	spread
+6	5	0005	suklay	suklay	spread

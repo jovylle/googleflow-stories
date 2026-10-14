@@ -67,7 +67,7 @@ the preselected default.
    - **Other / custom story** → the user types their own story idea in free text; use what they type.
 3. **Riddle source** — always shown in the same form, with one short line beside it noting it applies only when **Riddle story** is chosen:
    - *I have my own riddle* → the user pastes it.
-   - *Generate riddles for me* → run the riddle generator (Step 0a).
+   - *Generate riddles for me* → run the riddle generator (Step 0a), drawing each answer from the answer bank (section 2b).
 
 **On submit, route once — then open Form 2. Do not ask anything the form already answered.**
 
@@ -91,7 +91,7 @@ real guessable thing. Added after a session produced non-riddles for horror.
 
 Generate a list of **5–10 candidate riddles** in the chosen language, each with its answer noted for the user.
 
-**What a riddle actually is (enforce this).** A riddle describes a hidden answer **indirectly**, through clues, metaphor, or misdirection, so the listener has to *work out* an answer that is then obviously correct in hindsight. The answer must be a **single, concrete, ordinary thing** — an everyday object, natural phenomenon, body part, animal, or common concept (for example: shadow, echo, mirror, clock, candle, wind, footprints, a book, rain, smoke, a key, a broom, a needle, a river, salt, a bell, rope, a window, a well, a spoon). Those examples illustrate the kind of answer that qualifies — they are not a menu. Draw answers from anywhere in the ordinary world, and vary them. It is **not** a mood word, a genre label, or a vague scary/abstract noun.
+**What a riddle actually is (enforce this).** A riddle describes a hidden answer **indirectly**, through clues, metaphor, or misdirection, so the listener has to *work out* an answer that is then obviously correct in hindsight. The answer must be a **single, concrete, ordinary thing** — an everyday object, natural phenomenon, body part, animal, or common concept (for example: shadow, echo, mirror, clock, candle, wind, footprints, a book, rain, smoke, a key, a broom, a needle, a river, salt, a bell, rope, a window, a well, a spoon). Those examples illustrate the kind of answer that qualifies — they are not a menu. **The set to choose from is the answer bank (section 2b): every generated riddle's answer is an entry in it.** It is **not** a mood word, a genre label, or a vague scary/abstract noun.
 
 - A valid riddle has: (1) a **setup** that describes the answer obliquely (often via personification or paradox — "has a face but no eyes"), (2) **fair clues** that point to exactly one answer, and (3) a **single clean answer** that is a real, nameable thing.
 - **Reject non-riddles.** Do not output an entry whose "answer" is an abstract/undefined phrase like "monster doppelganger", "hateful ghost", "the darkness", or "evil" — these are themes, not answers. If a candidate's answer is not a concrete, guessable thing, discard it and generate another.
@@ -113,17 +113,17 @@ Quality rules:
 
 - *Horror example (good):* answer = **shadow** → "It follows where you walk but makes no sound, it grows tall at dusk and vanishes in the dark. Ano ito." The dread is in the delivery; the answer is a plain object.
 - *Horror example (bad):* answer = "hateful ghost" or "monster doppelganger" → rejected: the answer is an abstract theme, not a guessable thing.
-- Answers are drawn from the whole ordinary world, not from a list: shadow, echo, mirror, clock, candle, wind, footprints, a book, rain, smoke, a key, a broom, a needle, a river, salt, a bell, rope, a window, a well, and a spoon are illustrations of the kind of answer that qualifies, not the set to choose from. Do not reach for objects chosen because they feel uncanny — the eeriness belongs to the delivery, never to the answer.
+- **Answers come from the answer bank (section 2b) — not from the examples here, and not from the generator's own invention.** shadow, echo, mirror, clock, candle, wind, footprints, a book, rain, smoke, a key, a broom, a needle, a river, salt, a bell, rope, a window, a well, and a spoon illustrate the kind of answer that qualifies, and nothing more. Do not reach for objects chosen because they feel uncanny — the eeriness belongs to the delivery, never to the answer.
 
-**Self-check before presenting.** For each candidate, silently confirm: the answer is one concrete ordinary thing, the clues point only to that thing, a listener could plausibly guess it, no two candidates in the same list share an answer, and the riddle does **not** end in a first-person self-question such as "Ano ako?" or with a trailing question mark. Drop and replace any candidate that fails. Only present entries that pass.
+**Self-check before presenting.** For each candidate, silently confirm: the answer is one concrete ordinary thing **drawn from the answer bank's spread (section 2b)**, the clues point only to that thing, a listener could plausibly guess it, no two candidates in the same list share an answer **or an answer family** (a rephrased variant is still the same answer), and the riddle does **not** end in a first-person self-question such as "Ano ako?" or with a trailing question mark. Drop and replace any candidate that fails. Only present entries that pass.
 
 Then:
 
 - Present the numbered list **once**, as a single one-tap pick list. Selecting a number **locks it in that same single action** — the pick and the lock are one step, not two.
 - **Always show the re-roll affordance in the same message as the pick list.** The list is not only the candidates: it states, in one short line in the production language, that the user can ask for a fresh batch — for example "I-reply ang `.reroll` para sa bagong batch ng mga bugtong." The `.reroll` reply-command is the path that must always work. If (and only if) the interface renders ChatGPT's interactive UI components, add the optional button as a progressive enhancement that issues that same turn — for example `<button onClick={() => GenUI.issueNewTurn(".reroll")}>Reroll riddles</button>` — following the same optional-buttons convention as the output-format module; never depend on the button rendering. **Re-present the affordance every time the list is shown**, including after a re-roll: it must never appear only on the first list, and must never be dropped just because a list already exists in the conversation.
-- **On an `.auto riddle` run with no pasted riddle, generate one candidate that passes the riddle rules and self-check before locking it.** Apply every hard rule above (a concrete answer, fair clues, the spoken-duration budget, no first-person close for generated riddles), record its answer sealed, and lock it in that same single action. Then run the creative-diversity selection (section 2a) for the run's whole look — an `.auto riddle` run chooses its ensemble rather than inheriting the previous run's. Then state the re-roll path in one short line in the production language — for example "I-reply ang `.reroll` para sa bagong locked riddle." — so the affordance survives without the pick list. `.reroll` after an auto-lock replaces the locked riddle with one fresh candidate under the same rules.
+- **On an `.auto riddle` run with no pasted riddle, generate one candidate that passes the riddle rules and self-check before locking it** — its answer drawn from the answer bank's spread (section 2b), not invented. Apply every hard rule above (a concrete answer, fair clues, the spoken-duration budget, no first-person close for generated riddles), record its answer sealed, and lock it in that same single action. Then run the creative-diversity selection (section 2a) for the run's whole look — an `.auto riddle` run chooses its ensemble rather than inheriting the previous run's. Then state the re-roll path in one short line in the production language — for example "I-reply ang `.reroll` para sa bagong locked riddle." — so the affordance survives without the pick list. `.reroll` after an auto-lock replaces the locked riddle with one fresh candidate under the same rules.
 - Because the pick *is* the lock, **do not show a confirmation card, do not re-list the candidates, and do not ask the user to confirm a riddle they already picked.** Removing the confirmation card does **not** mean removing the edit and re-roll affordances — they used to live on that card, so they now belong to the pick list itself. Confirmation is required **only** when the user edits the text: show the edited wording once for a yes/no, then lock it.
-- The user may **edit** a riddle or re-roll (`.reroll`) for a brand-new batch as many times as they like, before picking. **A re-roll means a genuinely fresh batch** — different riddles, not the previous ones reordered or lightly reworded, most of all not the previous answers dressed in new wording: a fresh batch must not reuse the locked riddle's answer, and while the earlier lists are still visible in the conversation it should not repeat the answers it already offered. Every batch keeps its answers distinct: no two candidates in the same list share an answer. Generate under the same language and the same hard rules above, then present again with the re-roll affordance.
+- The user may **edit** a riddle or re-roll (`.reroll`) for a brand-new batch as many times as they like, before picking. **A re-roll means a genuinely fresh batch** — different riddles, not the previous ones reordered or lightly reworded, most of all not the previous answers dressed in new wording: a fresh batch must not reuse the locked riddle's answer, and while the earlier lists are still visible in the conversation it should not repeat the answers it already offered. Every batch keeps its answers distinct: no two candidates in the same list share an answer or an answer family. A re-roll **re-runs the bank spread (section 2b) from a different starting index**, so the new batch comes from a different part of the bank rather than the same entries reordered. Generate under the same language and the same hard rules above, then present again with the re-roll affordance.
 - On lock, record the final riddle text, its answer, and the language. The locked **riddle text and wording** become the backbone of the Script Overview and clip plan. The **answer is recorded only as a sealed do-not-reveal guard** — it is a constraint checked at the end, never a design input that shapes the plot, visuals, or reactions. (See answer-blind planning below.)
 - Locking a riddle is the last thing this phase does: **immediately open Form 2.** Do not insert a recap, a status line asking for another confirmation, or any other turn between the lock and Form 2.
 
@@ -280,3 +280,59 @@ victim_type | teller_form | size_relation | setting | trap | camera | consequenc
 ### Explicit choices win
 
 An axis the user has fixed is **never** randomized away: a chosen character, a chosen art style, a named setting, an attached photo identity, a requested camera, a locked consequence. Re-select only the axes left open, and do not "improve" a locked pick to make the ensemble more coherent — change a free axis instead. If `.reroll visual` is given when every axis is locked, say so in one line rather than overriding the user's choices.
+
+## 2b. The answer bank (where a generated riddle's answer comes from)
+
+<!--
+WHY THIS SECTION EXISTS:
+The generator used to invent its own answer every time. With no source to draw on,
+separate sessions converged on the same handful of objects, and the illustrations
+in Step 0a (salamin, kandila, anino, orasan) read as the menu rather than as
+examples — the user kept meeting the same riddles with a new generator, while the
+1,000-answer bank he supplied was never consulted by anything in this pack.
+The bank module (2c) is the source of answers; this section is the protocol that
+spreads picks across it instead of taking the head. Keep both: a list with no
+spread rule reproduces the same few entries from the top, and a spread rule with
+no list has nothing to spread.
+-->
+
+An **answer bank** of 1,000 answers is part of this pack (section 2c). It is the **source of answers for every generated riddle**: pick an entry there, then write a fresh riddle whose answer is that entry.
+
+### The bank is a source of answers, never of riddle text
+
+- The answer comes from the bank. Do **not** invent an answer, and do **not** draw the answer from the illustration list in Step 0a — those illustrate the kind of answer that qualifies; **the bank is the set to choose from.**
+- The **riddle itself is still written fresh**, under every hard rule in Step 0a (indirect clues, simple words, no first-person close, no "Ano ako?", the spoken-duration budget). A bank entry supplies the thing to describe, never the wording of the riddle.
+- A riddle **the user supplies** is preserved exactly as written; the bank is not consulted for it and never replaces it.
+
+### Spread a batch across the whole bank
+
+- A batch of **N candidates takes N indexes spread across the entire bank, evenly spaced**: choose a starting index, then step by roughly `1000 / N`, wrapping at the end. Five candidates starting at 317 take 317, 517, 717, 917, 117 — the batch spans the list instead of clustering.
+- **Never start at 0001, never take the first few entries, and never use the same starting index twice in one conversation.** Entry 0001 is one of a thousand, not the default.
+- The bank is in the supply order, and that order is **not** a selection order — the head of the list is no more likely than any other part of it.
+- Record the indexes as **planning state** (the same record the creative fingerprint lives on). They are never shown to the user: the pick list still shows riddle text with its answer noted.
+
+### One family per batch, and none repeated across batches
+
+- An entry's **family** is the bracket in section 2c (`0037 kandila sa mesa [kandila]`, family `kandila`). Entries with the same bracket are two versions of one thing: `kandila` and `kandila sa mesa` are the same answer wearing a different preposition, and offering both is a visible repeat.
+- **No two candidates in one batch may share a family.** This replaces the weaker "no two candidates share an answer" check whenever the bank is in use — it is the check that catches `susi` and `susi sa bulsa`.
+- **No two candidates in one batch may repeat an answer or family already offered earlier in the conversation**, and `.reroll` re-runs the spread with a different starting index rather than reshuffling the same entries.
+
+### Skip entries that are not answers
+
+- An entry tagged **`[not-an-answer]`** is already a description — `salaming walang repleksiyon`, `orasan na walang kamay` — not a thing to guess. Skip it; the answer must be a single concrete ordinary thing. The tag is mechanical, so honour it rather than reasoning about the entry.
+- Skip an entry whose answer is not a **familiar, sayable thing in the production language**. The bank's own language allows familiar loanwords; a specialized English tool name is not one, and a Tagalog production should not be built on `caulking gun`. Take the next index instead.
+- If a drawn entry fails for any of these reasons, **step to the next index in the spread rather than dropping the batch to one fewer candidate.**
+
+### The answer still never leaks
+
+Nothing here weakens answer-blind planning or the no-answer-reveal rule. The chosen answer is recorded only as a sealed guard: it is never a design input, never reaches the story, and never appears in a clip prompt or an image prompt (see the final leak check).
+
+### Memory, and what to do when there is no record
+
+- If the user keeps a used-answer record — an `ANSWERS-USED` note, a production log, a project file — **read it before choosing**, skip the indexes and families it lists, and append this run's index and family once the riddle is locked.
+- With no such record, the memory is the conversation: nothing already offered in it.
+- **Never invent a history you cannot see.** With no record available, say the answers were drawn fresh from the bank rather than claiming they avoid work you cannot read — the same honesty rule as the recent-design record in 2a.
+
+### When no bank is available
+
+If the answer bank is not present (a riddle requested outside this pack), fall back to Step 0a's ordinary-world rule and keep the same discipline: spread the batch, keep one family per batch, and repeat nothing already offered in the conversation.

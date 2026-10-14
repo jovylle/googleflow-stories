@@ -8,8 +8,8 @@ versions share), and only the `specs/` file for whatever you are about to change
 
 The working tree carries **v2.37.0** (the delivery + picks fix) on top of **v2.36.0** (the answer bank),
 **v2.35.0** (creative diversity) and **v2.34.0** (live-run fixes). v2.34.0 and v2.35.0 were built together in
-the tree, so one commit carries that pair (`9d451b2`); **v2.36.0 and v2.37.0 are both uncommitted** — two
-failure classes, so split them into two commits if they are committed together.
+the tree, so one commit carries that pair (`9d451b2`); **v2.36.0 and v2.37.0 ship together** in the commit on top of `15cf309` — one commit, because
+the plugin commit had already carried this pair's guards (see below).
 
 **v2.37.0 hands over what the user came for: every clip prompt, the image ingredient, and both ways of
 generating the clips — and stops offering the same few picks.** Two narrowed offers in one failure class:
@@ -34,6 +34,12 @@ a subset handed over where the user asked for the range.
    do not always start from the same place, and always hand the choice over. §14 states the point the user
    made explicitly — **these defaults are the auto-mode picks**, so an auto run must never reuse the previous
    run's picks.
+
+**Why one commit, and why now.** The pushed plugin commit `15cf309` already carried this pair's
+`validate.sh` guards (§40, §41) and its `docs/HANDOFF.md` blocks — they were dirty in the tree when that
+commit was made — so `dev` on the remote *failed its own validator*: a fresh clone of `origin/dev` gave
+**457 checks / 72 failed**, `version.txt` 2.35.0, because the guards were checking module text that had never
+been committed. Committing the pair is the repair of that state, not a new release.
 
 `validate.sh` §41 (44 checks) keeps all of it wired in and the artifact was rebuilt. None of this is
 provable offline: the guards pin wording and structure, and a live run is still the only thing that shows the
@@ -100,12 +106,12 @@ listing in the Directory*. Nothing was uploaded, submitted, or deployed.
 
 | Repo | Version | Branch / HEAD | Checks | Remote |
 |---|---|---|---|---|
-| `lab/googleflow-stories` (**canonical rules** — you are here) | **2.37.0** | `dev` / `9d451b2` **+ v2.36.0 & v2.37.0 uncommitted** | `./validate.sh` → **459 / 0** | GitHub `jovylle/googleflow-stories`, `master` at `05d81ec` (v2.21.0 release merge), `dev` fifteen ahead |
+| `lab/googleflow-stories` (**canonical rules** — you are here) | **2.37.0** | `dev` / `15cf309` + this pair (committed) | `./validate.sh` → **459 / 0** | GitHub `jovylle/googleflow-stories`, `master` at `05d81ec` (v2.21.0 release merge), `dev` fifteen ahead |
 | `lab/flow-story-gpt` (distilled ChatGPT pack) | 1.0.0 | `master` / `5bb876c` | `./validate-gpt.sh` → 28 / 0 | **none — local only** |
 | `lab/flow-story-gem` (Gemini + hand-over zip) | 1.0.0 | `master` / `6c3d417` | `./validate-gem.sh` → 36 / 0 | **none — local only** |
 
 Canonical artifact: `build/google-flow-story-maker.md`, **2,508 lines / 209,518 chars**, rebuilt from the
-modules and **uncommitted** (v2.36.0 + v2.37.0). `master` is at `05d81ec` (v2.21.0, released 2026-10-12 by merging `dev`) and is **sixteen versions behind `dev`**.
+modules. `master` is at `05d81ec` (v2.21.0, released 2026-10-12 by merging `dev`) and is **sixteen versions behind `dev`**.
 
 ### Version chain since v2.12.0 (all on `dev`)
 
