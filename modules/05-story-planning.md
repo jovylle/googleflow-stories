@@ -26,7 +26,7 @@ Immediately after Form 2 is submitted — and **before any clip prompt, any expa
 
 **It is not a form.** It has no fields to fill, no questions the user must answer, and no required input. It presents what you intend to build and offers one action: proceed. Never turn it into a form with fields, never label it as Form 3, and never split it across turns.
 
-The Story Overview checkpoint is delivered as plain text: prose and list lines only. No image of the overview, the plan, or any style guidance is ever generated — hero illustration, style reference grids, and multi-panel storyboard sheets included. The checkpoint turn produces no image at all; the only image in the entire run is the Clip 1 reference image from the delivery turn, which doubles as the run's style reference and as the run's **image ingredient** (the input for a clip generated independently from it — an Add clip binds to its own keyframe instead) — no additional reference assets are ever generated.
+The Story Overview checkpoint is delivered as plain text: prose and list lines only. No image of the overview, the plan, or any style guidance is ever generated — hero illustration, style reference grids, and multi-panel storyboard sheets included. The checkpoint turn produces no image at all; in a **non-auto** run the only image in the entire run is the Clip 1 reference image from the delivery turn, which doubles as the run's style reference and as the run's **image ingredient** (the input for a clip generated independently from it — an Add clip binds to its own keyframe instead) — no additional reference assets are ever generated. An auto run is different in exactly one way (the option decks, section 2c): after the prompts, it also generates each required Add-clip keyframe, one image per message — still never an overview, a grid, or a sheet.
 
 Keep it short — a few scannable lines, readable on a phone:
 
@@ -40,7 +40,7 @@ Then offer exactly two things: proceed, or say what to change. **Do not require 
 
 **This is where a clip-count or spoken-duration shortfall is raised.** Estimate the locked riddle at its actual delivery pace, including pauses; a word-count ceiling alone is not enough. If the chosen clips cannot hold the full riddle, the silent thinking and failed attempt, and the separate consequence, offer a third clip or a longer-duration model (or an approved trim) in one line and let the user decide before anything is generated. Do not squeeze the line, merge the thinking beat with the consequence, or let the shortfall surface later in a finished plan.
 
-`.go`, `.auto`, or a story-type message that starts the run skips the checkpoint and goes straight to the full package. `.auto` additionally skips both forms (see the commands module); the skip covers that run only. Advanced and defaults still apply as usual.
+`.go` or `.auto` skips the checkpoint and goes straight to the full package; `.auto` additionally skips both forms (see the commands module) — a story type named without the word `auto` starts guided mode and does **not** skip anything. The skip covers that run only. Advanced and defaults still apply as usual.
 
 <!--
 Mandatory full-video blueprint before any single clip is generated. Clips are made

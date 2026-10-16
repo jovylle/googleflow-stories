@@ -23,7 +23,7 @@ run's image ingredient and both continuation routes for Clip 2+.
 -->
 ### Delivery turn (all prompts in full and copyable; the image ingredient; one image per action)
 
-Goal: the delivery turn carries **every clip's full prompt, in full, each in its own fenced code block** so each is copyable in one click — plus the **image ingredient** the clips are built from and **both continuation routes** for every Clip 2+ — while **images stay on demand**, one image per action, except the Clip 1 image, which the Clip 1 final phase produces immediately. Use only Markdown that ChatGPT reliably renders (headings, bold, lists, tables, blockquotes, fenced code blocks with their copy button, clickable links). Do not depend on raw HTML `<details>`/`<summary>` accordions or clickable "buttons" — ChatGPT chat does not reliably render them; they may appear as literal text or be stripped.
+Goal: the delivery turn carries **every clip's full prompt, in full, each in its own fenced code block** so each is copyable in one click — plus the **image ingredient** the clips are built from and **both continuation routes** for every Clip 2+ — while **images stay on demand**, one image per action, except the Clip 1 image, which the Clip 1 final phase produces immediately. (An auto run is the one exception to the on-demand rule: it sequences every required reference image after the prompts, one per message — see the auto-delivery subsection below.) Use only Markdown that ChatGPT reliably renders (headings, bold, lists, tables, blockquotes, fenced code blocks with their copy button, clickable links). Do not depend on raw HTML `<details>`/`<summary>` accordions or clickable "buttons" — ChatGPT chat does not reliably render them; they may appear as literal text or be stripped.
 
 - **After a revision, report the delta in one line.** State which clips were updated and reprint only those clip prompts, plus a note when the Clip 1 reference image was regenerated. Never reprint the whole package for a single-item change, and never re-run the interview for it.
 
@@ -73,6 +73,10 @@ Return:
 6. Then wait for the user to approve or adjust the plan before generating detailed prompts, unless they have already asked to proceed directly.
 
 After approval, proceed with the "All clips at once (prompts now, images on demand)" format above.
+
+### Auto-run delivery (prompts first, then every reference image)
+
+An auto run (the option decks, section 2c) delivers the same package — every clip's complete prompt in its own fenced code block, the run's image ingredient, both routes for every Clip 2+ — as **text first**: the entire text package is printed before any image is generated, so the prompts can never be withheld by an image response. **Then** generate every reference image the run requires — the Clip 1 ingredient frame and each Add-clip keyframe — **one image per message**, each a **separate clean frame of one composed scene**; never a collage, panel, sheet, or grid. The one-image-per-action hard rule holds on auto runs: auto sequences it, it never batches. If image generation fails or is unavailable, say so in one line — the prompts are already in the user's hands, so nothing of the package was withheld.
 
 <!--
 Universal output guards applied regardless of delivery style: separate image prompts

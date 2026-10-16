@@ -544,24 +544,30 @@ need_not "$MODULES/05-story-planning.md" "Clip 2 is the thinking beat" "no hard 
 echo
 
 # ------------------------------------------------------- 28. story-type trigger
-# Naming the product type as a request IS the .auto authorization — no .start or
-# typed .auto required. Guards pin the numbered trigger cases, the Tagalog form,
-# the never-triggers list incl. the mid-run carve-out, and trap always-trigger
-# and bare-attachment-starts readings (the v2.15.0 hole in mirror image).
+# A story type named WITHOUT the word `auto` is a guided-mode start (an implicit
+# .start): it begins the run but never authorizes skipping the forms. Only the word
+# `auto` before the type (± dot) authorizes auto mode — the v2.25.0 reading that made
+# "horror riddle" an .auto authorization is retired. Guards pin the guided-start
+# reading, the Tagalog form, the never-triggers list incl. the mid-run carve-out,
+# and trap the retired auto-authorization readings.
 echo "28. Story-type trigger"
-need "$BUILD" "naming the story type outright" "the trigger is stated in request form"
-need "$BUILD" "No \`.start\` and no typed \`.auto\` is required" "no literal command required"
-need "$BUILD" "horror na bugtong" "the Tagalog type form triggers"
+need "$BUILD" "names the story type outright" "the trigger is stated in request form"
+need "$BUILD" "starts the run as an implicit \`.start\`" "a type named without auto starts guided mode"
+need "$BUILD" "only the word \`auto\` before the type authorizes auto mode" "the auto boundary is explicit"
+need "$BUILD" "horror na bugtong" "the Tagalog type form is named"
 need "$BUILD" "a bare attachment with no request" "bare attachments are excluded"
 need "$BUILD" "a question or opinion ask" "questions are excluded"
 need "$BUILD" "it is a Form 1 answer or an overview change" "mid-run mentions are carved out"
 need "$MODULES/02-role.md" "typed literally" "the literal case is named"
-need "$MODULES/02-role.md" "it starts the run" "type words start a run, never hijack one"
-need "$MODULES/16-checklist.md" "incl. a story-type message" "the checklist names the trigger"
-need "$MODULES/16-checklist.md" "a bare attachment or a question never did" "the checklist bars false triggers"
+need "$MODULES/02-role.md" "starts the run in guided mode" "type words start a guided run, never hijack one"
+need "$MODULES/16-checklist.md" "ran **guided mode** instead" "the checklist names the guided fallback"
+need "$MODULES/16-checklist.md" "a bare attachment or a question never started anything" "the checklist bars false triggers"
 need "$BUILD" "is manual input, not an auto run" "bare input stays manual"
 need_not "$BUILD" "story-type words always trigger" "no always-trigger reading"
 need_not "$BUILD" "a bare attachment starts the auto path" "attachments never start a run"
+need_not "$BUILD" "No \`.start\` and no typed \`.auto\` is required" "the retired auto-authorization is gone"
+need_not "$BUILD" "naming the story type outright as a request is the authorization" "the old auto licence is retired"
+need_not "$BUILD" "starts the \`.auto\` path with the same semantics" "the old auto-aliasing of type words is retired"
 echo
 
 # ------------------------------------------------------- 29. tagalog indirect description
@@ -593,7 +599,7 @@ need "$BUILD" "hero illustration" "the hero shape is named"
 need "$BUILD" "multi-panel storyboard sheets" "the storyboard shape is named"
 need "$MODULES/05-story-planning.md" "storyboard sheets included" "storyboard sheets banned in planning"
 need "$MODULES/05-story-planning.md" "No image of the overview" "planning bans an overview image"
-need "$MODULES/10-clip1-final.md" "the only image in the entire run is the Clip 1 reference image" "Clip 1 states the run's sole image"
+need "$MODULES/10-clip1-final.md" "in a non-auto run the only image in the entire run is the Clip 1 reference image" "Clip 1 states the run's sole image (non-auto)"
 need "$MODULES/16-checklist.md" "not a generated image" "checklist verifies text delivery"
 need_not "$BUILD" "storyboard image" "no storyboard-image permission survives"
 need_not "$BUILD" "visual-style reference grid" "no style-grid wording survives"
@@ -834,13 +840,13 @@ need "$MODULES/03-riddle-prephase.md" "### The fingerprint (planning only — ne
 need "$MODULES/03-riddle-prephase.md" "It is **never** passed to the image model, in whole or in part." "the fingerprint never reaches the image prompt"
 need "$MODULES/03-riddle-prephase.md" "### Explicit choices win" "user-locked axes are never randomized away"
 need "$MODULES/03-riddle-prephase.md" "Never invent a history you cannot see" "no invented production history"
-need "$MODULES/03-riddle-prephase.md" "Then run the creative-diversity selection (section 2a)" ".auto riddle runs the selection"
+need "$MODULES/03-riddle-prephase.md" "draws one of the option-deck presets (section 2c)" ".auto riddle draws its look from the deck"
 need "$MODULES/03-riddle-prephase.md" "and so is a distance that will not close" "non-architectural traps are named in the structure block"
 need "$MODULES/04-interview.md" "must **not** all be small mammals or birds" "the victim pitches must vary in form"
 need "$MODULES/04-interview.md" "differ in **archetype and form**" "the three pitches differ by archetype, not costume"
 need "$MODULES/05-story-planning.md" "the run's one-line **creative fingerprint** belongs in these continuity notes" "the blueprint carries the fingerprint"
 need "$MODULES/15-defaults.md" "chosen fresh for every run** by the creative-diversity section (2a)" "the defaults defer the ensemble to section 2a"
-need "$MODULES/15-defaults.md" "and runs the creative-diversity selection (section 2a) for the run's look" "the .auto default runs the selection"
+need "$MODULES/15-defaults.md" "and draws the run's look from the deck (section 2c)" "the .auto default draws from the deck"
 need "$MODULES/01-commands.md" "\`.reroll visual\` — Change the **look** of a riddle production without touching the riddle" ".reroll visual exists"
 need "$MODULES/01-commands.md" "\`.reroll\` changes **riddles only** — it never changes the look of the production — and a fresh batch re-runs the answer-source rule (section 2b)" ".reroll is scoped to riddles and re-draws answers"
 need "$MODULES/01-commands.md" "Axes the user has locked (a chosen character, art style, setting, or camera) are **not** re-rolled" ".reroll visual respects locked axes"
@@ -999,6 +1005,76 @@ need_not "$MODULES/04-interview.md" "or leaves a field blank, what fills it is t
 need_not "$MODULES/15-defaults.md" "as collapsed summaries (expandable on request)" "the defaults no longer collapse the prompts"
 need_not "$MODULES/10-clip1-final.md" "present the remaining clips as collapsed summaries" "Clip 1 no longer hands over summaries"
 need_not "$BUILD" "collapsed summaries (expandable on request)" "the collapsed delivery is gone from the build"
+echo
+
+# ------------------------------------------------------- 42. two modes, story state, decks
+# WHY: auto mode was ambiguous (a story type named without `auto` was read as an .auto
+# authorization), auto chose free-form (so its output needed correcting), revisions could
+# drift into settled details because the locks lived only in prose, and auto delivered
+# Clip 1's image while leaving later images on demand. v2.39.0 fixes all four: the word
+# `auto` is the only trigger; an auto run draws only from the user-vetted option decks;
+# the Story State locks every field (identically in both modes) with a dependency map
+# scoping what a revision may touch; and auto delivers prompts first, then every required
+# reference image one per message as separate clean frames. Guards pin all of it, the
+# pick-riddle-first form, and the Notion log's honesty rule.
+echo "42. Two modes, the option decks, Story State locks, auto delivery"
+need "$BUILD" "## 2c. Auto mode — the option decks and the locked auto run" "the auto section survives the build"
+need "$BUILD" "## 4a. Story State — field locks, seals, and versions" "the Story State section survives the build"
+need "$MODULES/03b-auto-presets.md" "Auto mode starts only when the user's message contains the word \`auto\` before the story type" "auto has one explicit trigger"
+need "$MODULES/03b-auto-presets.md" "A story type named **without** the word \`auto\`" "a bare type name is routed to guided mode"
+need "$MODULES/03b-auto-presets.md" "The presets are the only things an auto run may draw from" "auto cannot choose outside the decks"
+need "$MODULES/03b-auto-presets.md" "**Every list in this section is user-vetted and editable in place**" "the decks are the user's, editable in place"
+need "$MODULES/03b-auto-presets.md" "Take the starting point from something outside the conversation" "the draw is seeded externally"
+need "$MODULES/03b-auto-presets.md" "Never draw the same preset, or the same deck entry, the previous run in this conversation used" "an auto run does not repeat its draws"
+need "$MODULES/03b-auto-presets.md" "One conversation holds one story." "one story per conversation is stated"
+need "$MODULES/03b-auto-presets.md" "ask for it in one short line and stop that path until it arrives" "a missing attachment stops the path"
+need "$MODULES/03b-auto-presets.md" "Never invent the missing material" "a missing attachment is never invented"
+need "$MODULES/03b-auto-presets.md" "### Auto delivery — prompts first, then every reference image" "auto delivery is its own subsection"
+need "$MODULES/11-output-format.md" "the entire text package is printed before any image is generated" "prompts are never withheld for an image"
+need "$MODULES/03b-auto-presets.md" "**one image per message**, each a separate clean frame of one composed scene" "auto images arrive one per message"
+need "$MODULES/03b-auto-presets.md" "never a collage, panel, sheet, or grid" "auto images are never a collage"
+need "$MODULES/03b-auto-presets.md" "### The pick-riddle-first modifier" "the pick-first modifier is its own subsection"
+need "$MODULES/03b-auto-presets.md" "that does not lock a riddle by itself" "the modifier defers the lock"
+need "$MODULES/03b-auto-presets.md" "drawn from **ten different answer families**" "the ten candidates come from ten families"
+need "$MODULES/03b-auto-presets.md" "a free-text field for pasting a riddle of their own" "the custom riddle box exists"
+need "$MODULES/03b-auto-presets.md" "locked **exactly as written**" "a pasted riddle locks verbatim"
+need "$MODULES/03b-auto-presets.md" "### The Notion riddle log (when connected)" "the Notion protocol is its own subsection"
+need "$MODULES/03b-auto-presets.md" "**Answer Family**" "the log carries answer families"
+need "$MODULES/03b-auto-presets.md" "Never claim a check or a write that did not happen" "Notion honesty is pinned"
+need "$MODULES/01-commands.md" "a story type named without it is a guided-mode request, never an auto run" "the commands module carries the boundary"
+need "$MODULES/01-commands.md" "it draws at random from the user-vetted presets and allowed lists, never free-form" "the commands module scopes auto's choices to the decks"
+need "$MODULES/01-commands.md" "renders the riddle-selection form instead" "the commands module names the pick-first path"
+need "$MODULES/01-commands.md" "**One conversation holds one story.**" "the commands module carries the one-story rule"
+need "$MODULES/01-commands.md" "never silently restarts the pack or resets the Story State" "a second story never resets state"
+need "$MODULES/01-commands.md" "It never applies the auto option decks (section 2c)" ".go never silently applies auto presets"
+need "$MODULES/01-commands.md" "The locks \`.revise\` works against are the Story State field locks (section 4a)" ".revise is tied to the Story State locks"
+need "$MODULES/02-role.md" "always with the word \`auto\` before the type" "the role module carries the trigger boundary"
+need "$MODULES/03-riddle-prephase.md" "### Auto runs draw from the option decks, not free selection" "the diversity engine hands auto runs to the deck"
+need "$MODULES/03-riddle-prephase.md" "Guided runs — every run that did not start with the word \`auto\` — keep the full free selection" "guided keeps the free nine-axis selection"
+need "$MODULES/03-riddle-prephase.md" "that run does **not** lock a riddle by itself and renders the riddle-selection form instead" "Step 0a honours the pick-first modifier"
+need "$MODULES/05a-story-state.md" "Every field is **locked the moment it is chosen**" "locks apply at pick time"
+need "$MODULES/05a-story-state.md" "locked **identically hard**" "auto and guided picks are equally protected"
+need "$MODULES/05a-story-state.md" "**a lock prevents an unrelated edit from changing that field.**" "the lock's one job is stated"
+need "$MODULES/05a-story-state.md" "an **explicit user revision** — \`.revise <field> <value>\`" "nothing but an explicit revision opens a field"
+need "$MODULES/05a-story-state.md" "only along these edges" "the dependency map scopes a revision"
+need "$MODULES/05a-story-state.md" "Anything not reachable through those edges stays exactly as it is." "isolation is absolute outside the map"
+need "$MODULES/05a-story-state.md" "a **re-check of Clip N+1's opening state**" "a clip change checks the next clip's opening state"
+need "$MODULES/05a-story-state.md" "**bumps the version by one**" "edits create a new version"
+need "$MODULES/05a-story-state.md" "marks **only the dependent images and prompts** for regeneration" "regeneration is scoped to dependents"
+need "$MODULES/05a-story-state.md" "changing Clip 2's camera** must preserve the locked riddle and character" "the worked example is pinned"
+need "$MODULES/05a-story-state.md" "flag it in one line and ask which to apply" "a breaking revision is asked about, never resolved silently"
+need "$MODULES/11-output-format.md" "### Auto-run delivery (prompts first, then every reference image)" "the delivery module carries the auto order"
+need "$MODULES/11-output-format.md" "An auto run is the one exception to the on-demand rule" "the on-demand default names its auto exception"
+need "$MODULES/15-defaults.md" "its picks are drawn randomly from the option decks (section 2c)" "the defaults route auto's picks to the decks"
+need "$MODULES/15-defaults.md" "**one image per message, each a separate clean frame**" "the defaults carry the auto image sequencing"
+need "$MODULES/16-checklist.md" "drawn at random from the option decks (section 2c)" "the final gate checks the deck source"
+need "$MODULES/16-checklist.md" "the text package was delivered first" "the final gate checks the delivery order"
+need "$MODULES/16-checklist.md" "one image per message, each a separate clean frame of one composed scene" "the final gate checks the image sequencing"
+need "$MODULES/16-checklist.md" "asked for in one line, never invented" "the final gate checks the missing-attachment path"
+need "$MODULES/16-checklist.md" "the riddle was **not** locked silently" "the final gate checks the pick-first deferral"
+need "$MODULES/16-checklist.md" "not logged" "the final gate checks the Notion honesty rule"
+need "$MODULES/16-checklist.md" "pointed to a fresh chat in one line" "the final gate checks the one-story rule"
+need "$MODULES/16-checklist.md" "respected the Story State locks (section 4a)" "the final gate checks the locks"
 echo
 
 echo "----------------------------------------"

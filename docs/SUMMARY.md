@@ -1,6 +1,6 @@
 # Google Flow Story Maker — Status Summary
 
-*As of v2.37.0 · 2026-10-14 · branch `dev`*
+*As of v2.39.0 · 2026-10-16 · branch `dev`*
 
 ## What it is
 
@@ -25,17 +25,18 @@ modules/*.md   →   build.sh   →   build/google-flow-story-maker.md   →   p
 - **One compiled file, not many** — deliberately. ChatGPT's file retrieval is
   not reliable for routing between near-identical documents, so the whole
   instruction set ships as a single paste.
-- **474 validator checks.** The validator tests the *compiled artifact*, not the
+- **535 validator checks.** The validator tests the *compiled artifact*, not the
   modules: build sync, version stamping, module order, section numbering,
   cross-reference resolution, interview field shape, defaults parity, the
   two-form contract, and stale-wording traps (`need_not`). Guards are written
   **red first** — a new rule fails before the module edit that satisfies it.
-- `master` = production (v2.21.0). `dev` = current work (v2.38.0, on top of the pair committed at `77318e2`).
+- `master` = production (v2.21.0). `dev` = current work (v2.39.0).
 
 ## The versions that matter
 
 | Version | Change | The failure it fixed |
 |---|---|---|
+| v2.39.0 | **Two modes, the option decks, Story State locks** — only `auto <type>` (± dot) triggers auto; a bare story type starts guided mode; auto draws only from user-vetted option decks (§2c: R1–R3 low-motion riddle presets, mukbang M1, jokes J1), seeded externally, never repeating the last draw; Story State (§4a) locks every field identically in both modes, scopes revisions to a dependency map, seals approved versions, and marks only dependent images/prompts for regeneration; auto delivers prompts first, then every required reference image one per message as separate clean frames; `pick riddle first` renders ten candidates + a custom box + a Notion scan; the Notion riddle log is read and written honestly; one conversation holds one story | Four permission gaps in one design: a story type named without `auto` was *read as* an auto authorization (v2.25.0's implicit trigger made the mode ambiguous); an auto run that chose free-form produced output needing correction; the revision locks lived only in prose, so a revision could drift into settled details; and auto delivered Clip 1's image while leaving later required images on demand — the user left an auto run with an incomplete package |
 | v2.12.0 | Split Character and Art style; photo-as-identity; audit + validator born | Ambiguous "character sheet" conflating identity with image workflow |
 | v2.13.0 | **Two-form opening** — Form 1 (setup) *produces* Form 2 (production) | ~8 turns of per-field questioning. `02-role.md` literally said "manageable, interactive steps" |
 | v2.14.0 | **Riddle outcome contract** + no-silent-turn rule | The riddle ending was an *either/or*, so failing to answer was optional and a consequence was never required. Turn ordering let the chat sit on an empty reply while the image rendered |
