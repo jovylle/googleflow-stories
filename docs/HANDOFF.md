@@ -4,9 +4,22 @@ Written at closeout so a fresh session can continue without reading a previous c
 **Read this file first.** Then `docs/SUMMARY.md` (the version history and the failure class the
 versions share), and only the `specs/` file for whatever you are about to change.
 
-## Current update (2026-10-16)
+## Current update (2026-10-17)
 
-The working tree carries **v2.39.0** — the two-mode redesign the user specified directly:
+The working tree carries **v2.40.0** — **code-backed randomness for the riddle ingredient draw**
+(the user's idea, implemented verbatim): when ChatGPT's Python tool is available, every generated
+riddle's category → subcategory → characteristics → difficulty is drawn by **actually executed
+Python** (`secrets.SystemRandom()`) from user-editable lists in §2b — never simulated with
+model-picked numbers, never a drawn category swapped for an easier one, one draw per candidate,
+batch answers unique. ChatGPT then finds a real object fitting the drawn constraints. The honest
+limit is stated in the pack itself: the answers are **randomness-guided, not uniformly random
+across all possible objects**. Fallback when code execution is unavailable: the ordinary-world
+wide-draw rule, with a one-line statement that the draw was **not code-backed**. Auto's deck
+look-draws (§2c) ride the same code-backed draw when available. Guided §2a's free nine-axis
+selection is untouched. Spec: `specs/code-backed-randomness.md`; validator §43 (17 checks,
+written red-first).
+
+**v2.39.0 — the two-mode redesign** the user specified directly:
 **one conversation holds one story, one creator, two modes.**
 
   * **Auto mode starts only with the word `auto` before the type** (`auto riddle`,
@@ -202,7 +215,7 @@ listing in the Directory*. Nothing was uploaded, submitted, or deployed.
 
 | Repo | Version | Branch / HEAD | Checks | Remote |
 |---|---|---|---|---|
-| `lab/googleflow-stories` (**canonical rules** — you are here) | **2.39.0** | `dev` / `50b30c3` + v2.39.0 (this commit) | `./validate.sh` → **535 / 0** | GitHub `jovylle/googleflow-stories`, `master` at `05d81ec` (v2.21.0 release merge), `dev` sixteen ahead |
+| `lab/googleflow-stories` (**canonical rules** — you are here) | **2.40.0** | `dev` / `26db74d` + v2.40.0 (this commit) | `./validate.sh` → **552 / 0** | GitHub `jovylle/googleflow-stories`, `master` at `05d81ec` (v2.21.0 release merge), `dev` seventeen ahead |
 | `lab/flow-story-gpt` (distilled ChatGPT pack) | 1.0.0 | `master` / `5bb876c` | `./validate-gpt.sh` → 28 / 0 | **none — local only** |
 | `lab/flow-story-gem` (Gemini + hand-over zip) | 1.0.0 | `master` / `6c3d417` | `./validate-gem.sh` → 36 / 0 | **none — local only** |
 
@@ -235,7 +248,8 @@ modules. `master` is at `05d81ec` (v2.21.0, released 2026-10-12 by merging `dev`
 | 2.32.0 | `1669843` | `.revise` single-item revision: one item changes, everything else stays locked, only the deliverables carrying it are re-emitted — a local change (riddle text) reprints just the clip that speaks it, while character/art style also regenerate the Clip 1 reference image |
 | 2.33.0 | `aa75e38` | Reference-image binding: every independently generated clip prompt names its image and must match its medium, render quality, palette, lighting, and grade; a supplied photo stays photographic; an Extend delta carries no image binding (its inheritance is the contract) |
 | 2.34.0 | `9d451b2` | Live-run reliability: the consequence has an explicit actor and victim (**the victims pay, the Teller acts**), the Character choice cannot become the Teller, a duration shortfall is surfaced at the overview instead of squeezing the line, and Form 2 ends with a visible Submit button plus a `.go`/text fallback |
-| 2.39.0 | *(this commit)* | **Two modes, the option decks, Story State locks**: only the word `auto` before the type (± dot) triggers auto — a bare `horror riddle` starts guided mode; auto draws only from the user-vetted option decks (new §2c: R1–R3 riddle presets, mukbang M1, jokes J1 + allowed look lists), seeded externally, never repeating the last draw; Story State (new §4a) locks every field identically in both modes, scopes revisions to the dependency map (Clip 2 camera → riddle and character untouched, Clip 3's opening state re-checked), and seals approved versions with dependent-only regeneration; auto delivers prompts first, then every required reference image one per message as separate clean frames; the pick-riddle-first modifier renders ten candidates + a custom box + a Notion scan; the Notion riddle log is read and written honestly; one conversation holds one story. Plugin untouched (stale, opt-in check fails until rebuilt) |
+| 2.40.0 | *(this commit)* | **Code-backed randomness**: when ChatGPT's Python tool is available, every generated riddle's category/subcategory/characteristics/difficulty is drawn by actually executed `secrets.SystemRandom()` from user-editable lists (§2b) — never simulated, never a drawn category swapped for an easier one, one draw per candidate, unique answers; the answers are **randomness-guided, not uniformly random** (stated in the pack); fallback when unavailable states the draw was **not code-backed**; auto's deck look-draws ride the same draw (§2c). Owned by the user's idea; validator §43 (17 checks, red-first) |
+| 2.39.0 | `26db74d` | **Two modes, the option decks, Story State locks**: only the word `auto` before the type (± dot) triggers auto — a bare `horror riddle` starts guided mode; auto draws only from the user-vetted option decks (new §2c: R1–R3 riddle presets, mukbang M1, jokes J1 + allowed look lists), seeded externally, never repeating the last draw; Story State (new §4a) locks every field identically in both modes, scopes revisions to the dependency map (Clip 2 camera → riddle and character untouched, Clip 3's opening state re-checked), and seals approved versions with dependent-only regeneration; auto delivers prompts first, then every required reference image one per message as separate clean frames; the pick-riddle-first modifier renders ten candidates + a custom box + a Notion scan; the Notion riddle log is read and written honestly; one conversation holds one story. Plugin untouched (stale, opt-in check fails until rebuilt) |
 | 2.38.0 | `50b30c3` | **The pack ships no answer table**: the 1,000-answer bank, its generator, §2c and the freshness check are gone; §2b is now the answer-source rule (draw wide, repeat nothing, never invent) and four traps fail the build if the bank comes back. Artifact 2,561 → **1,507 lines**. The list itself is archived outside the repo |
 | 2.37.2 | `89de739` | **The delivery pair follows each clip's own plan, and the ingredient is handed over as the run actually has it**: the two blocks are the Extend delta plus *that clip's* standalone route (ingredient-bound, or Add clip with its own keyframe); no invented image prompt for a supplied/Flow image; the ingredient-as-input capability is verified like Extend's (8s on Lite/Fast, unsupported on Quality) |
 | 2.37.1 | `422ca5c` | **The two forms are never skipped, and nothing is picked for the user.** §3a's blank-field licence is retired: the proposed sets are what an **auto trigger** consumes, and without one the pack presents **Form 1, then Form 2** and waits for each submission — a default is a pre-applied changeable value, a suggestion is an option, never a decision made on the user's behalf |

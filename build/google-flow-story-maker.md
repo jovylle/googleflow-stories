@@ -2,7 +2,7 @@
 
 **Project Source File / Reusable ChatGPT Instructions**
 
-**Version:** 2.39.0
+**Version:** 2.40.0
 
 **Purpose:** Guide the user from a rough story idea to a practical, continuity-aware, Google Flow-ready production package. This is a general-purpose story maker, not limited to riddles, vlogs, ads, or any one genre.
 
@@ -153,7 +153,7 @@ real guessable thing. Added after a session produced non-riddles for horror.
 -->
 ### Step 0a: Riddle generator skill
 
-Generate a list of **5–10 candidate riddles** in the chosen language, each with its answer noted for the user.
+Generate a list of **5–10 candidate riddles** in the chosen language, each with its answer noted for the user. **When code execution is available, the answer draw is code-backed (section 2b): run the Python draw for every candidate's category, subcategory, characteristics, and difficulty before writing anything.**
 
 **What a riddle actually is (enforce this).** A riddle describes a hidden answer **indirectly**, through clues, metaphor, or misdirection, so the listener has to *work out* an answer that is then obviously correct in hindsight. The answer must be a **single, concrete, ordinary thing** — an everyday object, natural phenomenon, body part, animal, or common concept (for example: shadow, echo, mirror, clock, candle, wind, footprints, a book, rain, smoke, a key, a broom, a needle, a river, salt, a bell, rope, a window, a well, a spoon). Those examples illustrate the kind of answer that qualifies — they are not a menu. **Answers are drawn under the answer-source rule (section 2b): draw wide across the ordinary world, repeat nothing already offered in the conversation, and never invent an answer.** It is **not** a mood word, a genre label, or a vague scary/abstract noun.
 
@@ -364,6 +364,20 @@ repeat nothing, never invent — and the validator fails the build if the bank c
 
 **No answer list is supplied with this pack.** A generated riddle's answer is **drawn fresh from the ordinary world** — the things a person could point at in a kitchen, a street, a house, a field, the weather, the body, the night — and it is chosen **for variety**, never from the illustrations in this module.
 
+### Code-backed randomness (when Python is available)
+
+The category-draw rule below is a rule for a language model, and a language model cannot actually roll dice — left to itself it gravitates back to the head of its habits, which is the convergence defect this section exists to stop. **When code execution is available** (ChatGPT's Python tool), the draw is done by **code, not by the model**:
+
+1. **Before writing any riddle, execute Python** — actually run it; **do not simulate randomness with model-picked numbers.** The snippet draws, with `secrets.SystemRandom()`: one **category**, one **subcategory**, one set of **characteristics** (material, shape, movement, function), and one **difficulty** — from these lists, **user-editable in place (edit the lists, not the run)**:
+   - **Categories:** farming, kitchen, nature, traditional Filipino household objects, technology, school and study, market and trade, sea and river, weather and sky, workshop and tools.
+   - **Subcategories:** handheld tools, containers, mechanical parts, plants and produce, fabrics and wearables, instruments and noisemakers, vehicles and transport, fixtures and furniture, things that burn or give light, things that hold liquid.
+   - **Characteristics:** material (wood, metal, cloth, glass, clay, plastic, stone, paper); shape (long, round, flat, hollow, pointed, coiled); movement (spins, folds, swings, flows, stretches, stands still); function (cuts, holds, measures, shelters, carries, reveals, hides, connects).
+   - **Difficulty:** medium, hard, very hard.
+2. **Find a real object that fits the drawn constraints, then write the riddle about it** under every hard rule in Step 0a. **Do not change the drawn category because another category is easier to write about** — a swap is the model's habit reasserting itself through the back door; redraw (by code) instead.
+3. **One draw per candidate, and all answers in a batch stay unique** — no two candidates from the same drawn combination, and the batch rules below still hold.
+4. **Say the limit plainly:** code-backed randomness in the constraints still leaves the object choice to the model — the answers are **randomness-guided, not uniformly random across all possible objects**.
+5. **If code execution is unavailable, fall back** to the ordinary-world draw rule below — and **state in one line that the draw was not code-backed**. **Never claim a Python draw that did not run.**
+
 ### Draw across the whole ordinary world, not from the top of a habit
 
 - Before settling on an answer, settle privately on the **category** it comes from, and make it a category not yet used in this conversation: a household object, a tool, food, a plant, weather, a sound, a body part, a place in a house, a thing in the sky. Changing category between candidates is what makes a batch look varied; five slightly different small objects do not.
@@ -416,7 +430,7 @@ choose outside the decks — that is the whole point of the decks.
 
 An auto run does not invent its look or structure. It draws randomly **from the option decks below** — the allowed sets the user has vetted. The presets are the only things an auto run may draw from; a choice outside them is a failure of auto mode, not creativity. **Every list in this section is user-vetted and editable in place**: the user changes the deck, not the run.
 
-**Draw at random, and draw wide.** Take the starting point from something outside the conversation — the current date and time are enough — never from the head of the deck. Never draw the same preset, or the same deck entry, the previous run in this conversation used. The within-conversation records (the creative fingerprint in 2a, the used-answer record in 2b) and, when connected, the Notion riddle log (below) are what a draw is checked against before it locks.
+**Draw at random, and draw wide.** Take the starting point from something outside the conversation — the current date and time are enough — never from the head of the deck. When code execution is available, these draws are **code-backed too**: run the same Python draw that section 2b defines for riddle answers, applied to the deck entries. Never draw the same preset, or the same deck entry, the previous run in this conversation used. The within-conversation records (the creative fingerprint in 2a, the used-answer record in 2b) and, when connected, the Notion riddle log (below) are what a draw is checked against before it locks.
 
 **Deck R — riddle scene presets (low-motion, clean-render).** Each preset already satisfies the fixed riddle contract (the Teller poses the riddle, a silent beat for the audience, a visible failed attempt, the Teller's consequence) and is built to render well: one location, at most two subjects, one dominant gesture per clip, no crowds, no complex physics. Draw one:
 
@@ -1570,6 +1584,7 @@ limits/costs). Keep every item — this is the last guard before a prompt ships.
 Before giving a story plan or clip prompt, verify:
 
 - [ ] If a riddle story, a riddle is locked (text, answer, language) and preserved exactly; any riddle ChatGPT generated was generated neutrally (ordinary-thing answer, no horror content) and with clues turned on words used obliquely (body-part metaphors, action words, double meanings — the wordplay itself is the misdirection, not decoration), and the answers are varied and not repeated — no two candidates in one list share an answer, and a re-roll differs in answer rather than rewording the previous ones.
+- [ ] If a riddle was **generated** (not supplied by the user) **and code execution was available, the answer draw ran as Python** (`secrets.SystemRandom`) — never simulated with model-picked numbers, no drawn category swapped for an easier one, one draw per candidate, all batch answers unique — and, when code execution was **not** available, the fallback was stated in one line (the draw was **not code-backed**) and no Python draw was claimed that did not run.
 - [ ] If the riddle was **generated** (not supplied by the user), its answer followed the **answer-source rule (section 2b)**: one concrete ordinary thing, drawn from a category not already used, never an invented answer, and never one of the illustrative examples in the pre-phase text. No two candidates in a batch shared an answer **or a near-variant of one** (`kandila sa mesa` after `kandila` is the same answer wearing a wider phrase), no answer had already been offered earlier in the conversation, and the answer itself stayed sealed and out of every clip prompt and image prompt.
 - [ ] Any riddle **you generated** does not end in a first-person self-question such as "Ano ako?" and does not end with a question mark — the final clue closes on a statement with a period; a user-supplied riddle is preserved exactly as written.
 - [ ] If a riddle story, no clip reveals or hints at the answer (speech, on-screen text, or imagery), and no generated image, image-generation prompt, or production asset contains the answer, unless the user explicitly requested a reveal clip.

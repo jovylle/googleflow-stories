@@ -1077,6 +1077,36 @@ need "$MODULES/16-checklist.md" "pointed to a fresh chat in one line" "the final
 need "$MODULES/16-checklist.md" "respected the Story State locks (section 4a)" "the final gate checks the locks"
 echo
 
+# ------------------------------------------------------- 43. code-backed randomness
+# WHY: the wide-draw rules ask a language model for variety, and a language model
+# cannot roll dice — left to itself it returns to the head of its habits, which is the
+# convergence defect sections 2a/2b/3a exist to stop. When ChatGPT's Python tool is
+# available, the draw for every generated riddle's ingredients (category, subcategory,
+# characteristics, difficulty) — and for auto's deck entries — must actually run as
+# code (secrets.SystemRandom), never be simulated with model-picked numbers; a drawn
+# category may not be swapped for an easier one; the fallback must be stated plainly
+# when code execution is unavailable; and the honest limit is pinned: the answers are
+# randomness-guided, not uniformly random across all possible objects.
+echo "43. Code-backed randomness (the riddle ingredient draw)"
+need "$MODULES/03-riddle-prephase.md" "### Code-backed randomness (when Python is available)" "the code-backed draw is its own subsection"
+need "$MODULES/03-riddle-prephase.md" "**Before writing any riddle, execute Python**" "Python must actually be executed"
+need "$MODULES/03-riddle-prephase.md" "secrets.SystemRandom()" "the draw uses a CSPRNG, not model numbers"
+need "$MODULES/03-riddle-prephase.md" "do not simulate randomness with model-picked numbers" "simulated randomness is banned outright"
+need "$MODULES/03-riddle-prephase.md" "user-editable in place (edit the lists, not the run)" "the ingredient lists are the user's to edit"
+need "$MODULES/03-riddle-prephase.md" "Do not change the drawn category because another category is easier to write about" "a drawn category may not be swapped for an easier one"
+need "$MODULES/03-riddle-prephase.md" "One draw per candidate, and all answers in a batch stay unique" "one draw per candidate, unique answers"
+need "$MODULES/03-riddle-prephase.md" "**randomness-guided, not uniformly random across all possible objects**" "the honest limit is stated in the pack"
+need "$MODULES/03-riddle-prephase.md" "state in one line that the draw was not code-backed" "the fallback is stated, not hidden"
+need "$MODULES/03-riddle-prephase.md" "**Never claim a Python draw that did not run.**" "no claimed draw that did not run"
+need "$MODULES/03-riddle-prephase.md" "the answer draw is code-backed (section 2b): run the Python draw for every candidate" "Step 0a runs the draw before writing"
+need "$MODULES/03b-auto-presets.md" "these draws are **code-backed too**" "auto's deck draws ride the same code-backed draw"
+need "$MODULES/16-checklist.md" "the answer draw ran as Python" "the final gate checks the code-backed draw"
+need "$MODULES/16-checklist.md" "never simulated with model-picked numbers" "the final gate bars simulated randomness"
+need "$MODULES/16-checklist.md" "the draw was **not code-backed**" "the final gate checks the fallback honesty"
+need "$BUILD" "### Code-backed randomness (when Python is available)" "the code-backed draw survives the build"
+need "$BUILD" "secrets.SystemRandom()" "the CSPRNG survives the build"
+echo
+
 echo "----------------------------------------"
 echo "checks: $CHECKED   failed: $FAILED"
 [ "$FAILED" -eq 0 ] && echo "validate: PASS" || echo "validate: FAIL"

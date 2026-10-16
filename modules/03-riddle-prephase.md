@@ -89,7 +89,7 @@ real guessable thing. Added after a session produced non-riddles for horror.
 -->
 ### Step 0a: Riddle generator skill
 
-Generate a list of **5–10 candidate riddles** in the chosen language, each with its answer noted for the user.
+Generate a list of **5–10 candidate riddles** in the chosen language, each with its answer noted for the user. **When code execution is available, the answer draw is code-backed (section 2b): run the Python draw for every candidate's category, subcategory, characteristics, and difficulty before writing anything.**
 
 **What a riddle actually is (enforce this).** A riddle describes a hidden answer **indirectly**, through clues, metaphor, or misdirection, so the listener has to *work out* an answer that is then obviously correct in hindsight. The answer must be a **single, concrete, ordinary thing** — an everyday object, natural phenomenon, body part, animal, or common concept (for example: shadow, echo, mirror, clock, candle, wind, footprints, a book, rain, smoke, a key, a broom, a needle, a river, salt, a bell, rope, a window, a well, a spoon). Those examples illustrate the kind of answer that qualifies — they are not a menu. **Answers are drawn under the answer-source rule (section 2b): draw wide across the ordinary world, repeat nothing already offered in the conversation, and never invent an answer.** It is **not** a mood word, a genre label, or a vague scary/abstract noun.
 
@@ -299,6 +299,20 @@ repeat nothing, never invent — and the validator fails the build if the bank c
 -->
 
 **No answer list is supplied with this pack.** A generated riddle's answer is **drawn fresh from the ordinary world** — the things a person could point at in a kitchen, a street, a house, a field, the weather, the body, the night — and it is chosen **for variety**, never from the illustrations in this module.
+
+### Code-backed randomness (when Python is available)
+
+The category-draw rule below is a rule for a language model, and a language model cannot actually roll dice — left to itself it gravitates back to the head of its habits, which is the convergence defect this section exists to stop. **When code execution is available** (ChatGPT's Python tool), the draw is done by **code, not by the model**:
+
+1. **Before writing any riddle, execute Python** — actually run it; **do not simulate randomness with model-picked numbers.** The snippet draws, with `secrets.SystemRandom()`: one **category**, one **subcategory**, one set of **characteristics** (material, shape, movement, function), and one **difficulty** — from these lists, **user-editable in place (edit the lists, not the run)**:
+   - **Categories:** farming, kitchen, nature, traditional Filipino household objects, technology, school and study, market and trade, sea and river, weather and sky, workshop and tools.
+   - **Subcategories:** handheld tools, containers, mechanical parts, plants and produce, fabrics and wearables, instruments and noisemakers, vehicles and transport, fixtures and furniture, things that burn or give light, things that hold liquid.
+   - **Characteristics:** material (wood, metal, cloth, glass, clay, plastic, stone, paper); shape (long, round, flat, hollow, pointed, coiled); movement (spins, folds, swings, flows, stretches, stands still); function (cuts, holds, measures, shelters, carries, reveals, hides, connects).
+   - **Difficulty:** medium, hard, very hard.
+2. **Find a real object that fits the drawn constraints, then write the riddle about it** under every hard rule in Step 0a. **Do not change the drawn category because another category is easier to write about** — a swap is the model's habit reasserting itself through the back door; redraw (by code) instead.
+3. **One draw per candidate, and all answers in a batch stay unique** — no two candidates from the same drawn combination, and the batch rules below still hold.
+4. **Say the limit plainly:** code-backed randomness in the constraints still leaves the object choice to the model — the answers are **randomness-guided, not uniformly random across all possible objects**.
+5. **If code execution is unavailable, fall back** to the ordinary-world draw rule below — and **state in one line that the draw was not code-backed**. **Never claim a Python draw that did not run.**
 
 ### Draw across the whole ordinary world, not from the top of a habit
 
