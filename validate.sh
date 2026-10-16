@@ -471,6 +471,35 @@ need "$MODULES/08-video-prompt.md" "12–16 words per 8-second clip" "the heavy-
 need "$MODULES/03-riddle-prephase.md" "12–16 words per 8-second clip" "the riddle budget carries the heavy-voice figure"
 need "$MODULES/15-defaults.md" "supernatural Teller voice block" "the defaults point at the voice block"
 need "$MODULES/16-checklist.md" "the supernatural Teller voice block was used verbatim" "the checklist verifies the voice block"
+need "$MODULES/08-video-prompt.md" "[VOICE TIMBRE — filled from the Teller's locked voice identity" "the voice block's timbre is a slot, not a constant"
+need "$MODULES/08-video-prompt.md" "an impossibly deep, inhuman male voice" "the proven deep-voice fill survives as the imposing-entity default"
+need "$MODULES/08-video-prompt.md" "the voice must match who is on screen speaking" "the timbre must match the locked design"
+need "$MODULES/08-video-prompt.md" "a child Teller speaks with an uncanny child's voice" "the child-Teller fill is named"
+need "$MODULES/08-video-prompt.md" "**Forcing the deep male timbre onto a locked design that contradicts it" "the no-forcing rule is explicit"
+need "$MODULES/08-video-prompt.md" "**One speaker, stated in the clip prompt.**" "the clip names who speaks and who stays silent"
+need "$MODULES/16-checklist.md" "the \`[VOICE TIMBRE]\` slot filled from the locked Teller's design" "the final gate checks the timbre source"
+need "$MODULES/16-checklist.md" "every victim stays silent (no speech, no lip-sync, no audible wrong answer)" "the final gate checks the one-speaker rule"
+echo
+
+echo "44. The image-prompt trailer (anti-storyboard, inside the prompt)"
+# WHY: two live runs in a row rendered 6-panel storyboard sheets — numbered panels,
+# 0:04 timestamp chips, captions, a "Video Model" metadata bar — from prompts that
+# obeyed every prose ban. ChatGPT's image tool reads the prompt, not the rulebook, so
+# the negatives must ride inside the prompt itself as a fixed trailer. Guards pin the
+# trailer verbatim, the escalation path (trailer repeated as the opening sentence on
+# the first repeat, then report + the Flow-side fallback), and the checklist mirror.
+need "$MODULES/07-image-workflow.md" "### The image-prompt trailer (mandatory on every generated image)" "the trailer has its own subsection"
+need "$MODULES/07-image-workflow.md" "One single frame of one composed scene — a single shot. No storyboard, no panels," "the trailer text is pinned verbatim"
+need "$MODULES/07-image-workflow.md" "no numbered cards, no grids, no timestamp chips, no captions, titles, watermarks," "the trailer names the shapes the image tool reaches for"
+need "$MODULES/07-image-workflow.md" "it goes into the generation call itself" "the trailer rides inside the prompt, not the prose"
+need "$MODULES/07-image-workflow.md" "In-scene signage the scene actually plans" "planned props are never collateral damage of the trailer"
+need "$MODULES/07-image-workflow.md" "regenerate with the trailer **repeated as the prompt's opening sentence**" "the first repeat escalates the trailer's position"
+need "$MODULES/07-image-workflow.md" "offer the flow-side fallback" "a double failure hands over the prompt, not the bad frame"
+need "$MODULES/07-image-workflow.md" "A prompt that omits the trailer is a defect caught at the checklist" "omission is a named defect"
+need "$MODULES/16-checklist.md" "Every image prompt carried the mandatory image-prompt trailer verbatim" "the final gate checks the trailer shipped"
+need "$MODULES/16-checklist.md" "the trailer was repeated as the prompt's opening sentence for the regeneration" "the final gate checks the escalation"
+need "$BUILD" "One single frame of one composed scene — a single shot. No storyboard" "the trailer survives the build"
+need_not "$BUILD" "with an impossibly deep, inhuman male voice. The voice is extremely bass-heavy" "the voice template no longer hardcodes the timbre outside the fill rule"
 echo
 
 # ------------------------------------------------------- 24. handoff freshness

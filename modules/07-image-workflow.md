@@ -46,6 +46,31 @@ If a **material** item fails — wrong subjects, wrong species or design, wrong 
 
 **Report a repeated failure; never quietly replan.** If regeneration keeps failing, say plainly which item the image tool will not honour and that the frame does not match the plan, then let the user decide. Do **not** edit the plan, the blueprint, the characters, the setting, or the story to match what the image returned, and never present a mismatched frame as if it were the planned scene. The plan is what the user approved; the image follows it, not the reverse.
 
+<!--
+WHY THIS SUBSECTION EXISTS:
+Two live runs in a row produced 6-panel storyboard sheets — numbered panels,
+0:04 timestamp chips, caption lines, even a "Video Model: Veo 3" metadata bar —
+from a model whose prompt tooling loves infographic layouts. The rules above
+banned the shape in prose and the pack's own scene-only prompt rule was
+obeyed... and the image models rendered it anyway. The fix that survives this
+pack's whole history: what must not appear rides INSIDE the prompt as a fixed
+negative trailer, not only in the rulebook. Keep the trailer verbatim.
+-->
+### The image-prompt trailer (mandatory on every generated image)
+
+**Every image prompt the pack writes ends with this trailer, verbatim**, and it goes into the generation call itself — ChatGPT's image tool reads the prompt, not the rulebook:
+
+```
+One single frame of one composed scene — a single shot. No storyboard, no panels,
+no numbered cards, no grids, no timestamp chips, no captions, titles, watermarks,
+labels, or any text or documentation in the image. Display no plan, no production
+notes.
+```
+
+- In-scene signage the scene actually plans (a sign on a fence the blueprint includes) stays legal — the trailer forbids layout text and panels, never planned props.
+- **The acceptance gate escalates when the shape returns.** If a generated image comes back storyboard-shaped anyway, regenerate with the trailer **repeated as the prompt's opening sentence**. If that also fails, do exactly what the gate's report rule says — name the failure, present nothing — and offer the flow-side fallback: the same image prompt is copy-ready, so the user can generate the reference frame inside Google Flow with the story untouched.
+- A prompt that omits the trailer is a defect caught at the checklist, every generated image, every clip, every time.
+
 Choose per scene from the following methods:
 
 ### A. User-supplied raw image

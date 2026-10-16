@@ -1,6 +1,6 @@
 # Google Flow Story Maker — Status Summary
 
-*As of v2.40.1 · 2026-10-17 · branch `dev`*
+*As of v2.41.0 · 2026-10-17 · branch `dev`*
 
 ## What it is
 
@@ -25,17 +25,18 @@ modules/*.md   →   build.sh   →   build/google-flow-story-maker.md   →   p
 - **One compiled file, not many** — deliberately. ChatGPT's file retrieval is
   not reliable for routing between near-identical documents, so the whole
   instruction set ships as a single paste.
-- **555 validator checks.** The validator tests the *compiled artifact*, not the
+- **575 validator checks.** The validator tests the *compiled artifact*, not the
   modules: build sync, version stamping, module order, section numbering,
   cross-reference resolution, interview field shape, defaults parity, the
   two-form contract, and stale-wording traps (`need_not`). Guards are written
   **red first** — a new rule fails before the module edit that satisfies it.
-- `master` = production (v2.21.0). `dev` = current work (v2.40.1).
+- `master` = production (v2.21.0). `dev` = current work (v2.41.0).
 
 ## The versions that matter
 
 | Version | Change | The failure it fixed |
 |---|---|---|
+| v2.41.0 | **Image-prompt trailer + voice timbre slot** — every image prompt ends verbatim with "One single frame of one composed scene — a single shot. No storyboard, no panels, no numbered cards, no grids, no timestamp chips, no captions, titles, watermarks, labels…"; storyboard-shaped return → regenerate with the trailer as the opening sentence, a second failure reported with the copy-ready prompt offered for Flow-side generation. The voice block's timbre becomes a slot filled from the locked Teller design — deep-male wording survives only as the imposing-entity default; forcing it onto a child/female/small Teller is a checklist defect; new one-speaker rule (the Teller speaks, every victim silent) | Two live runs, one class: fixed in prose, no carrier in the prompt. ChatGPT's image tool read only the prompt and rendered 6-panel storyboard sheets (numbered panels, 0:04 chips, captions, a "Video Model" metadata bar) despite every prose ban; and the vendored voice block's hardcoded "impossibly deep, inhuman male voice" spoke the locked riddle through a small, visually female shopkeeper — the block's timbre was a constant, so it overrode the Teller design §2a had freed |
 | v2.40.0 | **Code-backed randomness** — when ChatGPT's Python tool is available, every generated riddle's category/subcategory/characteristics/difficulty is drawn by actually executed `secrets.SystemRandom()` from user-editable lists (§2b); no simulated randomness, no drawn category swapped for an easier one, one draw per candidate, unique answers; answers are **randomness-guided, not uniformly random** (stated in the pack); fallback says the draw was **not code-backed**; auto's deck look-draws ride the same draw (§2c) | The wide-draw rules ask a language model for variety, and **a language model cannot roll dice** — even with a mechanism (v2.39.0's date/time seed), the roll ran inside the model, which drifts back to the head of its habits. The user's fix: randomize the ingredients with real code before writing, then find objects that fit |
 | v2.39.0 | **Two modes, the option decks, Story State locks** — only `auto <type>` (± dot) triggers auto; a bare story type starts guided mode; auto draws only from user-vetted option decks (§2c: R1–R3 low-motion riddle presets, mukbang M1, jokes J1), seeded externally, never repeating the last draw; Story State (§4a) locks every field identically in both modes, scopes revisions to a dependency map, seals approved versions, and marks only dependent images/prompts for regeneration; auto delivers prompts first, then every required reference image one per message as separate clean frames; `pick riddle first` renders ten candidates + a custom box + a Notion scan; the Notion riddle log is read and written honestly; one conversation holds one story | Four permission gaps in one design: a story type named without `auto` was *read as* an auto authorization (v2.25.0's implicit trigger made the mode ambiguous); an auto run that chose free-form produced output needing correction; the revision locks lived only in prose, so a revision could drift into settled details; and auto delivered Clip 1's image while leaving later required images on demand — the user left an auto run with an incomplete package |
 | v2.12.0 | Split Character and Art style; photo-as-identity; audit + validator born | Ambiguous "character sheet" conflating identity with image workflow |

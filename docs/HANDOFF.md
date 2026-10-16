@@ -6,7 +6,42 @@ versions share), and only the `specs/` file for whatever you are about to change
 
 ## Current update (2026-10-17)
 
-The working tree carries **v2.40.1** — the draw snippet is now **shipped verbatim** in §2b
+The working tree carries **v2.41.0** — two live-run fixes from the named failure class
+(fixed in prose, no carrier in the prompt), from the user's test transcripts on the clean
+project:
+
+  * **The image-prompt trailer (§44, module 07):** every image prompt ends verbatim with
+    "One single frame of one composed scene — a single shot. No storyboard, no panels, no
+    numbered cards, no grids, no timestamp chips, no captions, titles, watermarks, labels,
+    or any text or documentation in the image. Display no plan, no production notes." Two
+    live runs rendered 6-panel storyboard sheets (numbered panels, 0:04 chips, captions, a
+    "Video Model" metadata bar) from prompts that obeyed every prose ban — the negatives
+    must ride inside the prompt. Escalation: regenerate with the trailer repeated as the
+    prompt's opening sentence; a second failure is reported with the copy-ready prompt
+    offered for Flow-side generation. Planned in-scene signage stays legal.
+  * **The voice timbre slot (module 08):** the block reads `…speaks in [LANGUAGE] with
+    [VOICE TIMBRE — filled from the Teller's locked voice identity]`. The proven v2.21.0
+    deep-voice wording survives verbatim as the default fill **only** for an imposing,
+    humanoid-scale, or design-unspecified entity; every other Teller (a child, a
+    female-presenting Teller, a small puppet) gets a timbre written from its own design,
+    and **forcing the deep male timbre onto a contradicting design is a checklist defect**.
+    Delivery architecture never varies (slow cadence, long pauses, 12–16 words/8s for any
+    timbre, spatial surround, negative tail). New **one-speaker rule**: the clip prompt
+    names the Teller as its only speaker; every victim stays silent (no speech, no
+    lip-sync, no audible wrong answer). This lands exactly what ChatGPT's own hand-repair
+    improvised in the live run — "a distinctly feminine vocal identity despite its
+    unnaturally low pitch".
+  * Audio decisions live here: **voice timbre = locked when the Teller design is locked**
+    (§2a → continuity notes → prompt slot); **ambience/environment = decided with the
+    environment axis** and stated per clip. The block carries those decisions; it overrides
+    nothing.
+
+Note: the clean-project run itself proved most of the v2.39–v2.40 machinery working live —
+deck preset draw, the honesty lines ("code-backed random ingredient draw… not uniformly
+random… has not been logged to Notion"), the acceptance gate rejecting both storyboard
+frames, both routes, timestamps, deck-drawn defaults. Spec: `specs/live-run-hardening.md`.
+
+**v2.40.1 — the draw snippet is now shipped verbatim** in §2b
 as a zero-indent fenced Python block (lists embedded, one source; a comment pins "edit the
 lists here; never edit the run"), so ChatGPT runs it instead of improvising a snippet each
 time — that improvised version is what could have simmed to `random.choice` or skipped
@@ -223,7 +258,7 @@ listing in the Directory*. Nothing was uploaded, submitted, or deployed.
 
 | Repo | Version | Branch / HEAD | Checks | Remote |
 |---|---|---|---|---|
-| `lab/googleflow-stories` (**canonical rules** — you are here) | **2.40.1** | `dev` / `26db74d` + v2.40.0+v2.40.1 (this commit) | `./validate.sh` → **555 / 0** | GitHub `jovylle/googleflow-stories`, `master` at `05d81ec` (v2.21.0 release merge), `dev` seventeen ahead |
+| `lab/googleflow-stories` (**canonical rules** — you are here) | **2.41.0** | `dev` / `53cc025` + v2.41.0 (this commit) | `./validate.sh` → **575 / 0** | GitHub `jovylle/googleflow-stories`, `master` at `05d81ec` (v2.21.0 release merge), `dev` seventeen ahead |
 | `lab/flow-story-gpt` (distilled ChatGPT pack) | 1.0.0 | `master` / `5bb876c` | `./validate-gpt.sh` → 28 / 0 | **none — local only** |
 | `lab/flow-story-gem` (Gemini + hand-over zip) | 1.0.0 | `master` / `6c3d417` | `./validate-gem.sh` → 36 / 0 | **none — local only** |
 
