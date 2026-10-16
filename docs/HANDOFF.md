@@ -6,10 +6,18 @@ versions share), and only the `specs/` file for whatever you are about to change
 
 ## Current update (2026-10-17)
 
-The working tree carries **v2.40.0** — **code-backed randomness for the riddle ingredient draw**
+The working tree carries **v2.40.1** — the draw snippet is now **shipped verbatim** in §2b
+as a zero-indent fenced Python block (lists embedded, one source; a comment pins "edit the
+lists here; never edit the run"), so ChatGPT runs it instead of improvising a snippet each
+time — that improvised version is what could have simmed to `random.choice` or skipped
+uniqueness. `specs/evidence/run-ingredient-draw.py` **executes the shipped snippet** and
+asserts 10 draws with unique category+subcategory combinations; §43 runs it on every
+validate, so the snippet cannot rot silently. Everything else about v2.40.0 holds as below.
+
+**v2.40.0 — code-backed randomness for the riddle ingredient draw**
 (the user's idea, implemented verbatim): when ChatGPT's Python tool is available, every generated
 riddle's category → subcategory → characteristics → difficulty is drawn by **actually executed
-Python** (`secrets.SystemRandom()`) from user-editable lists in §2b — never simulated with
+Python** (`secrets.SystemRandom()`) — never simulated with
 model-picked numbers, never a drawn category swapped for an easier one, one draw per candidate,
 batch answers unique. ChatGPT then finds a real object fitting the drawn constraints. The honest
 limit is stated in the pack itself: the answers are **randomness-guided, not uniformly random
@@ -215,7 +223,7 @@ listing in the Directory*. Nothing was uploaded, submitted, or deployed.
 
 | Repo | Version | Branch / HEAD | Checks | Remote |
 |---|---|---|---|---|
-| `lab/googleflow-stories` (**canonical rules** — you are here) | **2.40.0** | `dev` / `26db74d` + v2.40.0 (this commit) | `./validate.sh` → **552 / 0** | GitHub `jovylle/googleflow-stories`, `master` at `05d81ec` (v2.21.0 release merge), `dev` seventeen ahead |
+| `lab/googleflow-stories` (**canonical rules** — you are here) | **2.40.1** | `dev` / `26db74d` + v2.40.0+v2.40.1 (this commit) | `./validate.sh` → **555 / 0** | GitHub `jovylle/googleflow-stories`, `master` at `05d81ec` (v2.21.0 release merge), `dev` seventeen ahead |
 | `lab/flow-story-gpt` (distilled ChatGPT pack) | 1.0.0 | `master` / `5bb876c` | `./validate-gpt.sh` → 28 / 0 | **none — local only** |
 | `lab/flow-story-gem` (Gemini + hand-over zip) | 1.0.0 | `master` / `6c3d417` | `./validate-gem.sh` → 36 / 0 | **none — local only** |
 

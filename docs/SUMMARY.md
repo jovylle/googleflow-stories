@@ -1,6 +1,6 @@
 # Google Flow Story Maker — Status Summary
 
-*As of v2.40.0 · 2026-10-17 · branch `dev`*
+*As of v2.40.1 · 2026-10-17 · branch `dev`*
 
 ## What it is
 
@@ -25,12 +25,12 @@ modules/*.md   →   build.sh   →   build/google-flow-story-maker.md   →   p
 - **One compiled file, not many** — deliberately. ChatGPT's file retrieval is
   not reliable for routing between near-identical documents, so the whole
   instruction set ships as a single paste.
-- **552 validator checks.** The validator tests the *compiled artifact*, not the
+- **555 validator checks.** The validator tests the *compiled artifact*, not the
   modules: build sync, version stamping, module order, section numbering,
   cross-reference resolution, interview field shape, defaults parity, the
   two-form contract, and stale-wording traps (`need_not`). Guards are written
   **red first** — a new rule fails before the module edit that satisfies it.
-- `master` = production (v2.21.0). `dev` = current work (v2.40.0).
+- `master` = production (v2.21.0). `dev` = current work (v2.40.1).
 
 ## The versions that matter
 

@@ -41,8 +41,14 @@ would have changed that contract; not taken.
 
 ## What shipped
 
-- `modules/03-riddle-prephase.md` — §2b's new subsection (the draw, the lists, the
-  hard rules, the honesty line, the fallback) + the Step 0a pointer.
+- `modules/03-riddle-prephase.md` — §2b's new subsection: the **exact ready-to-run
+  Python snippet** (lists embedded — one source for the drawings, comment-pinned
+  "edit the lists here; never edit the run"), the hard rules, the honesty line,
+  the fallback + the Step 0a pointer. The snippet sits at zero indentation so a
+  paste runs first try (an indented module-level block is a fatal
+  `IndentationError`). `specs/evidence/run-ingredient-draw.py` executes the
+  shipped snippet and asserts 10 draws with unique category+subcategory
+  combinations; §43 runs it, so the snippet cannot rot silently.
 - `modules/03b-auto-presets.md` — auto's deck draws are code-backed when available.
 - `modules/16-checklist.md` — one new gate item (Python ran, not simulated, no swap,
   fallback stated).

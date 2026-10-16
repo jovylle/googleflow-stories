@@ -1089,10 +1089,23 @@ echo
 # randomness-guided, not uniformly random across all possible objects.
 echo "43. Code-backed randomness (the riddle ingredient draw)"
 need "$MODULES/03-riddle-prephase.md" "### Code-backed randomness (when Python is available)" "the code-backed draw is its own subsection"
+need "$MODULES/03-riddle-prephase.md" "# Riddle ingredient draw — run this before writing any riddle." "the pack carries the exact ready-to-run snippet"
+need "$MODULES/03-riddle-prephase.md" "Edit the lists here to change what the draw can pick; never edit the run" "the lists are the user's to edit, in the snippet itself"
+need "$MODULES/03-riddle-prephase.md" "no two candidates share a category+subcategory combination" "the snippet enforces one draw per candidate"
+# The snippet is executable content, not just wording: run it. A shipped snippet
+# that no longer executes (or was edited into a non-running shape) fails the build.
+if command -v python3 >/dev/null 2>&1; then
+  if python3 specs/evidence/run-ingredient-draw.py >/dev/null 2>&1; then
+    pass "the shipped draw snippet executes as written (10 unique draws)"
+  else
+    fail "the shipped draw snippet FAILS to run — python3 specs/evidence/run-ingredient-draw.py"
+  fi
+else
+  printf '  skip  python3 not found — the draw snippet was NOT executed\n'
+fi
 need "$MODULES/03-riddle-prephase.md" "**Before writing any riddle, execute Python**" "Python must actually be executed"
 need "$MODULES/03-riddle-prephase.md" "secrets.SystemRandom()" "the draw uses a CSPRNG, not model numbers"
 need "$MODULES/03-riddle-prephase.md" "do not simulate randomness with model-picked numbers" "simulated randomness is banned outright"
-need "$MODULES/03-riddle-prephase.md" "user-editable in place (edit the lists, not the run)" "the ingredient lists are the user's to edit"
 need "$MODULES/03-riddle-prephase.md" "Do not change the drawn category because another category is easier to write about" "a drawn category may not be swapped for an easier one"
 need "$MODULES/03-riddle-prephase.md" "One draw per candidate, and all answers in a batch stay unique" "one draw per candidate, unique answers"
 need "$MODULES/03-riddle-prephase.md" "**randomness-guided, not uniformly random across all possible objects**" "the honest limit is stated in the pack"

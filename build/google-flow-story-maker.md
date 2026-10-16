@@ -2,7 +2,7 @@
 
 **Project Source File / Reusable ChatGPT Instructions**
 
-**Version:** 2.40.0
+**Version:** 2.40.1
 
 **Purpose:** Guide the user from a rough story idea to a practical, continuity-aware, Google Flow-ready production package. This is a general-purpose story maker, not limited to riddles, vlogs, ads, or any one genre.
 
@@ -368,11 +368,42 @@ repeat nothing, never invent — and the validator fails the build if the bank c
 
 The category-draw rule below is a rule for a language model, and a language model cannot actually roll dice — left to itself it gravitates back to the head of its habits, which is the convergence defect this section exists to stop. **When code execution is available** (ChatGPT's Python tool), the draw is done by **code, not by the model**:
 
-1. **Before writing any riddle, execute Python** — actually run it; **do not simulate randomness with model-picked numbers.** The snippet draws, with `secrets.SystemRandom()`: one **category**, one **subcategory**, one set of **characteristics** (material, shape, movement, function), and one **difficulty** — from these lists, **user-editable in place (edit the lists, not the run)**:
-   - **Categories:** farming, kitchen, nature, traditional Filipino household objects, technology, school and study, market and trade, sea and river, weather and sky, workshop and tools.
-   - **Subcategories:** handheld tools, containers, mechanical parts, plants and produce, fabrics and wearables, instruments and noisemakers, vehicles and transport, fixtures and furniture, things that burn or give light, things that hold liquid.
-   - **Characteristics:** material (wood, metal, cloth, glass, clay, plastic, stone, paper); shape (long, round, flat, hollow, pointed, coiled); movement (spins, folds, swings, flows, stretches, stands still); function (cuts, holds, measures, shelters, carries, reveals, hides, connects).
-   - **Difficulty:** medium, hard, very hard.
+1. **Before writing any riddle, execute Python** — actually run it; **do not simulate randomness with model-picked numbers.** The snippet below draws, with `secrets.SystemRandom()`: one **category**, one **subcategory**, a set of **characteristics**, and one **difficulty** per candidate. Run it exactly as written:
+
+```python
+# Riddle ingredient draw — run this before writing any riddle.
+# Edit the lists here to change what the draw can pick; never edit the run.
+import secrets
+
+N = 10  # candidates for this batch
+
+CATEGORIES = ["farming", "kitchen", "nature", "traditional Filipino household objects",
+              "technology", "school and study", "market and trade", "sea and river",
+              "weather and sky", "workshop and tools"]
+SUBCATEGORIES = ["handheld tools", "containers", "mechanical parts", "plants and produce",
+                 "fabrics and wearables", "instruments and noisemakers", "vehicles and transport",
+                 "fixtures and furniture", "things that burn or give light", "things that hold liquid"]
+MATERIALS = ["wood", "metal", "cloth", "glass", "clay", "plastic", "stone", "paper"]
+SHAPES = ["long", "round", "flat", "hollow", "pointed", "coiled"]
+MOVEMENTS = ["spins", "folds", "swings", "flows", "stretches", "stands still"]
+FUNCTIONS = ["cuts", "holds", "measures", "shelters", "carries", "reveals", "hides", "connects"]
+DIFFICULTY = ["medium", "hard", "very hard"]
+
+rng = secrets.SystemRandom()
+seen, draws = set(), []
+while len(draws) < N:
+    d = (rng.choice(CATEGORIES), rng.choice(SUBCATEGORIES),
+         (rng.choice(MATERIALS), rng.choice(SHAPES), rng.choice(MOVEMENTS), rng.choice(FUNCTIONS)),
+         rng.choice(DIFFICULTY))
+    if d[:2] in seen:  # no two candidates share a category+subcategory combination
+        continue
+    seen.add(d[:2])
+    draws.append(d)
+for i, d in enumerate(draws, 1):
+    print(f"{i}. category={d[0]} | subcategory={d[1]} | material={d[2][0]} | "
+          f"shape={d[2][1]} | movement={d[2][2]} | function={d[2][3]} | difficulty={d[3]}")
+```
+
 2. **Find a real object that fits the drawn constraints, then write the riddle about it** under every hard rule in Step 0a. **Do not change the drawn category because another category is easier to write about** — a swap is the model's habit reasserting itself through the back door; redraw (by code) instead.
 3. **One draw per candidate, and all answers in a batch stay unique** — no two candidates from the same drawn combination, and the batch rules below still hold.
 4. **Say the limit plainly:** code-backed randomness in the constraints still leaves the object choice to the model — the answers are **randomness-guided, not uniformly random across all possible objects**.
