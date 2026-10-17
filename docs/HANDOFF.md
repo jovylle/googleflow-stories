@@ -4,7 +4,13 @@ Written at closeout so a fresh session can continue without reading a previous c
 **Read this file first.** Then `docs/SUMMARY.md` (the version history and the failure class the
 versions share), and only the `specs/` file for whatever you are about to change.
 
-## Current update (2026-10-18) — v2.47.0, always-on status plus auto text-first delivery
+## Current update (2026-10-18) — v2.47.1, auto carve-out at every generate-immediately site
+
+Patch bump: the model correctly cited six surviving "generate immediately" lines
+outvoting the new text-first rule (outvoted-not-missing). Same carve-out sentence
+now at all of them (10×3, 11×3, 04, 05, 15); validator retargeted. `./validate.sh` → 683 / 0.
+
+## Previous update (2026-10-18) — v2.47.0, always-on status plus auto text-first delivery
 
 **v2.47.0 is built and validated: `./validate.sh` → 683 / 0.** Ships the session's fixes on top of v2.46.1:
 
