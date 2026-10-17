@@ -771,3 +771,21 @@ changing anything here. The short version, as it applies to this repo:
     v2.46.0's `.reroll <aspect>` family. A vague "change it" delegates scope to the model; a named aspect
     (`character`, `art`, `setting`…) fixes the scope, the draw enforces a real change, and an aspect word the
     pack does not know gets a question in one line — never a guess.
+16. **A new rule that leaves the old pulls standing loses the vote.** v2.47.1: the text-first auto rule
+    shipped once while six "generate immediately" lines survived across five modules — the model obeyed the
+    majority and fired unprompted, then correctly cited them when asked. Every behavior flip now retires the
+    old phrasing at all its sites in the same diff, with a `need_not` trap where one fits.
+17. **Text draws hold; image renders don't — split them.** 2026-10-18: four auto runs drew four different
+    casts/settings (code-backed `secrets` verified) yet returned the same kitchen old-woman + young-man frame
+    4/4, even with "no elderly woman" verbatim in the prompt. ChatGPT owns text prompts; images fire from an
+    isolated-prompt button turn or Flow — never auto-fired inside the package turn.
+18. **Versioned filenames make staleness visible.** `pasted.txt` hid which version a chat ran until the model
+    was interrogated. `build.sh` now emits `google-flow-story-maker-<VERSION>.md` beside the canonical file;
+    every change ships a patch bump in the same commit. The live-paste check is one line: "state your
+    instruction version and quote the auto image rule."
+19. **Chats pin instructions; the project does not rewrite them.** Editing a Project often leaves open
+    threads on the old text, and an attached old file can outvote the Instructions field. Single source only,
+    save, then a new chat — or the debug targets the wrong copy.
+20. **There is no "after sending, then do X" in chat.** The turn is the unit of action; anything automatic
+    after the response needs a press (the Generate button), an MCP backend, or an outside helper. Stop
+    designing autonomous post-response steps for ordinary chat.
