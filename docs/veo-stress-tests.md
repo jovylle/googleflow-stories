@@ -8,12 +8,14 @@ The results are QUALITATIVE observations from a small number of generations, not
 measured reliability rates — a single failure does not prove a permanent defect
 (test 4 failed orientation in 1 of 2 clips) and a pass does not prove a guarantee.
 Keep the evidence sections factual; add new tests with the template in §2.
-Status: NOT yet wired into the pack — candidate material for a future version.
+Status: wired into the pack in v2.43.0 — module 5 (the capability map), 2c (the deck
+guard), 2a (the guided filter), 7a (the camera limits), and 15 (the final gate). This
+log stays the evidence source; the pack carries the rules.
 -->
 
 # Veo 3.1 Lite stress tests — the Riddle Horror Action benchmark
 
-**Created:** 2026-10-17 · **Status:** living log — tests 1–5 recorded, camera suite queued (§8)
+**Created:** 2026-10-17 · **Status:** living log — tests 1–5 recorded, camera suite queued (§8), map wired into the pack in v2.43.0
 **Scope:** the user's Flow account, Veo 3.1 Lite, 8-second clips, one continuous shot per clip,
 photorealistic/3D-CGI horror-action prompts, no dialogue or subtitles.
 **Purpose:** know what to *lean on* and what to *avoid* when choosing scenes and consequences —
@@ -324,9 +326,10 @@ or the scene's spectacle:
 4. Keep the camera request minimal and explicit (`locked-off`, `one slow push-in`); anything
    more elaborate drifts (Test 3) until Test 6 says otherwise.
 
-> These are guidance derived from the user's small-sample observations. They stay **outside the
-> pack** until a version wires them in (candidate: v2.43.0) — until then, treat them as the
-> human's selection rules, not rulebook rules.
+> **Wired into the pack in v2.43.0** — the capability map (module 5), the deck guard
+> (§2c), the guided filter (§2a), the camera limits (§7a), and the final gate all derive
+> from this section. This log stays the evidence source; the camera suite (§8) may refine
+> the map.
 
 ## 8. Next tests queued — Test 6: camera control & continuity
 

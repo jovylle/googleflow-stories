@@ -117,6 +117,18 @@ Every shot's viewpoint is **chosen and stated**, not left to the model. Pick one
 
 **Do not default to a rear-view figure facing a larger centred one.** That single composition is the most-repeated frame in this pack's output, and it is **one option in the list above — not the house style**. Choose the viewpoint the scene actually needs: where the size relation, the trap, or the space makes another angle stronger, use it. State the chosen viewpoint in the image prompt so the image and the video prompt agree.
 
+<!--
+Stress-tested camera limits (docs/veo-stress-tests.md): a requested camera shake
+renders nothing at all, extra camera instructions invite unrequested re-framing,
+and orientation can flip inside a clip when a shot carries a secondary turn.
+Keep all three rules; they bind prompt writing and planning.
+-->
+### Camera limits (from the live stress tests)
+
+- **Never write that the camera shakes.** A shake request is not weak — it renders **nothing** (stress test 5). Show impact through its visible effects in frame instead: falling dust, debris, a stagger. The scene moves; the lens keeps the term you chose.
+- **One camera movement per shot.** Name a single term from the table above; stacked movement instructions invite unrequested re-framing (stress test 3's angle drift).
+- **Hold the orientation within a clip.** A shot that establishes a walking or facing direction keeps it for the whole clip; a turnaround or a face-reveal is its own dominant action, never a secondary instruction layered onto a shot that is already doing something else (stress test 4's flip).
+
 ### Example: one 8-second clip, two shots
 
 Supply the two shot images as visual references (SHOT 1 image + SHOT 2 image), then write the prompt in this structure:

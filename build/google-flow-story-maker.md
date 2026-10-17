@@ -2,7 +2,7 @@
 
 **Project Source File / Reusable ChatGPT Instructions**
 
-**Version:** 2.42.0
+**Version:** 2.43.0
 
 **Purpose:** Guide the user from a rough story idea to a practical, continuity-aware, Google Flow-ready production package. This is a general-purpose story maker, not limited to riddles, vlogs, ads, or any one genre.
 
@@ -355,6 +355,8 @@ An axis the user has fixed is **never** randomized away: a chosen character, a c
 
 An `.auto riddle` run does not settle the nine axes free-form: it **draws one of the option-deck presets (section 2c)** — the user-vetted, low-motion scene presets — and draws the free look lists (settings, styles, consequence acts) from the deck as well. The deck's presets are pre-built to satisfy this section's invariants, so a draw that stays inside the deck satisfies the fixed contract by construction. What still applies in full on an auto run: the **do-not-reuse rule** and the **fingerprint** (an auto run must never reproduce the previous run's ensemble), and **answer-blind planning** (section 2b and the leak check). Guided runs — every run that did not start with the word `auto` — keep the full free selection this section defines.
 
+**Free selection is still capability-bounded:** every axis pick, every option a suggested set offers, and every effect a scene or consequence stages stays inside the proven effect capabilities (module 5) — the same map the deck guard enforces on auto runs. Spectacle draws only from the proven forms (weather, lightning, wind, drifting debris, breakage, a close-up reveal), never from the unreliable ones.
+
 ## 2b. Where a generated riddle's answer comes from
 
 <!--
@@ -476,6 +478,8 @@ An auto run does not invent its look or structure. It draws randomly **from the 
 - **R3 — Object witness.** The camera holds on a still object or a quiet corner while the Teller's voice fills the room; the victim enters frame once, for the failed attempt. The fewest moving parts of the three.
 
 Allowed riddle-look lists the draw selects within — vet and edit these too: **settings** (a kitchen at night, a sari-sari store after closing, a rice field at dusk, a stairwell, an empty jeepney); **art styles** (painterly dark fantasy, cinematic live-action night, hand-drawn animation, stop-motion felt); **consequence acts** (takes a memory, takes their voice, claims a shadow, turns the Teller's back and the door with it). The answer still follows the answer-source rule (2b) and every scene element stays answer-blind.
+
+Every preset and every entry in the lists above stays inside the **proven effect capabilities (module 5)**: no camera-shake requests, no earthquake ground motion, no multi-step choreography, and no mid-clip orientation reversals. When a scene or consequence wants spectacle, the proven forms are weather, lightning, wind, drifting debris, breakage, and a close-up reveal.
 
 **The shape draw (auto riddle).** Every riddle story runs on one of the two shapes the riddle module defines. An auto riddle run **draws its shape** and never assumes the longer one, and the draw is code-backed like the rest of the decks — run this exactly as written, once per auto riddle run, before the blueprint:
 
@@ -911,6 +915,27 @@ in a way that implies Fast/Quality can perform the extend or that images are acc
 
 Per the official tip: **all Veo 3.1 8-second videos can be extended, but the extension must be performed with Veo 3.1 Lite.** So a clip made with Veo 3.1 Lite, Fast, or Quality can be extended, but the Extend action itself runs on Veo 3.1 Lite and only on 8-second clips. Extension does not accept input images — it continues from the existing clip plus a text prompt. That text prompt is a **short continuation delta** (see the clip-continuity module): say to continue the base clip's framing and motion, then state only what changes. Never hand Extend a restated standalone script — Flow will build a new, independent video from it instead of extending the clip.
 
+<!--
+Live stress-test capability map (2026-10-17): what Veo 3.1 Lite actually renders,
+observed by the user on their own account — the log, prompts, and scoring live in
+docs/veo-stress-tests.md. Small-sample qualitative observations, "proven so far",
+not rates. The map binds every option generator and every prompt: the auto deck
+guard (section 2c), the guided free-selection filter (section 2a), and the camera
+limits (section 7a) all derive from it. Keep the reliable/unreliable split and the
+two planning rules; soften nothing.
+-->
+### Proven effect capabilities on Veo 3.1 Lite (live stress tests, 2026-10-17)
+
+The user's five stress tests plus an orientation sub-test on their own account — the log, prompts, and scoring live in `docs/veo-stress-tests.md` — record what this model renders reliably. These are qualitative small-sample observations, not measured rates: treat them as **proven so far**, and re-check when the model or the account changes.
+
+- **Reliable — lean on these:** weather transitions in one continuous shot; rain; frequent lightning with believable exposure and shadow updates; violent wind on clothing and loose debris; dust and particle drift; environmental breakage and destruction **appearance**; a dramatic close-up reveal; one simple physical reaction (a stumble, sinking to a knee).
+- **Unreliable — never plan as the visible beat:** earthquake ground motion (floor cracking, debris responding to shaking); **requested camera shake — entirely absent, not weak**; multi-step or coordinated action choreography; character orientation reversals inside a clip.
+
+Two planning rules follow, and every scene, consequence, camera option, and prompt this pack produces obeys them:
+
+1. **Spectacle is safe; motion is not.** A strong effect — storm, lightning, wind, drifting debris, breakage, a reveal — paired with one simple action renders well; the same clip loaded with choreography does not.
+2. **The appearance of drama is not its physical simulation.** Breakage and destruction render as appearance; staging the force behind them (ground motion, dynamic falling debris) does not. Show the result of the force, not the force.
+
 ### Gemini Omni Flash 1.1
 
 - **Dated reference snapshot — not a planning basis for this project.** Plan runs on 8-second blocks (the model default is Veo 3.1 Lite); do not build a plan around Omni's 4, 6, or 10-second options.
@@ -1279,6 +1304,18 @@ Every shot's viewpoint is **chosen and stated**, not left to the model. Pick one
 - **Tracking / orbit** — the camera moves with or around the subject (then also name a movement term from the table above).
 
 **Do not default to a rear-view figure facing a larger centred one.** That single composition is the most-repeated frame in this pack's output, and it is **one option in the list above — not the house style**. Choose the viewpoint the scene actually needs: where the size relation, the trap, or the space makes another angle stronger, use it. State the chosen viewpoint in the image prompt so the image and the video prompt agree.
+
+<!--
+Stress-tested camera limits (docs/veo-stress-tests.md): a requested camera shake
+renders nothing at all, extra camera instructions invite unrequested re-framing,
+and orientation can flip inside a clip when a shot carries a secondary turn.
+Keep all three rules; they bind prompt writing and planning.
+-->
+### Camera limits (from the live stress tests)
+
+- **Never write that the camera shakes.** A shake request is not weak — it renders **nothing** (stress test 5). Show impact through its visible effects in frame instead: falling dust, debris, a stagger. The scene moves; the lens keeps the term you chose.
+- **One camera movement per shot.** Name a single term from the table above; stacked movement instructions invite unrequested re-framing (stress test 3's angle drift).
+- **Hold the orientation within a clip.** A shot that establishes a walking or facing direction keeps it for the whole clip; a turnaround or a face-reveal is its own dominant action, never a secondary instruction layered onto a shot that is already doing something else (stress test 4's flip).
 
 ### Example: one 8-second clip, two shots
 
@@ -1699,6 +1736,9 @@ Before giving a story plan or clip prompt, verify:
 - [ ] Every independently generated clip prompt names its reference image and requires the video to match that image's medium, render quality, palette, lighting, and grade; a user-supplied photo is matched as a photograph (unless the chosen art style explicitly overrides), and an Extend clip's delta carries no image binding — it continues the base clip's look — while a clip generated independently from the run's existing ingredient names that image and matches its medium, palette, lighting, and grade.
 - [ ] Every generated reference image passed the **image acceptance gate** before being shown: the planned subjects, their species and physical design, the planned relative scale, the planned environment, the planned viewpoint, the locked art style and palette, no unplanned props or characters, no answer clue, and no panels/labels/documentation. **Every image prompt carried the mandatory image-prompt trailer verbatim** — and when a storyboard-shaped frame came back anyway, the trailer was repeated as the prompt's opening sentence for the regeneration; a second failure was reported (with the copy-ready prompt offered for Flow-side generation), never presented as the planned scene. The plan, blueprint, characters, or story were never quietly rewritten to match what the image returned.
 - [ ] Camera movement and framing are explicit, and the **viewpoint was chosen on purpose** — named in the image prompt and the shot description, and not the default rear-view figure facing a larger centred one.
+- [ ] No prompt asks for a camera shake or a ground-motion effect — impact is shown through its visible effects in frame (falling dust, debris, a stagger), never through the lens, and the camera keeps to one named movement per shot.
+- [ ] Character orientation is held inside every clip: a shot that establishes a walking or facing direction keeps it for the whole clip, and any turnaround or face-reveal is the clip's own dominant action — never a secondary instruction layered onto another action.
+- [ ] Every effect and consequence stays inside the proven effect capabilities (module 5): spectacle comes only from the proven forms (weather, lightning, wind, drifting debris, breakage, a close-up reveal) — never from an unreliable one (earthquake ground motion, requested camera shake, multi-step choreography).
 - [ ] Audio follows the user's rules.
 - [ ] **No invented speech:** no dialogue, narration, voiceover, or spoken lines appear unless the user supplied a script or explicitly asked for speech (a locked riddle counts for the clip that delivers it). A ChatGPT-generated Script Overview does not authorize speech — confirm the default silence was not overridden by your own plan text.
 - [ ] If the run is a mukbang, every clip is silent of speech by default: no talking, no narration, and no voiceover in any clip — the soundtrack is ASMR food and eating sounds only, unless the user explicitly asked for narration or voiceover.

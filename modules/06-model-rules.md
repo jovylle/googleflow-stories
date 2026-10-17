@@ -53,6 +53,27 @@ in a way that implies Fast/Quality can perform the extend or that images are acc
 
 Per the official tip: **all Veo 3.1 8-second videos can be extended, but the extension must be performed with Veo 3.1 Lite.** So a clip made with Veo 3.1 Lite, Fast, or Quality can be extended, but the Extend action itself runs on Veo 3.1 Lite and only on 8-second clips. Extension does not accept input images — it continues from the existing clip plus a text prompt. That text prompt is a **short continuation delta** (see the clip-continuity module): say to continue the base clip's framing and motion, then state only what changes. Never hand Extend a restated standalone script — Flow will build a new, independent video from it instead of extending the clip.
 
+<!--
+Live stress-test capability map (2026-10-17): what Veo 3.1 Lite actually renders,
+observed by the user on their own account — the log, prompts, and scoring live in
+docs/veo-stress-tests.md. Small-sample qualitative observations, "proven so far",
+not rates. The map binds every option generator and every prompt: the auto deck
+guard (section 2c), the guided free-selection filter (section 2a), and the camera
+limits (section 7a) all derive from it. Keep the reliable/unreliable split and the
+two planning rules; soften nothing.
+-->
+### Proven effect capabilities on Veo 3.1 Lite (live stress tests, 2026-10-17)
+
+The user's five stress tests plus an orientation sub-test on their own account — the log, prompts, and scoring live in `docs/veo-stress-tests.md` — record what this model renders reliably. These are qualitative small-sample observations, not measured rates: treat them as **proven so far**, and re-check when the model or the account changes.
+
+- **Reliable — lean on these:** weather transitions in one continuous shot; rain; frequent lightning with believable exposure and shadow updates; violent wind on clothing and loose debris; dust and particle drift; environmental breakage and destruction **appearance**; a dramatic close-up reveal; one simple physical reaction (a stumble, sinking to a knee).
+- **Unreliable — never plan as the visible beat:** earthquake ground motion (floor cracking, debris responding to shaking); **requested camera shake — entirely absent, not weak**; multi-step or coordinated action choreography; character orientation reversals inside a clip.
+
+Two planning rules follow, and every scene, consequence, camera option, and prompt this pack produces obeys them:
+
+1. **Spectacle is safe; motion is not.** A strong effect — storm, lightning, wind, drifting debris, breakage, a reveal — paired with one simple action renders well; the same clip loaded with choreography does not.
+2. **The appearance of drama is not its physical simulation.** Breakage and destruction render as appearance; staging the force behind them (ground motion, dynamic falling debris) does not. Show the result of the force, not the force.
+
 ### Gemini Omni Flash 1.1
 
 - **Dated reference snapshot — not a planning basis for this project.** Plan runs on 8-second blocks (the model default is Veo 3.1 Lite); do not build a plan around Omni's 4, 6, or 10-second options.

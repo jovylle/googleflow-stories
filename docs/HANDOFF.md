@@ -4,7 +4,42 @@ Written at closeout so a fresh session can continue without reading a previous c
 **Read this file first.** Then `docs/SUMMARY.md` (the version history and the failure class the
 versions share), and only the `specs/` file for whatever you are about to change.
 
-## Current update (2026-10-17) — v2.42.0, pacing and consequence clarity
+## Current update (2026-10-17) — v2.43.0, effect capabilities wired into both modes
+
+**v2.43.0 is built and validated: `./validate.sh` → 635 / 0** (was 612; +23, all in the
+new §46, written red-first). It is the first version the user's live stress tests feed
+directly: the log they ran and pasted is `docs/veo-stress-tests.md` (shipped in
+`a41f243`), and this version turns it into pack rules for both modes:
+
+- **The capability map (module 5)** — new subsection "Proven effect capabilities on
+  Veo 3.1 Lite (live stress tests, 2026-10-17)": reliable = weather transitions, rain,
+  frequent lightning, violent wind, dust/debris drift, breakage/destruction
+  **appearance**, a close-up reveal, one simple reaction; unreliable = earthquake ground
+  motion, **requested camera shake — entirely absent, not weak**, multi-step
+  choreography, orientation reversals inside a clip. Two rules ride it: **spectacle is
+  safe; motion is not**, and **the appearance of drama is not its physical simulation**.
+  Stance "proven so far"; the evidence log is named.
+- **The deck guard (2c) + the guided filter (2a)** — auto presets and list entries stay
+  inside the map, and guided free selection is capability-bounded by the same map (axis
+  picks, suggested sets, staged effects). No deck list entry changed (the go was the
+  guard-only option); the lists remain the user's to edit in place.
+- **The camera limits (7a)** — never write that the camera shakes (show the impact's
+  visible effects in frame); one camera movement per shot; hold the orientation within a
+  clip — a turnaround is its own dominant action, never a secondary instruction.
+- **The gate (15)** — no shake/ground-motion asks, orientation held, effects inside the
+  map.
+
+**Next step: the v2.42.0 live re-run still stands** (re-paste the artifact, `.auto
+riddle` ×2–3, the drawn count visible, no empty wait clip, the consequence reads); new
+on top, no prompt should ever ask for a camera shake or ground motion, and a
+walking-away shot should hold its orientation for the full clip. The **Test 6 camera
+suite** (`docs/veo-stress-tests.md` §8) is queued and unrun — its results go into that
+log, and into §46 only if they change a rule. The map is small-sample; never present it
+as rates.
+
+Spec: `specs/effect-capabilities.md`.
+
+## Previous closeout (2026-10-17) — v2.42.0, pacing and consequence clarity
 
 **v2.42.0 is built and validated: `./validate.sh` → 612 / 0** (was 575; +37, all in the
 new §45). It ships the two live-run complaints the user named, with their amendment, plus
@@ -56,8 +91,9 @@ the live UI correction carried by the tabled plan — section by section in
   physics, requested camera shake, complex choreography, and character-orientation
   continuity fail or drift (orientation failed 1 of 2 clips — stochastic). The doc's §7
   turns this into scene/consequence **selection guidance** (prefer destruction appearances
-  + weather spectacle; avoid shake/ground-motion/mid-clip reversals) — **not yet wired
-  into the pack; v2.43.0 candidate** once the queued camera suite runs.
+  + weather spectacle; avoid shake/ground-motion/mid-clip reversals) — **wired into the
+  pack in v2.43.0** (module 5 capability block, the 2c deck guard, the 2a guided filter,
+  the 7a camera limits, the 15 gate).
 
 **Next step: the live re-run is the only proof.** Re-paste `build/google-flow-story-maker.md`
 after this lands on `dev` (raw link), then:
@@ -332,18 +368,19 @@ listing in the Directory*. Nothing was uploaded, submitted, or deployed.
 
 | Repo | Version | Branch / HEAD | Checks | Remote |
 |---|---|---|---|---|
-| `lab/googleflow-stories` (**canonical rules** — you are here) | **2.42.0** | `dev` / `6056679` + v2.42.0 (this change) | `./validate.sh` → **612 / 0** | GitHub `jovylle/googleflow-stories`, `master` at `05d81ec` (v2.21.0 release merge), `dev` 42 commits ahead |
+| `lab/googleflow-stories` (**canonical rules** — you are here) | **2.43.0** | `dev` / `a41f243` + v2.43.0 (this change) | `./validate.sh` → **635 / 0** | GitHub `jovylle/googleflow-stories`, `master` at `05d81ec` (v2.21.0 release merge), `dev` 45 commits ahead |
 | `lab/flow-story-gpt` (distilled ChatGPT pack) | 1.0.0 | `master` / `5bb876c` | `./validate-gpt.sh` → 28 / 0 | **none — local only** |
 | `lab/flow-story-gem` (Gemini + hand-over zip) | 1.0.0 | `master` / `6c3d417` | `./validate-gem.sh` → 36 / 0 | **none — local only** |
 
-Canonical artifact: `build/google-flow-story-maker.md`, **1,737 lines / 243,725 chars**, rebuilt from the
-modules. `master` is at `05d81ec` (v2.21.0, released 2026-10-12 by merging `dev`) and is **42 commits behind `dev`**.
+Canonical artifact: `build/google-flow-story-maker.md`, **1,777 lines / 248,579 chars**, rebuilt from the
+modules. `master` is at `05d81ec` (v2.21.0, released 2026-10-12 by merging `dev`) and is **45 commits behind `dev`**.
 
 ### Version chain since v2.12.0 (all on `dev`)
 
 | Version | Commit | What it fixed |
 |---|---|---|
-| 2.42.0 | *(this change)* | **Pacing + consequence clarity**: the two riddle shapes — 3 clips (riddle / silent beat + failed attempt / consequence) or 2 clips (riddle / silent beat + failed attempt + consequence, separately readable) — with the dedicated empty wait block retired and its two licenses trapped; the **auto shape draw** (2-or-3 by executed `secrets.SystemRandom()`, `CLIP_COUNTS = [2, 3]`, no-repeat-exempt with the reason stated, "not code-backed" fallback); the **consequence-reads-on-screen** contract (the Teller's one act + its effect on the victims + their visible reaction, no explanation, no ambiguity); module 06 corrected to the live UI (8s blocks only on this plan, Lite the only extender); the live-run prompt habits in §7 (camera first, quotes, named ambience/effects, plain-list negatives). §45 — 37 checks, red-first |
+| 2.43.0 | *(this change)* | **Effect capabilities wired into both modes**: the live stress-test map as module 5's canonical block (reliable: weather, lightning, wind, debris, breakage appearance, close-up reveal, simple reactions; unreliable: earthquake ground motion, requested camera shake — entirely absent — multi-step choreography, mid-clip orientation reversal; rules: spectacle is safe, motion is not / the appearance of drama is not its physical simulation); the deck guard (2c) and the guided free-selection filter (2a); the camera limits (7a: no shake asks, one movement per shot, orientation held within a clip); three gate items (15). §46 — 23 checks, red-first |
+| 2.42.0 | `f5e4999` | **Pacing + consequence clarity**: the two riddle shapes — 3 clips (riddle / silent beat + failed attempt / consequence) or 2 clips (riddle / silent beat + failed attempt + consequence, separately readable) — with the dedicated empty wait block retired and its two licenses trapped; the **auto shape draw** (2-or-3 by executed `secrets.SystemRandom()`, `CLIP_COUNTS = [2, 3]`, no-repeat-exempt with the reason stated, "not code-backed" fallback); the **consequence-reads-on-screen** contract (the Teller's one act + its effect on the victims + their visible reaction, no explanation, no ambiguity); module 06 corrected to the live UI (8s blocks only on this plan, Lite the only extender); the live-run prompt habits in §7 (camera first, quotes, named ambience/effects, plain-list negatives). §45 — 37 checks, red-first |
 | 2.13.0 | `9a855ca` | Two-form opening: Form 1 (setup) produces Form 2 (production); Character and Art style split into separate questions |
 | 2.14.0 | `4b992b2` | Riddle outcome contract (never answered **and** a visible consequence) + no-silent Clip 1 turn |
 | 2.15.0 | `b230ab6` | `.start` always begins at Form 1 (no state inference) + Clip 1 image aspect ratio checked |
@@ -428,9 +465,10 @@ The public-directory plugin package lives here and embeds a generated copy of th
 
 ## What to do next, in order
 
-1. **Re-paste the artifact.** The live ChatGPT project runs the last build the user pasted
-   (v2.41.0 at this closeout); v2.42.0's pacing, consequence, and capability fixes reach it
-   only when this lands on `dev` and the artifact is re-pasted. Paste `build/google-flow-story-maker.md` and just say `horror riddle`
+1. **Re-paste the artifact.** The live ChatGPT project runs the last build the user
+   pasted (v2.41.0 as of the last live closeout); v2.42.0's pacing fixes and v2.43.0's
+   effect-capability rules reach it only when this lands on `dev` and the artifact is
+   re-pasted. Paste `build/google-flow-story-maker.md` and just say `horror riddle`
    (no `.start` needed anymore) for a Tagalog end-to-end: neutral riddle list with oblique wordplay
    (`mukha`/`kamay`-style clues), varied answers that are not the same eight every batch, flat period endings,
    text-only overview, spoken-only riddle (never displayed),
@@ -507,7 +545,7 @@ The public-directory plugin package lives here and embeds a generated copy of th
 ```bash
 cd /Volumes/DevSSD/fore/lab/googleflow-stories
 printf '2.22.0\n' > version.txt   # bump first; the build substitutes {{VERSION}}
-./build.sh && ./validate.sh       # 612 checks today (plus docs/HANDOFF.md freshness)
+./build.sh && ./validate.sh       # 635 checks today (plus docs/HANDOFF.md freshness)
 
 # while working on one area, read only the new section's red:
 ./validate.sh 2>&1 | sed -n '/^23\./,$p'
@@ -541,7 +579,7 @@ shows up as failures rather than passing quietly.
 - `docs/SUMMARY.md` — one row per version, plus the failure class they share.
 - `docs/veo-stress-tests.md` — the live stress-test log for Veo 3.1 Lite (tests 1–5 + the
   orientation sub-test, the cumulative capability tracker, the §7 scene/consequence selection
-  guidance, and the queued camera suite §8). **Not yet wired into the pack** — v2.43.0 candidate.
+  guidance, and the queued camera suite §8). Wired into the pack in v2.43.0.
 - `specs/googleflow-stories_reverse_spec.md` — the reverse spec: observations (`OBS-*`), acceptance
   criteria (`AC-*`), and a resolution-status block per version. `specs/image-count-one-per-request.md`
   and the other per-version specs carry the longer reasoning.

@@ -1215,6 +1215,42 @@ need_not "$MODULES/05-story-planning.md" "do not compress them into one" "the co
 need_not "$MODULES/16-checklist.md" "was never compressed into the consequence" "the retired compression wording is gone from the gate"
 echo
 
+# ------------------------------------------------------- 46. effect capabilities (stress-tested)
+# WHY: the user's five live stress tests plus an orientation sub-test say what Veo
+# 3.1 Lite actually renders (the log lives in docs/veo-stress-tests.md): weather,
+# lightning, wind, drifting debris, breakage, reveals, and simple reactions are
+# reliable; earthquake ground motion, requested camera shake (entirely absent),
+# multi-step choreography, and mid-clip orientation flips are not. v2.43.0 wires
+# the map into the pack — the capability block (module 5), the auto deck guard
+# (2c), the guided free-selection filter (2a), the camera limits (7a), and the
+# final gate (15) — so both modes' options and every prompt stay inside what the
+# model renders. The map is small-sample: keep the "proven so far" stance too.
+echo "46. Effect capabilities: the stress-test map, the deck guard, and the camera limits"
+need "$MODULES/06-model-rules.md" "### Proven effect capabilities on Veo 3.1 Lite" "the capability map is its own subsection"
+need "$MODULES/06-model-rules.md" "docs/veo-stress-tests.md" "the capability map names its evidence log"
+need "$MODULES/06-model-rules.md" "proven so far" "the small-sample stance is stated"
+need "$MODULES/06-model-rules.md" "requested camera shake — entirely absent, not weak" "shake is recorded as absent, not weak"
+need "$MODULES/06-model-rules.md" "**Spectacle is safe; motion is not.**" "the headline planning rule is stated"
+need "$MODULES/06-model-rules.md" "**The appearance of drama is not its physical simulation.**" "appearance vs simulation is stated"
+need "$MODULES/03b-auto-presets.md" "stays inside the **proven effect capabilities (module 5)**" "the deck guard is stated"
+need "$MODULES/03b-auto-presets.md" "no camera-shake requests, no earthquake ground motion" "the deck guard names the bans"
+need "$MODULES/03-riddle-prephase.md" "**Free selection is still capability-bounded:**" "guided free selection is capability-bounded"
+need "$MODULES/03-riddle-prephase.md" "the same map the deck guard enforces on auto runs" "guided and auto share one map"
+need "$MODULES/08a-shot-composition.md" "### Camera limits (from the live stress tests)" "the camera limits are their own subsection"
+need "$MODULES/08a-shot-composition.md" "Never write that the camera shakes." "the shake ask is banned by name"
+need "$MODULES/08a-shot-composition.md" "One camera movement per shot." "one camera movement per shot"
+need "$MODULES/08a-shot-composition.md" "Hold the orientation within a clip." "the orientation-hold rule is stated"
+need "$MODULES/16-checklist.md" "No prompt asks for a camera shake or a ground-motion effect" "the final gate bans the shake/ground-motion ask"
+need "$MODULES/16-checklist.md" "Character orientation is held inside every clip" "the final gate checks orientation-hold"
+need "$MODULES/16-checklist.md" "Every effect and consequence stays inside the proven effect capabilities" "the final gate checks the capability map"
+need "$BUILD" "### Proven effect capabilities on Veo 3.1 Lite" "the capability map survives the build"
+need "$BUILD" "**Spectacle is safe; motion is not.**" "the headline rule survives the build"
+need "$BUILD" "### Camera limits (from the live stress tests)" "the camera limits survive the build"
+need "$BUILD" "**Free selection is still capability-bounded:**" "the guided filter survives the build"
+need_not "$BUILD" "the camera shakes slightly" "no positive shake-request phrasing survives in the build"
+need_not "$BUILD" "the ground shakes" "no ground-motion staging survives in the build"
+echo
+
 echo "----------------------------------------"
 echo "checks: $CHECKED   failed: $FAILED"
 [ "$FAILED" -eq 0 ] && echo "validate: PASS" || echo "validate: FAIL"

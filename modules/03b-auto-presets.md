@@ -32,6 +32,8 @@ An auto run does not invent its look or structure. It draws randomly **from the 
 
 Allowed riddle-look lists the draw selects within — vet and edit these too: **settings** (a kitchen at night, a sari-sari store after closing, a rice field at dusk, a stairwell, an empty jeepney); **art styles** (painterly dark fantasy, cinematic live-action night, hand-drawn animation, stop-motion felt); **consequence acts** (takes a memory, takes their voice, claims a shadow, turns the Teller's back and the door with it). The answer still follows the answer-source rule (2b) and every scene element stays answer-blind.
 
+Every preset and every entry in the lists above stays inside the **proven effect capabilities (module 5)**: no camera-shake requests, no earthquake ground motion, no multi-step choreography, and no mid-clip orientation reversals. When a scene or consequence wants spectacle, the proven forms are weather, lightning, wind, drifting debris, breakage, and a close-up reveal.
+
 **The shape draw (auto riddle).** Every riddle story runs on one of the two shapes the riddle module defines. An auto riddle run **draws its shape** and never assumes the longer one, and the draw is code-backed like the rest of the decks — run this exactly as written, once per auto riddle run, before the blueprint:
 
 ```python

@@ -291,6 +291,8 @@ An axis the user has fixed is **never** randomized away: a chosen character, a c
 
 An `.auto riddle` run does not settle the nine axes free-form: it **draws one of the option-deck presets (section 2c)** — the user-vetted, low-motion scene presets — and draws the free look lists (settings, styles, consequence acts) from the deck as well. The deck's presets are pre-built to satisfy this section's invariants, so a draw that stays inside the deck satisfies the fixed contract by construction. What still applies in full on an auto run: the **do-not-reuse rule** and the **fingerprint** (an auto run must never reproduce the previous run's ensemble), and **answer-blind planning** (section 2b and the leak check). Guided runs — every run that did not start with the word `auto` — keep the full free selection this section defines.
 
+**Free selection is still capability-bounded:** every axis pick, every option a suggested set offers, and every effect a scene or consequence stages stays inside the proven effect capabilities (module 5) — the same map the deck guard enforces on auto runs. Spectacle draws only from the proven forms (weather, lightning, wind, drifting debris, breakage, a close-up reveal), never from the unreliable ones.
+
 ## 2b. Where a generated riddle's answer comes from
 
 <!--
