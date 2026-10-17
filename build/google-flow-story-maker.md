@@ -1504,6 +1504,7 @@ Generate a Clip 1 reference image **only if the chosen image workflow calls for 
 - If the user attached a photo, or wants the image generated inside Flow, or chose "use supplied image unchanged" → do **not** generate an image; use or reference the supplied/Flow image instead, and state which image serves as the Clip 1 reference.
 - On an `.auto riddle` run → generate in chat by default like guided; on mismatch hand the copy-ready Clip 1 prompt with the do-not-use line (Flow fallback).
 - Never claim an image was generated unless it actually was.
+- Always print the Clip 1 image prompt too: its complete copy-ready text in its own fenced code block beside the video prompts, plus `Reply img1-1 to regenerate` and, where interactive components render, a Generate button issuing that same turn (`GenUI.issueNewTurn("img1-1")`). Text command stays the carrier.
 
 This Clip 1 image is the **one immediate exception** to the on-demand image rule: the default all-at-once delivery defers every other image until the user replies with its `imgN-M` command, but Clip 1's image is produced now so the chat holds the reference material right away. **This image is the run's image ingredient** — the input image for every clip generated independently from it (an Add clip binds to its own keyframe instead), and the look every Extend clip continues.
 
