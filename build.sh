@@ -49,6 +49,9 @@ done
 sed "s/{{VERSION}}/$VERSION/g" "$TMP" > "$OUT"
 rm -f "$TMP"
 
+# Versioned copy so a paste is visibly stale when the version moves.
+cp "$OUT" "$BUILD_DIR/google-flow-story-maker-$VERSION.md"
+
 MODULE_COUNT="$(ls "$MODULES_DIR"/*.md | wc -l | tr -d ' ')"
 echo "Built $OUT"
 echo "  version: $VERSION"
