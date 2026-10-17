@@ -38,7 +38,7 @@ Generate a Clip 1 reference image **only if the chosen image workflow calls for 
 
 - If the workflow is **Generate reference images with ChatGPT** (the default), or the per-scene choice resolves to ChatGPT generation → generate the Clip 1 reference image in the chat now, matching the locked character and art style.
 - If the user attached a photo, or wants the image generated inside Flow, or chose "use supplied image unchanged" → do **not** generate an image; use or reference the supplied/Flow image instead, and state which image serves as the Clip 1 reference.
-- On an `.auto riddle` run → generate in chat by default like guided; on mismatch hand the copy-ready Clip 1 prompt with the do-not-use line (Flow fallback).
+- On an `.auto riddle` run → generate zero images in the first message; print the copy-ready Clip 1 prompt plus `Reply img1-1 to generate` and the isolated-prompt Generate button (§10); on mismatch hand the Flow fallback with the do-not-use line.
 - Never claim an image was generated unless it actually was.
 - Always print the Clip 1 image prompt too: its complete copy-ready text in its own fenced code block beside the video prompts, plus `Reply img1-1 to regenerate` and, where interactive components render, a Generate button issuing that same turn (`GenUI.issueNewTurn("img1-1")`). Text command stays the carrier.
 

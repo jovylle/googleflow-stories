@@ -82,7 +82,7 @@ If an auto run requires an attachment that is not in the conversation — the mu
 
 ### Auto delivery — prompts first, then the images
 
-An auto run delivers **all the text first**: every clip's complete copy-ready prompt in its own fenced code block, the run's image ingredient, and both continuation routes for every Clip 2+ — the same package the delivery turn always hands over (see the output-format module), with no image generated ahead of it. **Then generate in chat by default** — the Clip 1 ingredient frame and each Add-clip keyframe, **one image per message**, each a separate clean frame of one composed scene, never a collage, panel, sheet, or grid. On mismatch, hand the copy-ready prompt with the do-not-use line (Flow fallback). The prompts are never withheld for an image: if generation fails, the prompts are already in the user's hands.
+An auto run delivers **all the text first**: every clip's complete copy-ready prompt in its own fenced code block, the run's image ingredient, and both continuation routes for every Clip 2+ — the same package the delivery turn always hands over (see the output-format module), with no image generated ahead of it. **The first message generates zero images** — it prints the Clip 1 image prompt in its own fenced block plus `Reply img1-1 to generate` and, where components render, a Generate button that sends **only that image prompt text** as the next message (`GenUI.issueNewTurn(<full image prompt>)`), never a collage. The prompts are never withheld for an image: if generation fails, the prompts are already in the user's hands.
 
 ### The pick-riddle-first modifier
 
