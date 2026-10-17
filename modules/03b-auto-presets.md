@@ -32,6 +32,20 @@ An auto run does not invent its look or structure. It draws randomly **from the 
 
 Allowed riddle-look lists the draw selects within — vet and edit these too: **settings** (a kitchen at night, a sari-sari store after closing, a rice field at dusk, a stairwell, an empty jeepney); **art styles** (painterly dark fantasy, cinematic live-action night, hand-drawn animation, stop-motion felt); **consequence acts** (takes a memory, takes their voice, claims a shadow, turns the Teller's back and the door with it). The answer still follows the answer-source rule (2b) and every scene element stays answer-blind.
 
+**The shape draw (auto riddle).** Every riddle story runs on one of the two shapes the riddle module defines. An auto riddle run **draws its shape** and never assumes the longer one, and the draw is code-backed like the rest of the decks — run this exactly as written, once per auto riddle run, before the blueprint:
+
+```python
+# Auto riddle shape draw — run once per auto riddle run, before the blueprint.
+# Edit the list here to change what the draw can pick; never edit the run.
+import secrets
+
+CLIP_COUNTS = [2, 3]
+
+print("clips =", secrets.SystemRandom().choice(CLIP_COUNTS))
+```
+
+The shape draw is **not** subject to the deck's no-repeat rule: with two values, never repeating the previous run's entry would turn the draw into a 2-3-2-3 metronome, and a repeated count is not the convergence that rule exists to stop. When code execution is unavailable, draw from the same two values using the external seed and say in one line that the shape draw was **not code-backed**. The drawn count is the run's clip count, and no dedicated empty wait clip appears in either shape.
+
 **Deck M — mukbang.** **M1 — single dish, single eater:** one prepared dish at a clean table, close-ups on the food and the eating, ASMR eating sounds only (silent of speech by default). A face photo **is required** — it is the eater's identity source.
 
 **Deck J — jokes.** **J1 — setup and punchline:** one character, one location; Clip 1 plays the setup straight, the following clip lands the punchline on a reaction shot. Simple scenes, no crowd backgrounds.

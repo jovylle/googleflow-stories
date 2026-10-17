@@ -1,6 +1,6 @@
 # Google Flow Story Maker — Status Summary
 
-*As of v2.41.0 · 2026-10-17 · branch `dev`*
+*As of v2.42.0 · 2026-10-17 · branch `dev`*
 
 ## What it is
 
@@ -17,7 +17,7 @@ API. That single fact drives everything below.
 ```
 modules/*.md   →   build.sh   →   build/google-flow-story-maker.md   →   paste into ChatGPT Instructions
                                         ↑
-                                  validate.sh (474 checks, exit 0 before commit)
+                                  validate.sh (612 checks, exit 0 before commit)
 ```
 
 - **20 modules**, one concern each, concatenated in filename order. Authored
@@ -25,17 +25,18 @@ modules/*.md   →   build.sh   →   build/google-flow-story-maker.md   →   p
 - **One compiled file, not many** — deliberately. ChatGPT's file retrieval is
   not reliable for routing between near-identical documents, so the whole
   instruction set ships as a single paste.
-- **575 validator checks.** The validator tests the *compiled artifact*, not the
+- **612 validator checks.** The validator tests the *compiled artifact*, not the
   modules: build sync, version stamping, module order, section numbering,
   cross-reference resolution, interview field shape, defaults parity, the
   two-form contract, and stale-wording traps (`need_not`). Guards are written
   **red first** — a new rule fails before the module edit that satisfies it.
-- `master` = production (v2.21.0). `dev` = current work (v2.41.0).
+- `master` = production (v2.21.0). `dev` = current work (v2.42.0).
 
 ## The versions that matter
 
 | Version | Change | The failure it fixed |
 |---|---|---|
+| v2.42.0 | **Two riddle shapes + a consequence that reads** — a short-riddle story runs on the 3-clip shape (riddle / silent beat + failed attempt / consequence) or the 2-clip shape (riddle / silent beat + failed attempt + consequence, each separately readable, the consequence in the back half); the dedicated empty 8s wait clip is retired; an auto riddle run **draws** its shape — 2 or 3 — by actually executed `secrets.SystemRandom()` (`CLIP_COUNTS = [2, 3]`), never assuming the longer one; the final clip's consequence must **read on screen** (the Teller's one act, what it does to the victims, their visible reaction — no explanation, no ambiguity); module 06's capability table corrected to the live UI (Lite: 8-second clips only on this plan and the only model that performs the Extend; Fast/Quality: no extend; every plan is 8-second blocks); the live-run-proven prompt habits written into §7 (**camera first, spoken lines in quotation marks, ambience and effects named, negatives as a plain list**) | The clean-project live run planned **four clips** — the third a dedicated empty 8s wait block (no dialogue, no attempt, no fail) — and the user's verdict was precise: *"4 clips is too long"* — the silent wait dragged — and the consequence was **not visually clear**: you could not see what was lost. Each shape now pairs the silent beat with the failed attempt instead of giving the wait its own clip, and the consequence carries an on-screen contract: the Teller's one act, what it does to the victims, their visible reaction |
 | v2.41.0 | **Image-prompt trailer + voice timbre slot** — every image prompt ends verbatim with "One single frame of one composed scene — a single shot. No storyboard, no panels, no numbered cards, no grids, no timestamp chips, no captions, titles, watermarks, labels…"; storyboard-shaped return → regenerate with the trailer as the opening sentence, a second failure reported with the copy-ready prompt offered for Flow-side generation. The voice block's timbre becomes a slot filled from the locked Teller design — deep-male wording survives only as the imposing-entity default; forcing it onto a child/female/small Teller is a checklist defect; new one-speaker rule (the Teller speaks, every victim silent) | Two live runs, one class: fixed in prose, no carrier in the prompt. ChatGPT's image tool read only the prompt and rendered 6-panel storyboard sheets (numbered panels, 0:04 chips, captions, a "Video Model" metadata bar) despite every prose ban; and the vendored voice block's hardcoded "impossibly deep, inhuman male voice" spoke the locked riddle through a small, visually female shopkeeper — the block's timbre was a constant, so it overrode the Teller design §2a had freed |
 | v2.40.0 | **Code-backed randomness** — when ChatGPT's Python tool is available, every generated riddle's category/subcategory/characteristics/difficulty is drawn by actually executed `secrets.SystemRandom()` from user-editable lists (§2b); no simulated randomness, no drawn category swapped for an easier one, one draw per candidate, unique answers; answers are **randomness-guided, not uniformly random** (stated in the pack); fallback says the draw was **not code-backed**; auto's deck look-draws ride the same draw (§2c) | The wide-draw rules ask a language model for variety, and **a language model cannot roll dice** — even with a mechanism (v2.39.0's date/time seed), the roll ran inside the model, which drifts back to the head of its habits. The user's fix: randomize the ingredients with real code before writing, then find objects that fit |
 | v2.39.0 | **Two modes, the option decks, Story State locks** — only `auto <type>` (± dot) triggers auto; a bare story type starts guided mode; auto draws only from user-vetted option decks (§2c: R1–R3 low-motion riddle presets, mukbang M1, jokes J1), seeded externally, never repeating the last draw; Story State (§4a) locks every field identically in both modes, scopes revisions to a dependency map, seals approved versions, and marks only dependent images/prompts for regeneration; auto delivers prompts first, then every required reference image one per message as separate clean frames; `pick riddle first` renders ten candidates + a custom box + a Notion scan; the Notion riddle log is read and written honestly; one conversation holds one story | Four permission gaps in one design: a story type named without `auto` was *read as* an auto authorization (v2.25.0's implicit trigger made the mode ambiguous); an auto run that chose free-form produced output needing correction; the revision locks lived only in prose, so a revision could drift into settled details; and auto delivered Clip 1's image while leaving later required images on demand — the user left an auto run with an incomplete package |
@@ -134,6 +135,8 @@ This is the single most transferable lesson for anything built on top of this.
   `riddle-answer-pool.md` (v2.36.0 — the repetition defect, the bank's contents,
   the selection protocol, the dry run, and the scoring rubric),
   `delivery-and-picks.md` (v2.37.0 — the withheld prompts, the image ingredient,
-  the two continuation routes, and the suggestion-variety rule).
+  the two continuation routes, and the suggestion-variety rule), `pacing-and-consequence.md`
+  (v2.42.0 — the dragged empty wait, the two shapes, the drawn 2-or-3 count, the
+  consequence-visibility contract, and the live UI capability correction).
 - `docs/chatgpt-interactive-components-cheatsheet.md` — the native-control
   reference the two forms are built from.

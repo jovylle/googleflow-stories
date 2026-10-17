@@ -42,11 +42,13 @@ only override.
 
 **A visible consequence is always included.** Every riddle story must show a consequence of the riddle going unanswered — the failure to solve it costs something the audience can see: a loss, a change, a danger, a price paid, an opportunity gone. The consequence is a story beat, never a clue. It must come from the **Teller's rule and the situation**, never from what the riddle describes. It must not reveal, hint at, depict, or be reverse-engineerable into the answer; after it lands, a viewer must still be unable to deduce the answer from the video. Put it in the story's later beats rather than the opening clip, and let it land through action and imagery rather than dialogue that explains it.
 
+**The consequence must read on screen.** The final clip shows concretely the Teller's **one act**, what it does to the victims, and **their visible reaction** — the viewer must see what was lost. One act, staged plainly: no explanation, no ambiguity.
+
 **A consequence that dramatizes what the riddle's wording describes is a leak, not a payoff, because it depicts the answer's own description.** A riddle describes its answer, so an event built out of the riddle's words is an event built out of the answer. A riddle that says its answer climbs to the sky and makes water pour must **not** be followed by rain, a flood, a storm, a dark sky, or a washed-out bridge — that is the answer, dramatized. This is exactly why the consequence comes from the Teller instead: the Teller's own act — taking something, sealing the way, leaving them where they are — carries no trace of the riddle's subject.
 
 The only exception is a user-requested reveal clip (see the no-answer-reveal rule).
 
-**If the clip count cannot hold both the guessing beat and the consequence, do not drop either silently.** When the chosen or analyzed clip count leaves no room for a distinct consequence beat — for example a two-clip story whose second clip is already occupied by the silent guessing and failed attempt — tell the user in one line that one more clip would let the consequence land properly and let them decide before generating. Never silently ship a riddle story with no consequence, and never resolve the conflict by letting a character answer the riddle. The consequence is the final beat: no consequence starts before the final clip, and the thinking beat is never skipped or merged into it.
+**If the clip count cannot hold the beats, do not drop either silently.** When the chosen or analyzed shape leaves no room for a distinct consequence beat — a locked riddle too long for its spoken clip, say, leaving the silent beat, the failed attempt, and the consequence competing for one block — tell the user in one line that one more clip (or a longer-duration model, or an approved trim) would let the consequence land properly, and let them decide before generating. Never silently ship a riddle story with no consequence, and never resolve the conflict by letting a character answer the riddle. The consequence is the final beat: no consequence starts before the final clip, and the thinking beat is never skipped — in the 2-clip shape it shares the final clip with the consequence, but the two stay separately readable, never blurred into one.
 
 <!--
 Language is asked first because it governs the entire production; the story-type
@@ -168,11 +170,13 @@ Prevents the model from rushing by capping one dominant beat per clip and budget
 spoken words to the model's max duration. These numeric budgets (≈2–3 words/sec,
 16–24 words per 8s) and the analyze-and-suggest clip-count behavior are intentional;
 do not hard-code a fixed split or let the system silently rewrite a locked riddle.
-IMPORTANT: the clip count is DERIVED from the specific riddle's length — never a
-blanket "3 clips recommended for riddles." A short riddle may be 1-2 clips; only a
-long riddle that cannot fit one clip is spread into more. This was tightened after
-the model kept presetting "3 clips (recommended for riddle)" in the form regardless
-of riddle length. Do not reintroduce a fixed riddle=3 template.
+IMPORTANT: in a guided run the clip count is DERIVED from the specific riddle's
+length — never a blanket "3 clips recommended for riddles." What v2.42.0 changed:
+the default SHAPE for a short riddle is the 2-clip or 3-clip distribution defined
+below (the dedicated empty wait clip is retired), and an auto run draws 2 or 3 by
+executed code. This was tightened after the model kept presetting "3 clips
+(recommended for riddle)" in the form regardless of riddle length.
+Do not reintroduce a fixed riddle=3 template.
 -->
 ### Pacing and clip-count planning (flexible)
 
@@ -180,15 +184,17 @@ A single clip is bound by the selected model's maximum duration (for example, Ve
 
 Rules:
 
-- **One dominant beat per clip.** A beat is one unit of action or story moment — speaking the riddle, the silent think-pause, or the reaction are each separate beats. Do not put more than one dominant beat in a clip.
+- **One dominant beat per clip — in the run's shape.** A beat is one unit of action or story moment — the spoken riddle, the silent think-pause, the failed attempt, and the consequence are each separate beats, and in a shared clip every one of them stays separately readable. Nothing else stacks into a clip.
+- **The two shapes — 2 clips or 3.** Every short-riddle story runs on one of these, and there is no dedicated empty wait clip in either shape:
+  - **3-clip shape:** Clip 1 speaks the riddle. Clip 2 holds the silent beat at the front — a genuine held silence, no new action — and the failed attempt at the back. Clip 3 is the consequence, with the victims' visible reaction.
+  - **2-clip shape:** Clip 1 speaks the riddle. Clip 2 carries the silent beat, the failed attempt, and then the consequence, in that order — each separately readable, with the consequence and the victims' visible reaction in the back half.
+  - An auto riddle run has its shape **drawn** (section 2c); a guided run recommends the shape this riddle and its beats support, and lets the user accept, adjust, or override.
 - **Budget spoken lines to the clip duration.** At a natural pace, roughly 2–3 words per second — about 16–24 words fit in 8 seconds, 20–30 in 10 seconds, before allowing for breathing, framing, or the required silence. Do not use the 24-word ceiling as proof that an 8-second clip fits: 24 words at 2.5 words per second take 9.6 seconds before any pause. Estimate the actual delivery of the locked line plus its pauses, and treat a shortfall as a planning decision. **A horror riddle is not at a natural pace**: its Teller voice is slow, deliberate, and full of long pauses, so budget roughly **12–16 words per 8-second clip** for it — the 16–24 figure applies to ordinary narration only. If a line will not fit, it needs its own clip, a longer-duration model, or a trim.
 - **Analyze and suggest the clip count.** Before prompts, estimate how many clips the riddle and story actually need so nothing is rushed. Present the suggested clip count and the beat each clip carries. If it differs from the user's chosen clip count, explain why and let them accept, adjust, or override.
 - **Suggest script changes to fit.** If a riddle or line is too long for a single clip at its actual delivery pace, propose concrete options before generating: add a spoken clip, shorten/rephrase with approval while preserving meaning and the no-answer-reveal rule, or recommend a longer-duration model (frame model suggestions as recommendations grounded in current support, not guarantees). Never silently rewrite a locked riddle — show the proposed change and get approval. This applies to ordinary speech as well as a locked horror riddle with heavy-voice delivery. Never squeeze the recitation to make it fit, even if the user asks to keep every beat.
 - **Keep good continuation.** When beats span multiple clips, each clip must start from the previous clip's ending state (subject position, expression, framing, lighting) so the sequence reads as one continuous moment. Provide a short bridge/continuity note between clips.
-- **Clip count follows the riddle's actual length — do not preset "3 clips for riddles."** The number of clips is an **output of the word-count analysis above**, not a fixed template. Decide it like this:
-  - **Short riddle that fits one spoken clip at its actual pace:** reserve room after delivery for a silent thinking beat, a failed attempt, and a distinct consequence. Two clips work only if those later beats remain separately readable within the second clip; otherwise offer a third. Do not assign a clip count from the riddle's word count alone.
-  - **Longer riddle, or when beats genuinely cannot share a clip without rushing:** spread across more clips so nothing is squashed — for example Clip 1 delivers the riddle, a following clip holds the silent think-beat, a further clip carries the reaction. This is the case the original squashed-riddle problem was about.
-  - Always present the suggested count as a **recommendation tied to this specific riddle's length**, with the beat each clip carries, and let the user accept, adjust, or override. Never label a clip count "recommended for riddles" in general; only recommend a count because *this* riddle's words require it.
+- **Clip count follows the shape, never a template.** The number of clips is the shape's — 2 or 3 — or more only when a longer or supplied riddle genuinely cannot fit its spoken clip and must spread; never "3 clips, recommended for riddles". If even the 3-clip shape cannot hold a genuine silent beat, the failed attempt, and a clear consequence, offer one more clip before generating. Do not assign a clip count from the riddle's word count alone, and never label a count "recommended for riddles" in general.
+- **Longer riddles spread; the beats still keep their shape.** A riddle that will not fit one spoken clip spreads its delivery across clips so nothing is squashed — that is the case the original squashed-riddle problem was about — and the shape's beats follow it, with the shortfall offer above applying. Always present the suggested count as a **recommendation tied to this specific riddle and its beats**, with the beat each clip carries, and let the user accept, adjust, or override.
 
 <!--
 WHY THIS SECTION EXISTS:

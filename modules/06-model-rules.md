@@ -1,10 +1,11 @@
 <!--
 WHY THIS SECTION EXISTS:
 Captures a dated snapshot of Google Flow model/feature capabilities plus the rule to
-re-verify before advising. The per-model duration/feature lists are a research
-baseline (2026-10-10), NOT permanent guarantees — do not present them as current
-truth and do not invent features. Keep the official reference links and the
-verify-before-advising stance.
+re-verify before advising. The per-model lists are a research baseline (2026-10-10)
+plus a live check of the user's own Flow UI (2026-10-17) — NOT permanent guarantees.
+The live check is authoritative for planning (8-second blocks only, Lite the only
+extender); beyond it do not present the lists as current truth and do not invent
+features. Keep the official reference links and the verify-before-advising stance.
 -->
 ## 5. Google Flow model and feature rules
 
@@ -16,31 +17,28 @@ Official reference:
 - Create videos in Flow: https://support.google.com/flow/answer/16353334
 - Flow help/FAQ: https://labs.google/fx/tools/flow/faq
 
-At the research baseline date (verified against the official compatibility page on 2026-10-10), Google Flow listed these capabilities:
+At the research baseline date (verified against the official compatibility page on 2026-10-10), Google Flow listed these capabilities. **Verified live against the user's own Flow UI (2026-10-17): this project plans on 8-second blocks.** The live check is authoritative for what to plan — never build a plan around 4, 6, or 10-second clips:
 
 ### Veo 3.1 Lite
 
-- Text-to-video: 4, 6, or 8 seconds; portrait and landscape.
-- First-frame-to-video: 4, 6, or 8 seconds.
-- First-and-last-frame video: 4, 6, or 8 seconds.
+- **8-second clips only on the user's plan.** The compatibility page lists 4s and 6s as well; some accounts may see them, and they are never planned for here.
+- Text-to-video, first-frame-to-video, first-and-last-frame: 8 seconds; portrait and landscape.
 - Ingredients/references-to-video: 8 seconds only.
-- Extend videos: 8-second videos only; both aspect ratios.
+- Extend videos: 8-second videos only; both aspect ratios — **the only model that performs the Extend** (see the Extend rule below).
 - Video-to-video editing: unsupported.
 
 ### Veo 3.1 Fast
 
-- Text-to-video: 4, 6, or 8 seconds; portrait and landscape.
-- First-frame-to-video: 4, 6, or 8 seconds.
-- First-and-last-frame video: 4, 6, or 8 seconds.
+- 8-second blocks, same as above; portrait and landscape.
+- Text-to-video, first-frame-to-video, first-and-last-frame: 8 seconds.
 - Ingredients/references-to-video: 8 seconds only.
 - Extend videos: unsupported (extend a Veo 3.1 clip using Veo 3.1 Lite instead).
 - Video-to-video editing: unsupported.
 
 ### Veo 3.1 Quality
 
-- Text-to-video: 4, 6, or 8 seconds; portrait and landscape.
-- First-frame-to-video: 4, 6, or 8 seconds.
-- First-and-last-frame video: 4, 6, or 8 seconds.
+- 8-second blocks, same as above; portrait and landscape.
+- Text-to-video, first-frame-to-video, first-and-last-frame: 8 seconds.
 - Ingredients/references-to-video: unsupported.
 - Extend videos: unsupported (extend using Veo 3.1 Lite instead).
 - Video-to-video editing: unsupported.
@@ -57,6 +55,7 @@ Per the official tip: **all Veo 3.1 8-second videos can be extended, but the ext
 
 ### Gemini Omni Flash 1.1
 
+- **Dated reference snapshot — not a planning basis for this project.** Plan runs on 8-second blocks (the model default is Veo 3.1 Lite); do not build a plan around Omni's 4, 6, or 10-second options.
 - Text-to-video: 4, 6, 8, or 10 seconds; portrait and landscape.
 - First-frame-to-video: 4, 6, 8, or 10 seconds.
 - First-and-last-frame video: 4, 6, 8, or 10 seconds.

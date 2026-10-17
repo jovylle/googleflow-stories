@@ -4,48 +4,73 @@ Written at closeout so a fresh session can continue without reading a previous c
 **Read this file first.** Then `docs/SUMMARY.md` (the version history and the failure class the
 versions share), and only the `specs/` file for whatever you are about to change.
 
-## Current update (2026-10-17, closeout — resumed in a new chat)
+## Current update (2026-10-17) — v2.42.0, pacing and consequence clarity
 
-**Shipped and pushed: v2.41.0 (`3f98e5c`)** — the image-prompt trailer + the voice timbre
-slot (see the previous block below for details). 575/0. The user re-pasted the artifact
-from the raw GitHub link and live-tested on the clean project.
+**v2.42.0 is built and validated: `./validate.sh` → 612 / 0** (was 575; +37, all in the
+new §45). It ships the two live-run complaints the user named, with their amendment, plus
+the live UI correction carried by the tabled plan — section by section in
+`specs/pacing-and-consequence.md`:
+
+- **The two riddle shapes — 2 clips or 3; no dedicated empty wait clip.** A short-riddle
+  story runs on the **3-clip shape** (riddle / silent beat + failed attempt / consequence)
+  or the **2-clip shape** (riddle / silent beat + failed attempt + consequence, each
+  separately readable, consequence in the back half). The old license for a middle clip
+  as "a full block with no new dialogue, no attempt, and no fail" is retired and trapped,
+  as is "do not compress them into one" — sharing the final clip is legal now, blurring
+  is not.
+- **The auto shape draw (the user's amendment: "auto riddle can go 2clips or 3clips
+  python-randomly").** An auto riddle run **draws its shape — 2 or 3 — by executed code**
+  (`CLIP_COUNTS = [2, 3]`, `secrets.SystemRandom()`, shipped verbatim in §2c) and never
+  assumes the longer one. The draw is **exempt from the deck's no-repeat rule** (with two
+  values it would turn into a 2-3-2-3 metronome; the exemption and its reason are stated
+  in the pack). Fallback: drawn from the same two values by the external seed with the
+  one-line "not code-backed" note. §14's clip-count default is overridden by the draw on
+  auto riddle runs only.
+- **The consequence must read on screen** — the final clip shows the Teller's one act,
+  what it does to the victims, and their visible reaction; no explanation, no ambiguity.
+  Mirrored in the outcome contract (03), planning (05), defaults (15), the final gate
+  (16), and pinned in §45.
+- **Module 06 corrected to the user's live Flow UI (2026-10-17):** Lite shows 8-second
+  clips only on their plan (4/6s exist on some accounts, never planned for here); Lite is
+  **the only model that performs the Extend**; Fast/Quality take no extend, Quality takes
+  no ingredients; every plan is 8-second blocks. Omni Flash is marked a dated snapshot,
+  not a planning basis.
+- **Prompt habits proven with the user in live runs, now in §7:** camera first (shot size,
+  angle, movement before the action), spoken lines in quotation marks, ambience and
+  specific effects named in the audio line, negative constraints as a plain list.
 
 **Live-run learnings that survive this closeout:**
 
 - The clean-project auto riddle run proved the v2.39–v2.40 machinery working: deck preset
   draw, honesty lines (code-backed draw / not uniformly random / not logged to Notion),
   acceptance gate rejecting storyboard frames, both routes, timestamps.
-- Two defects found and fixed in v2.41.0: storyboard-shaped reference images (fixed by the
-  prompt trailer) and the hardcoded deep male voice on a small visually-female Teller
-  (fixed by the timbre slot + one-speaker rule).
+- Two defects found and fixed in v2.41.0: storyboard-shaped reference images (the prompt
+  trailer) and the hardcoded deep male voice on a small visually-female Teller (the
+  timbre slot + one-speaker rule).
 - **User's UI fact: Veo 3.1 Lite shows 8-second clips ONLY on their plan** — the Google
-  Flow help page lists 4s/6s/8s for Lite, but the user's Flow offers 8s only. Plan on
-  8-second blocks, period.
-- User complaints still unfixed: **4 clips is too long** (the dedicated 8s silent wait
-  drags) and the **consequence is not visually clear**.
+  Flow help page lists 4s/6s/8s for Lite, but the user's Flow offers 8s only; now the
+  pack's live-verified planning rule (module 06).
 
-**NEXT STEP (plan tabled, awaiting the user's "go" — do NOT implement without it):**
+**Next step: the live re-run is the only proof.** Re-paste `build/google-flow-story-maker.md`
+after this lands on `dev` (raw link), then:
 
-**v2.42.0 — pacing and consequence clarity:**
-1. Auto riddle default becomes **3 clips × 8s = 24s**: 8s riddle → 8s
-   **wait-and-failed-attempt in one clip** (silence holds the front half, the attempt
-   lands in the back half — a shape the pack already permits, never made the default) →
-   8s consequence. No dedicated empty 8s wait block.
-2. **Consequence visibility contract:** the final clip states concretely — the Teller's
-   one act, what it does to the victims, **and their visible reaction** — the viewer must
-   see what was lost. No explanation, no ambiguity.
-3. **Module 06 capability table corrected to the user's UI:** Lite = 8s blocks (4/6s
-   noted as existing on some accounts, never planned for); ingredients 8s-only; extend
-   8s-only via Lite (the only extender); Fast = no extend; Quality = no ingredients/extend;
-   video-to-video unsupported on all three. Plus the proven prompt practices (camera
-   first, dialogue in quotes, ambient/SFX explicit, negatives as a plain list).
-4. Red-first validator section, checklist mirrors, spec, HANDOFF/SUMMARY, version bump.
+1. `.auto riddle` two or three times: the **drawn count** is visible in the plan (2 or 3,
+   never 4), there is **no dedicated empty wait clip**, and the final clip's consequence
+   shows act + victims + reaction — you can see what was lost.
+2. Expect the **2-clip shape** at least once in three runs (the draw should land 2 about
+   half the time); in it, Clip 2 must read silence → attempt → consequence, never a blur.
+3. Run `horror riddle` (guided) once: the plan recommends a shape tied to this riddle and
+   still lets the user accept/adjust; Advanced still pre-fills 2 clips on the form.
+4. The four prompt habits should be visible in every delivered prompt.
+   Rubric: `specs/pacing-and-consequence.md` §5.
 
-Standing state: `FLOW_RIDDLES.md` untracked (user's draft — leave alone unless asked);
-plugin stale by choice (`VALIDATE_PLUGIN=1` fails); `master` ~eighteen versions behind
-`dev`; Notion riddle log protocol ships but is untested (no Notion MCP connected yet).
+Standing state: `FLOW_RIDDLES.md` untracked (user's draft — leave alone unless asked; its
+own "default to three 8-second clips" line is that document's, untouched by this version,
+and the user may want the draw mirrored there later); plugin stale by choice
+(`VALIDATE_PLUGIN=1` fails); `master` 42 commits behind `dev`; Notion riddle log protocol
+ships but is untested (no Notion MCP connected yet).
 
-## Previous closeout (2026-10-17)
+## Previous closeout (2026-10-17) — v2.41.0
 
 The working tree carries **v2.41.0** — two live-run fixes from the named failure class
 (fixed in prose, no carrier in the prompt), from the user's test transcripts on the clean
@@ -299,17 +324,18 @@ listing in the Directory*. Nothing was uploaded, submitted, or deployed.
 
 | Repo | Version | Branch / HEAD | Checks | Remote |
 |---|---|---|---|---|
-| `lab/googleflow-stories` (**canonical rules** — you are here) | **2.41.0** | `dev` / `53cc025` + v2.41.0 (this commit) | `./validate.sh` → **575 / 0** | GitHub `jovylle/googleflow-stories`, `master` at `05d81ec` (v2.21.0 release merge), `dev` seventeen ahead |
+| `lab/googleflow-stories` (**canonical rules** — you are here) | **2.42.0** | `dev` / `6056679` + v2.42.0 (this change) | `./validate.sh` → **612 / 0** | GitHub `jovylle/googleflow-stories`, `master` at `05d81ec` (v2.21.0 release merge), `dev` 42 commits ahead |
 | `lab/flow-story-gpt` (distilled ChatGPT pack) | 1.0.0 | `master` / `5bb876c` | `./validate-gpt.sh` → 28 / 0 | **none — local only** |
 | `lab/flow-story-gem` (Gemini + hand-over zip) | 1.0.0 | `master` / `6c3d417` | `./validate-gem.sh` → 36 / 0 | **none — local only** |
 
-Canonical artifact: `build/google-flow-story-maker.md`, **1,641 lines / 230,363 chars**, rebuilt from the
-modules. `master` is at `05d81ec` (v2.21.0, released 2026-10-12 by merging `dev`) and is **seventeen versions behind `dev`**.
+Canonical artifact: `build/google-flow-story-maker.md`, **1,737 lines / 243,725 chars**, rebuilt from the
+modules. `master` is at `05d81ec` (v2.21.0, released 2026-10-12 by merging `dev`) and is **42 commits behind `dev`**.
 
 ### Version chain since v2.12.0 (all on `dev`)
 
 | Version | Commit | What it fixed |
 |---|---|---|
+| 2.42.0 | *(this change)* | **Pacing + consequence clarity**: the two riddle shapes — 3 clips (riddle / silent beat + failed attempt / consequence) or 2 clips (riddle / silent beat + failed attempt + consequence, separately readable) — with the dedicated empty wait block retired and its two licenses trapped; the **auto shape draw** (2-or-3 by executed `secrets.SystemRandom()`, `CLIP_COUNTS = [2, 3]`, no-repeat-exempt with the reason stated, "not code-backed" fallback); the **consequence-reads-on-screen** contract (the Teller's one act + its effect on the victims + their visible reaction, no explanation, no ambiguity); module 06 corrected to the live UI (8s blocks only on this plan, Lite the only extender); the live-run prompt habits in §7 (camera first, quotes, named ambience/effects, plain-list negatives). §45 — 37 checks, red-first |
 | 2.13.0 | `9a855ca` | Two-form opening: Form 1 (setup) produces Form 2 (production); Character and Art style split into separate questions |
 | 2.14.0 | `4b992b2` | Riddle outcome contract (never answered **and** a visible consequence) + no-silent Clip 1 turn |
 | 2.15.0 | `b230ab6` | `.start` always begins at Form 1 (no state inference) + Clip 1 image aspect ratio checked |
@@ -394,12 +420,13 @@ The public-directory plugin package lives here and embeds a generated copy of th
 
 ## What to do next, in order
 
-1. **Re-paste the artifact.** The live ChatGPT project is still running **v2.12.0** — none of the twenty
-   versions of fixes above are in it. Paste `build/google-flow-story-maker.md` and just say `horror riddle`
+1. **Re-paste the artifact.** The live ChatGPT project runs the last build the user pasted
+   (v2.41.0 at this closeout); v2.42.0's pacing, consequence, and capability fixes reach it
+   only when this lands on `dev` and the artifact is re-pasted. Paste `build/google-flow-story-maker.md` and just say `horror riddle`
    (no `.start` needed anymore) for a Tagalog end-to-end: neutral riddle list with oblique wordplay
    (`mukha`/`kamay`-style clues), varied answers that are not the same eight every batch, flat period endings,
    text-only overview, spoken-only riddle (never displayed),
-   timestamped clip map with the wait in its own clip.
+   timestamped clip map with the silent beat paired into the run's shape — **no empty wait clip** (v2.42.0).
    Then say `mukbang` with a photo (expect ASMR eating sounds, no talking). After any of it is planned,
    try `.revise riddle <new text>` and check that only the riddle-bearing clip prompt comes back.
    Check the clip prompts carry their timestamp header, an audio line, and the reference-image binding
@@ -472,7 +499,7 @@ The public-directory plugin package lives here and embeds a generated copy of th
 ```bash
 cd /Volumes/DevSSD/fore/lab/googleflow-stories
 printf '2.22.0\n' > version.txt   # bump first; the build substitutes {{VERSION}}
-./build.sh && ./validate.sh       # 474 checks today (plus docs/HANDOFF.md freshness)
+./build.sh && ./validate.sh       # 612 checks today (plus docs/HANDOFF.md freshness)
 
 # while working on one area, read only the new section's red:
 ./validate.sh 2>&1 | sed -n '/^23\./,$p'
@@ -502,7 +529,7 @@ shows up as failures rather than passing quietly.
   Teller voice block**.
 - `modules/10-clip1-final.md` — the Clip 1 gate: exactly one image, one composed scene, ratio checked.
 - `modules/16-checklist.md` — the self-check a run performs before delivering.
-- `validate.sh` — one section per fix area, plus a handoff-freshness section; §20 riddle-structure, §21 Script Overview list, §22 image count, §23 voice block.
+- `validate.sh` — one section per fix area, plus a handoff-freshness section; §20 riddle-structure, §21 Script Overview list, §22 image count, §23 voice block, §45 riddle shapes + the auto shape draw.
 - `docs/SUMMARY.md` — one row per version, plus the failure class they share.
 - `specs/googleflow-stories_reverse_spec.md` — the reverse spec: observations (`OBS-*`), acceptance
   criteria (`AC-*`), and a resolution-status block per version. `specs/image-count-one-per-request.md`

@@ -561,7 +561,7 @@ need "$MODULES/05-story-planning.md" "Clip N of M, timestamp range, one-line bea
 need "$MODULES/05-story-planning.md" "Timestamps are nominal block spans, not exact durations" "timestamps are hedged as nominal spans"
 need "$MODULES/05-story-planning.md" "A middle clip may be a thinking beat" "the thinking beat is defined by position, not number"
 need "$MODULES/05-story-planning.md" "no consequence starts before the final clip" "the consequence is held to the final clip"
-need "$MODULES/05-story-planning.md" "do not compress them into one" "wait and consequence cannot share a block"
+need "$MODULES/05-story-planning.md" "sharing the final clip never merges them" "wait and consequence stay separate even when they share the final clip"
 need "$MODULES/05-story-planning.md" "offer one more clip in one line at the Story Overview checkpoint" "the shortfall offer names its site"
 need "$MODULES/03-riddle-prephase.md" "no consequence starts before the final clip" "the riddle module mirrors the final-clip rule"
 need "$MODULES/08-video-prompt.md" "begin each independently generated clip prompt with its clip-map line" "each prompt carries its timestamp header"
@@ -833,7 +833,7 @@ need "$MODULES/04-interview.md" "the chosen Character fills the victim slot only
 need "$MODULES/05-story-planning.md" "separate locked designs for the victims and the Teller" "the blueprint keeps both roles distinct"
 need "$MODULES/16-checklist.md" "victims pay the price and the Teller acts" "the final gate checks consequence direction"
 need "$MODULES/03-riddle-prephase.md" "Do not use the 24-word ceiling as proof that an 8-second clip fits" "the normal-pace ceiling is not a guaranteed fit"
-need "$MODULES/05-story-planning.md" "a third clip or a longer-duration model" "the checkpoint surfaces a duration shortfall"
+need "$MODULES/05-story-planning.md" "offer one more clip or a longer-duration model" "the checkpoint surfaces a duration shortfall"
 need "$MODULES/04-interview.md" "visible Submit button" "Form 2 has an explicit submission control"
 need "$MODULES/04-interview.md" "type .go or send one line with your choices" "Form 2 has a text fallback"
 need "$MODULES/16-checklist.md" "visible Submit button and a .go/text fallback" "the final gate checks Form 2 submission"
@@ -1147,6 +1147,72 @@ need "$MODULES/16-checklist.md" "never simulated with model-picked numbers" "the
 need "$MODULES/16-checklist.md" "the draw was **not code-backed**" "the final gate checks the fallback honesty"
 need "$BUILD" "### Code-backed randomness (when Python is available)" "the code-backed draw survives the build"
 need "$BUILD" "secrets.SystemRandom()" "the CSPRNG survives the build"
+echo
+
+# ------------------------------------------------------- 45. riddle shapes and the shape draw
+# WHY: the clean-project auto run planned four clips — a dedicated empty 8s wait
+# block between the riddle and the failed attempt — and the user reported the drag
+# ("4 clips is too long") and a consequence that was not visually clear. v2.42.0
+# retires the dedicated empty wait clip: a short-riddle story runs on the 3-clip
+# shape (riddle / silent beat + failed attempt / consequence) or the 2-clip shape
+# (riddle / silent beat + failed attempt + consequence, each separately readable
+# even when they share the final clip). An auto riddle run DRAWS the shape by
+# executed code (CLIP_COUNTS = [2, 3], the same code-backed machinery as the
+# ingredient draw) instead of assuming the longer one; and the consequence must
+# read on screen — the Teller's one act, what it does to the victims, their
+# visible reaction — with no explanation and no ambiguity. The module 06
+# corrections (8s-only planning, Lite the only extender) and the live-run prompt
+# practices (camera first, quotes, named ambience/effects, plain-list negatives)
+# ride the same live-verified pass.
+echo "45. Riddle shapes: the drawn 2-or-3 counts, no empty wait clip, a consequence that reads"
+need "$MODULES/03-riddle-prephase.md" "**The consequence must read on screen.**" "the consequence clarity contract is stated"
+need "$MODULES/03-riddle-prephase.md" "what it does to the victims, and **their visible reaction**" "the consequence names its three visible parts"
+need "$MODULES/03-riddle-prephase.md" "no explanation, no ambiguity" "the consequence is shown, not explained"
+need "$MODULES/03-riddle-prephase.md" "**The two shapes — 2 clips or 3.**" "the two shapes are defined"
+need "$MODULES/03-riddle-prephase.md" "**3-clip shape:**" "the 3-clip shape is named"
+need "$MODULES/03-riddle-prephase.md" "**2-clip shape:**" "the 2-clip shape is named"
+need "$MODULES/03-riddle-prephase.md" "no dedicated empty wait clip" "the dedicated empty wait clip is retired by name"
+need "$MODULES/03-riddle-prephase.md" "The consequence is the final beat" "the consequence holds the final beat"
+need "$MODULES/03b-auto-presets.md" "**The shape draw (auto riddle).**" "the auto shape draw is its own rule"
+need "$MODULES/03b-auto-presets.md" "CLIP_COUNTS = [2, 3]" "the count list is shipped in the snippet"
+need "$MODULES/03b-auto-presets.md" "never assumes the longer one" "auto never assumes 3 clips"
+need "$MODULES/03b-auto-presets.md" "turn the draw into a 2-3-2-3 metronome" "the no-repeat exemption is reasoned"
+need "$MODULES/03b-auto-presets.md" "say in one line that the shape draw was" "the fallback honesty names the shape draw"
+# The snippet is executable content, not just wording: run it. A shipped snippet
+# that no longer executes, stopped drafting from {2, 3}, or became a constant
+# fails the build.
+if command -v python3 >/dev/null 2>&1; then
+  if python3 specs/evidence/run-shape-draw.py >/dev/null 2>&1; then
+    pass "the shipped shape-draw snippet executes and draws only 2 or 3 (both occur)"
+  else
+    fail "the shipped shape-draw snippet FAILS to run or draws outside {2, 3} — python3 specs/evidence/run-shape-draw.py"
+  fi
+else
+  printf '  skip  python3 not found — the shape-draw snippet was NOT executed\n'
+fi
+need "$MODULES/05-story-planning.md" "sharing the final clip never merges them" "wait and consequence stay separate even sharing the final clip"
+need "$MODULES/05-story-planning.md" "a dedicated empty wait block is never planned" "planning retires the empty wait block"
+need "$MODULES/05-story-planning.md" "offer one more clip or a longer-duration model" "the shortfall offer counts from the shape"
+need "$MODULES/06-model-rules.md" "Verified live against the user's own Flow UI" "the live UI verification is recorded"
+need "$MODULES/06-model-rules.md" "8-second clips only on the user's plan" "Lite is 8s-only on this account"
+need "$MODULES/06-model-rules.md" "the only model that performs the Extend" "Lite is named the only extender"
+need "$MODULES/08-video-prompt.md" "Open a shot's description with the **camera**" "prompts open camera-first"
+need "$MODULES/08-video-prompt.md" "Keep every spoken line **in quotation marks**" "spoken lines stay quoted"
+need "$MODULES/08-video-prompt.md" "ambient sound and the specific effects" "ambience and effects are named explicitly"
+need "$MODULES/08-video-prompt.md" "negative constraints as a **plain list**" "negatives are written as a plain list"
+need "$MODULES/15-defaults.md" "their visible reaction" "the defaults mirror the visibility contract"
+need "$MODULES/15-defaults.md" "**drawn** — 2 or 3" "the defaults say the count is drawn"
+need "$MODULES/15-defaults.md" "including its **shape draw (2 clips or 3, never assumed)**" "the defaults carry the shape draw"
+need "$MODULES/16-checklist.md" "no dedicated empty wait clip" "the final gate checks the shapes"
+need "$MODULES/16-checklist.md" "reads on screen" "the final gate checks the consequence reads"
+need "$MODULES/16-checklist.md" "drawn by the executed snippet" "the final gate checks the drawn shape"
+need "$BUILD" "**The shape draw (auto riddle).**" "the shape draw survives the build"
+need "$BUILD" "CLIP_COUNTS = [2, 3]" "the count list survives the build"
+need "$BUILD" "**The consequence must read on screen.**" "the clarity contract survives the build"
+need_not "$MODULES/03-riddle-prephase.md" "a following clip holds the silent think-beat" "the dedicated-wait example is retired"
+need_not "$MODULES/05-story-planning.md" "a full block with no new dialogue, no attempt, and no fail" "the dedicated-wait license is retired"
+need_not "$MODULES/05-story-planning.md" "do not compress them into one" "the compression ban is retired in favour of separate readability"
+need_not "$MODULES/16-checklist.md" "was never compressed into the consequence" "the retired compression wording is gone from the gate"
 echo
 
 echo "----------------------------------------"

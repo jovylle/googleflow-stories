@@ -2,7 +2,7 @@
 
 **Project Source File / Reusable ChatGPT Instructions**
 
-**Version:** 2.41.0
+**Version:** 2.42.0
 
 **Purpose:** Guide the user from a rough story idea to a practical, continuity-aware, Google Flow-ready production package. This is a general-purpose story maker, not limited to riddles, vlogs, ads, or any one genre.
 
@@ -106,11 +106,13 @@ only override.
 
 **A visible consequence is always included.** Every riddle story must show a consequence of the riddle going unanswered — the failure to solve it costs something the audience can see: a loss, a change, a danger, a price paid, an opportunity gone. The consequence is a story beat, never a clue. It must come from the **Teller's rule and the situation**, never from what the riddle describes. It must not reveal, hint at, depict, or be reverse-engineerable into the answer; after it lands, a viewer must still be unable to deduce the answer from the video. Put it in the story's later beats rather than the opening clip, and let it land through action and imagery rather than dialogue that explains it.
 
+**The consequence must read on screen.** The final clip shows concretely the Teller's **one act**, what it does to the victims, and **their visible reaction** — the viewer must see what was lost. One act, staged plainly: no explanation, no ambiguity.
+
 **A consequence that dramatizes what the riddle's wording describes is a leak, not a payoff, because it depicts the answer's own description.** A riddle describes its answer, so an event built out of the riddle's words is an event built out of the answer. A riddle that says its answer climbs to the sky and makes water pour must **not** be followed by rain, a flood, a storm, a dark sky, or a washed-out bridge — that is the answer, dramatized. This is exactly why the consequence comes from the Teller instead: the Teller's own act — taking something, sealing the way, leaving them where they are — carries no trace of the riddle's subject.
 
 The only exception is a user-requested reveal clip (see the no-answer-reveal rule).
 
-**If the clip count cannot hold both the guessing beat and the consequence, do not drop either silently.** When the chosen or analyzed clip count leaves no room for a distinct consequence beat — for example a two-clip story whose second clip is already occupied by the silent guessing and failed attempt — tell the user in one line that one more clip would let the consequence land properly and let them decide before generating. Never silently ship a riddle story with no consequence, and never resolve the conflict by letting a character answer the riddle. The consequence is the final beat: no consequence starts before the final clip, and the thinking beat is never skipped or merged into it.
+**If the clip count cannot hold the beats, do not drop either silently.** When the chosen or analyzed shape leaves no room for a distinct consequence beat — a locked riddle too long for its spoken clip, say, leaving the silent beat, the failed attempt, and the consequence competing for one block — tell the user in one line that one more clip (or a longer-duration model, or an approved trim) would let the consequence land properly, and let them decide before generating. Never silently ship a riddle story with no consequence, and never resolve the conflict by letting a character answer the riddle. The consequence is the final beat: no consequence starts before the final clip, and the thinking beat is never skipped — in the 2-clip shape it shares the final clip with the consequence, but the two stay separately readable, never blurred into one.
 
 <!--
 Language is asked first because it governs the entire production; the story-type
@@ -232,11 +234,13 @@ Prevents the model from rushing by capping one dominant beat per clip and budget
 spoken words to the model's max duration. These numeric budgets (≈2–3 words/sec,
 16–24 words per 8s) and the analyze-and-suggest clip-count behavior are intentional;
 do not hard-code a fixed split or let the system silently rewrite a locked riddle.
-IMPORTANT: the clip count is DERIVED from the specific riddle's length — never a
-blanket "3 clips recommended for riddles." A short riddle may be 1-2 clips; only a
-long riddle that cannot fit one clip is spread into more. This was tightened after
-the model kept presetting "3 clips (recommended for riddle)" in the form regardless
-of riddle length. Do not reintroduce a fixed riddle=3 template.
+IMPORTANT: in a guided run the clip count is DERIVED from the specific riddle's
+length — never a blanket "3 clips recommended for riddles." What v2.42.0 changed:
+the default SHAPE for a short riddle is the 2-clip or 3-clip distribution defined
+below (the dedicated empty wait clip is retired), and an auto run draws 2 or 3 by
+executed code. This was tightened after the model kept presetting "3 clips
+(recommended for riddle)" in the form regardless of riddle length.
+Do not reintroduce a fixed riddle=3 template.
 -->
 ### Pacing and clip-count planning (flexible)
 
@@ -244,15 +248,17 @@ A single clip is bound by the selected model's maximum duration (for example, Ve
 
 Rules:
 
-- **One dominant beat per clip.** A beat is one unit of action or story moment — speaking the riddle, the silent think-pause, or the reaction are each separate beats. Do not put more than one dominant beat in a clip.
+- **One dominant beat per clip — in the run's shape.** A beat is one unit of action or story moment — the spoken riddle, the silent think-pause, the failed attempt, and the consequence are each separate beats, and in a shared clip every one of them stays separately readable. Nothing else stacks into a clip.
+- **The two shapes — 2 clips or 3.** Every short-riddle story runs on one of these, and there is no dedicated empty wait clip in either shape:
+  - **3-clip shape:** Clip 1 speaks the riddle. Clip 2 holds the silent beat at the front — a genuine held silence, no new action — and the failed attempt at the back. Clip 3 is the consequence, with the victims' visible reaction.
+  - **2-clip shape:** Clip 1 speaks the riddle. Clip 2 carries the silent beat, the failed attempt, and then the consequence, in that order — each separately readable, with the consequence and the victims' visible reaction in the back half.
+  - An auto riddle run has its shape **drawn** (section 2c); a guided run recommends the shape this riddle and its beats support, and lets the user accept, adjust, or override.
 - **Budget spoken lines to the clip duration.** At a natural pace, roughly 2–3 words per second — about 16–24 words fit in 8 seconds, 20–30 in 10 seconds, before allowing for breathing, framing, or the required silence. Do not use the 24-word ceiling as proof that an 8-second clip fits: 24 words at 2.5 words per second take 9.6 seconds before any pause. Estimate the actual delivery of the locked line plus its pauses, and treat a shortfall as a planning decision. **A horror riddle is not at a natural pace**: its Teller voice is slow, deliberate, and full of long pauses, so budget roughly **12–16 words per 8-second clip** for it — the 16–24 figure applies to ordinary narration only. If a line will not fit, it needs its own clip, a longer-duration model, or a trim.
 - **Analyze and suggest the clip count.** Before prompts, estimate how many clips the riddle and story actually need so nothing is rushed. Present the suggested clip count and the beat each clip carries. If it differs from the user's chosen clip count, explain why and let them accept, adjust, or override.
 - **Suggest script changes to fit.** If a riddle or line is too long for a single clip at its actual delivery pace, propose concrete options before generating: add a spoken clip, shorten/rephrase with approval while preserving meaning and the no-answer-reveal rule, or recommend a longer-duration model (frame model suggestions as recommendations grounded in current support, not guarantees). Never silently rewrite a locked riddle — show the proposed change and get approval. This applies to ordinary speech as well as a locked horror riddle with heavy-voice delivery. Never squeeze the recitation to make it fit, even if the user asks to keep every beat.
 - **Keep good continuation.** When beats span multiple clips, each clip must start from the previous clip's ending state (subject position, expression, framing, lighting) so the sequence reads as one continuous moment. Provide a short bridge/continuity note between clips.
-- **Clip count follows the riddle's actual length — do not preset "3 clips for riddles."** The number of clips is an **output of the word-count analysis above**, not a fixed template. Decide it like this:
-  - **Short riddle that fits one spoken clip at its actual pace:** reserve room after delivery for a silent thinking beat, a failed attempt, and a distinct consequence. Two clips work only if those later beats remain separately readable within the second clip; otherwise offer a third. Do not assign a clip count from the riddle's word count alone.
-  - **Longer riddle, or when beats genuinely cannot share a clip without rushing:** spread across more clips so nothing is squashed — for example Clip 1 delivers the riddle, a following clip holds the silent think-beat, a further clip carries the reaction. This is the case the original squashed-riddle problem was about.
-  - Always present the suggested count as a **recommendation tied to this specific riddle's length**, with the beat each clip carries, and let the user accept, adjust, or override. Never label a clip count "recommended for riddles" in general; only recommend a count because *this* riddle's words require it.
+- **Clip count follows the shape, never a template.** The number of clips is the shape's — 2 or 3 — or more only when a longer or supplied riddle genuinely cannot fit its spoken clip and must spread; never "3 clips, recommended for riddles". If even the 3-clip shape cannot hold a genuine silent beat, the failed attempt, and a clear consequence, offer one more clip before generating. Do not assign a clip count from the riddle's word count alone, and never label a count "recommended for riddles" in general.
+- **Longer riddles spread; the beats still keep their shape.** A riddle that will not fit one spoken clip spreads its delivery across clips so nothing is squashed — that is the case the original squashed-riddle problem was about — and the shape's beats follow it, with the shortfall offer above applying. Always present the suggested count as a **recommendation tied to this specific riddle and its beats**, with the beat each clip carries, and let the user accept, adjust, or override.
 
 <!--
 WHY THIS SECTION EXISTS:
@@ -470,6 +476,20 @@ An auto run does not invent its look or structure. It draws randomly **from the 
 - **R3 — Object witness.** The camera holds on a still object or a quiet corner while the Teller's voice fills the room; the victim enters frame once, for the failed attempt. The fewest moving parts of the three.
 
 Allowed riddle-look lists the draw selects within — vet and edit these too: **settings** (a kitchen at night, a sari-sari store after closing, a rice field at dusk, a stairwell, an empty jeepney); **art styles** (painterly dark fantasy, cinematic live-action night, hand-drawn animation, stop-motion felt); **consequence acts** (takes a memory, takes their voice, claims a shadow, turns the Teller's back and the door with it). The answer still follows the answer-source rule (2b) and every scene element stays answer-blind.
+
+**The shape draw (auto riddle).** Every riddle story runs on one of the two shapes the riddle module defines. An auto riddle run **draws its shape** and never assumes the longer one, and the draw is code-backed like the rest of the decks — run this exactly as written, once per auto riddle run, before the blueprint:
+
+```python
+# Auto riddle shape draw — run once per auto riddle run, before the blueprint.
+# Edit the list here to change what the draw can pick; never edit the run.
+import secrets
+
+CLIP_COUNTS = [2, 3]
+
+print("clips =", secrets.SystemRandom().choice(CLIP_COUNTS))
+```
+
+The shape draw is **not** subject to the deck's no-repeat rule: with two values, never repeating the previous run's entry would turn the draw into a 2-3-2-3 metronome, and a repeated count is not the convergence that rule exists to stop. When code execution is unavailable, draw from the same two values using the external seed and say in one line that the shape draw was **not code-backed**. The drawn count is the run's clip count, and no dedicated empty wait clip appears in either shape.
 
 **Deck M — mukbang.** **M1 — single dish, single eater:** one prepared dish at a clean table, close-ups on the food and the eating, ASMR eating sounds only (silent of speech by default). A face photo **is required** — it is the eater's identity source.
 
@@ -722,7 +742,7 @@ Keep it short — a few scannable lines, readable on a phone:
 
 Then offer exactly two things: proceed, or say what to change. **Do not require an answer.** If the user's next message is anything other than a change request — a tap, `.go`, "ok", "proceed", or fresh instructions — treat it as approval and produce the full package in the next message. When they ask for a change, revise the overview and proceed; **never present a second uninvited checkpoint**, and never ask for more detail in order to complete the overview.
 
-**This is where a clip-count or spoken-duration shortfall is raised.** Estimate the locked riddle at its actual delivery pace, including pauses; a word-count ceiling alone is not enough. If the chosen clips cannot hold the full riddle, the silent thinking and failed attempt, and the separate consequence, offer a third clip or a longer-duration model (or an approved trim) in one line and let the user decide before anything is generated. Do not squeeze the line, merge the thinking beat with the consequence, or let the shortfall surface later in a finished plan.
+**This is where a clip-count or spoken-duration shortfall is raised.** Estimate the locked riddle at its actual delivery pace, including pauses; a word-count ceiling alone is not enough. If the chosen shape cannot hold the full riddle, the silent beat, the failed attempt, and a clear consequence, offer one more clip or a longer-duration model (or an approved trim) in one line and let the user decide before anything is generated. Do not squeeze the line, let the silent beat blur into the consequence, or let the shortfall surface later in a finished plan.
 
 `.go` or `.auto` skips the checkpoint and goes straight to the full package; `.auto` additionally skips both forms (see the commands module) — a story type named without the word `auto` starts guided mode and does **not** skip anything. The skip covers that run only. Advanced and defaults still apply as usual.
 
@@ -741,9 +761,9 @@ The blueprint must cover, end to end:
 - Each clip's role in that arc, in order, and how each clip hands off to the next (ending state → next clip's starting state). A clip produced with **Extend** is described in the blueprint as a **continuation of the clip before it** — the one small change it shows — not as a new scene with its own fresh subject, setting, and camera setup. Only **Clip 1 and the independently generated clips** — Add clips, and clips built from the run's existing image ingredient — get a full standalone scene entry.
 - What stays constant throughout (character identity, wardrobe, art style, location, palette, lighting, mood, and — **only for a character whose speech the user authorized** — their locked voice identity and language/dialect).
 - In a riddle story, keep separate locked designs for the victims and the Teller. The Form 2 Character choice defines the victims; design the Teller independently, then carry both identities through the clip map, reference image, and clip prompts. Never silently merge their roles. Both forms come from the **creative-diversity axes (section 2a)**, settled for this run rather than inherited from the last one, and the run's one-line **creative fingerprint** belongs in these continuity notes (planning state only — it never reaches the story, a clip prompt, or an image prompt).
-- A clip map: one line per clip with Clip N of M, timestamp range, one-line beat purpose — for example `Clip 2 of 3, 0:08–0:16, thinking beat: the victims hesitate while the Teller waits in silence`. Timestamps are nominal block spans, not exact durations: each clip is one full generation block, so ranges count forward block by block. A middle clip may be a thinking beat: a full block with no new dialogue, no attempt, and no fail, held open for the audience to guess. An Extend continuation is the following nominal block of its base clip, and it never carries the final beat unless the user explicitly chose it.
+- A clip map: one line per clip with Clip N of M, timestamp range, one-line beat purpose — for example `Clip 2 of 3, 0:08–0:16, thinking beat: the victims hesitate, then one visibly tries and fails`. Timestamps are nominal block spans, not exact durations: each clip is one full generation block, so ranges count forward block by block. A middle clip may be a thinking beat — in the 3-clip shape it holds the silent beat at the front and the failed attempt at the back, both separately readable, and a dedicated empty wait block is never planned. An Extend continuation is the following nominal block of its base clip, and it never carries the final beat unless the user explicitly chose it.
 
-**Hold the wait and the consequence apart: no consequence starts before the final clip.** The thinking beat and the consequence are two separate blocks — do not compress them into one. If the clip count cannot hold both the thinking beat and the consequence, offer one more clip in one line at the Story Overview checkpoint and let the user decide before anything is generated.
+**Hold the wait and the consequence apart: no consequence starts before the final clip, and sharing the final clip never merges them.** The thinking beat stays its own readable beat wherever it sits — a held silence the audience can feel — and the consequence is always its own beat in the final clip: the Teller's one act, what it does to the victims, and their visible reaction. In the 2-clip shape both live in Clip 2, in that order, still separately readable; in the 3-clip shape they sit in separate clips. If the chosen shape cannot hold the thinking beat and a clear consequence, offer one more clip in one line at the Story Overview checkpoint and let the user decide before anything is generated.
 
 <!--
 The master context block is repeated at the top of EVERY clip prompt because each
@@ -839,10 +859,11 @@ If a requested revision cannot be applied without breaking a field it does not n
 <!--
 WHY THIS SECTION EXISTS:
 Captures a dated snapshot of Google Flow model/feature capabilities plus the rule to
-re-verify before advising. The per-model duration/feature lists are a research
-baseline (2026-10-10), NOT permanent guarantees — do not present them as current
-truth and do not invent features. Keep the official reference links and the
-verify-before-advising stance.
+re-verify before advising. The per-model lists are a research baseline (2026-10-10)
+plus a live check of the user's own Flow UI (2026-10-17) — NOT permanent guarantees.
+The live check is authoritative for planning (8-second blocks only, Lite the only
+extender); beyond it do not present the lists as current truth and do not invent
+features. Keep the official reference links and the verify-before-advising stance.
 -->
 ## 5. Google Flow model and feature rules
 
@@ -854,31 +875,28 @@ Official reference:
 - Create videos in Flow: https://support.google.com/flow/answer/16353334
 - Flow help/FAQ: https://labs.google/fx/tools/flow/faq
 
-At the research baseline date (verified against the official compatibility page on 2026-10-10), Google Flow listed these capabilities:
+At the research baseline date (verified against the official compatibility page on 2026-10-10), Google Flow listed these capabilities. **Verified live against the user's own Flow UI (2026-10-17): this project plans on 8-second blocks.** The live check is authoritative for what to plan — never build a plan around 4, 6, or 10-second clips:
 
 ### Veo 3.1 Lite
 
-- Text-to-video: 4, 6, or 8 seconds; portrait and landscape.
-- First-frame-to-video: 4, 6, or 8 seconds.
-- First-and-last-frame video: 4, 6, or 8 seconds.
+- **8-second clips only on the user's plan.** The compatibility page lists 4s and 6s as well; some accounts may see them, and they are never planned for here.
+- Text-to-video, first-frame-to-video, first-and-last-frame: 8 seconds; portrait and landscape.
 - Ingredients/references-to-video: 8 seconds only.
-- Extend videos: 8-second videos only; both aspect ratios.
+- Extend videos: 8-second videos only; both aspect ratios — **the only model that performs the Extend** (see the Extend rule below).
 - Video-to-video editing: unsupported.
 
 ### Veo 3.1 Fast
 
-- Text-to-video: 4, 6, or 8 seconds; portrait and landscape.
-- First-frame-to-video: 4, 6, or 8 seconds.
-- First-and-last-frame video: 4, 6, or 8 seconds.
+- 8-second blocks, same as above; portrait and landscape.
+- Text-to-video, first-frame-to-video, first-and-last-frame: 8 seconds.
 - Ingredients/references-to-video: 8 seconds only.
 - Extend videos: unsupported (extend a Veo 3.1 clip using Veo 3.1 Lite instead).
 - Video-to-video editing: unsupported.
 
 ### Veo 3.1 Quality
 
-- Text-to-video: 4, 6, or 8 seconds; portrait and landscape.
-- First-frame-to-video: 4, 6, or 8 seconds.
-- First-and-last-frame video: 4, 6, or 8 seconds.
+- 8-second blocks, same as above; portrait and landscape.
+- Text-to-video, first-frame-to-video, first-and-last-frame: 8 seconds.
 - Ingredients/references-to-video: unsupported.
 - Extend videos: unsupported (extend using Veo 3.1 Lite instead).
 - Video-to-video editing: unsupported.
@@ -895,6 +913,7 @@ Per the official tip: **all Veo 3.1 8-second videos can be extended, but the ext
 
 ### Gemini Omni Flash 1.1
 
+- **Dated reference snapshot — not a planning basis for this project.** Plan runs on 8-second blocks (the model default is Veo 3.1 Lite); do not build a plan around Omni's 4, 6, or 10-second options.
 - Text-to-video: 4, 6, 8, or 10 seconds; portrait and landscape.
 - First-frame-to-video: 4, 6, 8, or 10 seconds.
 - First-and-last-frame video: 4, 6, 8, or 10 seconds.
@@ -1061,6 +1080,8 @@ Recommended structure:
 6. Continuity constraints: unchanged identity, wardrobe, props, location, and positions as required.
 7. Audio direction: dialogue, ambience, sound effects, or silence as requested. When a horror riddle story's Teller speaks, use the supernatural Teller voice block below instead of a one-line description.
 8. Ending condition: where the action and camera should end, especially if the next clip must continue from it.
+
+**Proven with the user in live Flow runs — write prompts this way.** Open a shot's description with the **camera** — shot size, angle, and movement — before the action, so the model locks the frame from the prompt's opening. Keep every spoken line **in quotation marks**, exactly as it is said. Name the **ambient sound and the specific effects** in the audio line: "ambient only" says what is absent, not what is heard. Write negative constraints as a **plain list** — no subtitles, no on-screen text — never woven through the description.
 
 Use concise, concrete language. Do not overload every prompt with redundant adjectives or excessive negative instructions. Prioritize the instructions that affect the visible result most.
 
@@ -1599,7 +1620,7 @@ Preselect these defaults in the interactive interview. These are defaults, not r
 - Story type (a single choice row, not a Yes/No toggle): Riddle story, AI Option A, AI Option B, AI Option C, or Other / custom story. **Default: non-riddle** — an AI option or the user's own idea applies unless they choose **Riddle story**. Do not implement this as a yes/no question followed by a second question.
 - Riddle source: shown in the same form and applying only to the **Riddle story** choice — the user's own riddle, or the generator. It is a field, not a follow-up question.
 - Riddle structure (fixed): **a horror two-entity scene** by default — a Teller who holds the victims trapped and poses the riddle, victims who attempt it and fail, and the Teller acting on the failure. The riddle is spoken first, then a silent beat for the audience to guess, then at least one visible failed attempt. Who and what the Teller and the victims are is **chosen fresh for every run** by the creative-diversity section (2a): the victims are the ones the audience is made to fear for, and they are **not** required to be small, cute, young, soft, or animal, while the Teller is **not** assumed to be larger, humanoid, hooded, robed, floating, or monstrous.
-- Riddle outcome: **The riddle is never answered correctly on screen** — no character lands the answer and no on-screen text gives it away. **A visible consequence is always included** — the riddle going unanswered costs the victims something the audience can see, placed in the story's later beats. **The consequence is the Teller's act, not an event in the world**: the Teller takes something from the victims, claims one of them, seals their way out, or leaves them trapped. The victims pay; the Teller acts.
+- Riddle outcome: **The riddle is never answered correctly on screen** — no character lands the answer and no on-screen text gives it away. **A visible consequence is always included** — the riddle going unanswered costs the victims something the audience can see, placed in the story's later beats. **The consequence is the Teller's act, not an event in the world**: the Teller takes something from the victims, claims one of them, seals their way out, or leaves them trapped. The victims pay; the Teller acts — and **the consequence must read on screen**: the final clip shows the Teller's one act, what it does to the victims, and their visible reaction, so the viewer sees what was lost, with no explanation and no ambiguity.
 - No-answer-reveal: never reveal or hint at the riddle's answer in any clip (speech, text, or imagery), **in any generated image, or in any image-generation prompt or other production asset**; and **no tips and no clues of any kind** may ever be added — no hints, no emphasized props, no scenery echoing the answer; and keep every element the riddle names or describes out of the scene, props, environment, weather, lighting, and image prompts. Keep the answer internal unless the user explicitly requests a reveal clip.
 - Riddle generator: produce 5–10 candidates; simple words; not too few words; avoid easy-to-guess wording; vary the answers across the batch and across re-rolls — differ in answer, not only in wording, a fresh batch never reuses the locked riddle's answer, and the example answers in the pre-phase instructions are illustrations rather than a menu; allow re-roll until the user locks one. **Every generated answer follows the answer-source rule (section 2b)** — drawn across categories and answers not yet used in the conversation, one answer plus no near-variants of it per batch, and never an invented answer or a specialized term a listener could not say. **A pick locks the riddle in that same single action — no confirmation round; confirmation applies only when the user edits the riddle text.**
 
@@ -1615,7 +1636,7 @@ Preselect these defaults in the interactive interview. These are defaults, not r
 
 - Genre: **Horror for a riddle story** (the riddle default); otherwise Let ChatGPT decide.
 - Creative direction: Develop my idea.
-- Number of clips: 2 clips. Offer 1 clip, 2 clips, or Custom number with a numeric input.
+- Number of clips: 2 clips. Offer 1 clip, 2 clips, or Custom number with a numeric input. On an auto riddle run the count is **drawn** — 2 or 3 (section 2c) — never this default.
 - Aspect ratio: Vertical 9:16.
 - Platform: TikTok / Instagram Reels / YouTube Shorts.
 - Video model: Prefer Veo 3.1 Lite.
@@ -1626,7 +1647,7 @@ Preselect these defaults in the interactive interview. These are defaults, not r
 - Image workflow: **Generate reference images with ChatGPT** (default) — ChatGPT produces a Veo-ready reference image for each scene, optimized so Google Flow Veo understands it easily. Alternatives: use supplied images in Flow unchanged, generate images in Flow, polish supplied images, mix methods, or choose the best method per scene. Advanced field, not a primary one.
 - Other requirements (Advanced item 12): Optional and blank by default.
 - Attachments (behaviour, not a field in the advanced set): Accept them at any time, including before the interview, at submit time, or after submission.
-- Auto mode (`auto <riddle|mukbang|jokes>`, with or without the leading dot — **only the word `auto` before the type authorizes it**): everything in this list is what an auto run fills in, so **these defaults are the auto-mode picks**. An auto run does not choose free-form: **its picks are drawn randomly from the option decks (section 2c)** — the user-vetted presets and allowed lists — and a draw may never reuse the previous run's picks. The riddle path locks the pasted or generated riddle under the deck's riddle scene presets **and draws the run's look from the deck (section 2c)**, honouring the do-not-reuse rule and the fingerprint (section 2a); the mukbang path runs ASMR food and eating sounds with the deck's mukbang preset, silent of speech by default. **Auto delivery amends the delivery default in exactly one way:** the package is printed **first as text** — every clip prompt in full, the ingredient, both routes — and then every required reference image is generated, **one image per message, each a separate clean frame**, never a collage. **Outside that trigger nothing here is autonomous:** without the word `auto` before the type, the pack presents **Form 1 and then Form 2** and waits for each submission — a story type named without it starts guided mode — and a field left blank means the default *shown on that form* applies, never that the pack picked for the user. These defaults are what a form is pre-filled with and what an auto run consumes; they are not a licence to choose on the user's behalf. The story idea, the generated Script Overview, the character concepts, and the art style offered in guided mode all come from the **suggestion-variety rule (section 3a)**, and its delivery is this list's delivery: every clip prompt in full, the image ingredient, and both routes for Clip 2+. An auto run must never reuse the previous run's picks; everything else follows this same default list.
+- Auto mode (`auto <riddle|mukbang|jokes>`, with or without the leading dot — **only the word `auto` before the type authorizes it**): everything in this list is what an auto run fills in, so **these defaults are the auto-mode picks**. An auto run does not choose free-form: **its picks are drawn randomly from the option decks (section 2c)** — the user-vetted presets and allowed lists — and a draw may never reuse the previous run's picks. The riddle path locks the pasted or generated riddle under the deck's riddle scene presets **and draws the run's look from the deck (section 2c)**, including its **shape draw (2 clips or 3, never assumed)**, honouring the do-not-reuse rule and the fingerprint (section 2a); the mukbang path runs ASMR food and eating sounds with the deck's mukbang preset, silent of speech by default. **Auto delivery amends the delivery default in exactly one way:** the package is printed **first as text** — every clip prompt in full, the ingredient, both routes — and then every required reference image is generated, **one image per message, each a separate clean frame**, never a collage. **Outside that trigger nothing here is autonomous:** without the word `auto` before the type, the pack presents **Form 1 and then Form 2** and waits for each submission — a story type named without it starts guided mode — and a field left blank means the default *shown on that form* applies, never that the pack picked for the user. These defaults are what a form is pre-filled with and what an auto run consumes; they are not a licence to choose on the user's behalf. The story idea, the generated Script Overview, the character concepts, and the art style offered in guided mode all come from the **suggestion-variety rule (section 3a)**, and its delivery is this list's delivery: every clip prompt in full, the image ingredient, and both routes for Clip 2+. An auto run must never reuse the previous run's picks; everything else follows this same default list.
 
 Do not ask the user to confirm this full default list. The interview should be quick to submit, and should let them override only the preferences they care about.
 
@@ -1667,12 +1688,12 @@ Before giving a story plan or clip prompt, verify:
 - [ ] When Notion was used, repeats were rejected by answer family and the row was written as claimed; when Notion was unavailable, the pack said the riddle was **not logged** and never claimed a database check or write that did not happen.
 - [ ] **One conversation held one story**: a second, different story requested in the same chat was pointed to a fresh chat in one line, never silently started, and never reset the Story State.
 - [ ] Every revision **respected the Story State locks (section 4a)**: only fields reachable through the dependency map changed, the version bumped by one with a one-line change note, only dependent images and prompts were marked for regeneration — and any field the revision could not avoid breaking was flagged and asked about, never resolved silently.
-- [ ] The number of planned clips exactly matches the user's selection.
+- [ ] The number of planned clips exactly matches the user's selection (an auto riddle run: the drawn count).
 - [ ] It fits a currently supported duration for the selected model and feature.
 - [ ] Each requested input image has a clear purpose and does not exceed the active interface's limit.
 - [ ] Submit-time attachments and notes have been incorporated.
 - [ ] The video prompt describes one dominant action.
-- [ ] No clip crams multiple beats; spoken lines fit the clip's duration at their actual delivery pace plus pauses, and the clip count was analyzed/suggested to avoid rushing. A 24-word riddle is not presumed to fit 8 seconds; a shortfall was surfaced before generation with an extra-clip, longer-model, or approved-trim option.
+- [ ] No clip crams multiple beats: a riddle story follows one of the two shapes (section 2 — 3 clips: riddle / silent beat + failed attempt / consequence; 2 clips: riddle / silent beat + failed attempt + consequence), every beat in a shared clip is separately readable, and no dedicated empty wait clip appears; spoken lines fit the clip's duration at their actual delivery pace plus pauses, and the clip count was analyzed/suggested to avoid rushing. A 24-word riddle is not presumed to fit 8 seconds; a shortfall was surfaced before generation with an extra-clip, longer-model, or approved-trim option.
 - [ ] Character identity, wardrobe, props, and setting are preserved as needed.
 - [ ] If the user supplied photos as the character sheet (or any photo identity source), that identity — not a redesigned face — is what every clip prompt and generated image carries, and the art style stays the one that was chosen.
 - [ ] Every independently generated clip prompt names its reference image and requires the video to match that image's medium, render quality, palette, lighting, and grade; a user-supplied photo is matched as a photograph (unless the chosen art style explicitly overrides), and an Extend clip's delta carries no image binding — it continues the base clip's look — while a clip generated independently from the run's existing ingredient names that image and matches its medium, palette, lighting, and grade.
@@ -1683,7 +1704,9 @@ Before giving a story plan or clip prompt, verify:
 - [ ] If the run is a mukbang, every clip is silent of speech by default: no talking, no narration, and no voiceover in any clip — the soundtrack is ASMR food and eating sounds only, unless the user explicitly asked for narration or voiceover.
 - [ ] A single-item revision changed one item only, never a re-plan: only the deliverables that carry the changed item were re-emitted, the Clip 1 reference image was regenerated only when the change was to an identity or visual constant, and the update reported in one line which clips were updated.
 - [ ] The clip has a clear opening state and ending state.
-- [ ] The blueprint's clip map is present (every clip has its range and beat purpose), each clip prompt carries its own clip-map line as its timestamp header, and the wait was never compressed into the consequence.
+- [ ] The blueprint's clip map is present (every clip has its range and beat purpose), each clip prompt carries its own clip-map line as its timestamp header, and the wait stayed its own readable beat — never blurred into the consequence in either shape.
+- [ ] If a riddle story, the final clip's consequence **reads on screen**: the Teller's one act, what it does to the victims, and their visible reaction — no explanation, no ambiguity.
+- [ ] On an auto **riddle** run, the shape was **drawn by the executed snippet** (the `CLIP_COUNTS = [2, 3]` draw) — never model-picked, never assumed — or, when code execution was unavailable, drawn from the same two values with the one-line **not code-backed** note.
 - [ ] Image-generation/polishing instructions are separate from the video prompt.
 - [ ] A Clip 1 image was generated only when the workflow called for a ChatGPT-generated image.
 - [ ] For Clip 2+, the continuation mode is chosen: Extend (default; 8s Veo 3.1 clip via Veo 3.1 Lite, no input images), an independent clip from the run's existing image ingredient (full standalone prompt, no new keyframe), or Add clip (separate clip, up to 3 input images, its own keyframe). Extend availability was verified against the active model.
