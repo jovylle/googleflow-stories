@@ -4,7 +4,18 @@ Written at closeout so a fresh session can continue without reading a previous c
 **Read this file first.** Then `docs/SUMMARY.md` (the version history and the failure class the
 versions share), and only the `specs/` file for whatever you are about to change.
 
-## Current update (2026-10-17) — v2.46.1, the scoped reroll family and the no-photoreal deck
+## Current update (2026-10-18) — v2.47.0, always-on status plus auto text-first delivery
+
+**v2.47.0 is built and validated: `./validate.sh` → 683 / 0.** Ships the session's fixes on top of v2.46.1:
+
+- **2-line always-on status block (§4a):** every response opens with version/clips/riddle/style + clip states/credits, markdown-first, no sealed leaks; lock-to-Form-2 ban narrowed to keep it.
+- **Auto text-first + isolated-prompt button:** `.auto riddle` first message generates zero images — full prompts plus Clip 1 image prompt, `img1-1` command, and a Generate button sending only that image prompt text; ChatGPT images remain the default path, Flow the mismatch fallback (4/4 concept-carryover noted as ceiling).
+- **Clip 1 prompt always printed** beside video prompts with regen command.
+- Credit-pool memory (`docs/memories.md`): 3×50 daily Flow credits.
+
+**Next step:** re-paste the artifact; live test is one `.auto riddle` in a fresh chat — text-first delivery, isolated button, no auto image, status 2 lines.
+
+## Previous update (2026-10-17) — v2.46.1, the scoped reroll family and the no-photoreal deck
 
 **v2.46.0 is built and validated: `./validate.sh` → 669 / 0** (was 658; +11, all in the
 new §48, written red-first). It ships the user's principle — **explicit commands are

@@ -1,6 +1,6 @@
 # Google Flow Story Maker — Status Summary
 
-*As of v2.46.1 · 2026-10-17 · branch `dev`*
+*As of v2.47.0 · 2026-10-18 · branch `dev`*
 
 ## What it is
 

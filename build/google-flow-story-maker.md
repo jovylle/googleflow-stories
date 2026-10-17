@@ -2,7 +2,7 @@
 
 **Project Source File / Reusable ChatGPT Instructions**
 
-**Version:** 2.46.1
+**Version:** 2.47.0
 
 **Purpose:** Guide the user from a rough story idea to a practical, continuity-aware, Google Flow-ready production package. This is a general-purpose story maker, not limited to riddles, vlogs, ads, or any one genre.
 
