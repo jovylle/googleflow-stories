@@ -4,7 +4,48 @@ Written at closeout so a fresh session can continue without reading a previous c
 **Read this file first.** Then `docs/SUMMARY.md` (the version history and the failure class the
 versions share), and only the `specs/` file for whatever you are about to change.
 
-## Current update (2026-10-17)
+## Current update (2026-10-17, closeout — resumed in a new chat)
+
+**Shipped and pushed: v2.41.0 (`3f98e5c`)** — the image-prompt trailer + the voice timbre
+slot (see the previous block below for details). 575/0. The user re-pasted the artifact
+from the raw GitHub link and live-tested on the clean project.
+
+**Live-run learnings that survive this closeout:**
+
+- The clean-project auto riddle run proved the v2.39–v2.40 machinery working: deck preset
+  draw, honesty lines (code-backed draw / not uniformly random / not logged to Notion),
+  acceptance gate rejecting storyboard frames, both routes, timestamps.
+- Two defects found and fixed in v2.41.0: storyboard-shaped reference images (fixed by the
+  prompt trailer) and the hardcoded deep male voice on a small visually-female Teller
+  (fixed by the timbre slot + one-speaker rule).
+- **User's UI fact: Veo 3.1 Lite shows 8-second clips ONLY on their plan** — the Google
+  Flow help page lists 4s/6s/8s for Lite, but the user's Flow offers 8s only. Plan on
+  8-second blocks, period.
+- User complaints still unfixed: **4 clips is too long** (the dedicated 8s silent wait
+  drags) and the **consequence is not visually clear**.
+
+**NEXT STEP (plan tabled, awaiting the user's "go" — do NOT implement without it):**
+
+**v2.42.0 — pacing and consequence clarity:**
+1. Auto riddle default becomes **3 clips × 8s = 24s**: 8s riddle → 8s
+   **wait-and-failed-attempt in one clip** (silence holds the front half, the attempt
+   lands in the back half — a shape the pack already permits, never made the default) →
+   8s consequence. No dedicated empty 8s wait block.
+2. **Consequence visibility contract:** the final clip states concretely — the Teller's
+   one act, what it does to the victims, **and their visible reaction** — the viewer must
+   see what was lost. No explanation, no ambiguity.
+3. **Module 06 capability table corrected to the user's UI:** Lite = 8s blocks (4/6s
+   noted as existing on some accounts, never planned for); ingredients 8s-only; extend
+   8s-only via Lite (the only extender); Fast = no extend; Quality = no ingredients/extend;
+   video-to-video unsupported on all three. Plus the proven prompt practices (camera
+   first, dialogue in quotes, ambient/SFX explicit, negatives as a plain list).
+4. Red-first validator section, checklist mirrors, spec, HANDOFF/SUMMARY, version bump.
+
+Standing state: `FLOW_RIDDLES.md` untracked (user's draft — leave alone unless asked);
+plugin stale by choice (`VALIDATE_PLUGIN=1` fails); `master` ~eighteen versions behind
+`dev`; Notion riddle log protocol ships but is untested (no Notion MCP connected yet).
+
+## Previous closeout (2026-10-17)
 
 The working tree carries **v2.41.0** — two live-run fixes from the named failure class
 (fixed in prose, no carrier in the prompt), from the user's test transcripts on the clean
