@@ -456,7 +456,7 @@ reachability of the four live URLs. The one requirement no package change can sa
 guidelines' note that *skills-only plugins may be subject to additional eligibility requirements for
 listing in the Directory*. Nothing was uploaded, submitted, or deployed.
 
-## State at closeout (2026-10-11)
+## State at closeout (2026-10-17)
 
 | Repo | Version | Branch / HEAD | Checks | Remote |
 |---|---|---|---|---|
@@ -727,3 +727,30 @@ changing anything here. The short version, as it applies to this repo:
    characters, and first art style came back every run — not because the list was short, but because nothing
    moved between runs and the first entry is the de-facto default. Same fix as the riddle answers' source rule
    (a wide range, a no-repeat rule), applied to what the pack *proposes* rather than what it draws as an answer.
+10. **Free invention is a prior, not a random draw.** v2.45.0: three auto runs converged into one film —
+    stairwell ×3, elderly-woman Teller ×3, young-man victim ×3 — because victim, Teller, and size relation were
+    in *no* deck; the model invented the cast and its prior did the choosing. Same shape as lesson 5, one level
+    up: if a value must vary, the value must be *in* a pool with a draw rule — "vary it" names no mechanism.
+11. **Randomness needs a printed carrier; an unprinted draw is unverifiable and will be faked under pressure.**
+    v2.45.0: two of three live runs claimed "Python randomized" with no code or output shown. The printed draw
+    is now a checklist gate — if the draw's output is not visible in the plan, it did not happen. Verification
+    lives in the artifact the user can see, not in the model's claim about what it did.
+12. **Make a rule code wherever the rule constrains a draw — diligence is not enforcement.** v2.45.0/v2.46.0:
+    the no-repeat rule was stated and obeyed only when convenient; the `PREVIOUS` paste + `fresh()` exclusion
+    makes repetition *impossible* instead of discouraged, and the output's `excluding:` line makes the paste
+    itself visible — a skipped step is now a visible defect, not a silent one. The same hook powers scoped
+    rerolls: `.reroll character` excludes the current cast, so the same value cannot return.
+13. **An image tool composes from the conversation's concept, not the scene prompt.** v2.44.0: the v2.41.0
+    trailer failed its first live test — the returned sheets were *different stories* (invented riddles,
+    invented answers printed in red, wrong language/aspect) with the trailer verbatim in the prompt. No
+    prompt-side wording fixes a render the prompt does not drive; the reliable generator is the fallback, and
+    unusual shapes (first-person POV) go there first instead of buying retry lottery tickets.
+14. **Measure the model's limits with one-variable stress tests before planning scenes.** v2.43.0: five user
+    stress tests + an orientation sub-test (`docs/veo-stress-tests.md`) split what renders (weather, lightning,
+    wind, debris, breakage *appearance*, close-up reveal, one simple reaction) from what does not (earthquake
+    physics, requested camera shake, choreography, mid-clip orientation flips). The transferable rule: **the
+    appearance of drama is not its physical simulation** — plan the result of a force, never the force.
+15. **Explicit commands are how you counter model unpredictability** — the user's principle, shipped as
+    v2.46.0's `.reroll <aspect>` family. A vague "change it" delegates scope to the model; a named aspect
+    (`character`, `art`, `setting`…) fixes the scope, the draw enforces a real change, and an aspect word the
+    pack does not know gets a question in one line — never a guess.
