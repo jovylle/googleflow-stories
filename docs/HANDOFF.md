@@ -50,6 +50,14 @@ the live UI correction carried by the tabled plan — section by section in
 - **User's UI fact: Veo 3.1 Lite shows 8-second clips ONLY on their plan** — the Google
   Flow help page lists 4s/6s/8s for Lite, but the user's Flow offers 8s only; now the
   pack's live-verified planning rule (module 06).
+- **Veo 3.1 Lite stress tests (5 tests + an orientation sub-test) are logged in
+  `docs/veo-stress-tests.md`** — weather transitions, rain, frequent lightning, wind on
+  cloth/debris, breakage/destruction, and close-up reveals render reliably; earthquake
+  physics, requested camera shake, complex choreography, and character-orientation
+  continuity fail or drift (orientation failed 1 of 2 clips — stochastic). The doc's §7
+  turns this into scene/consequence **selection guidance** (prefer destruction appearances
+  + weather spectacle; avoid shake/ground-motion/mid-clip reversals) — **not yet wired
+  into the pack; v2.43.0 candidate** once the queued camera suite runs.
 
 **Next step: the live re-run is the only proof.** Re-paste `build/google-flow-story-maker.md`
 after this lands on `dev` (raw link), then:
@@ -531,6 +539,9 @@ shows up as failures rather than passing quietly.
 - `modules/16-checklist.md` — the self-check a run performs before delivering.
 - `validate.sh` — one section per fix area, plus a handoff-freshness section; §20 riddle-structure, §21 Script Overview list, §22 image count, §23 voice block, §45 riddle shapes + the auto shape draw.
 - `docs/SUMMARY.md` — one row per version, plus the failure class they share.
+- `docs/veo-stress-tests.md` — the live stress-test log for Veo 3.1 Lite (tests 1–5 + the
+  orientation sub-test, the cumulative capability tracker, the §7 scene/consequence selection
+  guidance, and the queued camera suite §8). **Not yet wired into the pack** — v2.43.0 candidate.
 - `specs/googleflow-stories_reverse_spec.md` — the reverse spec: observations (`OBS-*`), acceptance
   criteria (`AC-*`), and a resolution-status block per version. `specs/image-count-one-per-request.md`
   and the other per-version specs carry the longer reasoning.
