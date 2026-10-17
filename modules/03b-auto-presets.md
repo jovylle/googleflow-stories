@@ -80,9 +80,9 @@ print("size =", fresh(SIZES))
 
 If an auto run requires an attachment that is not in the conversation — the mukbang face photo above all — **ask for it in one short line and stop that path until it arrives.** Never invent the missing material, never substitute a described face for a supplied one, and never generate with gaps (the Clip 1 readiness rule holds on auto runs).
 
-### Auto delivery — prompts first, Flow-side images
+### Auto delivery — prompts first, then the images
 
-An auto run delivers **all the text first**: every clip's complete copy-ready prompt in its own fenced code block, the run's image ingredient, and both continuation routes for every Clip 2+ — the same package the delivery turn always hands over (see the output-format module), with no image generated ahead of it. **Then generate zero images in chat by default** — the Clip 1 ingredient prompt and each Add-clip keyframe prompt are copy-ready for Google Flow, one per message, never a collage. One in-chat image max, only on explicit ask. The prompts are never withheld for an image: if generation fails, the prompts are already in the user's hands.
+An auto run delivers **all the text first**: every clip's complete copy-ready prompt in its own fenced code block, the run's image ingredient, and both continuation routes for every Clip 2+ — the same package the delivery turn always hands over (see the output-format module), with no image generated ahead of it. **Then generate in chat by default** — the Clip 1 ingredient frame and each Add-clip keyframe, **one image per message**, each a separate clean frame of one composed scene, never a collage, panel, sheet, or grid. On mismatch, hand the copy-ready prompt with the do-not-use line (Flow fallback). The prompts are never withheld for an image: if generation fails, the prompts are already in the user's hands.
 
 ### The pick-riddle-first modifier
 
