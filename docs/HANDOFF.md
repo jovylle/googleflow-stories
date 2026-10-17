@@ -4,7 +4,11 @@ Written at closeout so a fresh session can continue without reading a previous c
 **Read this file first.** Then `docs/SUMMARY.md` (the version history and the failure class the
 versions share), and only the `specs/` file for whatever you are about to change.
 
-## Current update (2026-10-18) — v2.47.1, auto carve-out at every generate-immediately site
+## Current update (2026-10-18) — v2.47.2, speaker attribution on speech-carrying Extend deltas
+
+Patch bump: a live run proved the gap — Clip 3's Extend delta named the Teller's voice yet Veo put the line on the victim's visible lips; nothing in the delta said the man stays silent. The Extend contract banned restated constants but never required naming the silent party. New one-clause guard in the delta whenever it carries speech (speaker speaks TO someone; the other silent — no lip movement, no mouthing): contract (09), structure (08), final gate (16); validator §49. `./validate.sh` → 688 / 0.
+
+## Previous update (2026-10-18) — v2.47.1, auto carve-out at every generate-immediately site
 
 Patch bump: the model correctly cited six surviving "generate immediately" lines
 outvoting the new text-first rule (outvoted-not-missing). Same carve-out sentence

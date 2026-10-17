@@ -34,7 +34,7 @@ Use concise, concrete language. Do not overload every prompt with redundant adje
 1. Continue the previous clip's final frame, framing, and camera movement (no cut, no new shot, no re-establishing).
 2. The one small change this clip shows (a head tilt, magic brightening, a held pause).
 3. The ending state it settles into, so a further Extend can chain.
-4. Audio continuity only (ambient by default; continued speech only if the user asked for it).
+4. Audio continuity only (ambient by default; continued speech only if the user asked for it). When the delta carries continued speech, name the speaker and the silent party in one clause — who speaks TO whom, the other silent with no lip movement and no mouthing — and restate no voice constants.
 
 Delete anything that restates the character, wardrobe, props, location, lighting, palette, art style, or voice identity: Extend inherits all of it from the base clip, and restating it is what makes Flow render an independent clip instead of a continuation. An Extend clip carries no reference-image instruction: it has no image input, so its delta continues the base clip's look directly — the base clip is the visual binding, and the delta never describes an image's qualities. A correct Extend prompt is roughly one short paragraph (about 40–70 words) and would make no sense as the opening of a brand-new video.
 

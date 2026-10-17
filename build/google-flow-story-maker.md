@@ -2,7 +2,7 @@
 
 **Project Source File / Reusable ChatGPT Instructions**
 
-**Version:** 2.47.1
+**Version:** 2.47.2
 
 **Purpose:** Guide the user from a rough story idea to a practical, continuity-aware, Google Flow-ready production package. This is a general-purpose story maker, not limited to riddles, vlogs, ads, or any one genre.
 
@@ -1149,7 +1149,7 @@ Use concise, concrete language. Do not overload every prompt with redundant adje
 1. Continue the previous clip's final frame, framing, and camera movement (no cut, no new shot, no re-establishing).
 2. The one small change this clip shows (a head tilt, magic brightening, a held pause).
 3. The ending state it settles into, so a further Extend can chain.
-4. Audio continuity only (ambient by default; continued speech only if the user asked for it).
+4. Audio continuity only (ambient by default; continued speech only if the user asked for it). When the delta carries continued speech, name the speaker and the silent party in one clause — who speaks TO whom, the other silent with no lip movement and no mouthing — and restate no voice constants.
 
 Delete anything that restates the character, wardrobe, props, location, lighting, palette, art style, or voice identity: Extend inherits all of it from the base clip, and restating it is what makes Flow render an independent clip instead of a continuation. An Extend clip carries no reference-image instruction: it has no image input, so its delta continues the base clip's look directly — the base clip is the visual binding, and the delta never describes an image's qualities. A correct Extend prompt is roughly one short paragraph (about 40–70 words) and would make no sense as the opening of a brand-new video.
 
@@ -1426,6 +1426,7 @@ An Extend clip is the *same take continued*. Its prompt is a short delta: what h
 - **Never re-declare the clip.** Do not restate character identity, hair, wardrobe, props, location, path, palette, lighting, or art style. The base clip already carries them. Re-declaring them is the single most common way an extension drifts into being its own separate video.
 - **No new scene framing.** Do not give the Extend clip its own scene title, its own opening state, a camera reset, or a fresh "8 seconds · …" setup line that reads like a new clip. It is a continuation of Clip N.
 - **No re-spoken dialogue.** Extend clips are silent (ambient audio only) unless the user explicitly asked for continued speech. Never re-print the previous clip's line, and never restate a locked riddle's text.
+- **Name the speaker and the silent party when the delta carries speech.** A continued line with no attribution lands on the visible face's lips: state who speaks TO whom in one clause — the speaker, the silent party, no lip movement, no mouthing (for example, "the wall crack speaks TO the man; the man himself is silent — no lip movement, no mouthing"). One clause only — never restated voice constants, which stay in the base clip.
 - **Say what changes, then hold.** Name the one small change (a tilt of the head, magic brightening, a held pause), say to continue the previous clip's framing and camera movement, and give the ending state it settles into: "no cut, no new shot, no re-establishing." Roughly one short paragraph (about 40–70 words). If it runs longer, the length is a symptom of restating — cut it back.
 - **No image inputs.** Extend takes no reference image — do not plan, print, or generate one for it (see the image-needs summary).
 - **After a revision, the delta changes only if the frames do.** When a single item is revised — character, art style, wardrobe, or any other visual constant — re-emit the Extend clip's delta when the new trait is visible in its frames: it still restates nothing, but the changed detail now differs from its base clip. Leave every Extend prompt alone when the change is not visible in it.
@@ -1789,7 +1790,7 @@ Before giving a story plan or clip prompt, verify:
 - [ ] Image-generation/polishing instructions are separate from the video prompt.
 - [ ] A Clip 1 image was generated only when the workflow called for a ChatGPT-generated image.
 - [ ] For Clip 2+, the continuation mode is chosen: Extend (default; 8s Veo 3.1 clip via Veo 3.1 Lite, no input images), an independent clip from the run's existing image ingredient (full standalone prompt, no new keyframe), or Add clip (separate clip, up to 3 input images, its own keyframe). Extend availability was verified against the active model.
-- [ ] An **Extend** clip's prompt is a continuation delta, not a new script: no master context block or position header, no restated character/wardrobe/props/location/lighting/audio, no new scene title or opening state, no camera reset, no new image, and no re-spoken dialogue. Read it back — if it could open a brand-new video without the previous clip, rewrite it as a delta.
+- [ ] An **Extend** clip's prompt is a continuation delta, not a new script: no master context block or position header, no restated character/wardrobe/props/location/lighting/audio, no new scene title or opening state, no camera reset, no new image, and no re-spoken dialogue. When the delta carries continued speech, it names the speaker and the silent party in one clause (who speaks TO whom; the other silent — no lip movement, no mouthing). Read it back — if it could open a brand-new video without the previous clip, rewrite it as a delta.
 - [ ] An **Add clip** keeps its full standalone prompt, its own keyframe, and its own shot — the Extend carve-out was not applied to it by mistake. A clip generated **independently from the run's existing image ingredient** keeps that same full standalone prompt, binds to the Clip 1 image, and needed **no new keyframe** — no image was planned or generated for it.
 - [ ] **The delivery turn printed every clip's complete prompt**, in clip order, each in its own fenced code block, with a summary line above it — no clip's prompt was withheld behind a number/expand reply, none was replaced by a summary, and none was left to a later turn.
 - [ ] **Every Clip 2+ was delivered in both routes, labelled**, with one line saying the user picks one of the two: the **Extend** delta (restates nothing, no image input) and **that clip's standalone route** — the **independent** prompt bound to the run's ingredient (full master context block), or the **Add clip** prompt bound to that clip's own new keyframe when the beat needs a new location/angle/setup, a different model, or a different duration. No block merged the two, no route was dropped to save space, and the standalone block was the route that clip's own plan calls for.

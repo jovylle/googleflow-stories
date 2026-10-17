@@ -1331,6 +1331,22 @@ need "$BUILD" "\`.reroll <aspect>\`" "the scoped reroll family survives the buil
 need "$BUILD" "the code excludes what is locked now" "the PREVIOUS hook survives the build"
 echo
 
+# ------------------------------------------------------- 49. Extend speaker attribution
+# WHY: a live run proved the gap — Clip 3's Extend delta named the Teller's voice
+# ("from the wall crack ... speaks one short line") yet Veo rendered the line on
+# the visible victim's lips: nothing in the delta said the man stays silent. The
+# Extend contract banned restated constants but never required naming the silent
+# party when a delta carries speech. v2.47.2 adds the one-clause guard (speaker
+# speaks TO someone; the other silent — no lip movement, no mouthing) to the
+# contract (09), the Extend structure (08), and the final gate (16).
+echo "49. Extend speaker attribution: speech-carrying deltas name speaker and silence"
+need "$MODULES/09-clip-continuity.md" "Name the speaker and the silent party when the delta carries speech" "the Extend contract requires the speaker-silence clause"
+need "$MODULES/09-clip-continuity.md" "no lip movement, no mouthing" "the clause bars lip movement and mouthing"
+need "$MODULES/08-video-prompt.md" "name the speaker and the silent party in one clause" "the Extend structure mirrors the clause"
+need "$MODULES/16-checklist.md" "it names the speaker and the silent party in one clause" "the final gate checks the clause"
+need "$BUILD" "Name the speaker and the silent party when the delta carries speech" "the clause survives the build"
+echo
+
 echo "----------------------------------------"
 echo "checks: $CHECKED   failed: $FAILED"
 [ "$FAILED" -eq 0 ] && echo "validate: PASS" || echo "validate: FAIL"
