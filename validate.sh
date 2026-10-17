@@ -370,7 +370,7 @@ echo
 echo "16. Clip 1 image ratio and one-image discipline"
 need "$MODULES/10-clip1-final.md" "Match the video's aspect ratio" "the image must match the video's aspect ratio"
 need "$MODULES/10-clip1-final.md" "A wrong-ratio image is a failed attempt" "a wrong-ratio result is retried, not handed to the user"
-need "$MODULES/10-clip1-final.md" "**Exactly one image this turn.**" "only the Clip 1 image is generated in the post-form turn"
+need "$MODULES/10-clip1-final.md" "zero on an" "only the Clip 1 image is generated in the post-form turn (zero on auto first message)"
 need_not "$MODULES/10-clip1-final.md" "i-crop o gumawa" "no crop-in-Flow workaround wording"
 echo
 
@@ -1108,9 +1108,9 @@ need "$MODULES/03-riddle-prephase.md" "the 2-line status block (§4a) still open
 need "$MODULES/11-output-format.md" "Every response opens with the 2-line status block" "delivery carries the status"
 need "$MODULES/16-checklist.md" "Every response opened with the 2-line status block" "the final gate checks the status"
 need "$MODULES/11-output-format.md" "### Auto-run delivery (prompts first, then every reference image)" "the delivery module carries the auto order"
-need "$MODULES/11-output-format.md" "An auto run is the one exception to the on-demand rule" "the on-demand default names its auto exception"
+need "$MODULES/11-output-format.md" "the exception does not apply: zero images in the first message" "the on-demand default names its auto exception"
 need "$MODULES/15-defaults.md" "its picks are drawn randomly from the option decks (section 2c)" "the defaults route auto's picks to the decks"
-need "$MODULES/15-defaults.md" "**one image per message, each a separate clean frame**" "the defaults carry the auto image sequencing"
+need "$MODULES/15-defaults.md" "the first message generates zero images" "the defaults carry the auto image sequencing"
 need "$MODULES/16-checklist.md" "drawn at random from the option decks (section 2c)" "the final gate checks the deck source"
 need "$MODULES/16-checklist.md" "the text package was delivered first" "the final gate checks the delivery order"
 need "$MODULES/16-checklist.md" "one image per message, each a separate clean frame of one composed scene" "the final gate checks the image sequencing"
