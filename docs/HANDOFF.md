@@ -4,7 +4,11 @@ Written at closeout so a fresh session can continue without reading a previous c
 **Read this file first.** Then `docs/SUMMARY.md` (the version history and the failure class the
 versions share), and only the `specs/` file for whatever you are about to change.
 
-## Current update (2026-10-18) — v2.47.2, speaker attribution on speech-carrying Extend deltas
+## Current update (2026-10-18) — v2.47.3, wider people decks and summoned-spectacle consequences
+
+Patch bump at the user's call: `VICTIMS` was 10/10 human and `TELLERS` 6/6 figure-ish, so a fair die still dealt humans and figures every run — the pools were the ceiling, not `secrets.SystemRandom()`. Victims 10→18 (animals: stray puppy, tabby cat, old carabao, tikling bird; animate objects: clay doll, jointed saint statue, ventriloquist dummy, ceramic piggy bank); Tellers 6→12, each anchored (time via a cracked clock ticking backward, self-tuning radio, late TV, brass speaker horn, ceiling-pipe presence, breathing earth mound); consequences 4→12, new ones all the Teller's summoned spectacle (wind-burst, rain + wind, fog, lightning tearing the room open, place breaking apart, floor giving way, dust-and-stone rain, the Teller's own scream snuffing the lights — scream never the victim's). Prose and snippet kept in sync; validator §50. `./validate.sh` → 702 / 0.
+
+## Previous update (2026-10-18) — v2.47.2, speaker attribution on speech-carrying Extend deltas
 
 Patch bump: a live run proved the gap — Clip 3's Extend delta named the Teller's voice yet Veo put the line on the victim's visible lips; nothing in the delta said the man stays silent. The Extend contract banned restated constants but never required naming the silent party. New one-clause guard in the delta whenever it carries speech (speaker speaks TO someone; the other silent — no lip movement, no mouthing): contract (09), structure (08), final gate (16); validator §49. `./validate.sh` → 688 / 0.
 

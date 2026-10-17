@@ -1347,6 +1347,31 @@ need "$MODULES/16-checklist.md" "it names the speaker and the silent party in on
 need "$BUILD" "Name the speaker and the silent party when the delta carries speech" "the clause survives the build"
 echo
 
+# ------------------------------------------------------- 50. wider people decks and summoned-spectacle consequences
+# WHY: the people pools were the variety ceiling — VICTIMS was 10/10 human and
+# TELLERS 6/6 figure-ish, so a fair die still dealt humans and figures every run.
+# v2.47.3 adds non-human victims (animals, animate objects), anchored non-figure
+# Tellers (devices, time-with-a-clock), and consequence acts framed as the
+# Teller's summoned spectacle (wind, rain, fog, lightning, breakage appearance,
+# floor giving way, the Teller's own scream) — all inside the stress-test map,
+# all still the Teller's act, scream never the victim's.
+echo "50. Wider decks: non-human victims, anchored Tellers, summoned consequences"
+need "$MODULES/03b-auto-presets.md" "a stray puppy" "the prose victim list holds animals"
+need "$MODULES/03b-auto-presets.md" "a clay doll with stubby limbs" "the prose victim list holds animate objects"
+need "$MODULES/03b-auto-presets.md" '"a stray puppy"' "the snippet victim list holds animals"
+need "$MODULES/03b-auto-presets.md" '"a clay doll with stubby limbs"' "the snippet victim list holds animate objects"
+need "$MODULES/03b-auto-presets.md" "time itself, announced by a cracked wall clock ticking backward" "the prose Teller list holds anchored time"
+need "$MODULES/03b-auto-presets.md" "a self-tuning transistor radio" "the prose Teller list holds device Tellers"
+need "$MODULES/03b-auto-presets.md" '"time itself, announced by a cracked wall clock ticking backward"' "the snippet Teller list holds anchored time"
+need "$MODULES/03b-auto-presets.md" "calls a wind-burst that strips the room" "the prose consequence list holds summoned wind"
+need "$MODULES/03b-auto-presets.md" "drops the floor from under them" "the prose consequence list holds the floor giving way"
+need "$MODULES/03b-auto-presets.md" "screams its own scream and the lights go out" "the prose consequence list holds the Teller's scream"
+need "$MODULES/03b-auto-presets.md" '"calls a wind-burst that strips the room"' "the snippet consequence list holds summoned wind"
+need "$MODULES/03b-auto-presets.md" '"screams its own scream and the lights go out"' "the snippet consequence list holds the Teller's scream"
+need "$BUILD" '"a stray puppy"' "the wider victim list survives the build"
+need "$BUILD" '"calls a wind-burst that strips the room"' "the wider consequence list survives the build"
+echo
+
 echo "----------------------------------------"
 echo "checks: $CHECKED   failed: $FAILED"
 [ "$FAILED" -eq 0 ] && echo "validate: PASS" || echo "validate: FAIL"
