@@ -4,7 +4,7 @@ Written at closeout so a fresh session can continue without reading a previous c
 **Read this file first.** Then `docs/SUMMARY.md` (the version history and the failure class the
 versions share), and only the `specs/` file for whatever you are about to change.
 
-## Current update (2026-10-17) — v2.46.0, the scoped reroll family
+## Current update (2026-10-17) — v2.46.1, the scoped reroll family and the no-photoreal deck
 
 **v2.46.0 is built and validated: `./validate.sh` → 669 / 0** (was 658; +11, all in the
 new §48, written red-first). It ships the user's principle — **explicit commands are
@@ -22,6 +22,14 @@ crucial because LLMs are unpredictable** — as a command family:
   §4a dependency map — a character/art redraw regenerates the Clip 1 image; a
   setting/consequence/camera redraw rewrites only the affected clip prompts); the
   riddle, its sealed answer, the language, and the clip count never move.
+- **No photoreal style, no real human face (2.46.1):** the deck's photoreal styles
+  (live-action night, VHS, found-footage, 1930s monster film) and the human-faced Teller
+  forms (elderly woman, elderly man, ageless child) are out — six constructed/stylized
+  styles and six faceless-or-constructed Teller forms remain (faceless figure, doll or
+  puppet, thin shadow, mannequin in the victim's clothes, headless priest, the unseen
+  presence). Victims stay human, rendered in the chosen stylized medium. Trap-pinned in
+  §47 (+2, 671 / 0). Also in this commit: the HANDOFF attribution fix — v2.45.1's wilder
+  decks shipped inside `2b0af4b` with v2.46.0, not as its own commit.
 - `specs/deck-people-draw.md` covers the draw machinery this rides on.
 
 **Next step:** re-paste the artifact; the live test for this version is a scoped reroll
@@ -452,19 +460,20 @@ listing in the Directory*. Nothing was uploaded, submitted, or deployed.
 
 | Repo | Version | Branch / HEAD | Checks | Remote |
 |---|---|---|---|---|
-| `lab/googleflow-stories` (**canonical rules** — you are here) | **2.46.0** | `dev` / `aa7ae5a` + v2.46.0 (this change) | `./validate.sh` → **669 / 0** | GitHub `jovylle/googleflow-stories`, `master` at `05d81ec` (v2.21.0 release merge), `dev` 49 commits ahead |
+| `lab/googleflow-stories` (**canonical rules** — you are here) | **2.46.1** | `dev` / `2b0af4b` + v2.46.1 (this change) | `./validate.sh` → **671 / 0** | GitHub `jovylle/googleflow-stories`, `master` at `05d81ec` (v2.21.0 release merge), `dev` 49 commits ahead |
 | `lab/flow-story-gpt` (distilled ChatGPT pack) | 1.0.0 | `master` / `5bb876c` | `./validate-gpt.sh` → 28 / 0 | **none — local only** |
 | `lab/flow-story-gem` (Gemini + hand-over zip) | 1.0.0 | `master` / `6c3d417` | `./validate-gem.sh` → 36 / 0 | **none — local only** |
 
-Canonical artifact: `build/google-flow-story-maker.md`, **1,805 lines / 256,787 chars**, rebuilt from the
+Canonical artifact: `build/google-flow-story-maker.md`, **1,805 lines / 256,609 chars**, rebuilt from the
 modules. `master` is at `05d81ec` (v2.21.0, released 2026-10-12 by merging `dev`) and is **49 commits behind `dev`**.
 
 ### Version chain since v2.12.0 (all on `dev`)
 
 | Version | Commit | What it fixed |
 |---|---|---|
-| 2.46.0 | *(this change)* | **The scoped reroll family**: `.reroll <aspect>` — character (one casting: victim + Teller + size), art, setting, consequence, camera, trap — one named aspect redrawn, everything else locked; the redraw runs the deck draw with the current value in `PREVIOUS` so the same value cannot return; unknown aspects asked, never guessed; `.reroll riddle` aliased to `.reroll`; deliverables re-emitted per the §4a dependency map. §48 — 11 checks, red-first |
-| 2.45.1 | `aa7ae5a` | **Wilder decks**: settings 5→12, art styles 4→10, victims 6→10, Tellers 6→10, sizes 3→4 — ~1.15M combinations, all low-motion and answer-blind; prose lists and the shipped snippet kept in sync |
+| 2.46.1 | *(this change)* | **No photoreal style, no real human face in the deck**: photoreal styles (live-action, VHS, found-footage, 1930s film) and human-faced Tellers (elderly woman/man, ageless child) removed; 6 stylized styles + 6 faceless-or-constructed Teller forms remain; victims stay human in stylized media. §47 +2 with a trap on the live-action style |
+| 2.46.0 | *(inside `2b0af4b`)* | **The scoped reroll family**: `.reroll <aspect>` — character (one casting: victim + Teller + size), art, setting, consequence, camera, trap — one named aspect redrawn, everything else locked; the redraw runs the deck draw with the current value in `PREVIOUS` so the same value cannot return; unknown aspects asked, never guessed; `.reroll riddle` aliased to `.reroll`; deliverables re-emitted per the §4a dependency map. §48 — 11 checks, red-first |
+| 2.45.1 | *(inside `2b0af4b`)* | **Wilder decks**: settings 5→12, art styles 4→10, victims 6→10, Tellers 6→10, sizes 3→4 — ~1.15M combinations, all low-motion and answer-blind; prose lists and the shipped snippet kept in sync |
 | 2.45.0 | `aa7ae5a` | **People in the deck + a mechanical no-repeat**: the decks had no victim/Teller/size lists (free-invented cast = model prior; three runs = one film) — new user-vetted **victim forms, Teller forms, size relations** lists drawn by the code-backed snippet; **one printed deck draw** (count + preset + setting + style + consequence + victim + Teller + size in one `secrets.SystemRandom()` run, printed output required by the gate); **no-repeat as code**: the previous run's printed values pasted into `PREVIOUS` and excluded from the pool, the `excluding:` line making the paste visible, clip count exempt. §47 — 20 checks, red-first |
 | 2.44.0 | `9da7f34` | **Flow-first for unusual-shape ingredients**: the trailer's first live test failed — a first-person-POV ingredient returned twice as invented storyboard sheets (different stories, English riddles, invented answers printed on them, wrong language/aspect, zero scene elements) with the trailer verbatim in the prompt; root cause classified from the user's screenshots — the image tool composes from the conversation's *concept*, not the scene prompt. Module 7 now offers the **Flow-side fallback first** for a first-person-POV ingredient or any shape that already returned a sheet this conversation — at most one in-chat attempt, the acceptance gate as the net. §44 +3 checks |
 | 2.43.0 | `5b69de7` | **Effect capabilities wired into both modes**: the live stress-test map as module 5's canonical block (reliable: weather, lightning, wind, debris, breakage appearance, close-up reveal, simple reactions; unreliable: earthquake ground motion, requested camera shake — entirely absent — multi-step choreography, mid-clip orientation reversal; rules: spectacle is safe, motion is not / the appearance of drama is not its physical simulation); the deck guard (2c) and the guided free-selection filter (2a); the camera limits (7a: no shake asks, one movement per shot, orientation held within a clip); three gate items (15). §46 — 23 checks, red-first |
@@ -556,7 +565,8 @@ The public-directory plugin package lives here and embeds a generated copy of th
 1. **Re-paste the artifact.** The live ChatGPT project runs the last build the user
    pasted (v2.41.0 as of the last live closeout); v2.42.0's pacing fixes,
    v2.43.0's effect-capability rules, v2.44.0's Flow-first image rule, v2.45.1's
-   people draw and widened deck lists, and v2.46.0's scoped reroll family reach it
+   people draw and widened deck lists, v2.46.1's no-photoreal deck, and the scoped
+   reroll family reach it
    only when this lands on `dev` and the artifact is
    re-pasted. Paste `build/google-flow-story-maker.md` and just say `horror riddle`
    (no `.start` needed anymore) for a Tagalog end-to-end: neutral riddle list with oblique wordplay
@@ -635,7 +645,7 @@ The public-directory plugin package lives here and embeds a generated copy of th
 ```bash
 cd /Volumes/DevSSD/fore/lab/googleflow-stories
 printf '2.22.0\n' > version.txt   # bump first; the build substitutes {{VERSION}}
-./build.sh && ./validate.sh       # 669 checks today (plus docs/HANDOFF.md freshness)
+./build.sh && ./validate.sh       # 671 checks today (plus docs/HANDOFF.md freshness)
 
 # while working on one area, read only the new section's red:
 ./validate.sh 2>&1 | sed -n '/^23\./,$p'

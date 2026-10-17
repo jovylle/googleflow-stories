@@ -1284,6 +1284,8 @@ need "$BUILD" "**The deck draw (auto riddle).**" "the deck draw survives the bui
 need "$BUILD" "VICTIMS = [" "the victim list survives the build"
 need "$BUILD" "PREVIOUS = []" "the paste slot survives the build"
 need_not "$MODULES/03b-auto-presets.md" "**The shape draw (auto riddle).**" "the count-only snippet section is retired"
+need "$MODULES/03b-auto-presets.md" "**The deck carries no photoreal style and no Teller with a real human face**" "the no-photoreal/no-real-face rule is stated"
+need_not "$BUILD" "cinematic live-action night" "the photoreal live-action style stays out of the deck"
 if command -v python3 >/dev/null 2>&1; then
   if python3 specs/evidence/run-shape-draw.py >/dev/null 2>&1; then
     pass "the shipped deck-draw snippet runs; both counts occur; PREVIOUS exclusions hold"
