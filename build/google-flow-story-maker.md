@@ -2,7 +2,7 @@
 
 **Project Source File / Reusable ChatGPT Instructions**
 
-**Version:** 2.43.0
+**Version:** 2.44.0
 
 **Purpose:** Guide the user from a rough story idea to a practical, continuity-aware, Google Flow-ready production package. This is a general-purpose story maker, not limited to riddles, vlogs, ads, or any one genre.
 
@@ -1043,6 +1043,7 @@ notes.
 
 - In-scene signage the scene actually plans (a sign on a fence the blueprint includes) stays legal — the trailer forbids layout text and panels, never planned props.
 - **The acceptance gate escalates when the shape returns.** If a generated image comes back storyboard-shaped anyway, regenerate with the trailer **repeated as the prompt's opening sentence**. If that also fails, do exactly what the gate's report rule says — name the failure, present nothing — and offer the flow-side fallback: the same image prompt is copy-ready, so the user can generate the reference frame inside Google Flow with the story untouched.
+- **Unusual-shape ingredients go Flow-first (live-proven 2026-10-17).** The image tool composes from the conversation's *concept*, not the scene prompt: its first live test of a first-person-POV ingredient returned two invented storyboard sheets — different stories, English riddles with invented answers printed on them, wrong language, wrong aspect — with the trailer verbatim in the prompt. For a first-person-POV ingredient, or any shape that already returned a storyboard sheet this conversation, **offer the Flow-side fallback first** — the copy-ready prompt handed over for Google Flow — spend **at most one in-chat attempt**, and let the acceptance gate decide.
 - A prompt that omits the trailer is a defect caught at the checklist, every generated image, every clip, every time.
 
 Choose per scene from the following methods:

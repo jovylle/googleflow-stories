@@ -4,7 +4,27 @@ Written at closeout so a fresh session can continue without reading a previous c
 **Read this file first.** Then `docs/SUMMARY.md` (the version history and the failure class the
 versions share), and only the `specs/` file for whatever you are about to change.
 
-## Current update (2026-10-17) — v2.43.0, effect capabilities wired into both modes
+## Current update (2026-10-17) — v2.44.0, the trailer's first live failure and the Flow-first rule
+
+**v2.44.0 is built and validated: `./validate.sh` → 638 / 0** (was 635; +3, all in §44).
+The trailer failed its first live test: an `.auto riddle` **first-person-POV** run's
+Clip 1 ingredient came back twice as **invented storyboard sheets** — different stories,
+English riddles with the invented answers printed on them ("A MIRROR", "A CLOCK"), wrong
+language, wrong aspect, zero scene elements — with the trailer verbatim in the prompt.
+Classified from the user's screenshots: **the image tool composes from the conversation's
+concept, not the scene prompt**, so no prompt-side wording can fix the class. The run's
+own machinery held (two attempts, honest report, copy-ready prompt handed over).
+
+- **Module 7 — the Flow-first rule:** a first-person-POV ingredient, or any shape that
+  already returned a storyboard sheet this conversation, is offered the **Flow-side
+  fallback first** (the copy-ready prompt), at most **one** in-chat attempt, the
+  acceptance gate as the net.
+- `specs/live-run-hardening.md` carries the classified evidence and the root-cause read.
+
+**Next step:** unchanged from v2.43.0 — re-paste the artifact, run the v2.42.0 live
+rubric; new on top, expect POV ingredients to go Flow-first when the user asks for one.
+
+## Previous closeout (2026-10-17) — v2.43.0, effect capabilities wired into both modes
 
 **v2.43.0 is built and validated: `./validate.sh` → 635 / 0** (was 612; +23, all in the
 new §46, written red-first). It is the first version the user's live stress tests feed
@@ -368,18 +388,19 @@ listing in the Directory*. Nothing was uploaded, submitted, or deployed.
 
 | Repo | Version | Branch / HEAD | Checks | Remote |
 |---|---|---|---|---|
-| `lab/googleflow-stories` (**canonical rules** — you are here) | **2.43.0** | `dev` / `a41f243` + v2.43.0 (this change) | `./validate.sh` → **635 / 0** | GitHub `jovylle/googleflow-stories`, `master` at `05d81ec` (v2.21.0 release merge), `dev` 45 commits ahead |
+| `lab/googleflow-stories` (**canonical rules** — you are here) | **2.44.0** | `dev` / `5b69de7` + v2.44.0 (this change) | `./validate.sh` → **638 / 0** | GitHub `jovylle/googleflow-stories`, `master` at `05d81ec` (v2.21.0 release merge), `dev` 46 commits ahead |
 | `lab/flow-story-gpt` (distilled ChatGPT pack) | 1.0.0 | `master` / `5bb876c` | `./validate-gpt.sh` → 28 / 0 | **none — local only** |
 | `lab/flow-story-gem` (Gemini + hand-over zip) | 1.0.0 | `master` / `6c3d417` | `./validate-gem.sh` → 36 / 0 | **none — local only** |
 
-Canonical artifact: `build/google-flow-story-maker.md`, **1,777 lines / 248,579 chars**, rebuilt from the
-modules. `master` is at `05d81ec` (v2.21.0, released 2026-10-12 by merging `dev`) and is **45 commits behind `dev`**.
+Canonical artifact: `build/google-flow-story-maker.md`, **1,778 lines / 249,257 chars**, rebuilt from the
+modules. `master` is at `05d81ec` (v2.21.0, released 2026-10-12 by merging `dev`) and is **46 commits behind `dev`**.
 
 ### Version chain since v2.12.0 (all on `dev`)
 
 | Version | Commit | What it fixed |
 |---|---|---|
-| 2.43.0 | *(this change)* | **Effect capabilities wired into both modes**: the live stress-test map as module 5's canonical block (reliable: weather, lightning, wind, debris, breakage appearance, close-up reveal, simple reactions; unreliable: earthquake ground motion, requested camera shake — entirely absent — multi-step choreography, mid-clip orientation reversal; rules: spectacle is safe, motion is not / the appearance of drama is not its physical simulation); the deck guard (2c) and the guided free-selection filter (2a); the camera limits (7a: no shake asks, one movement per shot, orientation held within a clip); three gate items (15). §46 — 23 checks, red-first |
+| 2.44.0 | *(this change)* | **Flow-first for unusual-shape ingredients**: the trailer's first live test failed — a first-person-POV ingredient returned twice as invented storyboard sheets (different stories, English riddles, invented answers printed on them, wrong language/aspect, zero scene elements) with the trailer verbatim in the prompt; root cause classified from the user's screenshots — the image tool composes from the conversation's *concept*, not the scene prompt. Module 7 now offers the **Flow-side fallback first** for a first-person-POV ingredient or any shape that already returned a sheet this conversation — at most one in-chat attempt, the acceptance gate as the net. §44 +3 checks |
+| 2.43.0 | `5b69de7` | **Effect capabilities wired into both modes**: the live stress-test map as module 5's canonical block (reliable: weather, lightning, wind, debris, breakage appearance, close-up reveal, simple reactions; unreliable: earthquake ground motion, requested camera shake — entirely absent — multi-step choreography, mid-clip orientation reversal; rules: spectacle is safe, motion is not / the appearance of drama is not its physical simulation); the deck guard (2c) and the guided free-selection filter (2a); the camera limits (7a: no shake asks, one movement per shot, orientation held within a clip); three gate items (15). §46 — 23 checks, red-first |
 | 2.42.0 | `f5e4999` | **Pacing + consequence clarity**: the two riddle shapes — 3 clips (riddle / silent beat + failed attempt / consequence) or 2 clips (riddle / silent beat + failed attempt + consequence, separately readable) — with the dedicated empty wait block retired and its two licenses trapped; the **auto shape draw** (2-or-3 by executed `secrets.SystemRandom()`, `CLIP_COUNTS = [2, 3]`, no-repeat-exempt with the reason stated, "not code-backed" fallback); the **consequence-reads-on-screen** contract (the Teller's one act + its effect on the victims + their visible reaction, no explanation, no ambiguity); module 06 corrected to the live UI (8s blocks only on this plan, Lite the only extender); the live-run prompt habits in §7 (camera first, quotes, named ambience/effects, plain-list negatives). §45 — 37 checks, red-first |
 | 2.13.0 | `9a855ca` | Two-form opening: Form 1 (setup) produces Form 2 (production); Character and Art style split into separate questions |
 | 2.14.0 | `4b992b2` | Riddle outcome contract (never answered **and** a visible consequence) + no-silent Clip 1 turn |
@@ -466,8 +487,9 @@ The public-directory plugin package lives here and embeds a generated copy of th
 ## What to do next, in order
 
 1. **Re-paste the artifact.** The live ChatGPT project runs the last build the user
-   pasted (v2.41.0 as of the last live closeout); v2.42.0's pacing fixes and v2.43.0's
-   effect-capability rules reach it only when this lands on `dev` and the artifact is
+   pasted (v2.41.0 as of the last live closeout); v2.42.0's pacing fixes, v2.43.0's
+   effect-capability rules, and v2.44.0's Flow-first image rule reach it only when this
+   lands on `dev` and the artifact is
    re-pasted. Paste `build/google-flow-story-maker.md` and just say `horror riddle`
    (no `.start` needed anymore) for a Tagalog end-to-end: neutral riddle list with oblique wordplay
    (`mukha`/`kamay`-style clues), varied answers that are not the same eight every batch, flat period endings,
@@ -545,7 +567,7 @@ The public-directory plugin package lives here and embeds a generated copy of th
 ```bash
 cd /Volumes/DevSSD/fore/lab/googleflow-stories
 printf '2.22.0\n' > version.txt   # bump first; the build substitutes {{VERSION}}
-./build.sh && ./validate.sh       # 635 checks today (plus docs/HANDOFF.md freshness)
+./build.sh && ./validate.sh       # 638 checks today (plus docs/HANDOFF.md freshness)
 
 # while working on one area, read only the new section's red:
 ./validate.sh 2>&1 | sed -n '/^23\./,$p'
