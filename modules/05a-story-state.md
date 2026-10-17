@@ -28,7 +28,7 @@ Every field is **locked the moment it is chosen** — an auto deck draw and a gu
 
 - an **explicit user revision** — `.revise <field> <value>` or plain wording that names the field and the change (the commands module's revision rule);
 - a **re-submitted form field** in guided mode, which is the user naming that field's new value;
-- `.reroll` (riddles only) and `.reroll visual` (the visual axes the user has left open), which are themselves explicit commands.
+- `.reroll` / `.reroll riddle` (riddles only), the scoped `.reroll <aspect>` family (character, art, setting, consequence, camera, trap — one named aspect each, redrawn through the deck draw with the current value in `PREVIOUS` so the same value cannot return), and `.reroll visual` (the visual axes the user has left open), which are themselves explicit commands.
 
 ### Isolation — a revision may only reach what the dependency map connects
 

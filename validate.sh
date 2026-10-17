@@ -1295,6 +1295,28 @@ else
 fi
 echo
 
+# ------------------------------------------------------- 48. the scoped reroll family
+# WHY: the user's principle — explicit commands are crucial because LLMs are
+# unpredictable. Only .reroll (riddles) and .reroll visual (all open axes) existed,
+# so there was no way to redraw ONE aspect (character, art, setting…) without
+# re-rolling everything or hand-revising. v2.46.0 adds the scoped .reroll <aspect>
+# family, mechanically hooked to the deck draw: the current value goes into
+# PREVIOUS, so the redraw cannot return it, and only the deliverables carrying the
+# aspect are re-emitted (the 4a dependency map).
+echo "48. The scoped reroll family: .reroll <aspect>, one aspect, the PREVIOUS hook"
+need "$MODULES/01-commands.md" "\`.reroll <aspect>\`" "the scoped reroll family is a named command"
+need "$MODULES/01-commands.md" "\`.reroll character\`" "character is a scoped reroll aspect"
+need "$MODULES/01-commands.md" "\`.reroll art\`" "art is a scoped reroll aspect"
+need "$MODULES/01-commands.md" "\`.reroll setting\`" "setting is a scoped reroll aspect"
+need "$MODULES/01-commands.md" "\`.reroll riddle\` is the same command spelled out" "the riddle alias is explicit"
+need "$MODULES/01-commands.md" "never guessed" "an unknown aspect word is asked, never guessed"
+need "$MODULES/01-commands.md" "the code excludes what is locked now" "the reroll hook is the PREVIOUS exclusion"
+need "$MODULES/05a-story-state.md" "the scoped \`.reroll <aspect>\` family" "Story State names the scoped rerolls"
+need "$MODULES/16-checklist.md" "redrew **only the named aspect**" "the final gate scopes the reroll"
+need "$BUILD" "\`.reroll <aspect>\`" "the scoped reroll family survives the build"
+need "$BUILD" "the code excludes what is locked now" "the PREVIOUS hook survives the build"
+echo
+
 echo "----------------------------------------"
 echo "checks: $CHECKED   failed: $FAILED"
 [ "$FAILED" -eq 0 ] && echo "validate: PASS" || echo "validate: FAIL"

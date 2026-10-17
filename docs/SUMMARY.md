@@ -1,6 +1,6 @@
 # Google Flow Story Maker — Status Summary
 
-*As of v2.45.0 · 2026-10-17 · branch `dev`*
+*As of v2.46.0 · 2026-10-17 · branch `dev`*
 
 ## What it is
 
@@ -17,7 +17,7 @@ API. That single fact drives everything below.
 ```
 modules/*.md   →   build.sh   →   build/google-flow-story-maker.md   →   paste into ChatGPT Instructions
                                         ↑
-                                  validate.sh (658 checks, exit 0 before commit)
+                                  validate.sh (669 checks, exit 0 before commit)
 ```
 
 - **21 modules**, one concern each, concatenated in filename order. Authored
@@ -25,7 +25,7 @@ modules/*.md   →   build.sh   →   build/google-flow-story-maker.md   →   p
 - **One compiled file, not many** — deliberately. ChatGPT's file retrieval is
   not reliable for routing between near-identical documents, so the whole
   instruction set ships as a single paste.
-- **658 validator checks.** The validator tests the *compiled artifact*, not the
+- **669 validator checks.** The validator tests the *compiled artifact*, not the
   modules: build sync, version stamping, module order, section numbering,
   cross-reference resolution, interview field shape, defaults parity, the
   two-form contract, and stale-wording traps (`need_not`). Guards are written
@@ -36,6 +36,9 @@ modules/*.md   →   build.sh   →   build/google-flow-story-maker.md   →   p
 
 | Version | Change | The failure it fixed |
 |---|---|---|
+| v2.46.0 | **The scoped reroll family** — `.reroll <aspect>`: `.reroll character` (victim + Teller + size as one casting), `.reroll art`, `.reroll setting`, `.reroll consequence`, `.reroll camera`, `.reroll trap` — one named aspect redrawn, everything else locked; the redraw runs the deck draw with the current value in `PREVIOUS`, so the same value **cannot** return; unknown aspect words are asked, never guessed; `.reroll riddle` named as the alias of `.reroll`; only the deliverables carrying the aspect are re-emitted (§4a dependency map). §48 — 11 checks, red-first | Two commands (`.reroll` / `.reroll visual`) forced all-or-nothing: redraw everything or hand-revise — and an LLM left to interpret a vague reroll request changes whatever it likes. Explicit commands are the user's stated principle: unpredictability is countered with exact words |
+| v2.46.0 | **The scoped reroll family** — `.reroll <aspect>`: `.reroll character` (victim + Teller + size as one casting), `.reroll art`, `.reroll setting`, `.reroll consequence`, `.reroll camera`, `.reroll trap` — one named aspect redrawn, everything else locked; the redraw runs the deck draw with the current value in `PREVIOUS`, so the same value **cannot** return; unknown aspect words are asked, never guessed; `.reroll riddle` named as the alias of `.reroll`; only the deliverables carrying the aspect are re-emitted (§4a dependency map). §48 — 11 checks, red-first | Two commands (`.reroll` / `.reroll visual`) forced all-or-nothing: redraw everything or hand-revise — and an LLM left to interpret a vague reroll request changes whatever it likes. Explicit commands are the user's stated principle: unpredictability is countered with exact words |
+| v2.45.1 | **Wilder decks** — the draw pools widened at the user's call: settings 5→**12** (a flooded barangay street, a funeral wake with an empty coffin, a deserted cockfighting arena, a bamboo bridge over a foggy river…), art styles 4→**10** (VHS 1980s tape, grainy found-footage phone, 1930s monster film, aninaw shadow-puppet silhouettes, Pinoy horror komik, Caravaggio candlelight…), victim forms 6→**10**, Teller forms 6→**10** (a mannequin wearing the victim's own clothes, a headless priest, an unseen presence that speaks from inside the walls…), size relations 3→**4** — ~1.15M combinations against ~26k before, all still low-motion and answer-blind | The v2.45.0 mechanism was sound but the pools were too small to feel random |
 | v2.45.0 | **People in the deck + a mechanical no-repeat** — three live auto-riddle runs converged into one film (stairwell ×3, elderly-woman Teller ×3, young-man victim ×3): the decks had **no people lists**, so victim/Teller/size were free-invented = model prior; and two of three runs claimed "Python randomized" with no code or output shown. The deck draw now ships **victim/Teller/size lists** drawn by the same `secrets.SystemRandom()` snippet as everything else, and no-repeat is **code, not diligence**: the previous run's printed values are pasted into `PREVIOUS` and excluded from the pool, the output's `excluding:` line makes the paste visible, and the printed draw is a checklist gate. §47 — 20 checks, red-first | Free-invented people converge — three runs, one film — and an unprinted draw is unverifiable: "Python randomized" without output is exactly where fake randomness hides |
 | v2.44.0 | **Flow-first for unusual-shape ingredients** — the image tool's first live test of the trailer failed: a first-person-POV ingredient came back twice as **invented storyboard sheets** (different stories, English riddles, the invented answers printed in red, wrong language/aspect/count, zero scene elements) with the trailer verbatim in the prompt — the tool composes from the conversation's *concept*, not the scene prompt. Module 7 now offers the **Flow-side fallback first** for a first-person-POV ingredient or any shape that already returned a sheet this conversation — at most one in-chat attempt, the acceptance gate as the net. §44 +3 checks | The trailer cannot fix a render the scene prompt does not drive; the only reliable generator for the ingredient frame is Flow itself, which is scene-faithful |
 | v2.43.0 | **Effect capabilities from the live stress tests** — the user's five stress tests + orientation sub-test (`docs/veo-stress-tests.md`) become pack rules: a **capability map** in module 5 (reliable: weather, lightning, wind, debris, breakage *appearance*, close-up reveal, simple reactions; unreliable: earthquake ground motion, requested camera shake — entirely absent — multi-step choreography, mid-clip orientation reversal), the **auto deck guard** (2c) and the **guided free-selection filter** (2a) keeping every option inside the map, **camera limits** (7a: no shake asks, one movement per shot, orientation held within a clip), and three gate items (15). §46 — 23 checks, red-first | The pack could propose options the model does not render: the stress tests showed requested camera shake renders **nothing**, earthquake physics fails, choreography is weak, and a walking character's orientation can flip mid-clip. Options and prompts now stay inside what is proven to render — spectacle is safe, motion is not |
