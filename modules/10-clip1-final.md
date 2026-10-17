@@ -38,6 +38,7 @@ Generate a Clip 1 reference image **only if the chosen image workflow calls for 
 
 - If the workflow is **Generate reference images with ChatGPT** (the default), or the per-scene choice resolves to ChatGPT generation → generate the Clip 1 reference image in the chat now, matching the locked character and art style.
 - If the user attached a photo, or wants the image generated inside Flow, or chose "use supplied image unchanged" → do **not** generate an image; use or reference the supplied/Flow image instead, and state which image serves as the Clip 1 reference.
+- On an `.auto riddle` run → do **not** generate in chat by default; hand the copy-ready Clip 1 prompt for Flow (Flow-first, §6). One in-chat image max, only on explicit ask.
 - Never claim an image was generated unless it actually was.
 
 This Clip 1 image is the **one immediate exception** to the on-demand image rule: the default all-at-once delivery defers every other image until the user replies with its `imgN-M` command, but Clip 1's image is produced now so the chat holds the reference material right away. **This image is the run's image ingredient** — the input image for every clip generated independently from it (an Add clip binds to its own keyframe instead), and the look every Extend clip continues.
