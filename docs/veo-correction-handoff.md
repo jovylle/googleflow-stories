@@ -16,6 +16,7 @@ Read first: `docs/veo-stress-tests.md` §§6–7, `docs/HANDOFF.md` lessons 13�
 | No camera shake at all | Shake renders nothing, ever | Delete the shake ask; show impact effects in frame (dust, debris, stagger) |
 | Ground won't crack / debris local only | Earthquake physics unreliable | Show destruction appearance (settled rubble, dust) not the force |
 | Choreography falls apart | Multi-step actions unreliable | One dominant motion per clip + max one effect; split beats across clips |
+| Wrong speaker speaks / victim says Teller line | Clip prompts lacked master block, verbatim voice, named ingredient binding, and picked no route | Reissue with Clip N of M header + master block, verbatim Teller block with design-matched timbre, named Clip 1 ingredient, Extend delta and standalone route as separate blocks, victim silent; regenerate once |
 | Wrong answer vibe / answer shows through | Consequence built from riddle wording | Rebuild consequence from Teller's rule only (take/seal/claim/mark), never riddle nouns |
 
 ## Process per bad clip
@@ -24,6 +25,10 @@ Read first: `docs/veo-stress-tests.md` §§6–7, `docs/HANDOFF.md` lessons 13�
 2. Apply that row's correction only; never re-plan the story (Story State locks hold).
 3. Regenerate once. Still bad → Flow fallback or Extend from a good clip, then stop.
 4. Log the case (prompt + defect + fix + hit/miss) under `docs/veo-stress-tests.md` style entries.
+
+## Logged cases
+
+- 2026-10-18, "The Last Screening" (3 clips, wall-presence Teller): Veo swapped speakers (victim spoke Teller lines). Cause: prompts had no master block, thin voice line with mismatched deep-male timbre on a small presence, unnamed image binding, one ambiguous "Independent or Extend" block; Clip 2 gave the victim a spoken guess against the one-speaker rule. Fix: reissued with headers + master blocks, verbatim Teller block (small fissure-voice timbre), named ingredient, split routes, Clip 2 silent. Hit — user reports corrected prompts render correctly.
 
 ## Verify before calling it done
 
