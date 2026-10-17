@@ -4,7 +4,40 @@ Written at closeout so a fresh session can continue without reading a previous c
 **Read this file first.** Then `docs/SUMMARY.md` (the version history and the failure class the
 versions share), and only the `specs/` file for whatever you are about to change.
 
-## Current update (2026-10-17) — v2.44.0, the trailer's first live failure and the Flow-first rule
+## Current update (2026-10-17) — v2.45.0, people in the deck and a mechanical no-repeat
+
+**v2.45.0 is built and validated: `./validate.sh` → 658 / 0** (was 638; +20, all in the
+new §47, written red-first). It answers the user's three-run convergence finding —
+*"character and art and setting not random at all. why 3 cases have same shits"* — and
+they were right twice over:
+
+- **The decks had no people lists.** Victim, Teller, and size relation were free-invented
+  on every auto run — model prior, not randomness (stairwell ×3, elderly-woman Teller ×3,
+  young-man victim ×3 across the three pasted runs). v2.45.0 ships **victim forms, Teller
+  forms, and size relations as deck lists** (user-vetted, editable in place), drawn by the
+  same code-backed snippet as everything else; §2a states it: **the cast is drawn, never
+  free-invented**.
+- **The draw is now one printed block.** The §2c snippet draws count, preset, setting,
+  style, consequence, victim, Teller, and size in a single `secrets.SystemRandom()` run,
+  and the final gate requires the printed output in the plan. Two of the three live runs
+  only *said* "Python randomized" with no code or output — an unprinted draw is now a
+  visible defect, not an unverifiable claim.
+- **No-repeat is code, not diligence.** The previous run's printed values are pasted into
+  `PREVIOUS` and **excluded from the pool** by the snippet (`fresh()`); the output's
+  `excluding:` line shows whether the paste happened (`nothing (first draw in this
+  conversation)` on a second-or-later run = defect). Clip count stays exempt (the 2-3-2-3
+  metronome reason). Cross-conversation variety still needs the Notion log or a
+  fingerprint ledger — stated honestly in the pack.
+- `specs/deck-people-draw.md` carries the reasoning; `specs/evidence/run-shape-draw.py`
+  executes the shipped snippet (both counts, list membership, `PREVIOUS` exclusions).
+
+**Next step:** re-paste the artifact, then run `.auto riddle` twice **in one
+conversation** — the second run's draw output must read `excluding: …` with the first
+run's values, and the people must differ. Also still standing: the v2.42.0 live rubric
+(no empty wait clip, consequence reads) and the v2.44.0 expectation (POV ingredients go
+Flow-first).
+
+## Previous closeout (2026-10-17) — v2.44.0, the trailer's first live failure and the Flow-first rule
 
 **v2.44.0 is built and validated: `./validate.sh` → 638 / 0** (was 635; +3, all in §44).
 The trailer failed its first live test: an `.auto riddle` **first-person-POV** run's
@@ -388,18 +421,19 @@ listing in the Directory*. Nothing was uploaded, submitted, or deployed.
 
 | Repo | Version | Branch / HEAD | Checks | Remote |
 |---|---|---|---|---|
-| `lab/googleflow-stories` (**canonical rules** — you are here) | **2.44.0** | `dev` / `5b69de7` + v2.44.0 (this change) | `./validate.sh` → **638 / 0** | GitHub `jovylle/googleflow-stories`, `master` at `05d81ec` (v2.21.0 release merge), `dev` 46 commits ahead |
+| `lab/googleflow-stories` (**canonical rules** — you are here) | **2.45.0** | `dev` / `9da7f34` + v2.45.0 (this change) | `./validate.sh` → **658 / 0** | GitHub `jovylle/googleflow-stories`, `master` at `05d81ec` (v2.21.0 release merge), `dev` 47 commits ahead |
 | `lab/flow-story-gpt` (distilled ChatGPT pack) | 1.0.0 | `master` / `5bb876c` | `./validate-gpt.sh` → 28 / 0 | **none — local only** |
 | `lab/flow-story-gem` (Gemini + hand-over zip) | 1.0.0 | `master` / `6c3d417` | `./validate-gem.sh` → 36 / 0 | **none — local only** |
 
-Canonical artifact: `build/google-flow-story-maker.md`, **1,778 lines / 249,257 chars**, rebuilt from the
-modules. `master` is at `05d81ec` (v2.21.0, released 2026-10-12 by merging `dev`) and is **46 commits behind `dev`**.
+Canonical artifact: `build/google-flow-story-maker.md`, **1,803 lines / 252,883 chars**, rebuilt from the
+modules. `master` is at `05d81ec` (v2.21.0, released 2026-10-12 by merging `dev`) and is **47 commits behind `dev`**.
 
 ### Version chain since v2.12.0 (all on `dev`)
 
 | Version | Commit | What it fixed |
 |---|---|---|
-| 2.44.0 | *(this change)* | **Flow-first for unusual-shape ingredients**: the trailer's first live test failed — a first-person-POV ingredient returned twice as invented storyboard sheets (different stories, English riddles, invented answers printed on them, wrong language/aspect, zero scene elements) with the trailer verbatim in the prompt; root cause classified from the user's screenshots — the image tool composes from the conversation's *concept*, not the scene prompt. Module 7 now offers the **Flow-side fallback first** for a first-person-POV ingredient or any shape that already returned a sheet this conversation — at most one in-chat attempt, the acceptance gate as the net. §44 +3 checks |
+| 2.45.0 | *(this change)* | **People in the deck + a mechanical no-repeat**: the decks had no victim/Teller/size lists (free-invented cast = model prior; three runs = one film) — new user-vetted **victim forms, Teller forms, size relations** lists drawn by the code-backed snippet; **one printed deck draw** (count + preset + setting + style + consequence + victim + Teller + size in one `secrets.SystemRandom()` run, printed output required by the gate); **no-repeat as code**: the previous run's printed values pasted into `PREVIOUS` and excluded from the pool, the `excluding:` line making the paste visible, clip count exempt. §47 — 20 checks, red-first |
+| 2.44.0 | `9da7f34` | **Flow-first for unusual-shape ingredients**: the trailer's first live test failed — a first-person-POV ingredient returned twice as invented storyboard sheets (different stories, English riddles, invented answers printed on them, wrong language/aspect, zero scene elements) with the trailer verbatim in the prompt; root cause classified from the user's screenshots — the image tool composes from the conversation's *concept*, not the scene prompt. Module 7 now offers the **Flow-side fallback first** for a first-person-POV ingredient or any shape that already returned a sheet this conversation — at most one in-chat attempt, the acceptance gate as the net. §44 +3 checks |
 | 2.43.0 | `5b69de7` | **Effect capabilities wired into both modes**: the live stress-test map as module 5's canonical block (reliable: weather, lightning, wind, debris, breakage appearance, close-up reveal, simple reactions; unreliable: earthquake ground motion, requested camera shake — entirely absent — multi-step choreography, mid-clip orientation reversal; rules: spectacle is safe, motion is not / the appearance of drama is not its physical simulation); the deck guard (2c) and the guided free-selection filter (2a); the camera limits (7a: no shake asks, one movement per shot, orientation held within a clip); three gate items (15). §46 — 23 checks, red-first |
 | 2.42.0 | `f5e4999` | **Pacing + consequence clarity**: the two riddle shapes — 3 clips (riddle / silent beat + failed attempt / consequence) or 2 clips (riddle / silent beat + failed attempt + consequence, separately readable) — with the dedicated empty wait block retired and its two licenses trapped; the **auto shape draw** (2-or-3 by executed `secrets.SystemRandom()`, `CLIP_COUNTS = [2, 3]`, no-repeat-exempt with the reason stated, "not code-backed" fallback); the **consequence-reads-on-screen** contract (the Teller's one act + its effect on the victims + their visible reaction, no explanation, no ambiguity); module 06 corrected to the live UI (8s blocks only on this plan, Lite the only extender); the live-run prompt habits in §7 (camera first, quotes, named ambience/effects, plain-list negatives). §45 — 37 checks, red-first |
 | 2.13.0 | `9a855ca` | Two-form opening: Form 1 (setup) produces Form 2 (production); Character and Art style split into separate questions |
@@ -487,9 +521,9 @@ The public-directory plugin package lives here and embeds a generated copy of th
 ## What to do next, in order
 
 1. **Re-paste the artifact.** The live ChatGPT project runs the last build the user
-   pasted (v2.41.0 as of the last live closeout); v2.42.0's pacing fixes, v2.43.0's
-   effect-capability rules, and v2.44.0's Flow-first image rule reach it only when this
-   lands on `dev` and the artifact is
+   pasted (v2.41.0 as of the last live closeout); v2.42.0's pacing fixes,
+   v2.43.0's effect-capability rules, v2.44.0's Flow-first image rule, and v2.45.0's
+   people draw reach it only when this lands on `dev` and the artifact is
    re-pasted. Paste `build/google-flow-story-maker.md` and just say `horror riddle`
    (no `.start` needed anymore) for a Tagalog end-to-end: neutral riddle list with oblique wordplay
    (`mukha`/`kamay`-style clues), varied answers that are not the same eight every batch, flat period endings,
@@ -567,7 +601,7 @@ The public-directory plugin package lives here and embeds a generated copy of th
 ```bash
 cd /Volumes/DevSSD/fore/lab/googleflow-stories
 printf '2.22.0\n' > version.txt   # bump first; the build substitutes {{VERSION}}
-./build.sh && ./validate.sh       # 638 checks today (plus docs/HANDOFF.md freshness)
+./build.sh && ./validate.sh       # 658 checks today (plus docs/HANDOFF.md freshness)
 
 # while working on one area, read only the new section's red:
 ./validate.sh 2>&1 | sed -n '/^23\./,$p'

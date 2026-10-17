@@ -1,6 +1,6 @@
 # Google Flow Story Maker — Status Summary
 
-*As of v2.44.0 · 2026-10-17 · branch `dev`*
+*As of v2.45.0 · 2026-10-17 · branch `dev`*
 
 ## What it is
 
@@ -17,7 +17,7 @@ API. That single fact drives everything below.
 ```
 modules/*.md   →   build.sh   →   build/google-flow-story-maker.md   →   paste into ChatGPT Instructions
                                         ↑
-                                  validate.sh (638 checks, exit 0 before commit)
+                                  validate.sh (658 checks, exit 0 before commit)
 ```
 
 - **21 modules**, one concern each, concatenated in filename order. Authored
@@ -25,17 +25,18 @@ modules/*.md   →   build.sh   →   build/google-flow-story-maker.md   →   p
 - **One compiled file, not many** — deliberately. ChatGPT's file retrieval is
   not reliable for routing between near-identical documents, so the whole
   instruction set ships as a single paste.
-- **638 validator checks.** The validator tests the *compiled artifact*, not the
+- **658 validator checks.** The validator tests the *compiled artifact*, not the
   modules: build sync, version stamping, module order, section numbering,
   cross-reference resolution, interview field shape, defaults parity, the
   two-form contract, and stale-wording traps (`need_not`). Guards are written
   **red first** — a new rule fails before the module edit that satisfies it.
-- `master` = production (v2.21.0). `dev` = current work (v2.44.0).
+- `master` = production (v2.21.0). `dev` = current work (v2.45.0).
 
 ## The versions that matter
 
 | Version | Change | The failure it fixed |
 |---|---|---|
+| v2.45.0 | **People in the deck + a mechanical no-repeat** — three live auto-riddle runs converged into one film (stairwell ×3, elderly-woman Teller ×3, young-man victim ×3): the decks had **no people lists**, so victim/Teller/size were free-invented = model prior; and two of three runs claimed "Python randomized" with no code or output shown. The deck draw now ships **victim/Teller/size lists** drawn by the same `secrets.SystemRandom()` snippet as everything else, and no-repeat is **code, not diligence**: the previous run's printed values are pasted into `PREVIOUS` and excluded from the pool, the output's `excluding:` line makes the paste visible, and the printed draw is a checklist gate. §47 — 20 checks, red-first | Free-invented people converge — three runs, one film — and an unprinted draw is unverifiable: "Python randomized" without output is exactly where fake randomness hides |
 | v2.44.0 | **Flow-first for unusual-shape ingredients** — the image tool's first live test of the trailer failed: a first-person-POV ingredient came back twice as **invented storyboard sheets** (different stories, English riddles, the invented answers printed in red, wrong language/aspect/count, zero scene elements) with the trailer verbatim in the prompt — the tool composes from the conversation's *concept*, not the scene prompt. Module 7 now offers the **Flow-side fallback first** for a first-person-POV ingredient or any shape that already returned a sheet this conversation — at most one in-chat attempt, the acceptance gate as the net. §44 +3 checks | The trailer cannot fix a render the scene prompt does not drive; the only reliable generator for the ingredient frame is Flow itself, which is scene-faithful |
 | v2.43.0 | **Effect capabilities from the live stress tests** — the user's five stress tests + orientation sub-test (`docs/veo-stress-tests.md`) become pack rules: a **capability map** in module 5 (reliable: weather, lightning, wind, debris, breakage *appearance*, close-up reveal, simple reactions; unreliable: earthquake ground motion, requested camera shake — entirely absent — multi-step choreography, mid-clip orientation reversal), the **auto deck guard** (2c) and the **guided free-selection filter** (2a) keeping every option inside the map, **camera limits** (7a: no shake asks, one movement per shot, orientation held within a clip), and three gate items (15). §46 — 23 checks, red-first | The pack could propose options the model does not render: the stress tests showed requested camera shake renders **nothing**, earthquake physics fails, choreography is weak, and a walking character's orientation can flip mid-clip. Options and prompts now stay inside what is proven to render — spectacle is safe, motion is not |
 | v2.42.0 | **Two riddle shapes + a consequence that reads** — a short-riddle story runs on the 3-clip shape (riddle / silent beat + failed attempt / consequence) or the 2-clip shape (riddle / silent beat + failed attempt + consequence, each separately readable, the consequence in the back half); the dedicated empty 8s wait clip is retired; an auto riddle run **draws** its shape — 2 or 3 — by actually executed `secrets.SystemRandom()` (`CLIP_COUNTS = [2, 3]`), never assuming the longer one; the final clip's consequence must **read on screen** (the Teller's one act, what it does to the victims, their visible reaction — no explanation, no ambiguity); module 06's capability table corrected to the live UI (Lite: 8-second clips only on this plan and the only model that performs the Extend; Fast/Quality: no extend; every plan is 8-second blocks); the live-run-proven prompt habits written into §7 (**camera first, spoken lines in quotation marks, ambience and effects named, negatives as a plain list**) | The clean-project live run planned **four clips** — the third a dedicated empty 8s wait block (no dialogue, no attempt, no fail) — and the user's verdict was precise: *"4 clips is too long"* — the silent wait dragged — and the consequence was **not visually clear**: you could not see what was lost. Each shape now pairs the silent beat with the failed attempt instead of giving the wait its own clip, and the consequence carries an on-screen contract: the Teller's one act, what it does to the victims, their visible reaction |
@@ -141,6 +142,8 @@ This is the single most transferable lesson for anything built on top of this.
   (v2.42.0 — the dragged empty wait, the two shapes, the drawn 2-or-3 count, the
   consequence-visibility contract, and the live UI capability correction), and
   `effect-capabilities.md` (v2.43.0 — the stress-test log turned into the capability map,
-  the deck guard, the guided filter, and the camera limits).
+  the deck guard, the guided filter, and the camera limits), and
+  `deck-people-draw.md` (v2.45.0 — the people lists, the `PREVIOUS` paste, and the
+  printed draw).
 - `docs/chatgpt-interactive-components-cheatsheet.md` — the native-control
   reference the two forms are built from.

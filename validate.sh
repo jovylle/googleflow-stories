@@ -1176,7 +1176,7 @@ need "$MODULES/03-riddle-prephase.md" "**3-clip shape:**" "the 3-clip shape is n
 need "$MODULES/03-riddle-prephase.md" "**2-clip shape:**" "the 2-clip shape is named"
 need "$MODULES/03-riddle-prephase.md" "no dedicated empty wait clip" "the dedicated empty wait clip is retired by name"
 need "$MODULES/03-riddle-prephase.md" "The consequence is the final beat" "the consequence holds the final beat"
-need "$MODULES/03b-auto-presets.md" "**The shape draw (auto riddle).**" "the auto shape draw is its own rule"
+need "$MODULES/03b-auto-presets.md" "**The deck draw (auto riddle).**" "the auto deck draw is its own rule"
 need "$MODULES/03b-auto-presets.md" "CLIP_COUNTS = [2, 3]" "the count list is shipped in the snippet"
 need "$MODULES/03b-auto-presets.md" "never assumes the longer one" "auto never assumes 3 clips"
 need "$MODULES/03b-auto-presets.md" "turn the draw into a 2-3-2-3 metronome" "the no-repeat exemption is reasoned"
@@ -1209,7 +1209,7 @@ need "$MODULES/15-defaults.md" "including its **shape draw (2 clips or 3, never 
 need "$MODULES/16-checklist.md" "no dedicated empty wait clip" "the final gate checks the shapes"
 need "$MODULES/16-checklist.md" "reads on screen" "the final gate checks the consequence reads"
 need "$MODULES/16-checklist.md" "drawn by the executed snippet" "the final gate checks the drawn shape"
-need "$BUILD" "**The shape draw (auto riddle).**" "the shape draw survives the build"
+need "$BUILD" "**The deck draw (auto riddle).**" "the deck draw survives the build"
 need "$BUILD" "CLIP_COUNTS = [2, 3]" "the count list survives the build"
 need "$BUILD" "**The consequence must read on screen.**" "the clarity contract survives the build"
 need_not "$MODULES/03-riddle-prephase.md" "a following clip holds the silent think-beat" "the dedicated-wait example is retired"
@@ -1252,6 +1252,47 @@ need "$BUILD" "### Camera limits (from the live stress tests)" "the camera limit
 need "$BUILD" "**Free selection is still capability-bounded:**" "the guided filter survives the build"
 need_not "$BUILD" "the camera shakes slightly" "no positive shake-request phrasing survives in the build"
 need_not "$BUILD" "the ground shakes" "no ground-motion staging survives in the build"
+echo
+
+# ------------------------------------------------------- 47. the deck draw: people in the deck, the PREVIOUS paste, the printed draw
+# WHY: three consecutive live auto-riddle runs converged into one film — the same
+# stairwell, the same elderly-woman Teller, the same young-man victim — because the
+# decks had NO people lists: victim, Teller, and size relation were free-invented,
+# which is model prior, not randomness. Worse, two of the three runs only SAID
+# "Python randomized" with no code or output — an unprinted draw is unverifiable.
+# v2.45.0 puts people in the deck and makes no-repeat mechanical: the previous
+# run's printed values are pasted into PREVIOUS and the code EXCLUDES them from
+# the pool; the output's "excluding:" line makes the paste visible; the clip count
+# stays exempt (two values would metronome 2-3-2-3).
+echo "47. The deck draw: people lists, the PREVIOUS paste, and the printed output"
+need "$MODULES/03b-auto-presets.md" "**The deck draw (auto riddle).**" "the deck draw is its own rule"
+need "$MODULES/03b-auto-presets.md" "VICTIMS = [" "the deck ships victim forms"
+need "$MODULES/03b-auto-presets.md" "TELLERS = [" "the deck ships Teller forms"
+need "$MODULES/03b-auto-presets.md" "SIZES = [" "the deck ships size relations"
+need "$MODULES/03b-auto-presets.md" "PREVIOUS = []" "the no-repeat paste slot is shipped"
+need "$MODULES/03b-auto-presets.md" "def fresh(options):" "the exclusion is code, not diligence"
+need "$MODULES/03b-auto-presets.md" 'print("excluding:", ' "the paste is visible in the printed output"
+need "$MODULES/03b-auto-presets.md" "nothing (first draw in this conversation)" "the unpasted second run is a visible defect"
+need "$MODULES/03b-auto-presets.md" "**How the no-repeat rule actually works.**" "the mechanism is explained where the snippet ships"
+need "$MODULES/03b-auto-presets.md" "**victim forms** (" "the look lists include victim forms"
+need "$MODULES/03b-auto-presets.md" "**Teller forms** (" "the look lists include Teller forms"
+need "$MODULES/03-riddle-prephase.md" "the cast is drawn, never free-invented" "auto draws people, it does not invent them"
+need "$MODULES/15-defaults.md" "and the people lists (victim, Teller, size relation)" "the defaults carry the people draw"
+need "$MODULES/16-checklist.md" "the deck draw was printed" "the final gate requires the printed draw"
+need "$MODULES/16-checklist.md" "excluding:" "the final gate checks the paste line"
+need "$BUILD" "**The deck draw (auto riddle).**" "the deck draw survives the build"
+need "$BUILD" "VICTIMS = [" "the victim list survives the build"
+need "$BUILD" "PREVIOUS = []" "the paste slot survives the build"
+need_not "$MODULES/03b-auto-presets.md" "**The shape draw (auto riddle).**" "the count-only snippet section is retired"
+if command -v python3 >/dev/null 2>&1; then
+  if python3 specs/evidence/run-shape-draw.py >/dev/null 2>&1; then
+    pass "the shipped deck-draw snippet runs; both counts occur; PREVIOUS exclusions hold"
+  else
+    fail "the shipped deck-draw snippet FAILS — python3 specs/evidence/run-shape-draw.py"
+  fi
+else
+  printf '  skip  python3 not found — the deck-draw snippet was NOT executed\n'
+fi
 echo
 
 echo "----------------------------------------"

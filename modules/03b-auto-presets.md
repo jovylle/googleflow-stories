@@ -30,23 +30,47 @@ An auto run does not invent its look or structure. It draws randomly **from the 
 - **R2 — The exchange.** Victim and Teller face each other across a small space (a table, a counter, a fire); one gesture each per clip.
 - **R3 — Object witness.** The camera holds on a still object or a quiet corner while the Teller's voice fills the room; the victim enters frame once, for the failed attempt. The fewest moving parts of the three.
 
-Allowed riddle-look lists the draw selects within — vet and edit these too: **settings** (a kitchen at night, a sari-sari store after closing, a rice field at dusk, a stairwell, an empty jeepney); **art styles** (painterly dark fantasy, cinematic live-action night, hand-drawn animation, stop-motion felt); **consequence acts** (takes a memory, takes their voice, claims a shadow, turns the Teller's back and the door with it). The answer still follows the answer-source rule (2b) and every scene element stays answer-blind.
+Allowed riddle-look lists the draw selects within — vet and edit these too: **settings** (a kitchen at night, a sari-sari store after closing, a rice field at dusk, a stairwell, an empty jeepney); **art styles** (painterly dark fantasy, cinematic live-action night, hand-drawn animation, stop-motion felt); **consequence acts** (takes a memory, takes their voice, claims a shadow, turns the Teller's back and the door with it); **victim forms** (a young man, a young woman, an elderly man, a teenage student, two siblings, a night-shift worker); **Teller forms** (an elderly woman, an elderly man, a child who never ages, a faceless figure in old formal wear, a small doll or puppet, a tall thin shadow with a human outline); **size relations** (Teller larger, Teller smaller, Teller equal height). The people lists are deck like the rest: an auto run never invents who the story happens to — a free-invented cast is how three runs become one film. The answer still follows the answer-source rule (2b) and every scene element stays answer-blind.
 
 Every preset and every entry in the lists above stays inside the **proven effect capabilities (module 5)**: no camera-shake requests, no earthquake ground motion, no multi-step choreography, and no mid-clip orientation reversals. When a scene or consequence wants spectacle, the proven forms are weather, lightning, wind, drifting debris, breakage, and a close-up reveal.
 
-**The shape draw (auto riddle).** Every riddle story runs on one of the two shapes the riddle module defines. An auto riddle run **draws its shape** and never assumes the longer one, and the draw is code-backed like the rest of the decks — run this exactly as written, once per auto riddle run, before the blueprint:
+**The deck draw (auto riddle).** Every riddle story draws its shape and its whole look — preset, setting, style, consequence, victim, Teller, size relation — in one code-backed draw, and it **never assumes the longer one**: the count is drawn like every other value. Run this exactly as written, once per auto riddle run, before the blueprint:
 
 ```python
-# Auto riddle shape draw — run once per auto riddle run, before the blueprint.
-# Edit the list here to change what the draw can pick; never edit the run.
+# Auto riddle deck draw — run once per auto riddle run, before the blueprint.
+# Edit the lists here to change what the draw can pick; never edit the run.
 import secrets
 
-CLIP_COUNTS = [2, 3]
+# The previous run's drawn values in this conversation, in any order ([] on the first draw):
+PREVIOUS = []
 
-print("clips =", secrets.SystemRandom().choice(CLIP_COUNTS))
+CLIP_COUNTS = [2, 3]
+PRESETS = ["R1", "R2", "R3"]
+SETTINGS = ["a kitchen at night", "a sari-sari store after closing", "a rice field at dusk", "a stairwell", "an empty jeepney"]
+STYLES = ["painterly dark fantasy", "cinematic live-action night", "hand-drawn animation", "stop-motion felt"]
+CONSEQUENCES = ["takes a memory", "takes their voice", "claims a shadow", "turns the Teller's back and the door with it"]
+VICTIMS = ["a young man", "a young woman", "an elderly man", "a teenage student", "two siblings", "a night-shift worker"]
+TELLERS = ["an elderly woman", "an elderly man", "a child who never ages", "a faceless figure in old formal wear", "a small doll or puppet", "a tall thin shadow with a human outline"]
+SIZES = ["Teller larger", "Teller smaller", "Teller equal height"]
+
+rng = secrets.SystemRandom()
+
+def fresh(options):
+    remaining = [o for o in options if o not in PREVIOUS]
+    return rng.choice(remaining if remaining else options)
+
+print("excluding:", ", ".join(PREVIOUS) if PREVIOUS else "nothing (first draw in this conversation)")
+print("clips =", rng.choice(CLIP_COUNTS))
+print("preset =", fresh(PRESETS))
+print("setting =", fresh(SETTINGS))
+print("style =", fresh(STYLES))
+print("consequence =", fresh(CONSEQUENCES))
+print("victim =", fresh(VICTIMS))
+print("teller =", fresh(TELLERS))
+print("size =", fresh(SIZES))
 ```
 
-The shape draw is **not** subject to the deck's no-repeat rule: with two values, never repeating the previous run's entry would turn the draw into a 2-3-2-3 metronome, and a repeated count is not the convergence that rule exists to stop. When code execution is unavailable, draw from the same two values using the external seed and say in one line that the shape draw was **not code-backed**. The drawn count is the run's clip count, and no dedicated empty wait clip appears in either shape.
+**How the no-repeat rule actually works.** The printed draw is the record: every value this run took is visible text in the conversation, so the next run can see it. The `PREVIOUS` list is where that record re-enters the draw — paste the previous run's drawn values into it and the code **excludes them from the pool**, so the dice cannot land on a value the last run already took; a list reduced to nothing falls back to its full contents rather than crashing. The first printed line, `excluding: …`, makes the paste **visible** — on a second-or-later run in the same conversation, an output that reads `nothing (first draw in this conversation)` is a defect the user can see. The **clip count is exempt from the paste**: with two values, never repeating the previous run's entry would turn the draw into a 2-3-2-3 metronome, and a repeated count is not the convergence that rule exists to stop. Across separate conversations there is no record to paste — that is what the Notion riddle log or a fingerprint ledger is for, and without one the pack says so honestly rather than claiming variety it cannot see. When code execution is unavailable, draw from the same lists using the external seed, honour the same no-repeat rule against the previous run's printed draw, and say in one line that the shape draw was **not code-backed**. The drawn count is the run's clip count, and no dedicated empty wait clip appears in either shape.
 
 **Deck M — mukbang.** **M1 — single dish, single eater:** one prepared dish at a clean table, close-ups on the food and the eating, ASMR eating sounds only (silent of speech by default). A face photo **is required** — it is the eater's identity source.
 
