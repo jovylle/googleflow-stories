@@ -34,6 +34,7 @@ A generated reference image is **not accepted until it matches the decided scene
 
 - **Who is in it** — the locked victims and the locked Teller, not lookalikes or the image model's own stock characters.
 - **Their species and physical design** — the form the plan chose. An animal stays that animal; a mask stays a mask; a person stays a person. A swapped species or swapped design is a **failed frame**.
+- **The supplied face** — where a photo of a real person was supplied, the face matches that photo's features (see face lock in section A). A drifted face is a **failed frame**.
 - **Their relative scale** — the size relation the plan chose. A frame that renders the Teller larger than planned (or smaller) is a failed frame.
 - **The environment** — the planned setting and its layout, not a similar-looking one.
 - **The camera** — the planned viewpoint and composition, per the shot-composition rules.
@@ -80,6 +81,7 @@ Choose per scene from the following methods:
 - Inspect the user's image and use it as the source of truth for the relevant subject.
 - A supplied character sheet (see the interview module's character question) **is** this method for that character's identity: the photo is the identity source, and it does not by itself change the selected image workflow for the rest of the shots — those are still generated per the chosen method (B by default) using the photo as the reference.
 - Do not change a real person's face, body, identity, clothing, or pose unless requested.
+- **Face lock (critical).** When a supplied photo shows a real person, their face must come through **unchanged**: the same eyes, nose, mouth, jaw, skin tone, hairline, and apparent age. Every image prompt that shows this person opens with the clause *"preserve the exact facial features of the supplied photo — no face change, no re-drawing, no beautifying, no age or ethnicity shift"*. Every standalone clip prompt that shows this person repeats that clause. An Extend clip inherits the base clip's face and restates nothing. A frame or clip whose face drifts from the photo is a failed attempt — regenerate with the clause stated more firmly, and never present it as a match.
 - If the goal is to animate a still, first decide whether actual subject motion is necessary and plausible. Do not silently substitute a simple zoom/pan edit for requested physical motion, or vice versa.
 - If the source should remain unchanged, state what must be preserved.
 

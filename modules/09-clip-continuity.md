@@ -25,13 +25,13 @@ Do not repeat the entire continuity bible in every clip if a short, unambiguous 
 **Exception — an Extend clip is not independently generated.** An Extend clip is generated *from* the previous clip, so it inherits that clip's characters, wardrobe, location, lighting, and audio on its own. Restating them does not add continuity — it tells Flow to establish them again, which is exactly how an extension ends up rendering as its own separate video with its own look instead of continuing the base clip. Extend clips therefore use the short continuation prompt defined in the continuation-mode section below, never a standalone prompt.
 
 <!--
-Defines the ways to produce Clip 2+: Extend (default; 8s Veo 3.1 clip via Veo 3.1
-Lite, NO input images, NO new keyframe), independent-from-the-run's-ingredient
-(standalone prompt, reuses the Clip 1 image, NO new keyframe), and Add clip
-(standalone, up to 3 input images, and REQUIRES its own new keyframe — a clearly
+Defines the ways to produce Clip 2+: independent-from-the-run's-ingredient (default;
+standalone prompt, reuses the Clip 1 image, NO new keyframe), Extend (option; 8s Veo
+3.1 clip via Veo 3.1 Lite, NO input images, NO new keyframe), and Add clip (option;
+standalone, up to 3 input images, and REQUIRES its own new keyframe — a clearly
 different camera shot/angle that still preserves character/style continuity). These
 constraints come from the Extend rule in the model module — keep them aligned and
-preserve "Extend is the default" with the fallback-to-Add-clip behavior. The per-mode
+preserve "ingredients is the default" with the fallback-to-Add-clip behavior. The per-mode
 image-needs summary exists so later clips plan the right number of reference images
 (none for Extend, the run's existing ingredient for an independent clip, one per shot
 for Add clip). Every Clip 2+ is delivered in the Extend route and the independent
@@ -40,9 +40,9 @@ recommended, it never withholds the other.
 -->
 ### Clip continuation mode (Clip 2 and onward)
 
-For every clip after Clip 1, choose how it is produced. **Extend is the default**; the user can instead pick **Add clip** (a clip with its own new keyframe) or have the clip generated **independently from the run's existing image ingredient** — no new keyframe, one shared look.
+For every clip after Clip 1, choose how it is produced. **Ingredients is the default**: the clip is generated **independently from the run's existing image ingredient** (the Clip 1 image) — no new keyframe, one shared look. The user can instead pick **Extend**, or **Add clip** (a clip with its own new first-frame keyframe), and any clip may use its own ingredient image instead of the Clip 1 image.
 
-**Extend (default)**
+**Extend (option)**
 
 - Continues directly from the previous clip using Google Flow's Extend feature.
 - Available **only when the extension is performed with Veo 3.1 Lite on an 8-second clip** (per the Extend rule in the model section). All Veo 3.1 8s clips qualify, but the extend action itself runs on Veo 3.1 Lite.
@@ -76,11 +76,13 @@ Shape it like this (no master block, no restated identity, nothing that re-estab
 - Use when the next beat needs new references, a new location/angle, a model other than Veo 3.1 Lite, or a non-8-second duration.
 - **Add clip needs its own reference image.** Because it does not inherit the previous clip's frame the way Extend does, an Add-clip Clip 2 (and every Add-clip clip onward) requires **its own new keyframe image** establishing that clip's opening shot. It is fine — and expected — for this to be a **brand-new image at a clearly different camera angle/shot** from the previous clip (different framing, position, or composition), as long as it preserves the locked character identity, wardrobe, and art style for continuity. Treat each Add-clip clip's keyframe like any other shot image: one clean frame per shot, generated on its own `imgN-M` command, following the image-output-isolation rules. The Add-clip video prompt binds to this keyframe the same way an independently generated clip binds to its reference image: it matches the keyframe's medium, palette, lighting, and grade.
 
-**Independent, from the run's existing image ingredient (option)**
+**Independent, from the run's existing image ingredient (default)**
 
-- The clip is generated **on its own** — not extended from the previous clip — but built from the **same reference image the run already holds**: the Clip 1 image. This is the "just generate individual clips, same image ingredient" path, for clips produced separately that still share one look.
+- The clip is generated **on its own** — not extended from the previous clip — but built from the **same reference image the run already holds**: the Clip 1 image. This is the default route: clips produced separately that still share one look.
+- **Per-clip ingredient (option).** A clip may use a different image as its ingredient — one the user supplies or asks for that clip only. It follows the same rules as the Clip 1 image: a full standalone prompt, bound to that image, and the face-lock clause below when a person is shown.
 - It keeps a **full standalone prompt** — master context block and all restated constants, exactly like any independently generated clip (see the rule above) — and **binds to that image** the same way Clip 1 binds to its own reference: the video matches its medium, palette, lighting, and grade.
 - **No new keyframe is made.** The ingredient already exists, so there is nothing to generate, plan, or print for this clip — no `imgN-M` command and no new image.
+- **Face lock.** When a supplied photo shows a real person, this clip's prompt repeats the face-lock clause from the image-workflow module (section A): the face stays exactly as the photo shows it.
 - **Capability check, like Extend.** This route hands Flow an image as the clip's reference/ingredient input — the same kind of input Clip 1 uses — so verify it against the user's active model/interface before relying on it: that input is 8 seconds only on Veo 3.1 Lite and Veo 3.1 Fast, and listed as unsupported on Veo 3.1 Quality (see the model rules). If the active model or the chosen duration cannot take it, use **Extend** when the beat allows it, otherwise Add clip's own-keyframe path.
 - Choose Add clip's own-keyframe path instead only when the beat needs a new location, angle, or setup, a model other than Veo 3.1 Lite, or a duration other than 8 seconds.
 
