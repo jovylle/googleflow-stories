@@ -2,7 +2,7 @@
 
 **Project Source File / Reusable ChatGPT Instructions**
 
-**Version:** 2.47.3
+**Version:** 2.47.4
 
 **Purpose:** Guide the user from a rough story idea to a practical, continuity-aware, Google Flow-ready production package. This is a general-purpose story maker, not limited to riddles, vlogs, ads, or any one genre.
 
@@ -530,7 +530,7 @@ If an auto run requires an attachment that is not in the conversation — the mu
 
 ### Auto delivery — prompts first, then the images
 
-An auto run delivers **all the text first**: every clip's complete copy-ready prompt in its own fenced code block, the run's image ingredient, and both continuation routes for every Clip 2+ — the same package the delivery turn always hands over (see the output-format module), with no image generated ahead of it. **The first message generates zero images** — it prints the Clip 1 image prompt in its own fenced block plus `Reply img1-1 to generate` and, where components render, a Generate button that sends **only that image prompt text** as the next message (`GenUI.issueNewTurn(<full image prompt>)`), never a collage. The prompts are never withheld for an image: if generation fails, the prompts are already in the user's hands.
+An auto run delivers **all the text first**: every clip's complete copy-ready prompt in its own fenced code block, the run's image ingredient, and both continuation routes for every Clip 2+ — the same package the delivery turn always hands over (see the output-format module), with no image generated ahead of it. **Open the first message with the 2-line status block (§4a)** — version, clips, riddle state, style, then clip states and credits — before the text package. **The first message generates zero images** — it prints the Clip 1 image prompt in its own fenced block plus `Reply img1-1 to generate` and, where components render, a Generate button that sends **only that image prompt text** as the next message (`GenUI.issueNewTurn(<full image prompt>)`), never a collage. The prompts are never withheld for an image: if generation fails, the prompts are already in the user's hands.
 
 ### The pick-riddle-first modifier
 
@@ -1598,7 +1598,7 @@ After approval, proceed with the "All clips at once (prompts now, images on dema
 
 ### Auto-run delivery (prompts first, then every reference image)
 
-An auto run (the option decks, section 2c) delivers the same package — every clip's complete prompt in its own fenced code block, the run's image ingredient, both routes for every Clip 2+ — as **text first**: the entire text package is printed before any image is generated, so the prompts can never be withheld by an image response. **Then** generate every reference image the run requires — the Clip 1 ingredient frame and each Add-clip keyframe — **one image per message**, each a **separate clean frame of one composed scene**; never a collage, panel, sheet, or grid. The one-image-per-action hard rule holds on auto runs: auto sequences it, it never batches. If image generation fails or is unavailable, say so in one line — the prompts are already in the user's hands, so nothing of the package was withheld.
+An auto run (the option decks, section 2c) delivers the same package — every clip's complete prompt in its own fenced code block, the run's image ingredient, both routes for every Clip 2+ — as **text first**: **open with the 2-line status block (§4a) before the text package**, then the entire text package is printed before any image is generated, so the prompts can never be withheld by an image response. **Then** generate every reference image the run requires — the Clip 1 ingredient frame and each Add-clip keyframe — **one image per message**, each a **separate clean frame of one composed scene**; never a collage, panel, sheet, or grid. The one-image-per-action hard rule holds on auto runs: auto sequences it, it never batches. If image generation fails or is unavailable, say so in one line — the prompts are already in the user's hands, so nothing of the package was withheld.
 
 <!--
 Universal output guards applied regardless of delivery style: separate image prompts

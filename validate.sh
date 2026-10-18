@@ -1372,6 +1372,20 @@ need "$BUILD" '"a stray puppy"' "the wider victim list survives the build"
 need "$BUILD" '"calls a wind-burst that strips the room"' "the wider consequence list survives the build"
 echo
 
+# ------------------------------------------------------- 51. the status block on auto runs
+# WHY: the always-on status block shipped in §4a, the delivery module, and the
+# final gate — but neither auto-delivery section restated it, and the auto first
+# message is the longest format in the pack. The model obeyed the loud format
+# and dropped the quiet rule: a live auto run delivered the full package with
+# zero status lines. Outvoted, not missing (lesson 16). v2.47.4 states the
+# status-first opening at both auto-delivery sites.
+echo "51. The status block opens the auto first message"
+need "$MODULES/03b-auto-presets.md" "Open the first message with the 2-line status block" "auto delivery states the status-first opening"
+need "$MODULES/11-output-format.md" "open with the 2-line status block (§4a) before the text package" "auto-run delivery states the status-first opening"
+need "$BUILD" "Open the first message with the 2-line status block" "the auto status opening survives the build"
+need "$BUILD" "open with the 2-line status block (§4a) before the text package" "the auto-run status opening survives the build"
+echo
+
 echo "----------------------------------------"
 echo "checks: $CHECKED   failed: $FAILED"
 [ "$FAILED" -eq 0 ] && echo "validate: PASS" || echo "validate: FAIL"

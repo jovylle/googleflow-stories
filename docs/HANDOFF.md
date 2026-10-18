@@ -4,7 +4,11 @@ Written at closeout so a fresh session can continue without reading a previous c
 **Read this file first.** Then `docs/SUMMARY.md` (the version history and the failure class the
 versions share), and only the `specs/` file for whatever you are about to change.
 
-## Current update (2026-10-18) — v2.47.3, wider people decks and summoned-spectacle consequences
+## Current update (2026-10-18) — v2.47.4, the status block opens the auto first message
+
+Patch bump: a live auto run delivered the full package with zero status lines. The always-on block shipped in §4a, §10, and the gate — but neither auto-delivery section restated it, and the auto first message is the pack's longest format. Outvoted, not missing. One status-first line at both auto-delivery sites (03b, 11); validator §51. `./validate.sh` → 706 / 0.
+
+## Previous update (2026-10-18) — v2.47.3, wider people decks and summoned-spectacle consequences
 
 Patch bump at the user's call: `VICTIMS` was 10/10 human and `TELLERS` 6/6 figure-ish, so a fair die still dealt humans and figures every run — the pools were the ceiling, not `secrets.SystemRandom()`. Victims 10→18 (animals: stray puppy, tabby cat, old carabao, tikling bird; animate objects: clay doll, jointed saint statue, ventriloquist dummy, ceramic piggy bank); Tellers 6→12, each anchored (time via a cracked clock ticking backward, self-tuning radio, late TV, brass speaker horn, ceiling-pipe presence, breathing earth mound); consequences 4→12, new ones all the Teller's summoned spectacle (wind-burst, rain + wind, fog, lightning tearing the room open, place breaking apart, floor giving way, dust-and-stone rain, the Teller's own scream snuffing the lights — scream never the victim's). Prose and snippet kept in sync; validator §50. `./validate.sh` → 702 / 0.
 
